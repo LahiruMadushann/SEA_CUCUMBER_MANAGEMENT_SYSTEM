@@ -5,6 +5,8 @@ import { View, Text } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import React from 'react';
 import MainBoardScreen from './screens/MainBoardScreen';
+import LoginScreen from './screens/LoginScreen';
+import AquacultureScreen from './screens/AquacultureScreen';
 
 export default function Navigation() {
     return (
@@ -12,6 +14,8 @@ export default function Navigation() {
             <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MainBoard" component={MainBoardScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

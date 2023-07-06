@@ -21,7 +21,7 @@ export default function HomeScreen() {
     return (
 
         <SafeAreaView >
-            <StatusBar barStyle="dark-content" />
+            {/* <StatusBar barStyle="dark-content" /> */}
 
 
             <View className="absolute w-[854px] h-[499px] left-[-232px] top-[-104px] bg-[#5A73F3]  rounded-b-full ">
