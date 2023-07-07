@@ -1,72 +1,22 @@
-const FarmService = require("../services/farm_services");
+const exporterService = require("../services/exporter_services");
 
 exports.registerExporter = async (req, res, next) => {
   try {
-    const {
+    const { username, password, firstName, lastName, contactNo, address } =
+      req.body;
+
+    const successResExporter = await exporterService.registerExporter(
       username,
       password,
-      name,
-      address,
-      age,
-      licenseNo,
-      validity,
-      location,
-      extend,
-      gpsCoordinates,
-      farmInternal,
-      establishmentDate,
-    } = req.body;
-
-    const successResFarm = await FarmService.registerFarm(
-      username,
-      password,
-      name,
-      address,
-      age,
-      licenseNo,
-      validity,
-      location,
-      extend,
-      gpsCoordinates,
-      farmInternal,
-      establishmentDate,
-      "farm"
+      "exporter",
+      firstName,
+      lastName,
+      contactNo,
+      address
     );
 
-    res.json({ status: true, success: "Farm registered successfully" });
+    res.json({ status: true, success: successResExporter });
   } catch (error) {
-    next(error);
-  }
-};
-
-exports.insertFarmingDetails = async (req, res, next) => {
-  try {
-    const {
-      farmId,
-      stock,
-      stockingDates,
-      hatchery,
-      hatcheryBatch,
-      harvest,
-      size,
-      survival,
-      diseases,
-    } = req.body;
-
-    let farmingData = await FarmService.insertFarmingDetails(
-      farmId,
-      stock,
-      stockingDates,
-      hatchery,
-      hatcheryBatch,
-      harvest,
-      size,
-      survival,
-      diseases
-    );
-    res.json({ status: true, success: farmingData });
-  } catch (error) {
-    console.log(error, "err---->");
     next(error);
   }
 };
