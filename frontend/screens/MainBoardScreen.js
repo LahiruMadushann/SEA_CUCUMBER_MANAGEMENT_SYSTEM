@@ -19,7 +19,7 @@ export default function MainBoardScreen() {
             </View>
             <View className="mt-[32vw] mx-[15.4vw]" >
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => navigation.navigate('FishStart')}
                     className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/fishing.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
@@ -34,7 +34,7 @@ export default function MainBoardScreen() {
 
             <View className="mt-[8vw] mx-[15.4vw]">
                 <TouchableOpacity
-                onPress={()=> navigation.navigate('Aquaculture')}
+                    onPress={() => navigation.navigate('Aquaculture')}
                     className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/farming.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
@@ -49,6 +49,7 @@ export default function MainBoardScreen() {
 
             <View className="mt-[8vw] mx-[15.4vw]">
                 <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}
                     className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/knowledge.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />

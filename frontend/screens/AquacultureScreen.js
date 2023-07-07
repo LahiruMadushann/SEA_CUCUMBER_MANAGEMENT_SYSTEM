@@ -27,30 +27,42 @@ export default function AquacultureScreen() {
 
       <View className="mx-[41vw] pb-10 flex">
         <Image source={require('../assets/aquaculture/fish.png')} className=" w-[328px] h-[176px]  mt-[21px]" />
+      </View>
 
+      <View className="mx-[41vw] flex-1 flex-row">
+        <View className="flex-1 items-center justify-center">
+          <Text>Column 1</Text>
+        </View>
+        <View className="flex-1 items-center justify-center">
+          <Text>Column 2</Text>
+        </View>
 
       </View>
-      <ScrollView className="h-54vw w-34">
-        <View  >
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
-          <Text>Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</Text>
 
-        </View>
-        </ScrollView>
-      
+      <View style={{ flexDirection: 'row' }}>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('MainBoard')}
+        >
+          <View className="ml-40 w-[164px] h-[30px]">
+            <Text className="bg-[#3644C5] font-bold text-[#FFFFFF] text-center text-[14px] px-[31px] py-[5px] rounded-[8px] rounded-br-[0px]">Detail</Text>
+
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('MainBoard')}
+        >
+          <View className=" w-[164px] h-[30px]">
+            <Text className=" font-bold text-[#3644C5] text-center text-[14px] px-[31px] py-[5px] ">Stock</Text>
+
+          </View>
+        </TouchableOpacity>
+      </View>
+
     </View>
+
+
+
   )
 }
