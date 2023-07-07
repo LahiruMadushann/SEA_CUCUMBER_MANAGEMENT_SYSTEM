@@ -1,9 +1,17 @@
 const express = require("express");
-require("dotenv").config();
+const bodyParser = require("body-parser");
+const UserRoute = require("./routers/login_router");
+const FarmRoute = require("./routers/farm_routes");
+const adminRoute = require("./routers/admin_routes");
+const farmMngUsersRoute = require("./routers/farmMngUsers_routes");
 
 const app = express();
-const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-    console.log("port is listining on "+PORT)
-});
+app.use(bodyParser.json());
+
+app.use("/", UserRoute);
+app.use("/", FarmRoute);
+app.use("/", adminRoute);
+app.use("/", farmMngUsersRoute);
+
+module.exports = app;
