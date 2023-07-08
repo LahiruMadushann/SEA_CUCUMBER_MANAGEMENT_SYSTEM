@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import AquacultureScreen from './screens/AquacultureScreen';
 import FisheriesStartupScreen from './screens/FisheriesStartupScreen';
 import AquacultureStartupScreen from './screens/AquacultureStartupScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 export default function Navigation() {
     return (
@@ -17,6 +18,7 @@ export default function Navigation() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MainBoard" component={MainBoardScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
                 <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
                 <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
                 <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />

@@ -14,10 +14,10 @@ export default function MainBoardScreen() {
                     <Image source={require('../assets/main_board/arrow.png')} className="w-[24.22px] h-[24.22px] center" />
                 </View>
                 <View>
-                    <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[45vw]">Main Board</Text>
+                    <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[42vw]">Main Board</Text>
                 </View>
             </View>
-            <View className="mt-[32vw] mx-[15.4vw]" >
+            <View className="mt-[30vw] mx-[15.4vw]" >
                 <TouchableOpacity
                     onPress={() => navigation.navigate('FishStart')}
                     className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
@@ -60,6 +60,27 @@ export default function MainBoardScreen() {
 
                     </View>
                 </TouchableOpacity>
+                <View className="mt-[5vw] mx-auto">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Login')}
+
+                    >
+                        <View className="w-[275px] h-[46px]  ">
+                            <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">Login</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <View className="mt-[2vw] mx-auto">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Register')}
+
+                    >
+                        <View className="w-[275px] h-[46px]  ">
+                            <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">Register</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
 
 
