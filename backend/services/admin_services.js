@@ -77,6 +77,21 @@ class AdminService {
       throw err;
     }
   }
+
+  //Getting the data about the Aquaculture Management users
+  static async getAllAqManagementUsers() {
+    const aqMngUserDetails = await aquaFarmManagementUsersModel.find();
+    console.log(aqMngUserDetails);
+    return aqMngUserDetails;
+  }
+
+  static async deleteAqManagementUserById(id) {
+    const deleteAquaMngLevelUser =
+      await aquaFarmManagementUsersModel.findByIdAndDelete({
+        _id: id,
+      });
+    return deleteAquaMngLevelUser;
+  }
 }
 
 module.exports = AdminService;

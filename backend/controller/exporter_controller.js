@@ -20,3 +20,20 @@ exports.registerExporter = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateExporter = async (req, res, next) => {
+  try {
+    const { userId, firstName, lastName, contactNo, address } = req.body;
+    let updateExporterDetails = await exporterService.updateExporterDetails(
+      userId,
+      firstName,
+      lastName,
+      contactNo,
+      address
+    );
+    res.json({ status: true, success: updateExporterDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};

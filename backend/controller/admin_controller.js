@@ -65,3 +65,15 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getAqAllFarmManagementUsers = async (req, res, next) => {
+  try {
+    let aqMnguserDetails = await adminService.getAllAqManagementUsers();
+
+    // console.log(aqMnguserDetails);
+    res.json({ status: true, success: aqMnguserDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};

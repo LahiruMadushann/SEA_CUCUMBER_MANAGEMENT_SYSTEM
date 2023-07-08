@@ -3,6 +3,6 @@ const exporterController = require("../controller/exporter_controller");
 
 router.post("/exporter/register", exporterController.registerExporter);
 
-// router.put("/admin/update", adminController.updateAdminDetails);
+router.put("/exporter/update", exporterController.updateExporter);
 
 module.exports = router;

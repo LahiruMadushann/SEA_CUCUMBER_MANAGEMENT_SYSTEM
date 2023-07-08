@@ -26,6 +26,25 @@ class exporterService {
       throw err;
     }
   }
+
+  static async updateExporterDetails(
+    userId,
+    firstName,
+    lastName,
+    contactNo,
+    address
+  ) {
+    const updateadminDetails = await exporterModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        firstName: firstName,
+        lastName: lastName,
+        contactNo: contactNo,
+        address: address,
+      }
+    );
+    return "Successfully updated exporter details";
+  }
 }
 
 module.exports = exporterService;
