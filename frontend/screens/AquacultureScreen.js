@@ -39,7 +39,7 @@ export default function AquacultureScreen() {
 
       </View>
 
-      <View style={{ flexDirection: 'row' }}>
+      <View className="flex-row">
 
         <TouchableOpacity
           onPress={() => navigation.navigate('MainBoard')}
@@ -58,6 +58,20 @@ export default function AquacultureScreen() {
 
           </View>
         </TouchableOpacity>
+      </View>
+
+      <View className="ml-48 mt-4">
+        <View>
+          <Text className="text-[13px] font-bold text-[#000000A6]">Aqua Farm Name</Text>
+          <Text className="text-[13px] text-[#000000A6] mt-0.5">First Fish Farming</Text>
+        </View>
+
+        <View className="mt-[13px]">
+        <Text className="text-[13px] font-bold text-[#000000A6]">Address</Text>
+          <Text className="text-[13px] text-[#000000A6]">Address01</Text>
+          <Text className="text-[13px] text-[#000000A6]">Address02</Text>
+          <Text className="text-[13px] text-[#000000A6]">Country</Text>
+        </View>
       </View>
 
     </View>
