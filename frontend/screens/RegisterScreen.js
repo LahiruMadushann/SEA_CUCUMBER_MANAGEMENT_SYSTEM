@@ -45,8 +45,12 @@ export default function RegisterScreen() {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('FishStart')}
                         className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] shadow-2xl ">
+                        <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                            <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
+                        </View>
+
                         <View className="flex ">
-                            <Image source={require('../assets/main_board/fishing.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
+                            <Image source={require('../assets/main_board/fishing.png')} className="w-[73px] h-[55px] ml-[39px] mt-[4px]" />
                             <Text className="text-center text-[18px] font-bold flex-auto mt-[-52px] ml-px">Fisheries</Text>
                             <Text className=" text-[8px] mt-[4px] ml-[126px] mr-8 flex-auto ">for Insert the details about fishing the sea {'\\n'} cucamba</Text>
 
@@ -58,8 +62,11 @@ export default function RegisterScreen() {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Aquaculture')}
                         className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] mt-[8vw] shadow-2xl ">
+                            <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                            <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
+                        </View>
                         <View className="flex ">
-                            <Image source={require('../assets/main_board/farming.png')} className="w-[78px] h-[53px] ml-[39px] mt-[21px]" />
+                            <Image source={require('../assets/main_board/farming.png')} className="w-[78px] h-[53px] ml-[39px] mt-[4px]" />
                             <Text className="text-center text-[18px] font-bold flex-auto mt-[-52px] ml-6">Agriculture</Text>
                             <Text className=" text-[8px] mt-[4px] ml-[129px] mr-8 flex-auto ">for Insert the details about farming the sea cucamba {'\\n'}
                                 Update Details about stoke and etc</Text>
@@ -70,8 +77,11 @@ export default function RegisterScreen() {
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Aquaculture')}
                         className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] mt-[8vw] shadow-2xl">
+                            <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                            <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
+                        </View>
                         <View className="flex ">
-                            <Image source={require('../assets/main_board/knowledge.png')} className="w-[83px] h-[77px] ml-[39px] mt-[21px]" />
+                            <Image source={require('../assets/main_board/knowledge.png')} className="w-[83px] h-[77px] ml-[39px] mt-[-18px]" />
                             <Text className="text-center text-[18px] font-bold flex-auto mt-[-58px] ml-[-25px]">User</Text>
                             <Text className=" text-[8px] mt-[4px] ml-[132px] mr-8 flex-auto ">Use knowledge center with better experience
                                 User other sections to get an idea</Text>
