@@ -1,4 +1,5 @@
 const exporterModel = require("../model/exporter_model");
+const aquaFarmDetailsModel = require("../model/farm/aqFarm_model");
 
 class exporterService {
   static async registerExporter(
@@ -45,8 +46,13 @@ class exporterService {
     );
     return "Successfully updated exporter details";
   }
+
+  //GETTING AQUACULTURE FARM DETAILS
+  static async getAllAquaFarms() {
+    const aquaFarmDetails = await aquaFarmDetailsModel.find();
+    // console.log(aquaFarmDetails);
+    return aquaFarmDetails;
+  }
 }
 
 module.exports = exporterService;
-
-

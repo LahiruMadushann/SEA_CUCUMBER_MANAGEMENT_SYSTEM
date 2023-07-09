@@ -37,3 +37,16 @@ exports.updateExporter = async (req, res, next) => {
     next(error);
   }
 };
+
+//GETTING AQUA CULTURE FARM DETAILS
+
+exports.getAquaFarmDetails = async (req, res, next) => {
+  try {
+    let aquaFarmDetails = await exporterService.getAllAquaFarms();
+
+    res.json({ status: true, success: aquaFarmDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
