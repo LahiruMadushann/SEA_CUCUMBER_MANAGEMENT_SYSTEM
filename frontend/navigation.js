@@ -10,6 +10,9 @@ import AquacultureScreen from './screens/AquacultureScreen';
 import FisheriesStartupScreen from './screens/FisheriesStartupScreen';
 import AquacultureStartupScreen from './screens/AquacultureStartupScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import AquacultureRegisterScreen from './screens/AquacultureRegisterScreen';
+import FisheriesRegisterScreen from './screens/FisheriesRegisterScreen';
+import UserRegisterScreen from './screens/UserRegisterScreen';
 
 export default function Navigation() {
     return (
@@ -22,7 +25,9 @@ export default function Navigation() {
                 <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
                 <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
                 <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />
-                
+                <Stack.Screen name="AquaRegister" component={AquacultureRegisterScreen} />
+                <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
+                <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
