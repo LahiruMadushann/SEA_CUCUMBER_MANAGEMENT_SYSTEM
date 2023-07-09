@@ -17,8 +17,8 @@ router.post(
 router.get("/admin/getAqMngUsers", adminController.getAqAllFarmManagementUsers);
 
 //To delete the details of Aquaculture Management Users
-router.get(
+router.delete(
   "/admin/deleteAqMngUsers",
-  adminController.getAqAllFarmManagementUsers
+  adminController.deleteAqFarmManagementUser
 );
 module.exports = router;

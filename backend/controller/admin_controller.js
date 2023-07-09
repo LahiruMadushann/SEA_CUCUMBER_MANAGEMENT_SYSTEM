@@ -38,6 +38,8 @@ exports.updateAdminDetails = async (req, res, next) => {
   }
 };
 
+//AQUACULTURE MANAGEMENT USERS - ADMIN CONTROLLERS
+
 exports.registerAqFarmManagementUsers = async (req, res, next) => {
   try {
     const {
@@ -72,6 +74,21 @@ exports.getAqAllFarmManagementUsers = async (req, res, next) => {
 
     // console.log(aqMnguserDetails);
     res.json({ status: true, success: aqMnguserDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+exports.deleteAqFarmManagementUser = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    let deletedDetails = await adminService.deleteAqManagementUserById(userId);
+
+    res.json({
+      status: true,
+      success: "Successfully Deleted Aquaculture Management User",
+    });
   } catch (error) {
     console.log(error, "err---->");
     next(error);

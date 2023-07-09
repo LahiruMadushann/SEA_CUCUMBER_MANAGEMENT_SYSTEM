@@ -52,6 +52,9 @@ class AdminService {
     return adminDetails;
   }
 
+  /* OPERATIONS IN ADMIN - FOR AQUA MANAGEMENT LEVEL USERS */
+
+  //Registering Aquaculture Management users
   static async registerAqFarmMangementLevelUsers(
     username,
     password,
@@ -78,13 +81,14 @@ class AdminService {
     }
   }
 
-  //Getting the data about the Aquaculture Management users
+  //Getting Aquaculture Management users
   static async getAllAqManagementUsers() {
     const aqMngUserDetails = await aquaFarmManagementUsersModel.find();
     console.log(aqMngUserDetails);
     return aqMngUserDetails;
   }
 
+  //Deleting Aquaculture Management users
   static async deleteAqManagementUserById(id) {
     const deleteAquaMngLevelUser =
       await aquaFarmManagementUsersModel.findByIdAndDelete({
