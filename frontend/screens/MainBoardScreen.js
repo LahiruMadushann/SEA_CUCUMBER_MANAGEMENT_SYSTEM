@@ -14,49 +14,52 @@ export default function MainBoardScreen() {
                     <Image source={require('../assets/main_board/arrow.png')} className="w-[24.22px] h-[24.22px] center" />
                 </View>
                 <View>
-                    <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[42vw]">Main Board</Text>
+                    <Text className="text-center text-[5.6vw] text-[#ffff] font-bold mt-[42vw]">Main Board</Text>
                 </View>
             </View>
-            <View className="mt-[30vw] mx-[15.4vw]" >
+            <View className="mt-[26vw] mx-auto" >
                 <TouchableOpacity
                     onPress={() => navigation.navigate('FishStart')}
-                    className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
+                    className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/fishing.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
-                        <Text className="text-center text-[22px] font-bold flex-auto mt-[-45px] ml-24">Fisheries</Text>
-                        <Text className="text-center text-[12px] mt-4 ml-[39px] mr-8 flex-auto ">Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry."
+                        <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-45px] ml-24">Fisheries</Text>
+                        <Text className="text-center text-[12px] mt-1 ml-[24vw] mr-8 flex-auto ">Lorem Ipsum is 
+                            simply 
                         </Text>
+                        <Text className="text-center text-left text-[12px] mt-[-1vw] ml-[9.8vw] mr-8 flex-auto ">dummy text of the printing and typesetting industry. </Text>
 
                     </View>
                 </TouchableOpacity>
             </View>
 
-            <View className="mt-[8vw] mx-[15.4vw]">
+            <View className="mt-[8vw] mx-auto">
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Aquaculture')}
-                    className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
+                    className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/farming.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
-                        <Text className="text-center text-[22px] font-bold flex-auto mt-[-45px] ml-24">Farming</Text>
-                        <Text className="text-center text-[12px] mt-4 ml-[39px] mr-8 flex-auto ">Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry."
+                        <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-45px] ml-24">Farming</Text>
+                        <Text className="text-center text-[12px] mt-1 ml-[31.2vw] mr-8 flex-auto ">Lorem Ipsum is 
+                            simply 
                         </Text>
+                        <Text className="text-center text-left text-[12px] mt-[-1vw] ml-[9.8vw] mr-8 flex-auto ">dummy text of the printing and typesetting industry. </Text>
 
                     </View>
                 </TouchableOpacity>
             </View>
 
-            <View className="mt-[8vw] mx-[15.4vw]">
+            <View className="mt-[8vw] mx-auto">
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Login')}
-                    className="w-[269px] h-[140px] rounded-[30px] bg-[#FFFFFF]  ">
+                    className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF]  ">
                     <View className="flex ">
                         <Image source={require('../assets/main_board/knowledge.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
-                        <Text className="text-center text-[22px] font-bold flex-auto mt-[-45px] ml-24">Knowledge</Text>
-                        <Text className="text-center text-[12px] mt-4 ml-[39px] mr-8 flex-auto ">Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry."
+                        <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-45px] ml-24">Knowledge</Text>
+                        <Text className="text-center text-[12px] mt-1 ml-[30vw] mr-8 flex-auto ">Lorem Ipsum is 
+                            simply 
                         </Text>
+                        <Text className="text-center text-left text-[12px] mt-[-1vw] ml-[9.8vw] mr-8 flex-auto ">dummy text of the printing and typesetting industry. </Text>
 
                     </View>
                 </TouchableOpacity>

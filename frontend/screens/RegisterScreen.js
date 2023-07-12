@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function RegisterScreen() {
     const navigation = useNavigation();
     return (
+        
         <View className="absolute w-[600px] h-[237px] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
             <SafeAreaView className="flex ">
                 <View className="mt-[54px]">
@@ -40,12 +41,12 @@ export default function RegisterScreen() {
                     </TouchableOpacity>
                 </View>
 
-                <View className="mx-auto mt-[121px] ">
+                <View className="mx-auto self-center mt-[24vw] ">
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('FishRegister')}
-                        className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] shadow-2xl ">
-                        <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] shadow-2xl ">
+                        <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
 
@@ -61,8 +62,8 @@ export default function RegisterScreen() {
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AquaRegister')}
-                        className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] mt-[8vw] shadow-2xl ">
-                            <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-2xl ">
+                            <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
                         <View className="flex ">
@@ -76,8 +77,8 @@ export default function RegisterScreen() {
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('UserRegister')}
-                        className="w-[325px] h-[120px] rounded-[30px] bg-[#FFFFFF] mt-[8vw] shadow-2xl">
-                            <View className="w-[143px] h-[25px] ml-[64px] mt-[20px]">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-2xl">
+                            <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
                         <View className="flex ">

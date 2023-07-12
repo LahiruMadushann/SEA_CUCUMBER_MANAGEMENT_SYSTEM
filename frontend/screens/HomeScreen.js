@@ -15,11 +15,11 @@ export default function HomeScreen() {
 
         button: {
             backgroundColor: '#3B4DF6',
-            paddingVertical: 15,
+            paddingVertical: 10,
             paddingHorizontal: 30,
             borderRadius: 30,
             width: 242,
-            height: 60
+            height: 50
         },
         buttonDisabled: {
             backgroundColor: '#ddd',
@@ -34,7 +34,7 @@ export default function HomeScreen() {
             {/* <StatusBar barStyle="dark-content" /> */}
 
 
-            <View className="absolute w-[854px] h-[559px] left-[-232px] top-[-104px] bg-[#5A73F3]  rounded-b-full ">
+            <View className="absolute w-[854px] h-[132vw] left-[-232px] top-[-104px] bg-[#5A73F3]  rounded-b-full ">
                 <View className="flex-row mt-[-66vw]">
 
                     <View className="mt-[111vw]">
@@ -42,7 +42,7 @@ export default function HomeScreen() {
                             onPress={() => navigation.navigate('Register')}
                         >
                             <View className="flex m-[auto] ">
-                                <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[265px]" />
+                                <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />
 
                             </View>
                         </TouchableOpacity>
@@ -53,7 +53,7 @@ export default function HomeScreen() {
                             onPress={() => navigation.navigate('AquaRegister')}
                         >
                             <View className="flex m-[auto] ">
-                                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[280px]" />
+                                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[70vw]" />
 
                             </View>
                         </TouchableOpacity>
@@ -61,12 +61,12 @@ export default function HomeScreen() {
 
 
                 </View>
-                <View className="flex-1 justify-center items-center mt-[10px]" >
+                <View className="flex-1 justify-center items-center mt-[-8vw]" >
                     <Image source={require('../assets/startImage.png')} className="w-[259px] h-[191px] center" />
                 </View>
             </View>
 
-            <View className="mt-[489px]">
+            <View className="mt-[107vw]">
                 <Text className="text-center text-[#000000CC] text-[22px] font-bold">Sea Cucumber{"\n"} Animal</Text>
             </View>
 
@@ -81,7 +81,7 @@ export default function HomeScreen() {
                     color={agree ? '#4630EB' : undefined}
                     className="w-3 h-3 mx-auto "
                 />
-                <Text className="text-[12px] mb-[10px] mx-auto mt-2 ml-[-76px] ">
+                <Text className="text-[12px] mb-[10px] mx-auto mt-2 ml-[-18.5vw] ">
                     I accept all the rights and regulations
                 </Text>
             </View>
@@ -91,7 +91,7 @@ export default function HomeScreen() {
                 disabled={!agree}
                 className="mx-auto"
             >
-                <Text className="text-center text-[20px] font-bold text-[#FFFFFF]  py-1 px-12 ">Get Start</Text>
+                <Text className="text-center text-[5vw] font-bold text-[#FFFFFF]  py-1 px-12 ">Get Start</Text>
             </TouchableOpacity>
 
 
