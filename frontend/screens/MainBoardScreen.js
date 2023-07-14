@@ -1,8 +1,9 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { Component } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
+import PopupScreen from '../components/PopupScreen'
 
 export default function MainBoardScreen() {
     const navigation = useNavigation();
@@ -33,10 +34,11 @@ export default function MainBoardScreen() {
 
                         <View className="mt-[112vw]">
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('AquaRegister')}
+                                onPress={() => navigation.navigate('Popup')}
                             >
                                 <View className="flex m-[auto] ">
-                                    <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[70vw]" />
+                                    <PopupScreen />
+                                
 
                                 </View>
                             </TouchableOpacity>
