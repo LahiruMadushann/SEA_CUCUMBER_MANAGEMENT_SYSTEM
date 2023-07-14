@@ -20,13 +20,13 @@ export default function FisheriesRegisterScreen() {
     const [age, setAge] = useState('');
 
     return (
-        <ScrollView className="flex-grow bg-white">
+        <ScrollView className="flex-grow bg-white ">
 
-            <View className="absolute w-[218vw] h-[80vh] left-[-232px] top-[-392px] bg-[#0013C0]  rounded-b-full ">
+            <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
 
                 <View className="flex-row">
 
-                    <View className="mt-[112vw]">
+                    <View className="mt-[100vw] ml-[4vw]">
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Register')}
                         >
@@ -37,7 +37,7 @@ export default function FisheriesRegisterScreen() {
                         </TouchableOpacity>
                     </View>
 
-                    <View className="mt-[112vw]">
+                    <View className="mt-[101.5vw] ml-[11vw]">
                         <TouchableOpacity
                             onPress={() => navigation.navigate('AquaRegister')}
                         >
@@ -52,146 +52,144 @@ export default function FisheriesRegisterScreen() {
                 </View>
 
 
-                <View className="w-[226px] h-[48px] mt-[44.97px] mx-auto">
-                    <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">Aquaculture</Text>
+                <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
+                    <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">Fisheries</Text>
 
                 </View>
             </View>
 
 
-            <View className="p-4 mx-auto mt-[60vw]">
-                <Text className="text-lg font-bold mb-4" >Registration Form</Text>
+            <View className="p-4 mx-auto w-[80vw] h-[100vh] mb-[-28vw] mt-[60vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
+                <Text className="text-lg font-bold mb-4" >Personal Detail</Text>
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={firstName}
                     onChangeText={setFirstName}
                     placeholder="First Name"
                 />
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={lastName}
                     onChangeText={setLastName}
                     placeholder="Last Name"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={email}
                     onChangeText={setEmail}
                     placeholder="Email"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={password}
                     onChangeText={setPassword}
                     placeholder="Enter Password"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={password}
                     onChangeText={setPassword}
                     placeholder="Re-Enter Password"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={addressLine1}
                     onChangeText={setAddressLine1}
                     placeholder="Address Line1"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={addressLine2}
                     onChangeText={setAddressLine2}
                     placeholder="Address Line2"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={town}
                     onChangeText={setTown}
                     placeholder="Town"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={province}
                     onChangeText={setProvince}
                     placeholder="Province"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={country}
                     onChangeText={setCountry}
                     placeholder="Country"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={phoneNumber}
                     onChangeText={setPhoneNumber}
                     placeholder="Telephone Number"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={gender}
                     onChangeText={setGender}
                     placeholder="Gender"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                     value={age}
                     onChangeText={setAge}
-                    placeholder="Country"
+                    placeholder="Age"
+                />
+
+                
+            </View>
+
+            <View className="p-4 mx-auto w-[80vw] mt-[10vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] ">
+                <Text className="text-lg font-bold mb-4" >Company Details</Text>
+                <TextInput
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                    value={firstName}
+                    onChangeText={setFirstName}
+                    placeholder="First Name"
+                />
+                <TextInput
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                    value={lastName}
+                    onChangeText={setLastName}
+                    placeholder="Last Name"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={town}
-                    onChangeText={setTown}
-                    placeholder="Town"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                    value={email}
+                    onChangeText={setEmail}
+                    placeholder="Email"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={province}
-                    onChangeText={setProvince}
-                    placeholder="Province"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholder="Enter Password"
                 />
 
                 <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={country}
-                    onChangeText={setCountry}
-                    placeholder="Country"
+                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholder="Re-Enter Password"
                 />
 
-                <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={phoneNumber}
-                    onChangeText={setPhoneNumber}
-                    placeholder="Telephone Number"
-                />
-
-                <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={gender}
-                    onChangeText={setGender}
-                    placeholder="Gender"
-                />
-
-                <TextInput
-                    className="border-b border-[#00000040] text-gray-700  w-64  mb-3"
-                    value={age}
-                    onChangeText={setAge}
-                    placeholder="Country"
-                />
             </View>
         </ScrollView>
     );

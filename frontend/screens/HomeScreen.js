@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import React, { useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Icon from "react-native-feather";
@@ -29,7 +29,7 @@ export default function HomeScreen() {
     const navigation = useNavigation();
 
     return (
-
+        <ScrollView className="flex-grow bg-white">
         <SafeAreaView >
             {/* <StatusBar barStyle="dark-content" /> */}
 
@@ -39,7 +39,7 @@ export default function HomeScreen() {
 
                     <View className="mt-[111vw]">
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Register')}
+                            onPress={() => navigation.navigate('UserProfile')}
                         >
                             <View className="flex m-[auto] ">
                                 <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />
@@ -96,6 +96,7 @@ export default function HomeScreen() {
 
 
         </SafeAreaView>
+        </ScrollView>
 
 
     )
