@@ -6,46 +6,48 @@ import { useNavigation } from '@react-navigation/native';
 export default function RegisterScreen() {
     const navigation = useNavigation();
     return (
-        
-        <View className="absolute w-[600px] h-[237px] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
-            <SafeAreaView className="flex ">
-                <View className="mt-[54px]">
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('AquaStart')}
-                    >
-                        <View className="flex m-[auto] ">
-                            <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[334px]" />
+        <ScrollView className="flex-grow bg-white">
+            <SafeAreaView >
+                <View className="absolute w-[149.2vw] h-[35vh] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
 
-                        </View>
-                    </TouchableOpacity>
+                    <View className="mt-[54px]">
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('AquaStart')}
+                        >
+                            <View className="flex m-[auto] ">
+                                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[334px]" />
+
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View className="flex-row mt-[30px] mx-auto">
+
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('MainBoard')}
+                        >
+                            <View className="ml-7 w-[78px] h-[73px] ">
+                                <Image source={require('../assets/register/Register.png')} className="w-[78px] h-[73px] center" />
+
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('MainBoard')}
+                        >
+                            <View className=" w-[226px] h-[48px] mt-[15px]">
+                                <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">Register Panel</Text>
+
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
-                <View className="flex-row mt-[30px] mx-auto">
-
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('MainBoard')}
-                    >
-                        <View className="ml-7 w-[78px] h-[73px] ">
-                            <Image source={require('../assets/register/Register.png')} className="w-[78px] h-[73px] center" />
-
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('MainBoard')}
-                    >
-                        <View className=" w-[226px] h-[48px] mt-[15px]">
-                            <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">Register Panel</Text>
-
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View className="mx-auto self-center mt-[24vw] ">
+                <View className="mx-auto self-center mt-[54vw] ">
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('FishRegister')}
-                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] shadow-2xl ">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 ">
                         <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
@@ -62,8 +64,8 @@ export default function RegisterScreen() {
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AquaRegister')}
-                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-2xl ">
-                            <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700">
+                        <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
                         <View className="flex ">
@@ -77,8 +79,8 @@ export default function RegisterScreen() {
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('UserRegister')}
-                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-2xl">
-                            <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
+                        className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]">
+                        <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                             <Text className="text-[11px] font-bold text-[#000000A6]">Register as a</Text>
                         </View>
                         <View className="flex ">
@@ -93,7 +95,9 @@ export default function RegisterScreen() {
 
                 </View>
 
+
+
             </SafeAreaView>
-        </View>
+        </ScrollView>
     )
 }
