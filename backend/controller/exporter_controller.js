@@ -38,6 +38,19 @@ exports.updateExporter = async (req, res, next) => {
   }
 };
 
+exports.deleteExporter = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    let deleteExporterAccount = await exporterService.deleteExporterAccount(
+      userId
+    );
+    res.json({ status: true, success: deleteExporterAccount });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //GETTING AQUA CULTURE FARM DETAILS
 
 exports.getAquaFarmDetails = async (req, res, next) => {

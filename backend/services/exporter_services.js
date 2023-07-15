@@ -47,6 +47,11 @@ class exporterService {
     return "Successfully updated exporter details";
   }
 
+  static async deleteExporterAccount(userId) {
+    const deleteExporter = await exporterModel.findByIdAndDelete(userId);
+    return "Successfully deleted exporter Account";
+  }
+
   //GETTING AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
     const aquaFarmDetails = await aquaFarmDetailsModel.find();
