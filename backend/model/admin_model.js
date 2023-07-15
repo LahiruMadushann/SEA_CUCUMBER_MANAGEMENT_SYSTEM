@@ -36,6 +36,7 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
+  tokens: [{ type: Object }],
 });
 
 //Password Encryption

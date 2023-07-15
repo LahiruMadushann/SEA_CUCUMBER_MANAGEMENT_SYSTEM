@@ -25,8 +25,14 @@ class loginService {
     }
   }
 
-  static async generateToken(tokenData, secretKey, jwt_expire) {
-    return jwt.sign(tokenData, secretKey, { expiresIn: jwt_expire });
+  static async generateToken(tokenData, JWTSecret_Key, JWT_EXPIRE) {
+    return jwt.sign(tokenData, JWTSecret_Key, { expiresIn: JWT_EXPIRE });
+  }
+
+  static async saveToken(id, oldToken, token) {
+    await adminModel.findByIdAndUpdate(id, {
+      tokens: [...oldToken, { token: token, signAt: Date.now().toString() }],
+    });
   }
 }
 
