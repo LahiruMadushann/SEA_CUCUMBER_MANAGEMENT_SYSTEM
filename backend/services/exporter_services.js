@@ -35,7 +35,7 @@ class exporterService {
     contactNo,
     address
   ) {
-    const updateadminDetails = await exporterModel.findByIdAndUpdate(
+    const updateExporterDetails = await exporterModel.findByIdAndUpdate(
       { _id: userId },
       {
         firstName: firstName,
