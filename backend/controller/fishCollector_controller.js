@@ -1,5 +1,6 @@
 const fishCollectorService = require("../services/fishCollector_services");
 
+//REGISTER FISH COLLECTOR ACCOUNT CONTROLLER
 exports.registerFishCollector = async (req, res, next) => {
   try {
     const { username, password, firstName, lastName, contactNo, address } =
@@ -22,6 +23,7 @@ exports.registerFishCollector = async (req, res, next) => {
   }
 };
 
+//UPDATE FISH COLLECTOR ACCOUNT CONTROLLER
 exports.updateFishCollector = async (req, res, next) => {
   try {
     const { userId, firstName, lastName, contactNo, address } = req.body;
@@ -34,6 +36,19 @@ exports.updateFishCollector = async (req, res, next) => {
         address
       );
     res.json({ status: true, success: updateFishCollectorDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DELETE FISH COLLECTOR ACCOUNT CONTROLLER
+exports.deleteFishCollector = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    let deleteFishCollectorAccount =
+      await fishCollectorService.deleteFishCollectorAccount(userId);
+    res.json({ status: true, success: deleteFishCollectorAccount });
   } catch (error) {
     console.log(error, "err---->");
     next(error);

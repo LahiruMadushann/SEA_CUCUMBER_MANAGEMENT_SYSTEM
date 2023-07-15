@@ -5,10 +5,7 @@ router.post("/exporter/register", exporterController.registerExporter);
 
 router.put("/exporter/update", exporterController.updateExporter);
 
-router.delete(
-  "/exporter/deleteExporterAccount",
-  exporterController.deleteExporter
-);
+router.delete("/exporter/delete", exporterController.deleteExporter);
 
 router.get(
   "/exporter/getAquaFarmDetails",

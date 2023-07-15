@@ -1,5 +1,6 @@
 const exporterService = require("../services/exporter_services");
 
+//REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
   try {
     const { username, password, firstName, lastName, contactNo, address } =
@@ -21,6 +22,7 @@ exports.registerExporter = async (req, res, next) => {
   }
 };
 
+//UPDATE EXPORTER DETAILS CONTROLLER
 exports.updateExporter = async (req, res, next) => {
   try {
     const { userId, firstName, lastName, contactNo, address } = req.body;
@@ -38,6 +40,7 @@ exports.updateExporter = async (req, res, next) => {
   }
 };
 
+//DELETE EXPORTER ACCOUNT CONTROLLER
 exports.deleteExporter = async (req, res, next) => {
   try {
     const { userId } = req.body;

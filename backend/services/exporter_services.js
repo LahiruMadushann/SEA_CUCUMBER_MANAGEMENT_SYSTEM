@@ -2,6 +2,7 @@ const exporterModel = require("../model/exporter_model");
 const aquaFarmDetailsModel = require("../model/farm/aqFarm_model");
 
 class exporterService {
+  //REEGISTER EXPORTER DETAILS
   static async registerExporter(
     username,
     password,
@@ -28,6 +29,7 @@ class exporterService {
     }
   }
 
+  //UPDATE EXPORTER ACCOUNT DETAILS
   static async updateExporterDetails(
     userId,
     firstName,
@@ -47,6 +49,7 @@ class exporterService {
     return "Successfully updated exporter details";
   }
 
+  //DELETE EXPORTER ACCOUNT
   static async deleteExporterAccount(userId) {
     const deleteExporter = await exporterModel.findByIdAndDelete(userId);
     return "Successfully deleted exporter Account";

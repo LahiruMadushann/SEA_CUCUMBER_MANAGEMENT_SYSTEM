@@ -1,6 +1,7 @@
 const fishCollectorModel = require("../model/fishCollector_model");
 
 class fishCollectorService {
+  //REGISTER FISH COLLECTOR
   static async registerFishCollector(
     username,
     password,
@@ -27,6 +28,7 @@ class fishCollectorService {
     }
   }
 
+  //UPDATE FISH COLLECTOR ACCOUNT DETAILS
   static async updateFishCollectorDetails(
     userId,
     firstName,
@@ -45,6 +47,14 @@ class fishCollectorService {
         }
       );
     return "Successfully updated Fish Collector details";
+  }
+
+  //DELETE FISH COLLECTOR ACCOUNT
+  static async deleteFishCollectorAccount(userId) {
+    const deleteFishCollector = await fishCollectorModel.findByIdAndDelete(
+      userId
+    );
+    return "Successfully deleted Fish Collector Account";
   }
 
   //GETTING FISHERMAN DETAILS

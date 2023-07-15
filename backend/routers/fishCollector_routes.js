@@ -11,6 +11,11 @@ router.put(
   fishCollectorController.updateFishCollector
 );
 
+router.delete(
+  "/fishCollector/delete",
+  fishCollectorController.deleteFishCollector
+);
+
 // router.get(
 //   "/exporter/getAquaFarmDetails",
 //   exporterController.getAquaFarmDetails
