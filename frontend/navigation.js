@@ -15,6 +15,8 @@ import FisheriesRegisterScreen from './screens/FisheriesRegisterScreen';
 import UserRegisterScreen from './screens/UserRegisterScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import PopupScreen from './components/PopupScreen';
+import SwitchScreen from './screens/SwitchScreen';
+import KnowledgeCenterScreen from './screens/KnowledgeCenterScreen';
 
 export default function Navigation() {
     return (
@@ -23,9 +25,10 @@ export default function Navigation() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MainBoard" component={MainBoardScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Popup" component={PopupScreen} />
+                <Stack.Screen name="Switch" component={SwitchScreen} />
                 <Stack.Screen name="UserProfile" component={UserProfileScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Knowledge" component={KnowledgeCenterScreen} />
                 <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
                 <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
                 <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />

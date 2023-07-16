@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Icon from "react-native-feather";
 import { StatusBar } from 'expo-status-bar';
-import RadioGroup from 'react-native-radio-buttons-group';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from "expo-checkbox";
 
@@ -31,37 +29,12 @@ export default function HomeScreen() {
     return (
         <ScrollView className="flex-grow bg-white">
         <SafeAreaView >
-            {/* <StatusBar barStyle="dark-content" /> */}
+            <StatusBar barStyle="dark-content" />
 
 
             <View className="absolute w-[854px] h-[132vw] left-[-232px] top-[-104px] bg-[#5A73F3]  rounded-b-full ">
-                <View className="flex-row mt-[-66vw]">
-
-                    <View className="mt-[111vw]">
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('UserProfile')}
-                        >
-                            <View className="flex m-[auto] ">
-                                <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />
-
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View className="mt-[112vw]">
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('AquaRegister')}
-                        >
-                            <View className="flex m-[auto] ">
-                                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[70vw]" />
-
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-
-                </View>
-                <View className="flex-1 justify-center items-center mt-[-8vw]" >
+                
+                <View className="flex-1 justify-center items-center mt-[30vw]" >
                     <Image source={require('../assets/startImage.png')} className="w-[259px] h-[191px] center" />
                 </View>
             </View>
@@ -81,7 +54,7 @@ export default function HomeScreen() {
                     color={agree ? '#4630EB' : undefined}
                     className="w-3 h-3 mx-auto "
                 />
-                <Text className="text-[12px] mb-[10px] mx-auto mt-2 ml-[-18.5vw] ">
+                <Text className="text-[12px] mb-[10px] mx-auto mt-2 ml-[-20.5vw] ">
                     I accept all the rights and regulations
                 </Text>
             </View>

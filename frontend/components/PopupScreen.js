@@ -9,13 +9,13 @@ export default function PopupScreen() {
     setMenuVisible(!menuVisible);
   };
   return (
-    <View className="">
+    <View className=" ">
       <TouchableOpacity onPress={toggleMenu}>
       <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[70vw]" />
 
       </TouchableOpacity>
       {menuVisible && (
-        <View style={styles.menu}>
+        <View style={styles.menu} className="ml-[40vw] w-[36vw]" >
           <TouchableOpacity onPress={() => alert('Option 1 selected')}>
             <Text>Option 1</Text>
           </TouchableOpacity>
@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     menu: {
       backgroundColor: '#fff',
       padding: 10,
+      
+      zIndex:10,
       borderRadius: 5,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },

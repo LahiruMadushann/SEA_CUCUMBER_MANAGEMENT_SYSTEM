@@ -11,17 +11,12 @@ export default function MainBoardScreen() {
         <ScrollView className="flex-grow bg-white">
             <SafeAreaView >
 
-
-
-
                 {/* <StatusBar barStyle="dark-content" /> */}
-
-
 
                 <View className="absolute w-[854px] h-[499px] left-[-232px] top-[-104px] bg-[#5A73F3]  rounded-b-full ">
                     <View className="flex-row mt-[-74vw]">
 
-                        <View className="mt-[111vw]">
+                        <View className="mt-[112vw]">
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('UserProfile')}
                             >
@@ -32,19 +27,13 @@ export default function MainBoardScreen() {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="mt-[112vw]">
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('Popup')}
-                            >
+                        <View className="mt-[111vw]">
+                            
                                 <View className="flex m-[auto] ">
-                                    <PopupScreen />
-                                
-
+                                    <PopupScreen />     
                                 </View>
-                            </TouchableOpacity>
+                            
                         </View>
-
-
                     </View>
                     
                     <View>
@@ -85,7 +74,7 @@ export default function MainBoardScreen() {
 
                 <View className="mt-[6vw] mx-auto">
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Login')}
+                        onPress={() => navigation.navigate('Knowledge')}
                         className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
                         <View className="flex ">
                             <Image source={require('../assets/main_board/knowledge.png')} className="w-[73px] h-[55px] ml-[39px] mt-[21px]" />
@@ -102,25 +91,23 @@ export default function MainBoardScreen() {
                             onPress={() => navigation.navigate('Login')}
 
                         >
-                            <View className="w-[275px] h-[46px]  ">
+                            <View className="w-[73vw] h-[8vh]  ">
                                 <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">Login</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
-                    <View className="mt-[2vw] mx-auto">
+                    <View className="mt-[1vw] mx-auto">
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Register')}
 
                         >
-                            <View className="w-[275px] h-[46px]  ">
+                            <View className="w-[73vw] h-[8vh]  ">
                                 <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">Register</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
             </SafeAreaView>
         </ScrollView>
     )
