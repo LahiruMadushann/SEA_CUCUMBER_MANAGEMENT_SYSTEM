@@ -1,7 +1,9 @@
 const adminModel = require("../model/admin_model");
 const aquaFarmManagementUsersModel = require("../model/farm/aqfarm_managementLevelUsers");
+const bcrypt = require("bcrypt");
 
 class AdminService {
+  //REGISTER ADMIN ACCOUNTS
   static async registerAdmin(
     username,
     password,
@@ -28,6 +30,7 @@ class AdminService {
     }
   }
 
+  //UPDATE ADMIN ACCOUNTS
   static async updateAdminDetails(
     userId,
     firstName,
@@ -48,8 +51,34 @@ class AdminService {
   }
 
   static async getAdminDetails(userId) {
-    const adminDetails = await adminModel.find({ userId });
+    const adminDetails = await adminModel.findById({ _id: userId });
     return adminDetails;
+  }
+
+  //CHANGE ADMIN PASSWORD
+  static async changePassword(userId, newpassword) {
+    let msg;
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashpass = await bcrypt.hash(newpassword, salt);
+
+      const changePassword = await adminModel.findByIdAndUpdate(
+        { _id: userId },
+        {
+          password: hashpass,
+        }
+      );
+
+      if (changePassword) {
+        msg = "Successfully updated Password";
+      } else {
+        msg = "Error when updating Password";
+      }
+
+      return msg;
+    } catch (err) {
+      throw err;
+    }
   }
 
   /* OPERATIONS IN ADMIN - FOR AQUA MANAGEMENT LEVEL USERS */

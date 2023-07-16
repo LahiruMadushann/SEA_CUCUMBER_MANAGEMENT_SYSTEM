@@ -5,6 +5,8 @@ router.post("/admin/register", adminController.register);
 
 router.put("/admin/update", adminController.updateAdminDetails);
 
+router.post("/admin/changePassword", adminController.changePassword);
+
 //CONTROLLING AQUACULTURE USERS
 
 //To create Aquaculture Management Users

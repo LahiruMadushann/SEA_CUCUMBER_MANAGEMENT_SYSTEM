@@ -1,4 +1,5 @@
 const adminService = require("../services/admin_services");
+const bcrypt = require("bcrypt");
 
 exports.register = async (req, res, next) => {
   try {
@@ -34,6 +35,40 @@ exports.updateAdminDetails = async (req, res, next) => {
     res.json({ status: true, success: updatedadminDetails });
   } catch (error) {
     console.log(error, "err---->");
+    next(error);
+  }
+};
+
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { userId, oldpassword, newPassword, confirmPassword } = req.body;
+
+    if (oldpassword == "" || newPassword == "" || confirmPassword == "") {
+      res.json({ status: "FAILED", message: "Please Enter a value" });
+    } else if (newPassword != confirmPassword) {
+      res.json({ status: "FAILED", message: "New Password doesn't match" });
+    } else {
+      let data = await adminService.getAdminDetails(userId);
+
+      let oldPasswordDB = data.password;
+
+      bcrypt.compare(oldpassword, oldPasswordDB, function (err, result) {
+        if (result) {
+          adminService
+            .changePassword(userId, newPassword)
+            .then((result) => {
+              res.json({ status: true, success: result });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        } else {
+          res.json({ status: true, success: "Error when comparing passwords" });
+        }
+      });
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
     next(error);
   }
 };
