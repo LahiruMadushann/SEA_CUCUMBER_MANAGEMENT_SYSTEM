@@ -13,7 +13,7 @@ const listTab = [
 
 
 
-export default function AquacultureScreen() {
+export default function UpdateDataScreen() {
     const navigation = useNavigation();
     const [status, setStatus] = useState('Add')
 

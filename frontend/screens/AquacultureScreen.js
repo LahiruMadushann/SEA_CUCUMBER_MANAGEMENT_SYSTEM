@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Image, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import PopupScreen from '../components/PopupScreen';
 
 const listTab = [
     {
@@ -72,7 +73,7 @@ export default function AquacultureScreen() {
 
   return (
       <SafeAreaView>
-          <ScrollView>
+          <ScrollView className="bg-[#fff]">
               <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
                   <View className="mt-[58vh] ">
                       <View className="flex-row ">
@@ -87,25 +88,21 @@ export default function AquacultureScreen() {
                           </View>
 
                           <View className=" ml-[11vw]">
-                              <TouchableOpacity
-                                  onPress={() => navigation.navigate('Switch')}
-                              >
-                                  <View className="flex m-[auto] ">
-                                      <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[280px]" />
-                                  </View>
-                              </TouchableOpacity>
+                          <View className="flex m-[auto] absolute ">
+                                    <PopupScreen />     
+                                </View>
                           </View>
                       </View>
 
-                      <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw]">Aquaculture</Text>
+                      <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">Aquaculture</Text>
                   </View>
               </View>
 
               <View className="mt-[36vh]">
                   <Text className="text-center text-[22px] font-bold text-[#000000A6]">First Fish Farming</Text>
 
-                  <View className="mx-[10vw]  ">
-                      <Image source={require('../assets/aquaculture/fish.png')} className=" w-[328px] h-[176px]  mt-[21px]" />
+                  <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
+                      <Image source={require('../assets/aquaculture/fish.png')} className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] " />
                   </View>
 
                   <View className="mt-[-32vh]" style={styles.listTab}>

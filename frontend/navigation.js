@@ -17,6 +17,7 @@ import UserProfileScreen from './screens/UserProfileScreen';
 import PopupScreen from './components/PopupScreen';
 import SwitchScreen from './screens/SwitchScreen';
 import KnowledgeCenterScreen from './screens/KnowledgeCenterScreen';
+import UpdateDataScreen from './screens/UpdateDataScreen';
 
 export default function Navigation() {
     return (
@@ -26,6 +27,7 @@ export default function Navigation() {
                 <Stack.Screen name="MainBoard" component={MainBoardScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Switch" component={SwitchScreen} />
+                <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
                 <Stack.Screen name="UserProfile" component={UserProfileScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
                 <Stack.Screen name="Knowledge" component={KnowledgeCenterScreen} />
