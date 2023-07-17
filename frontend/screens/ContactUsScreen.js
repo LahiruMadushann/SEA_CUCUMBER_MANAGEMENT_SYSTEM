@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ScrollView, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AquacultureScreen() {
+export default function ContactUsScreen() {
     const navigation = useNavigation();
 
     const [addFormData, setAddFormData] = useState({

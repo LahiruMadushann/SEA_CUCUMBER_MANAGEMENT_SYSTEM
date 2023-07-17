@@ -19,12 +19,14 @@ export default function PopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[40vw] w-[36vw]" >
-          <TouchableOpacity onPress={() => navigation.navigate('Switch')}>
-            <Text className="mx-[1vw]">Stock </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Contact')}>
+            <Text className="mx-[1vw]">Contact Us </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('UpdateData')}>
             <Text className="mx-[1vw]">Update Detail</Text>
           </TouchableOpacity>
+          
+
         </View>
       )}
     </View>
