@@ -51,7 +51,7 @@ const aquaFarmingDetailsSchema = new Schema({
   },
 });
 
-const aquaFarmingDetailsModel = db.model(
+const aquaFarmingDetailsModel = mongoose.model(
   "aqFarmingDetails",
   aquaFarmingDetailsSchema
 );

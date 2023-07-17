@@ -51,7 +51,7 @@ aquaFarmManagementUsersSchema.pre("save", async function () {
   }
 });
 
-const aquaFarmManagementUsersModel = db.model(
+const aquaFarmManagementUsersModel = mongoose.model(
   "aqFarmManagementLevelUsers",
   aquaFarmManagementUsersSchema
 );

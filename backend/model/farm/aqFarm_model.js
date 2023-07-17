@@ -91,6 +91,6 @@ aquaFarmSchema.pre("save", async function () {
 //   }
 // };
 
-const aquaFarmModel = db.model("aquaFarm", aquaFarmSchema);
+const aquaFarmModel = mongoose.model("aquaFarm", aquaFarmSchema);
 
 module.exports = aquaFarmModel;

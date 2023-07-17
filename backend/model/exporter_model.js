@@ -60,6 +60,6 @@ exporterSchema.pre("save", async function () {
 //   }
 // };
 
-const exporterModel = db.model("exporters", exporterSchema);
+const exporterModel = mongoose.model("exporters", exporterSchema);
 
 module.exports = exporterModel;

@@ -51,6 +51,9 @@ fishCollectorSchema.pre("save", async function () {
   }
 });
 
-const fishCollectorModel = db.model("fishCollectors", fishCollectorSchema);
+const fishCollectorModel = mongoose.model(
+  "fishCollectors",
+  fishCollectorSchema
+);
 
 module.exports = fishCollectorModel;
