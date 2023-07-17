@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'reac
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
+import FooterBar from '../components/FooterBar';
 
 export default function LoginScreen() {
     const navigation = useNavigation();
@@ -10,7 +11,7 @@ export default function LoginScreen() {
             <SafeAreaView >
                 <View className="absolute w-[162vw] h-[50vh] left-[-132px] top-[-104px] bg-[#0013C0]  rounded-b-full ">
 
-                
+
                     <View className="flex-row">
 
                         <View className="ml-[42vw] mt-[40vw]">
@@ -125,7 +126,9 @@ export default function LoginScreen() {
                     </TouchableOpacity>
                 </View>
 
-
+                <View className="mt-[4vh]">
+                    <FooterBar />
+                </View>
 
             </SafeAreaView>
         </ScrollView>

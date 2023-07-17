@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from "expo-checkbox";
+import FooterBar from '../components/FooterBar';
 export default function UserRegisterScreen() {
     const navigation = useNavigation();
     const [agree, setAgree] = useState(false);
@@ -173,7 +174,7 @@ export default function UserRegisterScreen() {
                                         className="w-3 h-3 mx-auto "
                                     />
                                     <Text className="text-[12px] mb-[10px] mx-auto mt-2 ml-[-6px] ">
-                                    I accept all the rights and regulations
+                                        I accept all the rights and regulations
                                     </Text>
                                 </View>
                                 <TouchableOpacity
@@ -184,6 +185,9 @@ export default function UserRegisterScreen() {
                                 >
                                     <Text className="text-white text-[16px] h-[19px] font-bold mt-[-10] text-center">Submit</Text>
                                 </TouchableOpacity>
+                            </View>
+                            <View className="mt-[4vh]">
+                                <FooterBar />
                             </View>
                         </ScrollView>
                     </View>

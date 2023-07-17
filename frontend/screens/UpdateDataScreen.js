@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Dimensions, Image, SafeAreaView, TouchableOpacity, ScrollView, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FooterBar from '../components/FooterBar';
 
 const listTab = [
     {
@@ -201,6 +202,9 @@ export default function UpdateDataScreen() {
 
                         </View>
                     )}
+                </View>
+                <View className="mt-[4vh]">
+                    <FooterBar />
                 </View>
             </ScrollView>
         </SafeAreaView>

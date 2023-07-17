@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ScrollView, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FooterBar from '../components/FooterBar';
 
 export default function ContactUsScreen() {
     const navigation = useNavigation();
@@ -133,6 +134,9 @@ export default function ContactUsScreen() {
                         </View>
 
                     </View>
+                </View>
+                <View className="mt-[4vh]">
+                    <FooterBar />
                 </View>
             </SafeAreaView>
         </ScrollView>

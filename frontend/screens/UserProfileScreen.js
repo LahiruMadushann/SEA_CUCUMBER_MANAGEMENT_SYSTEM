@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from "expo-checkbox";
+import FooterBar from '../components/FooterBar';
 export default function UserProfileScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
@@ -99,10 +100,10 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Email</Text>
-            <Text className="text-[3.5vw] font-light">lahirumadushandl@gmail.com</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Email</Text>
+          <Text className="text-[3.5vw] font-light">lahirumadushandl@gmail.com</Text>
+        </View>
 
       </View>
 
@@ -120,10 +121,10 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Address</Text>
-            <Text className="text-[3.5vw] font-light">Madiha , Matara, Sri Lanka</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Address</Text>
+          <Text className="text-[3.5vw] font-light">Madiha , Matara, Sri Lanka</Text>
+        </View>
 
       </View>
 
@@ -141,10 +142,10 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Telephone No</Text>
-            <Text className="text-[3.5vw] font-light">+94765259905</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Telephone No</Text>
+          <Text className="text-[3.5vw] font-light">+94765259905</Text>
+        </View>
 
       </View>
 
@@ -162,10 +163,10 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Gender</Text>
-            <Text className="text-[3.5vw] font-light">Male</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Gender</Text>
+          <Text className="text-[3.5vw] font-light">Male</Text>
+        </View>
 
       </View>
 
@@ -183,10 +184,10 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Age</Text>
-            <Text className="text-[3.5vw] font-light">25 years old</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Age</Text>
+          <Text className="text-[3.5vw] font-light">25 years old</Text>
+        </View>
 
       </View>
 
@@ -204,11 +205,14 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-          <View className="flex ml-[6vw] mt-[-1vw] ">
-            <Text className="text-[4vw] font-bold  ">Job</Text>
-            <Text className="text-[3.5vw] font-light">Student</Text>
-          </View>
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Job</Text>
+          <Text className="text-[3.5vw] font-light">Student</Text>
+        </View>
 
+      </View>
+      <View className="mt-[4vh]">
+        <FooterBar />
       </View>
     </ScrollView>
   );

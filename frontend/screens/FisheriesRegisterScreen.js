@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from "expo-checkbox";
+import FooterBar from '../components/FooterBar';
 export default function FisheriesRegisterScreen() {
     const navigation = useNavigation();
     const [agree, setAgree] = useState(false);
@@ -151,7 +152,7 @@ export default function FisheriesRegisterScreen() {
                     placeholder="Age"
                 />
 
-                
+
             </View>
 
             <View className="p-4 mx-auto w-[80vw] mt-[10vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] ">
@@ -190,6 +191,10 @@ export default function FisheriesRegisterScreen() {
                     placeholder="Re-Enter Password"
                 />
 
+            </View>
+
+            <View className="mt-[4vh]">
+                <FooterBar />
             </View>
         </ScrollView>
     );

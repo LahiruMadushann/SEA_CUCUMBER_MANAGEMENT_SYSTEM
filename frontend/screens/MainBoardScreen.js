@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import PopupScreen from '../components/PopupScreen'
+import FooterBar from '../components/FooterBar'
 
 export default function MainBoardScreen() {
     const navigation = useNavigation();
@@ -18,7 +19,7 @@ export default function MainBoardScreen() {
 
                         <View className="mt-[112vw]">
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('UserProfile')}
+                                onPress={() => navigation.navigate('Switch')}
                             >
                                 <View className="flex m-[auto] ">
                                     <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />
@@ -28,14 +29,14 @@ export default function MainBoardScreen() {
                         </View>
 
                         <View className="mt-[111vw]">
-                            
-                                <View className="flex m-[auto] ">
-                                    <PopupScreen />     
-                                </View>
-                            
+
+                            <View className="flex m-[auto] absolute ">
+                                <PopupScreen />
+                            </View>
+
                         </View>
                     </View>
-                    
+
                     <View>
                         <Text className="text-center text-[5.6vw] text-[#ffff] font-bold mt-[4vw]">Main Board</Text>
                     </View>
@@ -107,6 +108,9 @@ export default function MainBoardScreen() {
                             </View>
                         </TouchableOpacity>
                     </View>
+                </View>
+                <View className="mt-[4vh]">
+                    <FooterBar />
                 </View>
             </SafeAreaView>
         </ScrollView>

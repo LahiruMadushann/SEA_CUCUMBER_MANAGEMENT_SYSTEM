@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import FooterBar from '../components/FooterBar';
 
 export default function RegisterScreen() {
     const navigation = useNavigation();
@@ -96,7 +97,9 @@ export default function RegisterScreen() {
                 </View>
 
 
-
+                <View className="mt-[4vh]">
+                    <FooterBar />
+                </View>
             </SafeAreaView>
         </ScrollView>
     )

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FooterBar from '../components/FooterBar';
 
 
 const data = [
@@ -95,6 +96,9 @@ export default function KnowledgeCenterScreen() {
                     ))}
 
                 </View>
+            </View>
+            <View className="mt-[4vh]">
+                <FooterBar />
             </View>
         </ScrollView>
     )
