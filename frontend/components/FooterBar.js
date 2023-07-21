@@ -28,7 +28,7 @@ export default function FooterBar() {
                 </View>
                 <View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('UserProfile')}
+                        onPress={() => navigation.navigate('Notification')}
                     >
                         <Image source={require('../assets/footer_bar/notification.png')} className=" w-[21.87507px] h-[25px] mr-[10vw]" />
                     </TouchableOpacity>

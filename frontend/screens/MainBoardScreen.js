@@ -28,7 +28,7 @@ export default function MainBoardScreen() {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="mt-[111vw]">
+                        <View className="mt-[113vw]">
 
                             <View className="flex m-[auto] absolute ">
                                 <PopupScreen />
@@ -38,10 +38,10 @@ export default function MainBoardScreen() {
                     </View>
 
                     <View>
-                        <Text className="text-center text-[5.6vw] text-[#ffff] font-bold mt-[4vw]">Main Board</Text>
+                        <Text className="text-center text-[5.6vw] text-[#ffff] font-bold mt-[10vw] ">Main Board</Text>
                     </View>
                 </View>
-                <View className="mt-[26vw] mx-auto" >
+                <View className="mt-[35vw] mx-auto" >
                     <TouchableOpacity
                         onPress={() => navigation.navigate('FishStart')}
                         className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 ">

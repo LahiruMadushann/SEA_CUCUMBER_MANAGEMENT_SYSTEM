@@ -18,18 +18,22 @@ export default function PopupScreen() {
 
       </TouchableOpacity>
       {menuVisible && (
-        <View style={styles.menu} className="ml-[40vw] w-[36vw]" >
+        <View style={styles.menu} className="ml-[40vw] " >
           <TouchableOpacity onPress={() => navigation.navigate('Contact')}>
             <Text className="mx-[1vw]">Contact Us </Text>
+            
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('UpdateData')}>
             <Text className="mx-[1vw]">Update Detail</Text>
           </TouchableOpacity>
           
-
+          
         </View>
+        
       )}
+      
     </View>
+    
 
   )
 }
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10,
 
-    zIndex: 10,
+   
     borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

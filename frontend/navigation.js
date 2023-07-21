@@ -19,6 +19,7 @@ import SwitchScreen from './screens/SwitchScreen';
 import KnowledgeCenterScreen from './screens/KnowledgeCenterScreen';
 import UpdateDataScreen from './screens/UpdateDataScreen';
 import ContactUsScreen from './screens/ContactUsScreen';
+import NotificationScreen from './screens/NotificationScreen';
 
 export default function Navigation() {
     return (
@@ -39,6 +40,8 @@ export default function Navigation() {
                 <Stack.Screen name="AquaRegister" component={AquacultureRegisterScreen} />
                 <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
                 <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
+                <Stack.Screen name="Notification" component={NotificationScreen} />
+
             </Stack.Navigator>
         </NavigationContainer>
     )
