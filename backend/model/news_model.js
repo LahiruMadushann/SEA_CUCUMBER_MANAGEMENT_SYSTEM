@@ -27,7 +27,7 @@ const newsSchema = new Schema({
     required: true,
   },
 
-  //POSTED TO FISHERIES / AQUACULTURE
+  //POSTED TO FISHERIES / AQUACULTURE / ALL
   postedTo: {
     type: String,
   },
