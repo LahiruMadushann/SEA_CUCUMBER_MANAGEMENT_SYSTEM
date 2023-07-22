@@ -1,5 +1,7 @@
 const UserModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
+const aqFarmModel = require("../model/farm/aqFarm_model");
+
 const bcrypt = require("bcrypt");
 
 class aquaFramMngUsersService {
@@ -88,7 +90,39 @@ class aquaFramMngUsersService {
   }
 
   //REGISTER FARMS TO THE SYSTEM
-  
+  static async registerFarm(
+    name,
+    address,
+    age,
+    role,
+    licenseNo,
+    validity,
+    location,
+    extend,
+    gpsCoordinates,
+    farmInternal,
+    establishmentDate
+  ) {
+    try {
+      const createFarm = new aqFarmModel({
+        name,
+        address,
+        age,
+        role,
+        licenseNo,
+        validity,
+        location,
+        extend,
+        gpsCoordinates,
+        farmInternal,
+        establishmentDate,
+      });
+
+      return await createFarm.save();
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = aquaFramMngUsersService;

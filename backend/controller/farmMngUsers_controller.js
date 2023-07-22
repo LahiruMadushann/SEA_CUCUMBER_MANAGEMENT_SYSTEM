@@ -92,3 +92,38 @@ exports.enterNews = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.registerFarm = async (req, res, next) => {
+  try {
+    const {
+      name,
+      address,
+      age,
+      licenseNo,
+      validity,
+      location,
+      extend,
+      gpsCoordinates,
+      farmInternal,
+      establishmentDate,
+    } = req.body;
+
+    const successResFarm = await farmMngUserService.registerFarm(
+      name,
+      address,
+      age,
+      "Farm",
+      licenseNo,
+      validity,
+      location,
+      extend,
+      gpsCoordinates,
+      farmInternal,
+      establishmentDate
+    );
+
+    res.json({ status: true, success: "Farm registered successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

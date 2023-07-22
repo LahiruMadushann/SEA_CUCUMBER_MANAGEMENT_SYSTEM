@@ -12,4 +12,6 @@ router.post(
 
 router.post("/farmMngUsers/enterNews", farmMngUsersController.enterNews);
 
+router.post("/farmMngUsers/farmRegistration", farmMngUsersController.registerFarm);
+
 module.exports = router;
