@@ -1,4 +1,5 @@
 const userModel = require("../model/user_model");
+const newsModel = require("../model/news_model");
 const bcrypt = require("bcrypt");
 
 class ministerService {
@@ -56,9 +57,35 @@ class ministerService {
     }
   }
 
+  //GET INDIVIDUAL MINISTER DETAILS
   static async getMinisterDetails(userId) {
     const ministerDetails = await userModel.findById({ _id: userId });
     return ministerDetails;
+  }
+
+  //ENTER NEW RULES AND REGULATIONS
+  static async enterNewsRulesRegulations(
+    description,
+    type,
+    date,
+    role,
+    postedBy,
+    postedTo
+  ) {
+    try {
+      const enterNews = new newsModel({
+        description,
+        type,
+        date,
+        role,
+        postedBy,
+        postedTo,
+      });
+
+      return await enterNews.save();
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

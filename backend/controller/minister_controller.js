@@ -68,3 +68,28 @@ exports.changePassword = async (req, res, next) => {
     next(error);
   }
 };
+
+//ENTER NEWS / RULES AND REGULATIONS
+exports.enterNews = async (req, res, next) => {
+  try {
+    const { userId, description, type, date, postedTo } = req.body;
+
+    let data = await ministerService.getMinisterDetails(userId);
+
+    let postedBy = data.firstName;
+    let role = data.role;
+
+    const successResFarm = await ministerService.enterNewsRulesRegulations(
+      description,
+      type,
+      date,
+      role,
+      postedBy,
+      postedTo
+    );
+
+    res.json({ status: true, success: "News Posted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
