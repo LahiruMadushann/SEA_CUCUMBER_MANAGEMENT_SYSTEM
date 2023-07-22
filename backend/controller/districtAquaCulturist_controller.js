@@ -69,3 +69,24 @@ exports.updateFarm = async (req, res, next) => {
     next(error);
   }
 };
+
+//CREATE ADVERTISEMENT FOR VACANCIES OR PROMOTIONS
+exports.createAdvertisement = async (req, res, next) => {
+  try {
+    const { type, title, description, contactNo, address, email } = req.body;
+
+    let createAdvertisement =
+      await districtAquaCulturistService.createAdvertisement(
+        type,
+        title,
+        description,
+        contactNo,
+        address,
+        email
+      );
+    res.json({ status: true, success: createAdvertisement });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};

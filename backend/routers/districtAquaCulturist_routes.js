@@ -11,4 +11,9 @@ router.put(
   districtAquaCulturistController.updateFarm
 );
 
+router.post(
+  "/districtAquaCulturist/createAdvertisement",
+  districtAquaCulturistController.createAdvertisement
+);
+
 module.exports = router;

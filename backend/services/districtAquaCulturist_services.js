@@ -1,5 +1,6 @@
 const aqFarmingDetailsModel = require("../model/farm/aqFarmingDetails_model");
 const aqFarmModel = require("../model/farm/aqFarm_model");
+const advertisementModel = require("../model/farm/advertisement_model");
 
 class districtAquaCulturistService {
   //UPDATE FARMING DETAILS
@@ -62,6 +63,30 @@ class districtAquaCulturistService {
       }
     );
     return "Successfully updated Farm details";
+  }
+
+  //CREATE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS
+  static async createAdvertisement(
+    type,
+    title,
+    description,
+    contactNo,
+    address,
+    email
+  ) {
+    try {
+      const createAdvertisement = new advertisementModel({
+        type,
+        title,
+        description,
+        contactNo,
+        address,
+        email,
+      });
+      return await createAdvertisement.save();
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
