@@ -6,4 +6,9 @@ router.post(
   districtAquaCulturistController.insertFarmingDetails
 );
 
+router.put(
+  "/districtAquaCulturist/updateFarmDetails",
+  districtAquaCulturistController.updateFarm
+);
+
 module.exports = router;

@@ -12,7 +12,7 @@ class ministerService {
     contactNo,
     address
   ) {
-    const updateExporterDetails = await userModel.findByIdAndUpdate(
+    const updateMinisterDetails = await userModel.findByIdAndUpdate(
       { _id: userId },
       {
         firstName: firstName,
