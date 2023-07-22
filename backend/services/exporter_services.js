@@ -1,4 +1,4 @@
-const exporterModel = require("../model/exporter_model");
+const userModel = require("../model/user_model");
 const aquaFarmDetailsModel = require("../model/farm/aqFarm_model");
 
 class exporterService {
@@ -7,16 +7,18 @@ class exporterService {
     username,
     password,
     role,
+    age,
     firstName,
     lastName,
     contactNo,
     address
   ) {
     try {
-      const createExporter = new exporterModel({
+      const createExporter = new userModel({
         username,
         password,
         role,
+        age,
         firstName,
         lastName,
         contactNo,
@@ -37,7 +39,7 @@ class exporterService {
     contactNo,
     address
   ) {
-    const updateExporterDetails = await exporterModel.findByIdAndUpdate(
+    const updateExporterDetails = await userModel.findByIdAndUpdate(
       { _id: userId },
       {
         firstName: firstName,
@@ -51,7 +53,7 @@ class exporterService {
 
   //DELETE EXPORTER ACCOUNT
   static async deleteExporterAccount(userId) {
-    const deleteExporter = await exporterModel.findByIdAndDelete(userId);
+    const deleteExporter = await userModel.findByIdAndDelete(userId);
     return "Successfully deleted exporter Account";
   }
 
@@ -60,6 +62,14 @@ class exporterService {
     const aquaFarmDetails = await aquaFarmDetailsModel.find();
     // console.log(aquaFarmDetails);
     return aquaFarmDetails;
+  }
+
+  //GET INDIVIDUAL AQUACULTURE FARM DETAIL
+  static async getIndividualFarmDetails(farmId) {
+    const individualFarmDetails = await aquaFarmDetailsModel.findById({
+      _id: farmId,
+    });
+    return individualFarmDetails;
   }
 }
 

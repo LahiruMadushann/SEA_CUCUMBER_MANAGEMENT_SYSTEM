@@ -12,4 +12,9 @@ router.get(
   exporterController.getAquaFarmDetails
 );
 
+router.get(
+  "/exporter/getIndividualFarmDetails",
+  exporterController.getIndividualAquaFarmDetails
+);
+
 module.exports = router;
