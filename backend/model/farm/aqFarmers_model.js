@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const db = require("../../config/db");
 const bcrypt = require("bcrypt");
+const aquaFarmModel = require("./aqFarm_model");
 
 const { Schema } = mongoose;
 
-const aquaFarmManagementUsersSchema = new Schema({
+const aquaFarmerSchema = new Schema({
   username: {
     type: String,
     lowercase: true,
@@ -21,6 +22,7 @@ const aquaFarmManagementUsersSchema = new Schema({
   },
   subRole: {
     type: String,
+    required: true,
   },
   firstName: {
     type: String,
@@ -29,6 +31,16 @@ const aquaFarmManagementUsersSchema = new Schema({
   lastName: {
     type: String,
     required: true,
+  },
+  age: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+    unique: true,
   },
   contactNo: {
     type: String,
@@ -39,10 +51,22 @@ const aquaFarmManagementUsersSchema = new Schema({
     type: String,
     required: true,
   },
+  farmName: {
+    type: String,
+    required: true,
+  },
+  farmId: {
+    type: Schema.Types.ObjectId,
+    ref: aquaFarmModel.modelName,
+  },
+  accountStatus: {
+    type: String,
+    required: true,
+  },
 });
 
 //Password Encryption
-aquaFarmManagementUsersSchema.pre("save", async function () {
+aquaFarmerSchema.pre("save", async function () {
   try {
     var user = this;
     const salt = await bcrypt.genSalt(10);
@@ -54,9 +78,6 @@ aquaFarmManagementUsersSchema.pre("save", async function () {
   }
 });
 
-const aquaFarmManagementUsersModel = mongoose.model(
-  "aqFarmManagementLevelUsers",
-  aquaFarmManagementUsersSchema
-);
+const aquaFarmerModel = mongoose.model("aqFarmers", aquaFarmerSchema);
 
-module.exports = aquaFarmManagementUsersModel;
+module.exports = aquaFarmerModel;

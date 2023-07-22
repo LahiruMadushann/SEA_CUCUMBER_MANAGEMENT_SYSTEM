@@ -5,20 +5,6 @@ const bcrypt = require("bcrypt");
 const { Schema } = mongoose;
 
 const aquaFarmSchema = new Schema({
-  username: {
-    type: String,
-    lowercase: true,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
@@ -27,10 +13,6 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-  },
-  age: {
-    type: String,
-    required: true,
   },
   licenseNo: {
     type: String,

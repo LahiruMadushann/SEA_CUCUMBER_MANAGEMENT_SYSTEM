@@ -1,5 +1,18 @@
+/* FUNCTIONS OF THE ADMIN 
+
+*REGISTER ADMIN ACCOUNTS
+*UPDATE ADMIN DETAILS
+*CHANGE ADMIN PASSWORD
+
+*REGISTER / GET DETAILS / DELETE - AQUACULTURE MANAGEMENT USERS - MINISTER / CHAIRMAN / DG / ASSISTANT DIRECTOR / DISTRICT AQUACULTURIST
+*GET / DELETE DETAILS - FARM 
+*APPROVE ACCOUNT / GET DETAILS / DELETE DETAILS- FARMER
+*HAVE ACCESS TO THE DASHBOARD
+
+*/
+
 const adminModel = require("../model/admin_model");
-const aquaFarmManagementUsersModel = require("../model/farm/aqfarm_managementLevelUsers");
+const UserModel = require("../model/user_model");
 const bcrypt = require("bcrypt");
 
 class AdminService {
@@ -81,23 +94,27 @@ class AdminService {
     }
   }
 
-  /* OPERATIONS IN ADMIN - FOR AQUA MANAGEMENT LEVEL USERS */
+  /* OPERATIONS IN ADMIN - FOR AQUACULTURE MANAGEMENT LEVEL USERS */
 
   //Registering Aquaculture Management users
   static async registerAqFarmMangementLevelUsers(
     username,
     password,
     role,
+    age,
+    subRole,
     firstName,
     lastName,
     contactNo,
     address
   ) {
     try {
-      const createAqManagementUsers = new aquaFarmManagementUsersModel({
+      const createAqManagementUsers = new UserModel({
         username,
         password,
         role,
+        age,
+        subRole,
         firstName,
         lastName,
         contactNo,
@@ -112,17 +129,16 @@ class AdminService {
 
   //Getting Aquaculture Management users
   static async getAllAqManagementUsers() {
-    const aqMngUserDetails = await aquaFarmManagementUsersModel.find();
+    const aqMngUserDetails = await UserModel.find();
     console.log(aqMngUserDetails);
     return aqMngUserDetails;
   }
 
   //Deleting Aquaculture Management users
   static async deleteAqManagementUserById(id) {
-    const deleteAquaMngLevelUser =
-      await aquaFarmManagementUsersModel.findByIdAndDelete({
-        _id: id,
-      });
+    const deleteAquaMngLevelUser = await UserModel.findByIdAndDelete({
+      _id: id,
+    });
     return deleteAquaMngLevelUser;
   }
 }

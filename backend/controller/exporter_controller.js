@@ -9,7 +9,7 @@ exports.registerExporter = async (req, res, next) => {
     const successResExporter = await exporterService.registerExporter(
       username,
       password,
-      "exporter",
+      "Exporter",
       firstName,
       lastName,
       contactNo,
