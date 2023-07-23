@@ -1,9 +1,10 @@
-const farmerService = require("../services/exporter_services");
+const farmerService = require("../services/farmer_services");
 
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerFarmer = async (req, res, next) => {
   try {
-    const {  username,
+    const {
+      username,
       password,
       subRole,
       firstName,
@@ -14,10 +15,9 @@ exports.registerFarmer = async (req, res, next) => {
       address,
       farmName,
       farmId,
-      accountStatus } =
-      req.body;
+    } = req.body;
 
-    const successResExporter = await exporterService.registerFarmer(
+    const successResExporter = await farmerService.registerFarmer(
       username,
       password,
       "Farmer",
@@ -30,11 +30,23 @@ exports.registerFarmer = async (req, res, next) => {
       address,
       farmName,
       farmId,
-      accountStatus
+      "Inactive"
     );
 
     res.json({ status: true, success: successResExporter });
   } catch (error) {
+    next(error);
+  }
+};
+
+//GETTING AQUA CULTURE FARM DETAILS
+exports.getAquaFarmDetails = async (req, res, next) => {
+  try {
+    let aquaFarmDetails = await farmerService.getAllAquaFarms();
+
+    res.json({ status: true, success: aquaFarmDetails });
+  } catch (error) {
+    console.log(error, "err---->");
     next(error);
   }
 };

@@ -16,6 +16,11 @@ router.delete(
   fishProcesserController.deleteFishProcesser
 );
 
+router.post(
+  "/fishProcessers/changePassword",
+  fishProcesserController.changePassword
+);
+
 // router.get(
 //   "/exporter/getAquaFarmDetails",
 //   exporterController.getAquaFarmDetails

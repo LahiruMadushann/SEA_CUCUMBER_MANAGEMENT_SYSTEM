@@ -33,6 +33,9 @@ const userSchema = new Schema({
   age: {
     type: String,
   },
+  gender: {
+    type: String,
+  },
   contactNo: {
     type: String,
     required: true,

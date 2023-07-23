@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const exporterController = require("../controller/exporter_controller");
+const farmerController = require("../controller/farmer_controller");
 
-router.post("/farmer/register", exporterController.registerExporter);
+router.post("/farmer/register", farmerController.registerFarmer);
 
+router.get("/farmer/getAquaFarmDetails", farmerController.getAquaFarmDetails);
 // router.put("/exporter/update", exporterController.updateExporter);
 
 // router.delete("/exporter/delete", exporterController.deleteExporter);

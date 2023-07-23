@@ -8,6 +8,7 @@ const exporterRoute = require("./routers/exporter_routes");
 const fishProcesserRoute = require("./routers/fishProcessers_routes");
 const MinisterRoute = require("./routers/minister_routes");
 const districtAquaCulturistRoute = require("./routers/districtAquaCulturist_routes");
+const farmerRoute = require("./routers/farmer_routes");
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use("/", exporterRoute);
 app.use("/", fishProcesserRoute);
 app.use("/", MinisterRoute);
 app.use("/", districtAquaCulturistRoute);
+app.use("/", farmerRoute);
 
 module.exports = app;

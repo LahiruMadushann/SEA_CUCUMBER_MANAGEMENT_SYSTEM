@@ -54,3 +54,38 @@ exports.deleteFishProcesser = async (req, res, next) => {
     next(error);
   }
 };
+
+//CHANGEPASSWORD
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { userId, oldpassword, newPassword, confirmPassword } = req.body;
+
+    if (oldpassword == "" || newPassword == "" || confirmPassword == "") {
+      res.json({ status: "FAILED", message: "Please Enter a value" });
+    } else if (newPassword != confirmPassword) {
+      res.json({ status: "FAILED", message: "New Password doesn't match" });
+    } else {
+      let data = await fishProcesserService.getFishProcesserDetails(userId);
+
+      let oldPasswordDB = data.password;
+
+      bcrypt.compare(oldpassword, oldPasswordDB, function (err, result) {
+        if (result) {
+          ministerService
+            .changePassword(userId, newPassword)
+            .then((result) => {
+              res.json({ status: true, success: result });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        } else {
+          res.json({ status: true, success: "Error when comparing passwords" });
+        }
+      });
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
