@@ -7,14 +7,21 @@ router.put("/exporter/update", exporterController.updateExporter);
 
 router.delete("/exporter/delete", exporterController.deleteExporter);
 
+router.post("/exporter/changePassword", exporterController.changePassword);
+
 router.get(
   "/exporter/getAquaFarmDetails",
   exporterController.getAquaFarmDetails
 );
 
 router.get(
-  "/exporter/getIndividualFarmDetails",
-  exporterController.getIndividualAquaFarmDetails
+  "/exporter/getFishProcessorsDetails",
+  exporterController.getFishProcessorsDetails
+);
+
+router.get(
+  "/exporter/getIndividualFishProcessorDetails",
+  exporterController.getIndividualFishProcessorsDetails
 );
 
 module.exports = router;

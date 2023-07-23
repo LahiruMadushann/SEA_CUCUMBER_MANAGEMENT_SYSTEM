@@ -5,7 +5,7 @@ const UserRoute = require("./routers/login_router");
 const adminRoute = require("./routers/admin_routes");
 const farmMngUsersRoute = require("./routers/farmMngUsers_routes");
 const exporterRoute = require("./routers/exporter_routes");
-const fishCollectorRoute = require("./routers/fishCollector_routes");
+const fishProcesserRoute = require("./routers/fishProcessers_routes");
 const MinisterRoute = require("./routers/minister_routes");
 const districtAquaCulturistRoute = require("./routers/districtAquaCulturist_routes");
 
@@ -17,7 +17,7 @@ app.use("/", UserRoute);
 app.use("/", adminRoute);
 app.use("/", farmMngUsersRoute);
 app.use("/", exporterRoute);
-app.use("/", fishCollectorRoute);
+app.use("/", fishProcesserRoute);
 app.use("/", MinisterRoute);
 app.use("/", districtAquaCulturistRoute);
 

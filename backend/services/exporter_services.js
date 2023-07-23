@@ -57,6 +57,38 @@ class exporterService {
     return "Successfully deleted exporter Account";
   }
 
+  //CHANGE EXPORTER PASSWORD
+  static async changePassword(userId, newpassword) {
+    let msg;
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashpass = await bcrypt.hash(newpassword, salt);
+
+      const changePassword = await userModel.findByIdAndUpdate(
+        { _id: userId },
+        {
+          password: hashpass,
+        }
+      );
+
+      if (changePassword) {
+        msg = "Successfully updated Password";
+      } else {
+        msg = "Error when updating Password";
+      }
+
+      return msg;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //GET INDIVIDUAL EXPORTER DETAILS
+  static async getExporterDetails(userId) {
+    const exporterDetails = await userModel.findById({ _id: userId });
+    return exporterDetails;
+  }
+
   //GETTING AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
     const aquaFarmDetails = await aquaFarmDetailsModel.find();
@@ -70,6 +102,21 @@ class exporterService {
       _id: farmId,
     });
     return individualFarmDetails;
+  }
+
+  //GET ALL FISHPROCESSORS DETAILS
+  static async getAllFishProcessors() {
+    const roleName = "FishProcessor";
+    const fishProcessorDetails = await userModel.find({ role: roleName });
+    return fishProcessorDetails;
+  }
+
+  //GET INDIVIDUAL FISHPROCESSORS DETAILS
+  static async getindividualFishProcessor(userId) {
+    const individualFishProcessorDetails = await userModel.findById({
+      _id: userId,
+    });
+    return individualFishProcessorDetails;
   }
 }
 
