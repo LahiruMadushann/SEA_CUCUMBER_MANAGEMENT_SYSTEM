@@ -168,7 +168,7 @@ exports.signout = async (req, res) => {
 
     const newTokens = tokens.filter((t) => t.token !== token);
 
-    await adminModel.findByIdAndUpdate(req.userInfo._id, { tokens: newTokens });
+    await userModel.findByIdAndUpdate(req.userInfo._id, { tokens: newTokens });
     res.json({ success: true, message: "Sign out successfully!" });
   }
 };
