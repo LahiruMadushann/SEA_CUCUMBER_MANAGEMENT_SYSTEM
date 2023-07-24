@@ -6,20 +6,24 @@ class fishProcesserService {
     username,
     password,
     role,
+    age,
     firstName,
     lastName,
     contactNo,
-    address
+    address,
+    profilepic
   ) {
     try {
       const createFishProcesser = new userModel({
         username,
         password,
         role,
+        age,
         firstName,
         lastName,
         contactNo,
         address,
+        profilepic,
       });
 
       return await createFishProcesser.save();

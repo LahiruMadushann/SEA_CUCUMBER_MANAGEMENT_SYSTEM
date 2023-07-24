@@ -10,7 +10,7 @@ exports.registerExporter = async (req, res, next) => {
       return res.json({ status: false, success: "you must select a file" });
     }
 
-    const filename = req.file.filename;
+    const profilepic = req.file.filename;
 
     const successResExporter = await exporterService.registerExporter(
       username,
@@ -21,7 +21,7 @@ exports.registerExporter = async (req, res, next) => {
       lastName,
       contactNo,
       address,
-      filename
+      profilepic
     );
 
     res.json({ status: true, success: successResExporter });

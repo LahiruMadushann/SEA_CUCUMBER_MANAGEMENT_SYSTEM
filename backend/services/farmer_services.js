@@ -19,7 +19,8 @@ class farmerService {
     address,
     farmName,
     farmId,
-    accountStatus
+    accountStatus,
+    profilepic
   ) {
     try {
       const createFarmer = new userModel({
@@ -36,6 +37,7 @@ class farmerService {
         farmName,
         farmId,
         accountStatus,
+        profilepic,
       });
 
       return await createFarmer.save();

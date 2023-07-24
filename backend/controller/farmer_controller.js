@@ -18,7 +18,13 @@ exports.registerFarmer = async (req, res, next) => {
       farmId,
     } = req.body;
 
-    const successResExporter = await farmerService.registerFarmer(
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const profilepic = req.file.filename;
+
+    const successResFarmer = await farmerService.registerFarmer(
       username,
       password,
       "Farmer",
@@ -31,10 +37,11 @@ exports.registerFarmer = async (req, res, next) => {
       address,
       farmName,
       farmId,
-      "Inactive"
+      "Inactive",
+      profilepic
     );
 
-    res.json({ status: true, success: successResExporter });
+    res.json({ status: true, success: successResFarmer });
   } catch (error) {
     next(error);
   }

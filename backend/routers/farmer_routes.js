@@ -2,7 +2,13 @@ const router = require("express").Router();
 const farmerController = require("../controller/farmer_controller");
 const userController = require("../controller/user_controller");
 
-router.post("/farmer/register", farmerController.registerFarmer);
+const imageMiddleware = require("../middleware/profilepic_middleware");
+
+router.post(
+  "/farmer/register",
+  imageMiddleware.single("profilePic"),
+  farmerController.registerFarmer
+);
 
 router.put("/farmer/update", farmerController.updateFarmer);
 

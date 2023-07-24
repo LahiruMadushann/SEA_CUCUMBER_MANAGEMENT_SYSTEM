@@ -50,7 +50,7 @@ const userSchema = new Schema({
   accountStatus: {
     type: String,
   },
-  image: {
+  profilepic: {
     type: String,
   },
 });
