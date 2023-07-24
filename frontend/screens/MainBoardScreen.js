@@ -19,7 +19,7 @@ export default function MainBoardScreen() {
 
                         <View className="mt-[112vw]">
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('Switch')}
+                                onPress={() => navigation.navigate('UserProfile')}
                             >
                                 <View className="flex m-[auto] ">
                                     <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />

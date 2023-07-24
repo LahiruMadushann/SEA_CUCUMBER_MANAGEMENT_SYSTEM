@@ -20,6 +20,7 @@ import KnowledgeCenterScreen from './screens/KnowledgeCenterScreen';
 import UpdateDataScreen from './screens/UpdateDataScreen';
 import ContactUsScreen from './screens/ContactUsScreen';
 import NotificationScreen from './screens/NotificationScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 
 export default function Navigation() {
     return (
@@ -41,6 +42,7 @@ export default function Navigation() {
                 <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
                 <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
                 <Stack.Screen name="Notification" component={NotificationScreen} />
+                <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
 
             </Stack.Navigator>
         </NavigationContainer>
