@@ -15,7 +15,7 @@ import FooterBar from '../components/FooterBar';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function ForgotPasswordScreen() {
+export default function ForgotPasswordScreen({phoneNumber}) {
 
   const [countdown, setCountdown] = useState(30);
 
@@ -48,7 +48,7 @@ export default function ForgotPasswordScreen() {
             <View className="flex-row ">
               <View className=" ml-[72vw]">
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('MainBoard')}
+                  onPress={() => navigation.navigate('GetANumber')}
                 >
                   <View className="flex m-[auto] ">
                     <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] " />
@@ -72,7 +72,7 @@ export default function ForgotPasswordScreen() {
 
         <View className="mt-[40vh]" >
           <View className="mx-[12vw]">
-            <Text className="text-[14px] text-[#000000A6]">Phone Verification</Text>
+            <Text className="text-[14px] text-[#000000A6]">Phone Verification {phoneNumber}</Text>
             <Text className="text-[24px] font-bold text-[#000000A6]">Enter OTP Code</Text>
             <Text className="text-[14px]">Enter your 4 digit code sent to you at +94 76 525 9905</Text>
             <Text className="text-[14px] text-[#0013C0]">Did you enter the correct Number?</Text>

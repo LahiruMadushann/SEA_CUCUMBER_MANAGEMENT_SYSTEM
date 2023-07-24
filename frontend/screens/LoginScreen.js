@@ -75,7 +75,7 @@ export default function LoginScreen() {
                     </Text>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('ForgotPassword')}
+                        onPress={() => navigation.navigate('GetANumber')}
 
                     >
 

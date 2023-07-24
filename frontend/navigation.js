@@ -22,6 +22,7 @@ import ContactUsScreen from './screens/ContactUsScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import UpdateNewPasswordScreen from './screens/UpdateNewPasswordScreen';
+import GetAMobileNumberScreen from './screens/GetAMobileNumberScreen';
 
 export default function Navigation() {
     return (
@@ -43,6 +44,7 @@ export default function Navigation() {
                 <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
                 <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
                 <Stack.Screen name="Notification" component={NotificationScreen} />
+                <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                 <Stack.Screen name="UpdatePassword" component={UpdateNewPasswordScreen} />
 
