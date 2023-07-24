@@ -46,22 +46,22 @@ export default function ForgotPasswordScreen() {
         <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
           <View className="mt-[58vh] ">
             <View className="flex-row ">
-              <View className=" ml-[4vw]">
+              <View className=" ml-[72vw]">
                 <TouchableOpacity
                   onPress={() => navigation.navigate('MainBoard')}
                 >
                   <View className="flex m-[auto] ">
-                    <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
+                    <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] " />
                   </View>
                 </TouchableOpacity>
               </View>
 
-              <View className=" ml-[11vw]">
+              <View className=" ml-[72vw]">
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Switch')}
                 >
                   <View className="flex m-[auto] ">
-                    <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[280px]" />
+                    <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] " />
                   </View>
                 </TouchableOpacity>
               </View>
