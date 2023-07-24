@@ -1,6 +1,5 @@
 # dependencies
 /node_modules
-/images
 /.pnp
 .pnp.js
 
@@ -26,3 +25,6 @@ yarn-error.log*
 *.iws
 *.iml
 *.ipr
+
+# Folders
+/images
