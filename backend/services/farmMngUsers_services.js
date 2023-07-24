@@ -89,6 +89,37 @@ class aquaFramMngUsersService {
     }
   }
 
+  //ENTER SEACUCUMBER RATES
+  static async enterSeaCucumberRates(
+    title,
+    description,
+    type,
+    speciesType,
+    rates,
+    date,
+    role,
+    postedBy,
+    postedTo
+  ) {
+    try {
+      const enterSeaCucumberRates = new newsModel({
+        title,
+        description,
+        type,
+        speciesType,
+        rates,
+        date,
+        role,
+        postedBy,
+        postedTo,
+      });
+
+      return await enterSeaCucumberRates.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
   //REGISTER FARMS TO THE SYSTEM
   static async registerFarm(
     name,

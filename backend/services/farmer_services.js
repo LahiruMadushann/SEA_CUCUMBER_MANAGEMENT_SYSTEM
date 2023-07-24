@@ -1,5 +1,6 @@
 const userModel = require("../model/user_model");
 const farmModel = require("../model/farm/aqFarm_model");
+const newsModel = require("../model/news_model");
 
 class farmerService {
   //REEGISTER FARMER DETAILS
@@ -41,31 +42,41 @@ class farmerService {
     }
   }
 
+  //UPDATE FARMER ACCOUNT DETAILS
+  static async updateFarmerDetails(
+    userId,
+    firstName,
+    lastName,
+    age,
+    gender,
+    contactNo,
+    address
+  ) {
+    const updateFarmerDetails = await aquaFarmerModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
+        gender: gender,
+        contactNo: contactNo,
+        address: address,
+      }
+    );
+    return "Successfully updated farmer details";
+  }
+
   //GETTING AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
     const aquaFarmDetails = await farmModel.find();
     return aquaFarmDetails;
   }
 
-  //   //UPDATE FARMER ACCOUNT DETAILS
-  //   static async updateFarmerDetails(
-  //     userId,
-  //     firstName,
-  //     lastName,
-  //     contactNo,
-  //     address
-  //   ) {
-  //     const updateFarmerDetails = await aquaFarmerModel.findByIdAndUpdate(
-  //       { _id: userId },
-  //       {
-  //         firstName: firstName,
-  //         lastName: lastName,
-  //         contactNo: contactNo,
-  //         address: address,
-  //       }
-  //     );
-  //     return "Successfully updated farmer details";
-  //   }
+  //GETTING FARM RELATED NEWS DETAILS
+  static async getAquaFarmsNews() {
+    const aquaFarmNews = await newsModel.find().sort({ _id: -1 });
+    return aquaFarmNews;
+  }
 
   //   //DELETE FARMER ACCOUNT
   //   static async deleteFarmerAccount(userId) {

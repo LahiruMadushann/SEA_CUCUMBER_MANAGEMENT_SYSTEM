@@ -51,6 +51,18 @@ exports.getAquaFarmDetails = async (req, res, next) => {
   }
 };
 
+//GETTING AQUACULTURE FARM NEWS
+exports.getAquaFarmNews = async (req, res, next) => {
+  try {
+    let aquaFarmNews = await farmerService.getAquaFarmsNews();
+
+    res.json({ status: true, success: aquaFarmNews });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //UPDATE EXPORTER DETAILS CONTROLLER
 // exports.updateExporter = async (req, res, next) => {
 //   try {

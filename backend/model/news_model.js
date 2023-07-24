@@ -2,15 +2,28 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const newsSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
   },
-  //WHETHER IT IS A NEWS / RULES OR REGULATIONS
+  //WHETHER IT IS A NEWS / RULES OR REGULATIONS / SEACUCUMBER RATES
   type: {
     type: String,
     required: true,
   },
+
+  speciesType: {
+    type: String,
+  },
+
+  rates: {
+    type: String,
+  },
+
   date: {
     type: String,
     required: true,
