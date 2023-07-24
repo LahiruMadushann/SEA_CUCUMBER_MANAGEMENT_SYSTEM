@@ -26,38 +26,6 @@ class aquaFramMngUsersService {
     return "Successfully updated Farm Management User details";
   }
 
-  //DELETE AQUAFARMUSER ACCOUNT
-  static async deleteAquaMngUserAccount(userId) {
-    const deleteAquaMngUser = await UserModel.findByIdAndDelete(userId);
-    return "Successfully deleted Aqua Mng User Account";
-  }
-
-  //CHANGE AQUAFARMUSER PASSWORD
-  static async changePassword(userId, newpassword) {
-    let msg;
-    try {
-      const salt = await bcrypt.genSalt(10);
-      const hashpass = await bcrypt.hash(newpassword, salt);
-
-      const changePassword = await UserModel.findByIdAndUpdate(
-        { _id: userId },
-        {
-          password: hashpass,
-        }
-      );
-
-      if (changePassword) {
-        msg = "Successfully updated Password";
-      } else {
-        msg = "Error when updating Password";
-      }
-
-      return msg;
-    } catch (err) {
-      throw err;
-    }
-  }
-
   //GET INDIVIDUAL AQUAFARMUSER DETAILS
   static async getAquaFarmUserDetails(userId) {
     const AquaFarmUserDetails = await UserModel.findById({ _id: userId });

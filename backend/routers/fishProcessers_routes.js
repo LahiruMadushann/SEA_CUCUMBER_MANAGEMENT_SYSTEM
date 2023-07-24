@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const fishProcesserController = require("../controller/fishProcesser_controller");
-
+const userController = require("../controller/user_controller");
 router.post(
   "/fishProcessers/register",
   fishProcesserController.registerFishProcesser
@@ -11,15 +11,9 @@ router.put(
   fishProcesserController.updateFishProcesser
 );
 
-router.delete(
-  "/fishProcessers/delete",
-  fishProcesserController.deleteFishProcesser
-);
+router.delete("/fishProcessers/delete", userController.deleteUser);
 
-router.post(
-  "/fishProcessers/changePassword",
-  fishProcesserController.changePassword
-);
+router.post("/fishProcessers/changePassword", userController.changePassword);
 
 // router.get(
 //   "/exporter/getAquaFarmDetails",

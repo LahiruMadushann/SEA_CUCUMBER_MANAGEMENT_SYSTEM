@@ -66,42 +66,10 @@ class farmerService {
     return "Successfully updated farmer details";
   }
 
-  //DELETE FARMER ACCOUNT
-  static async deleteFarmerAccount(userId) {
-    const deleteFarmer = await userModel.findByIdAndDelete(userId);
-    return "Successfully deleted farmer Account";
-  }
-
   //GET INDIVIDUAL FARMER DETAILS
   static async getFarmerDetails(userId) {
     const farmerDetails = await userModel.findById({ _id: userId });
     return farmerDetails;
-  }
-
-  //CHANGE FARMER PASSWORD
-  static async changePassword(userId, newpassword) {
-    let msg;
-    try {
-      const salt = await bcrypt.genSalt(10);
-      const hashpass = await bcrypt.hash(newpassword, salt);
-
-      const changePassword = await userModel.findByIdAndUpdate(
-        { _id: userId },
-        {
-          password: hashpass,
-        }
-      );
-
-      if (changePassword) {
-        msg = "Successfully updated Password";
-      } else {
-        msg = "Error when updating Password";
-      }
-
-      return msg;
-    } catch (err) {
-      throw err;
-    }
   }
 
   //GETTING AQUACULTURE FARM DETAILS

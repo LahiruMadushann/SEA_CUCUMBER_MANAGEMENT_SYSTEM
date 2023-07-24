@@ -11,7 +11,7 @@
 
 */
 
-const adminModel = require("../model/admin_model");
+// const adminModel = require("../model/admin_model");
 const UserModel = require("../model/user_model");
 const bcrypt = require("bcrypt");
 
@@ -27,7 +27,7 @@ class AdminService {
     address
   ) {
     try {
-      const createAdmin = new adminModel({
+      const createAdmin = new UserModel({
         username,
         password,
         role,
@@ -51,7 +51,7 @@ class AdminService {
     contactNo,
     address
   ) {
-    const updateadminDetails = await adminModel.findByIdAndUpdate(
+    const updateadminDetails = await UserModel.findByIdAndUpdate(
       { _id: userId },
       {
         firstName: firstName,
@@ -64,7 +64,7 @@ class AdminService {
   }
 
   static async getAdminDetails(userId) {
-    const adminDetails = await adminModel.findById({ _id: userId });
+    const adminDetails = await UserModel.findById({ _id: userId });
     return adminDetails;
   }
 
@@ -75,7 +75,7 @@ class AdminService {
       const salt = await bcrypt.genSalt(10);
       const hashpass = await bcrypt.hash(newpassword, salt);
 
-      const changePassword = await adminModel.findByIdAndUpdate(
+      const changePassword = await UserModel.findByIdAndUpdate(
         { _id: userId },
         {
           password: hashpass,

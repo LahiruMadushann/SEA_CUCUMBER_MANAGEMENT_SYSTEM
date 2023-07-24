@@ -53,38 +53,6 @@ class exporterService {
     return "Successfully updated exporter details";
   }
 
-  //DELETE EXPORTER ACCOUNT
-  static async deleteExporterAccount(userId) {
-    const deleteExporter = await userModel.findByIdAndDelete(userId);
-    return "Successfully deleted exporter Account";
-  }
-
-  //CHANGE EXPORTER PASSWORD
-  static async changePassword(userId, newpassword) {
-    let msg;
-    try {
-      const salt = await bcrypt.genSalt(10);
-      const hashpass = await bcrypt.hash(newpassword, salt);
-
-      const changePassword = await userModel.findByIdAndUpdate(
-        { _id: userId },
-        {
-          password: hashpass,
-        }
-      );
-
-      if (changePassword) {
-        msg = "Successfully updated Password";
-      } else {
-        msg = "Error when updating Password";
-      }
-
-      return msg;
-    } catch (err) {
-      throw err;
-    }
-  }
-
   //GET INDIVIDUAL EXPORTER DETAILS
   static async getExporterDetails(userId) {
     const exporterDetails = await userModel.findById({ _id: userId });

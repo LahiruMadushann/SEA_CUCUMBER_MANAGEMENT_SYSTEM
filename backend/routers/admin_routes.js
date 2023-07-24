@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const adminController = require("../controller/admin_controller");
+const userController = require("../controller/user_controller");
 
 router.post("/admin/register", adminController.register);
 
 router.put("/admin/update", adminController.updateAdminDetails);
 
-router.post("/admin/changePassword", adminController.changePassword);
+router.post("/admin/changePassword", userController.changePassword);
 
 //CONTROLLING AQUACULTURE USERS
 

@@ -48,38 +48,6 @@ class fishProcesserService {
     return "Successfully updated Fish Processer details";
   }
 
-  //DELETE FISH PROCESSER ACCOUNT
-  static async deleteFishProcesserAccount(userId) {
-    const deleteFishProcesser = await userModel.findByIdAndDelete(userId);
-    return "Successfully deleted Fish Processer Account";
-  }
-
-  //CHANGE FISH PROCESSER PASSWORD
-  static async changePassword(userId, newpassword) {
-    let msg;
-    try {
-      const salt = await bcrypt.genSalt(10);
-      const hashpass = await bcrypt.hash(newpassword, salt);
-
-      const changePassword = await userModel.findByIdAndUpdate(
-        { _id: userId },
-        {
-          password: hashpass,
-        }
-      );
-
-      if (changePassword) {
-        msg = "Successfully updated Password";
-      } else {
-        msg = "Error when updating Password";
-      }
-
-      return msg;
-    } catch (err) {
-      throw err;
-    }
-  }
-
   //GET INDIVIDUAL FISH PROCESSER DETAILS
   static async getFishProcesserDetails(userId) {
     const FishProcesserDetails = await userModel.findById({ _id: userId });
