@@ -9,12 +9,12 @@ export default function LoginScreen() {
     return (
         <ScrollView className="flex-grow bg-white">
             <SafeAreaView >
-                <View className="absolute w-[162vw] h-[50vh] left-[-132px] top-[-104px] bg-[#0013C0]  rounded-b-full ">
+                <View className="absolute w-[162vw] h-[50vh] left-[-32vw] top-[-16vh] bg-[#0013C0]  rounded-b-full ">
 
 
                     <View className="flex-row">
 
-                        <View className="ml-[42vw] mt-[40vw]">
+                        <View className="ml-[42vw] mt-[24vh]">
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('Register')}
                             >
@@ -25,7 +25,7 @@ export default function LoginScreen() {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="mt-[41.2vw] ml-[72vw]">
+                        <View className="mt-[24.6vh] ml-[72vw]">
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('AquaRegister')}
                             >

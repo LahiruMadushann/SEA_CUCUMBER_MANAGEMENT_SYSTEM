@@ -23,7 +23,7 @@ export default function UpdateNewPasswordScreen() {
                         <View className="flex-row ">
                             <View className=" ml-[4vw]">
                                 <TouchableOpacity
-                                    onPress={() => navigation.navigate('MainBoard')}
+                                    onPress={() => navigation.navigate('ForgotPassword')}
                                 >
                                     <View className="flex m-[auto] ">
                                         <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
