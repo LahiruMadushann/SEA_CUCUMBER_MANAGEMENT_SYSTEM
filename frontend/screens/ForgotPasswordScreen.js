@@ -130,7 +130,10 @@ export default function ForgotPasswordScreen() {
             </View>
             <TouchableOpacity
               className="bg-[#0013C0] rounded-[15px] mx-[20px] justify-center py-[10px] items-center mt-[20px]"
-              onPress={() => console.log(otp)}>
+              onPress={
+                () => navigation.navigate('UpdatePassword')
+                // () => console.log(otp)
+              }>
               <Text className="text-[#fff] text-[18px] font-bold text-center" >Continue</Text>
             </TouchableOpacity>
 
@@ -146,9 +149,6 @@ export default function ForgotPasswordScreen() {
 
               )}
             </View>
-
-
-
 
           </View>
 
