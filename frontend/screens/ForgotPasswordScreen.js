@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,21 +9,35 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
+  Button,
 } from 'react-native';
 import FooterBar from '../components/FooterBar';
 import { useNavigation } from '@react-navigation/native';
 
 
-  export default function ForgotPasswordScreen() {
-    
-  
+export default function ForgotPasswordScreen() {
+
+  const [countdown, setCountdown] = useState(30);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleVerify = () => {
+    // Verify OTP
+  };
+
+
   const firstInput = useRef();
   const secondInput = useRef();
   const thirdInput = useRef();
   const fourthInput = useRef();
   const [otp, setOtp] = useState();
   const navigation = useNavigation();
-  
+
 
   return (
     <ScrollView className="bg-[#fff]">
@@ -120,16 +134,31 @@ import { useNavigation } from '@react-navigation/native';
               <Text className="text-[#fff] text-[18px] font-bold text-center" >Continue</Text>
             </TouchableOpacity>
 
-            <View className="mt-[25px]">
-              <Text className="text-[16px] text-gray-700">Resend code in 10 Seconds</Text>
+            <View className="mt-[25px] mx-auto">
+              {countdown > 0 ? (
+                <Text className="text-[16px] text-gray-700">Resend code in <Text className="text-[#0013C0] font-medium">{countdown} Seconds</Text></Text>
+              ) : (
+                <TouchableOpacity
+                  className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                  onPress={() => { setCountdown(30) }}>
+                  <Text className="text-[#fff] text-[18px] font-bold text-center">Resend OTP</Text>
+                </TouchableOpacity>
+
+              )}
             </View>
 
-       
+
 
 
           </View>
 
         </View>
+
+
+        <View>
+
+        </View>
+
         <View className="mt-[4vh]">
           <FooterBar />
         </View>
