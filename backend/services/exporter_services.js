@@ -1,6 +1,8 @@
 const userModel = require("../model/user_model");
 const aquaFarmDetailsModel = require("../model/farm/aqFarm_model");
 
+const bcrypt = require("bcrypt");
+
 class exporterService {
   //REEGISTER EXPORTER DETAILS
   static async registerExporter(
@@ -92,7 +94,6 @@ class exporterService {
   //GETTING AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
     const aquaFarmDetails = await aquaFarmDetailsModel.find();
-    // console.log(aquaFarmDetails);
     return aquaFarmDetails;
   }
 

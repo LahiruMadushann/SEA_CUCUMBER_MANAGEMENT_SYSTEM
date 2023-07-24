@@ -1,5 +1,7 @@
 const exporterService = require("../services/exporter_services");
 
+const bcrypt = require("bcrypt");
+
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
   try {
