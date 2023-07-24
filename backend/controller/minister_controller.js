@@ -1,5 +1,4 @@
 const ministerService = require("../services/minister_services");
-const bcrypt = require("bcrypt");
 
 //UPDATE MINISTER DETAILS CONTROLLER
 exports.updateMinister = async (req, res, next) => {

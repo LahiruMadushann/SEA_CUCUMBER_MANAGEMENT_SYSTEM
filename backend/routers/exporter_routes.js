@@ -2,7 +2,13 @@ const router = require("express").Router();
 const exporterController = require("../controller/exporter_controller");
 const userController = require("../controller/user_controller");
 
-router.post("/exporter/register", exporterController.registerExporter);
+const imageMiddleware = require("../middleware/profilepic_middleware");
+
+router.post(
+  "/exporter/register",
+  imageMiddleware.single("profilePic"),
+  exporterController.registerExporter
+);
 
 router.put("/exporter/update", exporterController.updateExporter);
 

@@ -1,9 +1,9 @@
 const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
+
 const bcrypt = require("bcrypt");
 
 class userService {
-
   //DELETE USER ACCOUNT
   static async deleteUserAccount(userId) {
     const deleteAccount = await userModel.findByIdAndDelete(userId);
@@ -41,7 +41,6 @@ class userService {
     const userDetails = await userModel.findById({ _id: userId });
     return userDetails;
   }
-
 }
 
 module.exports = userService;

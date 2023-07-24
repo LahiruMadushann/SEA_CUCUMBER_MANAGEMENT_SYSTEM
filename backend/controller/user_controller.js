@@ -61,3 +61,20 @@ exports.getUserDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+//UPLOAD IMAGES
+exports.uploadImage = async (req, res, next) => {
+  try {
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+    const imgUrl = `http://localhost:3000/images/${req.file.filename}`;
+    // console.log(imgUrl);
+
+    const successResFarm = await userService.saveImage(req.file.filename);
+
+    res.json({ status: true, success: req.file });
+  } catch (error) {
+    next(error);
+  }
+};

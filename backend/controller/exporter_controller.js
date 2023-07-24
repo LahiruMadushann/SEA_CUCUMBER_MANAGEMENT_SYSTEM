@@ -1,12 +1,16 @@
 const exporterService = require("../services/exporter_services");
 
-const bcrypt = require("bcrypt");
-
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
   try {
     const { username, password, age, firstName, lastName, contactNo, address } =
       req.body;
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const filename = req.file.filename;
 
     const successResExporter = await exporterService.registerExporter(
       username,
@@ -16,7 +20,8 @@ exports.registerExporter = async (req, res, next) => {
       firstName,
       lastName,
       contactNo,
-      address
+      address,
+      filename
     );
 
     res.json({ status: true, success: successResExporter });
