@@ -1,5 +1,4 @@
 const aqFarmModel = require("../model/farm/aqFarm_model");
-const adminModel = require("../model/admin_model");
 const userModel = require("../model/user_model");
 
 // const aqFarmingDetailsModel = require("../model/farm/aqFarmingDetails_model");
@@ -10,11 +9,7 @@ class loginService {
     try {
       let details;
 
-      if (await aqFarmModel.findOne({ username })) {
-        details = await aqFarmModel.findOne({ username });
-      } else if (await adminModel.findOne({ username })) {
-        details = await adminModel.findOne({ username });
-      } else if (await userModel.findOne({ username })) {
+      if (await userModel.findOne({ username })) {
         details = await userModel.findOne({ username });
       } else {
         details = null;

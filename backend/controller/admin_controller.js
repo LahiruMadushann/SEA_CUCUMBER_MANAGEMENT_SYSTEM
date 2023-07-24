@@ -9,7 +9,7 @@ exports.register = async (req, res, next) => {
     const successResFarm = await adminService.registerAdmin(
       username,
       password,
-      "admin",
+      "Admin",
       firstName,
       lastName,
       contactNo,

@@ -53,6 +53,7 @@ const userSchema = new Schema({
   profilepic: {
     type: String,
   },
+  tokens: [{ type: Object }],
 });
 
 //Password Encryption

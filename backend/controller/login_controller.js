@@ -1,6 +1,6 @@
 const loginService = require("../services/login_services");
 const bcrypt = require("bcrypt");
-const adminModel = require("../model/admin_model");
+const userModel = require("../model/user_model");
 const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res, next) => {
@@ -29,17 +29,62 @@ exports.login = async (req, res, next) => {
                   // Creating Token
                   let tokenData;
 
-                  if (data.role == "admin") {
+                  if (data.role == "Admin") {
                     console.log(data.username);
                     tokenData = {
                       _id: data._id,
+                      role: data.role,
                       username: data.username,
                       firstName: data.firstName,
                     };
-                  } else if (data.role == "farm") {
+                  } else if (data.role == "Chairman") {
                     tokenData = {
                       _id: data._id,
-                      name: data.name,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                  } else if (data.role == "DG") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                    a;
+                  } else if (data.role == "AssistantDirector") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                  } else if (data.role == "DistrictAquaculturist") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                  } else if (data.role == "Farmer") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                  } else if (data.role == "Exporter") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
+                      address: data.address,
+                    };
+                  } else if (data.role == "FishProcessor") {
+                    tokenData = {
+                      _id: data._id,
+                      role: data.role,
+                      username: data.username,
                       address: data.address,
                     };
                   }
@@ -63,7 +108,7 @@ exports.login = async (req, res, next) => {
                     });
                   }
 
-                  await adminModel.findByIdAndUpdate(data._id, {
+                  await userModel.findByIdAndUpdate(data._id, {
                     tokens: [
                       ...oldTokens,
                       { token, signedAt: Date.now().toString() },

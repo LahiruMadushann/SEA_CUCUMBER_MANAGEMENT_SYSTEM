@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../model/admin_model");
+const user = require("../model/user_model");
 
 let secretKey = "secret";
 
@@ -8,7 +8,7 @@ exports.isAuth = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     try {
       const decode = jwt.verify(token, "secret");
-      const user = await User.findById(decode._id);
+      const user = await user.findById(decode._id);
       if (!user) {
         return res.json({
           success: false,
