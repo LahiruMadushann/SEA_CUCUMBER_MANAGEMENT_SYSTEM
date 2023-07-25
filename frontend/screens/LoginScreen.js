@@ -1,11 +1,13 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import FooterBar from '../components/FooterBar';
 
 export default function LoginScreen() {
     const navigation = useNavigation();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     return (
         <ScrollView className="flex-grow bg-white">
             <SafeAreaView >
@@ -49,13 +51,15 @@ export default function LoginScreen() {
                 <View className="mt-[56vw] form space-y-2 mx-auto ">
                     <TextInput
                         className="p-4 border-b text-gray-700  w-64  mb-3"
-                        value=""
+                        value={email}
+                        onChangeText={setEmail}
                         placeholder="Enter Email here"
                     />
 
                     <TextInput
                         className="p-4 border-b text-gray-700  w-64  mb-3"
-                        value=""
+                        value={password}
+                        onChangeText={setPassword}
                         placeholder="Enter Password here"
                     />
                 </View>
