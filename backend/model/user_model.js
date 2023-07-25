@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const db = require("../config/db");
 const bcrypt = require("bcrypt");
 const aquaFarmModel = require("./farm/aqFarm_model");
 const { Schema } = mongoose;
@@ -38,6 +37,15 @@ const userSchema = new Schema({
     unique: true,
   },
   address: {
+    type: String,
+  },
+  town: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
+  country: {
     type: String,
   },
   farmName: {
