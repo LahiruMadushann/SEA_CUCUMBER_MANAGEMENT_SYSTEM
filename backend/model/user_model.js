@@ -39,6 +39,15 @@ const userSchema = new Schema({
   address: {
     type: String,
   },
+  town: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
   farmName: {
     type: String,
   },

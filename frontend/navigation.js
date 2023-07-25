@@ -12,6 +12,7 @@ import AquacultureStartupScreen from './screens/AquacultureStartupScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import AquacultureRegisterScreen from './screens/AquacultureRegisterScreen';
 import FisheriesRegisterScreen from './screens/FisheriesRegisterScreen';
+import FarmerRegisterScreen from './screens/FarmerRegisterScreen';
 import UserRegisterScreen from './screens/UserRegisterScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import PopupScreen from './components/PopupScreen';
@@ -22,6 +23,7 @@ import ContactUsScreen from './screens/ContactUsScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import UpdateNewPasswordScreen from './screens/UpdateNewPasswordScreen';
+
 
 export default function Navigation() {
     return (
@@ -41,6 +43,7 @@ export default function Navigation() {
                 <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />
                 <Stack.Screen name="AquaRegister" component={AquacultureRegisterScreen} />
                 <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
+                <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
                 <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
                 <Stack.Screen name="Notification" component={NotificationScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
