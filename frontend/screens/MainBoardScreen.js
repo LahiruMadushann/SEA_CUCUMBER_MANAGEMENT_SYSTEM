@@ -17,12 +17,12 @@ export default function MainBoardScreen() {
                 <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3]  rounded-b-full ">
                     <View className="flex-row mt-[-74vw]">
 
-                        <View className="mt-[112vw]">
+                        <View className="mt-[112vw] ml-[66vw]">
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('UserProfile')}
                             >
                                 <View className="flex m-[auto] ">
-                                    <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] ml-[68vw]" />
+                                    <Image source={require('../assets/profile.png')} className=" w-[24.21875px] h-[24.21875px] " />
 
                                 </View>
                             </TouchableOpacity>

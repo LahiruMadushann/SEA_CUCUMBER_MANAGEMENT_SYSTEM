@@ -9,14 +9,14 @@ export default function FisheriesStartupScreen() {
     return (
         <ScrollView className="flex-grow bg-white">
             <SafeAreaView >
-                <View className="absolute w-[162vw] h-[108vh] left-[-130px] top-[-114px] bg-[#5A73F3]  rounded-b-full ">
+                <View className="absolute w-[162vw] h-[108vh] left-[-31vw] top-[-20vh] bg-[#5A73F3]  rounded-b-full ">
 
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AquaStart')}
                     >
-                        <View className="flex m-[auto] ">
-                            <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] mt-[39vw] ml-[334px]" />
+                        <View className="flex m-[auto] mt-[29vh]">
+                            <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[80vw]" />
 
                         </View>
                     </TouchableOpacity>
@@ -34,7 +34,7 @@ export default function FisheriesStartupScreen() {
                     </View>
 
                 </View>
-                <View className="mt-[150vw]">
+                <View className="mt-[90vh]">
                     <Text className="text-[15px] text-center text-[#0013C087] font-bold ">Swipe up for visiting Dashboad</Text>
                     <Text className="text-center text-[#5A73F3] ">----------------------------------</Text>
                 </View>
