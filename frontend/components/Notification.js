@@ -14,8 +14,8 @@ for (let i = 0; i < 4; i++) {
             </View>
 
             <View className="flex ml-[2.5vw]">
-                <Image source={require('../assets/notification/bell.png')} className="w-[18px] h-[20px] ml-[39px] mt-[1vw]" />
-                <Text className="text-center text-[11px] font-bold flex-auto mt-[-5vw] ml-[-12vw] ">Today Offers for Fisher-mans</Text>
+                <Image source={require('../assets/notification/bell.png')} className="w-[18px] h-[20px] ml-[9.8vw] mt-[1vw]" />
+                <Text className=" text-[11px] font-bold flex-auto mt-[-5vw] ml-[17vw] ">Today Offers for Fisher-mans</Text>
             </View>
         </TouchableOpacity>
     );
