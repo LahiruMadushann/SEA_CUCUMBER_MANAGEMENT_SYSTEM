@@ -54,7 +54,7 @@ export default function LoginScreen() {
           <TextInput
             className="p-4 border-b text-gray-700  w-64  mb-3"
             value=""
-            placeholder="Enter Username here"
+            placeholder="Enter Email here"
           />
 
           <TextInput
