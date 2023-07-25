@@ -7,13 +7,16 @@ exports.registerFarmer = async (req, res, next) => {
     const {
       username,
       password,
-      subRole,
       firstName,
       lastName,
       age,
       gender,
+      email,
       contactNo,
       address,
+      town,
+      province,
+      country,
       farmName,
       farmId,
     } = req.body;
@@ -23,22 +26,27 @@ exports.registerFarmer = async (req, res, next) => {
     }
 
     const profilepic = req.file.filename;
+    const createdAt = new Date().toISOString();
 
     const successResFarmer = await farmerService.registerFarmer(
       username,
       password,
       "Farmer",
-      subRole,
       firstName,
       lastName,
       age,
       gender,
+      email,
       contactNo,
       address,
+      town,
+      province,
+      country,
+      "Inactive",
       farmName,
       farmId,
-      "Inactive",
-      profilepic
+      profilepic,
+      createdAt
     );
 
     res.json({ status: true, success: successResFarmer });
