@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const db = require("../config/db");
 const bcrypt = require("bcrypt");
 const aquaFarmModel = require("./farm/aqFarm_model");
 const { Schema } = mongoose;

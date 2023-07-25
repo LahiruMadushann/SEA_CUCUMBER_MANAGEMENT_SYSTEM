@@ -6,28 +6,28 @@ const { Schema } = mongoose;
 const knowledgeCenterSchema = new Schema({
   speciestype: {
     type: String,
-    required: true,
     unique: true,
   },
+
+  scientificName: {
+    type: String,
+    unique: true,
+  },
+
   description: {
     type: String,
-    required: true,
   },
   habitatsAndFeeding: {
     type: String,
-    required: true,
   },
   reproductionAndLifecycle: {
     type: String,
-    required: true,
   },
   fishingMethods: {
     type: String,
-    required: true,
   },
   images: {
     type: String,
-    required: true,
   },
 });
 

@@ -13,7 +13,7 @@
 
 // const adminModel = require("../model/admin_model");
 const UserModel = require("../model/user_model");
-const bcrypt = require("bcrypt");
+const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
 
 class AdminService {
   //REGISTER ADMIN ACCOUNTS
@@ -124,6 +124,35 @@ class AdminService {
       _id: id,
     });
     return deleteAquaMngLevelUser;
+  }
+
+  /*----------------------------------------------------------------------*/
+  //OPERATIONS RELATED TO KNOWLEDGE CENTER
+
+  static async enterIndividualSeacucumberDetails(
+    sc_speciesType,
+    sc_scientificName,
+    sc_description,
+    sc_habitatsAndFeeding,
+    sc_reproductionAndLifecycle,
+    sc_fishingMethods,
+    sc_seacucumberImages
+  ) {
+    try {
+      const enterSpeciesDetails = new knowledgeCenterModel({
+        speciesType: sc_speciesType,
+        scientificName: sc_scientificName,
+        description: sc_description,
+        habitatsAndFeeding: sc_habitatsAndFeeding,
+        reproductionAndLifecycle: sc_reproductionAndLifecycle,
+        fishingMethods: sc_fishingMethods,
+        images: sc_seacucumberImages,
+      });
+
+      return await enterSpeciesDetails.save();
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

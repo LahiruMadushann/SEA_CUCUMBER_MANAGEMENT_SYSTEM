@@ -126,3 +126,51 @@ exports.deleteAqFarmManagementUser = async (req, res, next) => {
     next(error);
   }
 };
+
+//OPERATIONS RELATED TO KNOWLEDGE CENTER
+
+exports.enterSeacucumberDetails = async (req, res, next) => {
+  try {
+    const {
+      speciesType,
+      scientificName,
+      description,
+      habitatsAndFeeding,
+      reproductionAndLifecycle,
+      fishingMethods,
+    } = req.body;
+
+    // let seacucumberImages;
+
+    // if(req.files){
+    //   let path = ""
+    //   req.files.foreach(function(files, index, arr){
+    //     path = path + files.path + ','
+    //   })
+    //   path = path.substring(0, path.lastIndexOf(","))
+    //   seacucumberImages = path;
+
+    // }
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const seacucumberImages = req.file.filename;
+
+    const enterSpeciesDetails =
+      await adminService.enterIndividualSeacucumberDetails(
+        speciesType,
+        scientificName,
+        description,
+        habitatsAndFeeding,
+        reproductionAndLifecycle,
+        fishingMethods,
+        seacucumberImages
+      );
+
+    res.json({ status: true, success: enterSpeciesDetails });
+  } catch (error) {
+    next(error);
+  }
+};
