@@ -25,25 +25,25 @@ export default function UserProfileScreen() {
 
       <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
 
-        <View className="flex-row">
+        <View className="flex-row ml-[70vw]">
 
-          <View className="mt-[100vw] ml-[4vw]">
+          <View className="mt-[101vw] ">
             <TouchableOpacity
               onPress={() => navigation.navigate('MainBoard')}
             >
               <View className="flex m-[auto] ">
-                <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
+                <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] " />
 
               </View>
             </TouchableOpacity>
           </View>
 
-          <View className="mt-[101.5vw] ml-[11vw]">
+          <View className="mt-[101.5vw] ml-[76vw]">
             <TouchableOpacity
               onPress={() => navigation.navigate('AquaRegister')}
             >
               <View className="flex m-[auto] ">
-                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] ml-[280px]" />
+                <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] " />
 
               </View>
             </TouchableOpacity>
@@ -55,13 +55,13 @@ export default function UserProfileScreen() {
         {/* User Profile  */}
         <View className="flex-row">
 
-          <View className="mt-[4vw] ml-[15vw]">
+          <View className="mt-[6vw] ml-[80vw]">
             <TouchableOpacity
               onPress={() => navigation.navigate('Register')}
             >
               <View className="flex m-[auto] ">
 
-                <Image source={require('../assets/user/user.png')} className=" w-[61px] h-[61px] ml-[265px]" />
+                <Image source={require('../assets/user/user.png')} className=" w-[61px] h-[61px] " />
 
               </View>
             </TouchableOpacity>
