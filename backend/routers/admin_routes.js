@@ -2,7 +2,13 @@ const router = require("express").Router();
 const adminController = require("../controller/admin_controller");
 const userController = require("../controller/user_controller");
 
-router.post("/admin/register", adminController.register);
+const imageMiddleware = require("../middleware/profilepic_middleware");
+
+router.post(
+  "/admin/register",
+  imageMiddleware.single("profilePic"),
+  adminController.register
+);
 
 router.put("/admin/update", adminController.updateAdminDetails);
 
@@ -13,6 +19,7 @@ router.post("/admin/changePassword", userController.changePassword);
 //To create Aquaculture Management Users
 router.post(
   "/admin/createAqUser",
+  imageMiddleware.single("profilePic"),
   adminController.registerAqFarmManagementUsers
 );
 

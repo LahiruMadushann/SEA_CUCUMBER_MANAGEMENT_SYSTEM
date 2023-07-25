@@ -3,8 +3,22 @@ const bcrypt = require("bcrypt");
 
 exports.register = async (req, res, next) => {
   try {
-    const { username, password, firstName, lastName, contactNo, address } =
-      req.body;
+    const {
+      username,
+      password,
+      firstName,
+      lastName,
+      age,
+      gender,
+      contactNo,
+      address,
+    } = req.body;
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const profilepic = req.file.filename;
 
     const successResFarm = await adminService.registerAdmin(
       username,
@@ -12,11 +26,14 @@ exports.register = async (req, res, next) => {
       "Admin",
       firstName,
       lastName,
+      age,
+      gender,
       contactNo,
-      address
+      address,
+      profilepic
     );
 
-    res.json({ status: true, success: "Admin registered successfully" });
+    res.json({ status: true, success: successResFarm });
   } catch (error) {
     next(error);
   }
@@ -47,27 +64,37 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       username,
       password,
       role,
-      age,
       subRole,
       firstName,
       lastName,
+      age,
+      gender,
       contactNo,
       address,
     } = req.body;
 
-    const successResFarm = await adminService.registerAqFarmMangementLevelUsers(
-      username,
-      password,
-      role,
-      age,
-      subRole,
-      firstName,
-      lastName,
-      contactNo,
-      address
-    );
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
 
-    res.json({ status: true, success: successResFarm });
+    const profilepic = req.file.filename;
+
+    const aquaFarmMngUsers =
+      await adminService.registerAqFarmMangementLevelUsers(
+        username,
+        password,
+        role,
+        subRole,
+        firstName,
+        lastName,
+        age,
+        gender,
+        contactNo,
+        address,
+        profilepic
+      );
+
+    res.json({ status: true, success: aquaFarmMngUsers });
   } catch (error) {
     next(error);
   }

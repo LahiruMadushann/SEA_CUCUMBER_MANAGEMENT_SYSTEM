@@ -4,7 +4,7 @@ const db = require("../../config/db");
 const { Schema } = mongoose;
 
 const knowledgeCenterSchema = new Schema({
-  type: {
+  speciestype: {
     type: String,
     required: true,
     unique: true,
@@ -31,6 +31,9 @@ const knowledgeCenterSchema = new Schema({
   },
 });
 
-const knowledgeCenterModel = mongoose.model("knowledgeCenter", knowledgeCenterSchema);
+const knowledgeCenterModel = mongoose.model(
+  "knowledgeCenter",
+  knowledgeCenterSchema
+);
 
 module.exports = knowledgeCenterModel;
