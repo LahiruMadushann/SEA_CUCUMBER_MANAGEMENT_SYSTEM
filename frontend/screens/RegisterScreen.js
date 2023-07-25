@@ -76,7 +76,7 @@ export default function RegisterScreen() {
 
           {/*REGISTER AS A FISHERMAN */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("UserRegister")}
+            onPress={() => navigation.navigate("FishermanRegister")}
             className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
           >
             <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
@@ -101,7 +101,7 @@ export default function RegisterScreen() {
 
           {/*REGISTER AS A EXPORTER */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("AquaRegister")}
+            onPress={() => navigation.navigate("ExporterRegister")}
             className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
           >
             <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
@@ -126,7 +126,7 @@ export default function RegisterScreen() {
 
           {/*REGISTER AS A FISH PROCESSOR */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("UserRegister")}
+            onPress={() => navigation.navigate("FishProcessorRegister")}
             className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]"
           >
             <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">

@@ -63,7 +63,7 @@ export default function FisheriesRegisterScreen() {
 
         <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
           <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-            Farmer Registration
+            Exporter Registration
           </Text>
         </View>
       </View>
@@ -164,13 +164,6 @@ export default function FisheriesRegisterScreen() {
       </View>
 
       <View className="p-4 mx-auto w-[80vw] mt-[25vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] ">
-        <Text className="text-lg font-bold mb-4">Farm Details</Text>
-        <TextInput
-          className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-          value={farmName}
-          onChangeText={setFarmName}
-          placeholder="Farm Name"
-        />
       </View>
 
       <View className="mt-[4vh]">

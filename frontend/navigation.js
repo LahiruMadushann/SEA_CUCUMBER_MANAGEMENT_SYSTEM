@@ -9,11 +9,10 @@ import LoginScreen from './screens/LoginScreen';
 import AquacultureScreen from './screens/AquacultureScreen';
 import FisheriesStartupScreen from './screens/FisheriesStartupScreen';
 import AquacultureStartupScreen from './screens/AquacultureStartupScreen';
+
 import RegisterScreen from './screens/RegisterScreen';
-import AquacultureRegisterScreen from './screens/AquacultureRegisterScreen';
-import FisheriesRegisterScreen from './screens/FisheriesRegisterScreen';
-import FarmerRegisterScreen from './screens/FarmerRegisterScreen';
-import UserRegisterScreen from './screens/UserRegisterScreen';
+import FishermanRegisterScreen from './screens/FisheriesRegisterScreen';
+
 import UserProfileScreen from './screens/UserProfileScreen';
 import PopupScreen from './components/PopupScreen';
 import SwitchScreen from './screens/SwitchScreen';
@@ -23,6 +22,11 @@ import ContactUsScreen from './screens/ContactUsScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import UpdateNewPasswordScreen from './screens/UpdateNewPasswordScreen';
+
+{/*REGISTRATION SCREEN */}
+import FarmerRegisterScreen from './screens/FarmerRegisterScreen';
+import ExporterRegisterScreen from './screens/ExporterRegisterScreen';
+import FishProcessorRegisterScreen from './screens/FishProcessorRegisterScreen';
 
 
 export default function Navigation() {
@@ -41,10 +45,12 @@ export default function Navigation() {
                 <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
                 <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
                 <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />
-                <Stack.Screen name="AquaRegister" component={AquacultureRegisterScreen} />
-                <Stack.Screen name="FishRegister" component={FisheriesRegisterScreen} />
+
+                <Stack.Screen name="FishermanRegister" component={FishermanRegisterScreen} />
                 <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
-                <Stack.Screen name="UserRegister" component={UserRegisterScreen} />
+                <Stack.Screen name="ExporterRegister" component={ExporterRegisterScreen} />
+                <Stack.Screen name="FishProcessorRegister" component={FishProcessorRegisterScreen} />
+
                 <Stack.Screen name="Notification" component={NotificationScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                 <Stack.Screen name="UpdatePassword" component={UpdateNewPasswordScreen} />
