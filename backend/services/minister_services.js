@@ -25,12 +25,6 @@ class ministerService {
     return "Successfully updated Minister details";
   }
 
-  // //GET INDIVIDUAL MINISTER DETAILS
-  // static async getMinisterDetails(userId) {
-  //   const ministerDetails = await userModel.findById({ _id: userId });
-  //   return ministerDetails;
-  // }
-
   //ENTER NEW RULES AND REGULATIONS
   static async enterNewsRulesRegulations(
     description,

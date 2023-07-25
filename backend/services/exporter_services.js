@@ -10,11 +10,17 @@ class exporterService {
     password,
     role,
     age,
+    gender,
+    email,
     firstName,
     lastName,
     contactNo,
     address,
-    profilepic
+    town,
+    province,
+    country,
+    profilepic,
+    createdAt
   ) {
     try {
       const createExporter = new userModel({
@@ -22,11 +28,17 @@ class exporterService {
         password,
         role,
         age,
+        gender,
+        email,
         firstName,
         lastName,
         contactNo,
         address,
+        town,
+        province,
+        country,
         profilepic,
+        createdAt,
       });
 
       return await createExporter.save();
