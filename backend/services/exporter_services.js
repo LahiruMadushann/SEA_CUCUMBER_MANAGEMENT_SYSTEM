@@ -1,7 +1,6 @@
 const userModel = require("../model/user_model");
 const aquaFarmDetailsModel = require("../model/farm/aqFarm_model");
-
-const bcrypt = require("bcrypt");
+const emailService = require("./email_services");
 
 class exporterService {
   //REEGISTER EXPORTER DETAILS
@@ -23,6 +22,18 @@ class exporterService {
     createdAt
   ) {
     try {
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi," +
+        firstName +
+        " " +
+        lastName +
+        "\n" +
+        "Your Exporter Account has be successfully created";
+
+      emailService.sendAccountConfirmationEmail(recipient, subject, text);
+
       const createExporter = new userModel({
         username,
         password,
