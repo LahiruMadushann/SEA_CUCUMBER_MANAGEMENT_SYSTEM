@@ -10,6 +10,7 @@ exports.register = async (req, res, next) => {
       lastName,
       age,
       gender,
+      email,
       contactNo,
       address,
     } = req.body;
@@ -28,6 +29,7 @@ exports.register = async (req, res, next) => {
       lastName,
       age,
       gender,
+      email,
       contactNo,
       address,
       profilepic
@@ -64,19 +66,24 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       username,
       password,
       role,
-      subRole,
-      firstName,
-      lastName,
+      subrole,
       age,
       gender,
+      email,
+      firstName,
+      lastName,
       contactNo,
       address,
+      town,
+      province,
+      country,
     } = req.body;
 
     if (req.file === undefined) {
       return res.json({ status: false, success: "you must select a file" });
     }
 
+    const createdAt = new Date().toISOString();
     const profilepic = req.file.filename;
 
     const aquaFarmMngUsers =
@@ -84,14 +91,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         username,
         password,
         role,
-        subRole,
-        firstName,
-        lastName,
+        subrole,
         age,
         gender,
+        email,
+        firstName,
+        lastName,
         contactNo,
         address,
-        profilepic
+        town,
+        province,
+        country,
+        profilepic,
+        createdAt
       );
 
     res.json({ status: true, success: aquaFarmMngUsers });

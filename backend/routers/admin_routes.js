@@ -8,7 +8,7 @@ const seaCucumberImagesMiddleware = require("../middleware/speciesImages_middlew
 
 router.post(
   "/admin/register",
-  imageMiddleware.single("profilePic"),
+  imageMiddleware.single("profilepic"),
   adminController.register
 );
 
@@ -22,7 +22,7 @@ router.post("/admin/changePassword", userController.changePassword);
 //To create Aquaculture Management Users
 router.post(
   "/admin/createAqUser",
-  imageMiddleware.single("profilePic"),
+  imageMiddleware.single("profilepic"),
   adminController.registerAqFarmManagementUsers
 );
 

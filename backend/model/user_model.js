@@ -26,7 +26,7 @@ const userSchema = new Schema({
     type: String,
   },
   age: {
-    type: String,
+    type: Number,
   },
   gender: {
     type: String,
@@ -48,6 +48,9 @@ const userSchema = new Schema({
   country: {
     type: String,
   },
+  email: {
+    type: String,
+  },
   farmName: {
     type: String,
   },
@@ -60,6 +63,9 @@ const userSchema = new Schema({
   },
   profilepic: {
     type: String,
+  },
+  createdAt: {
+    type: Date,
   },
   tokens: [{ type: Object }],
 });

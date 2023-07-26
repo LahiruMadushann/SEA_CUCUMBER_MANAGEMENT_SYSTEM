@@ -3,8 +3,20 @@ const exporterService = require("../services/exporter_services");
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
   try {
-    const { username, password, age, firstName, lastName, contactNo, address } =
-      req.body;
+    const {
+      username,
+      password,
+      age,
+      gender,
+      email,
+      firstName,
+      lastName,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+    } = req.body;
 
     if (req.file === undefined) {
       return res.json({ status: false, success: "you must select a file" });
@@ -12,16 +24,24 @@ exports.registerExporter = async (req, res, next) => {
 
     const profilepic = req.file.filename;
 
+    const createdAt = new Date().toISOString();
+
     const successResExporter = await exporterService.registerExporter(
       username,
       password,
       "Exporter",
       age,
+      gender,
+      email,
       firstName,
       lastName,
       contactNo,
       address,
-      profilepic
+      town,
+      province,
+      country,
+      profilepic,
+      createdAt
     );
 
     res.json({ status: true, success: successResExporter });

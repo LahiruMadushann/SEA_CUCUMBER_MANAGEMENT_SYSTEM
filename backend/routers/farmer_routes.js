@@ -6,7 +6,7 @@ const imageMiddleware = require("../middleware/profilepic_middleware");
 
 router.post(
   "/farmer/register",
-  imageMiddleware.single("profilePic"),
+  imageMiddleware.single("profilepic"),
   farmerController.registerFarmer
 );
 

@@ -10,34 +10,42 @@ class farmerService {
     username,
     password,
     role,
-    subrole,
     firstName,
     lastName,
     age,
     gender,
+    email,
     contactNo,
     address,
+    town,
+    province,
+    country,
+    accountStatus,
     farmName,
     farmId,
-    accountStatus,
-    profilepic
+    profilepic,
+    createdAt
   ) {
     try {
       const createFarmer = new userModel({
         username,
         password,
         role,
-        subrole,
         firstName,
         lastName,
         age,
         gender,
+        email,
         contactNo,
         address,
+        town,
+        province,
+        country,
+        accountStatus,
         farmName,
         farmId,
-        accountStatus,
         profilepic,
+        createdAt,
       });
 
       return await createFarmer.save();
