@@ -12,8 +12,8 @@ class userService {
 
   //CHANGE USER PASSWORD
   static async changePassword(userId, newpassword) {
-    let msg;
     try {
+      let msg;
       const salt = await bcrypt.genSalt(10);
       const hashpass = await bcrypt.hash(newpassword, salt);
 

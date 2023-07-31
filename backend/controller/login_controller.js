@@ -1,4 +1,5 @@
 const loginService = require("../services/login_services");
+const userService = require("../services/user_services");
 const bcrypt = require("bcrypt");
 const userModel = require("../model/user_model");
 const jwt = require("jsonwebtoken");
@@ -173,7 +174,7 @@ exports.signout = async (req, res) => {
   }
 };
 
-exports.forgotPassword = async (req, res) => {
+exports.forgotPasswordOTPSend = async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -237,6 +238,27 @@ exports.otpVerification = async (req, res) => {
           message: "Enter New Password to recover account",
         });
       }
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
+
+exports.forgotPasswordChange = async (req, res) => {
+  try {
+    const { userId, newPassword, confirmPassword } = req.body;
+
+    if (newPassword == "" || confirmPassword == "") {
+      res.json({ status: "FAILED", message: "Please Enter a value" });
+    } else if (newPassword != confirmPassword) {
+      res.json({ status: "FAILED", message: "New Password doesn't match" });
+    } else {
+      let passwordChanged = await userService.changePassword(
+        userId,
+        newPassword
+      );
+      res.json({ status: true, success: passwordChanged });
     }
   } catch (error) {
     res.status(400).send(error.message);
