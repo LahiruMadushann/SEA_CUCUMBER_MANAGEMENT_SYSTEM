@@ -49,6 +49,9 @@ const aquaFarmingDetailsSchema = new Schema({
     required: true,
     unique: true,
   },
+  date: {
+    type: Date,
+  },
 });
 
 const aquaFarmingDetailsModel = mongoose.model(

@@ -15,6 +15,8 @@ exports.insertFarmingDetails = async (req, res, next) => {
       diseases,
     } = req.body;
 
+    const date = new Date().toISOString();
+
     let farmingData = await districtAquaCulturistService.insertFarmingDetails(
       farmId,
       stock,
@@ -24,7 +26,8 @@ exports.insertFarmingDetails = async (req, res, next) => {
       harvest,
       size,
       survival,
-      diseases
+      diseases,
+      date
     );
     res.json({ status: true, success: farmingData });
   } catch (error) {

@@ -172,3 +172,44 @@ exports.signout = async (req, res) => {
     res.json({ success: true, message: "Sign out successfully!" });
   }
 };
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (email == "") {
+      res.json({ status: "FAILED", message: "Please Enter a email" });
+    } else {
+      let data = await loginService.checkuserByEmail(email);
+
+      if (data == "null") {
+        res.json({
+          status: "FAILED",
+          message: "Email not registered in any account",
+        });
+      } else {
+        let userId = data.id;
+        let userName = data.username;
+        let firstName = data.firstName;
+        let lastName = data.lastName;
+
+        var sendEmail = loginService.updateOtpandSendEmail(
+          userId,
+          userName,
+          firstName,
+          lastName,
+          email
+        );
+
+        res.status(400).json({
+          status: "SUCCESS",
+          message: "Reset Code sent to " + email,
+          data: email,
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
