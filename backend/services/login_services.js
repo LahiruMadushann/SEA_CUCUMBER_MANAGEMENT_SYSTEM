@@ -48,7 +48,7 @@ class loginService {
     }
   }
 
-  //UPDATE EXPORTER ACCOUNT DETAILS
+  //SEND OTP TO EMAIL
   static async updateOtpandSendEmail(
     userId,
     username,
@@ -81,6 +81,28 @@ class loginService {
       }
     );
     return "Successfully send OTP";
+  }
+
+  //CONFIRM OTP OF THE USER
+  static async getOtp(userId) {
+    const getOtp = await userModel.findById(userId);
+
+    const otpDB = getOtp.otp;
+    return otpDB;
+  }
+
+  //DELETE OTP OF THE USER
+  static async deleteOtp(userId, otp) {
+    const deleteOtp = await userModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        $unset: {
+          otp: otp,
+        },
+      }
+    );
+
+    return deleteOtp;
   }
 }
 

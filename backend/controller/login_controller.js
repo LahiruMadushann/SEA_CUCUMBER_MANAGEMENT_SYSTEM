@@ -205,6 +205,36 @@ exports.forgotPassword = async (req, res) => {
           status: "SUCCESS",
           message: "Reset Code sent to " + email,
           data: email,
+          userId,
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
+
+exports.otpVerification = async (req, res) => {
+  try {
+    const { otp, userId } = req.body;
+
+    if (otp == "") {
+      res.json({ status: "FAILED", message: "Please Enter a OTP" });
+    } else {
+      let otpDB = await loginService.getOtp(userId);
+
+      if (otp != otpDB) {
+        res.json({
+          status: "FAILED",
+          message: "Incorrect OTP entered",
+        });
+      } else {
+        var deleteOtp = loginService.deleteOtp(userId, otp);
+
+        res.status(400).json({
+          status: "SUCCESS",
+          message: "Enter New Password to recover account",
         });
       }
     }
