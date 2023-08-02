@@ -100,7 +100,8 @@ class aquaFramMngUsersService {
     extend,
     gpsCoordinates,
     farmInternal,
-    establishmentDate
+    establishmentDate,
+    date
   ) {
     try {
       const createFarm = new aqFarmModel({
@@ -115,6 +116,7 @@ class aquaFramMngUsersService {
         gpsCoordinates,
         farmInternal,
         establishmentDate,
+        date,
       });
 
       return await createFarm.save();

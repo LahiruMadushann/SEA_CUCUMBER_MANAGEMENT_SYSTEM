@@ -11,6 +11,7 @@ class FarmDashboardService {
     return allFarmDetails;
   }
 
+  //GET ALL FARMERS DETAILS
   static async getAllFarmersDetails() {
     const allFarmersDetails = await UserModel.find({ role: "Farmer" });
     return allFarmersDetails;

@@ -3,7 +3,6 @@ const aqFarmModel = require("../model/farm/aqFarm_model");
 const advertisementModel = require("../model/farm/advertisement_model");
 
 class districtAquaCulturistService {
-  //UPDATE FARMING DETAILS
   static async insertFarmingDetails(
     farmId,
     stock,
