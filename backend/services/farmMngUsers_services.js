@@ -28,7 +28,9 @@ class aquaFramMngUsersService {
 
   //GET INDIVIDUAL AQUAFARMUSER DETAILS
   static async getAquaFarmUserDetails(userId) {
-    const AquaFarmUserDetails = await UserModel.findById({ _id: userId });
+    const AquaFarmUserDetails = await UserModel.findById({
+      _id: userId,
+    });
     return AquaFarmUserDetails;
   }
 

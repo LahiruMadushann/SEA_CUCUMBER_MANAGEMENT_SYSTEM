@@ -124,20 +124,82 @@ exports.getAqAllFarmManagementUsers = async (req, res, next) => {
   }
 };
 
-exports.deleteAqFarmManagementUser = async (req, res, next) => {
+/* -------------------- FARM DETAILS - ADMIN CONTROLLERS ------------------- */
+
+exports.getAqAllFarms = async (req, res, next) => {
+  try {
+    let aqFarmDetails = await adminService.getAllAqFarms();
+    res.json({ status: true, success: aqFarmDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+exports.deleteAqFarm = async (req, res, next) => {
   try {
     const { userId } = req.body;
-    let deletedDetails = await adminService.deleteAqManagementUserById(userId);
+    let deletedDetails = await adminService.deleteFarmById(userId);
 
     res.json({
       status: true,
       success: "Successfully Deleted Aquaculture Management User",
+      message: deletedDetails,
     });
   } catch (error) {
     console.log(error, "err---->");
     next(error);
   }
 };
+
+/* -------------------- FARMER DETAILS - ADMIN CONTROLLERS ------------------- */
+
+exports.approveFarmerAccount = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    let approveAccount = await adminService.approveFarmerAc(userId);
+    res.json({ status: true, success: "Approved" });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+exports.getAllFarmers = async (req, res, next) => {
+  try {
+    let farmersDetails = await adminService.getAllFarmers();
+    res.json({ status: true, success: farmersDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+/* -------------------- FARMER DETAILS - ADMIN CONTROLLERS ------------------- */
+
+exports.getAllExporters = async (req, res, next) => {
+  try {
+    let exporterDetails = await adminService.getAllFarmers();
+    res.json({ status: true, success: farmersDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+/* -------------------- FISH PROCESSSORS DETAILS - ADMIN CONTROLLERS ------------------- */
+
+exports.getAllFishProcessors = async (req, res, next) => {
+  try {
+    let fishProcessorsDetails = await adminService.getFishProcessors();
+    res.json({ status: true, success: fishProcessorsDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DISTRICT AQUACULTURIST DETAILS - ADMIN CONTROLLERS
 
 //OPERATIONS RELATED TO KNOWLEDGE CENTER
 
