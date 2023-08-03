@@ -51,10 +51,7 @@ router.delete("/admin/deleteFarmer", userController.deleteUser);
 
 /* ---------------- CONTROLLING  EXPORTERS------------------ */
 
-router.get(
-  "/admin/getAllExporters",
-  adminController.getAqAllFarmManagementUsers
-);
+router.get("/admin/getAllExporters", adminController.getAllExporters);
 
 router.delete("/admin/deleteExporter", userController.deleteUser);
 

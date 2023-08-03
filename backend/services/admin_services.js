@@ -182,6 +182,18 @@ class AdminService {
 
   /* -------------- FOR EXPORTER MANAGEMENT ------------------ */
 
+  //Getting All Exporter Details
+  static async getExporters() {
+    const exportersDetails = await UserModel.find({
+      role: {
+        $in: ["Exporter"],
+      },
+    });
+    return exportersDetails;
+  }
+
+  /* -------------- FOR FISH PROCESSOR MANAGEMENT ------------------ */
+
   //Getting All Fish Processors Details
   static async getFishProcessors() {
     const fishProcessorsDetails = await UserModel.find({
