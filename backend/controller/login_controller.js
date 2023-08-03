@@ -1,4 +1,5 @@
 const loginService = require("../services/login_services");
+const userService = require("../services/user_services");
 const bcrypt = require("bcrypt");
 const userModel = require("../model/user_model");
 const jwt = require("jsonwebtoken");
@@ -170,5 +171,97 @@ exports.signout = async (req, res) => {
 
     await userModel.findByIdAndUpdate(req.userInfo._id, { tokens: newTokens });
     res.json({ success: true, message: "Sign out successfully!" });
+  }
+};
+
+exports.forgotPasswordOTPSend = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (email == "") {
+      res.json({ status: "FAILED", message: "Please Enter a email" });
+    } else {
+      let data = await loginService.checkuserByEmail(email);
+
+      if (data == "null") {
+        res.json({
+          status: "FAILED",
+          message: "Email not registered in any account",
+        });
+      } else {
+        let userId = data.id;
+        let userName = data.username;
+        let firstName = data.firstName;
+        let lastName = data.lastName;
+
+        var sendEmail = loginService.updateOtpandSendEmail(
+          userId,
+          userName,
+          firstName,
+          lastName,
+          email
+        );
+
+        res.status(400).json({
+          status: "SUCCESS",
+          message: "Reset Code sent to " + email,
+          data: email,
+          userId,
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
+
+exports.otpVerification = async (req, res) => {
+  try {
+    const { otp, userId } = req.body;
+
+    if (otp == "") {
+      res.json({ status: "FAILED", message: "Please Enter a OTP" });
+    } else {
+      let otpDB = await loginService.getOtp(userId);
+
+      if (otp != otpDB) {
+        res.json({
+          status: "FAILED",
+          message: "Incorrect OTP entered",
+        });
+      } else {
+        var deleteOtp = loginService.deleteOtp(userId, otp);
+
+        res.status(400).json({
+          status: "SUCCESS",
+          message: "Enter New Password to recover account",
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
+  }
+};
+
+exports.forgotPasswordChange = async (req, res) => {
+  try {
+    const { userId, newPassword, confirmPassword } = req.body;
+
+    if (newPassword == "" || confirmPassword == "") {
+      res.json({ status: "FAILED", message: "Please Enter a value" });
+    } else if (newPassword != confirmPassword) {
+      res.json({ status: "FAILED", message: "New Password doesn't match" });
+    } else {
+      let passwordChanged = await userService.changePassword(
+        userId,
+        newPassword
+      );
+      res.json({ status: true, success: passwordChanged });
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+    next(error);
   }
 };

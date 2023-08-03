@@ -14,6 +14,7 @@
 // const adminModel = require("../model/admin_model");
 const UserModel = require("../model/user_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
+const FarmModel = require("../model/farm/aqFarm_model");
 
 class AdminService {
   //REGISTER ADMIN ACCOUNTS
@@ -76,7 +77,7 @@ class AdminService {
     return adminDetails;
   }
 
-  /* OPERATIONS IN ADMIN - FOR AQUACULTURE MANAGEMENT LEVEL USERS */
+  /* FOR AQUACULTURE MANAGEMENT LEVEL USERS */
 
   //Registering Aquaculture Management users
   static async registerAqFarmMangementLevelUsers(
@@ -125,17 +126,70 @@ class AdminService {
 
   //Getting Aquaculture Management users
   static async getAllAqManagementUsers() {
-    const aqMngUserDetails = await UserModel.find();
-    console.log(aqMngUserDetails);
+    const aqMngUserDetails = await UserModel.find({
+      role: {
+        $in: [
+          "Minister",
+          "Chairman",
+          "Director General",
+          "Assitant Director",
+          "District Aquaculturist",
+        ],
+      },
+    });
+    // console.log(aqMngUserDetails);
     return aqMngUserDetails;
   }
 
+  /* -------------- FOR FARM MANAGEMENT ------------------ */
+
+  //Getting All Farm Details
+  static async getAllAqFarms() {
+    const aqFarmDetails = await FarmModel.find();
+    return aqFarmDetails;
+  }
+
   //Deleting Aquaculture Management users
-  static async deleteAqManagementUserById(id) {
-    const deleteAquaMngLevelUser = await UserModel.findByIdAndDelete({
+  static async deleteFarmById(id) {
+    const deleteFarmDetails = await FarmModel.findByIdAndDelete({
       _id: id,
     });
-    return deleteAquaMngLevelUser;
+    return deleteFarmDetails;
+  }
+
+  /* -------------- FOR FARMER MANAGEMENT ------------------ */
+
+  //Approve Farmer Account
+  static async approveFarmerAc(userId) {
+    const updateAccountStatus = await UserModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        accountStatus: "Active",
+      }
+    );
+    return updateAccountStatus;
+  }
+
+  //Getting All Farmer Details
+  static async getAllFarmers() {
+    const FarmerDetails = await UserModel.find({
+      role: {
+        $in: ["Farmer"],
+      },
+    });
+    return FarmerDetails;
+  }
+
+  /* -------------- FOR EXPORTER MANAGEMENT ------------------ */
+
+  //Getting All Fish Processors Details
+  static async getFishProcessors() {
+    const fishProcessorsDetails = await UserModel.find({
+      role: {
+        $in: ["FishProcessor"],
+      },
+    });
+    return fishProcessorsDetails;
   }
 
   /*----------------------------------------------------------------------*/

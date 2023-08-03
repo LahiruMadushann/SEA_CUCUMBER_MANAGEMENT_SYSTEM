@@ -92,6 +92,8 @@ exports.registerFarm = async (req, res, next) => {
       establishmentDate,
     } = req.body;
 
+    const date = new Date().toISOString();
+
     const successResFarm = await farmMngUserService.registerFarm(
       name,
       address,
@@ -103,7 +105,8 @@ exports.registerFarm = async (req, res, next) => {
       extend,
       gpsCoordinates,
       farmInternal,
-      establishmentDate
+      establishmentDate,
+      date
     );
 
     res.json({ status: true, success: "Farm registered successfully" });

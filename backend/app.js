@@ -11,6 +11,8 @@ const MinisterRoute = require("./routers/minister_routes");
 const districtAquaCulturistRoute = require("./routers/districtAquaCulturist_routes");
 const farmerRoute = require("./routers/farmer_routes");
 
+const farmDashboardRoute = require("./routers/farmDashboard_routes");
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -33,6 +35,8 @@ app.use("/", fishProcesserRoute);
 app.use("/", MinisterRoute);
 app.use("/", districtAquaCulturistRoute);
 app.use("/", farmerRoute);
+
+app.use("/", farmDashboardRoute);
 
 app.use("/image", express.static("images"));
 app.use(errHandler);

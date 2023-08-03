@@ -32,7 +32,7 @@ class exporterService {
         "\n" +
         "Your Exporter Account has be successfully created";
 
-      emailService.sendAccountConfirmationEmail(recipient, subject, text);
+      emailService.sendEmail(recipient, subject, text);
 
       const createExporter = new userModel({
         username,

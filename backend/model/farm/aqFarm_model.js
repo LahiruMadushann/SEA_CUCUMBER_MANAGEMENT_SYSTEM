@@ -49,6 +49,9 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+  },
 });
 
 const aquaFarmModel = mongoose.model("aquaFarm", aquaFarmSchema);

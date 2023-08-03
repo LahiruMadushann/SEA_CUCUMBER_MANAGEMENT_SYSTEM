@@ -3,7 +3,6 @@ const aqFarmModel = require("../model/farm/aqFarm_model");
 const advertisementModel = require("../model/farm/advertisement_model");
 
 class districtAquaCulturistService {
-  //UPDATE FARMING DETAILS
   static async insertFarmingDetails(
     farmId,
     stock,
@@ -13,7 +12,8 @@ class districtAquaCulturistService {
     harvest,
     size,
     survival,
-    diseases
+    diseases,
+    date
   ) {
     try {
       const farmingDetails = new aqFarmingDetailsModel({
@@ -26,6 +26,7 @@ class districtAquaCulturistService {
         size,
         survival,
         diseases,
+        date,
       });
       return await farmingDetails.save();
     } catch (error) {

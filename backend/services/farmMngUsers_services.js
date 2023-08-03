@@ -28,7 +28,9 @@ class aquaFramMngUsersService {
 
   //GET INDIVIDUAL AQUAFARMUSER DETAILS
   static async getAquaFarmUserDetails(userId) {
-    const AquaFarmUserDetails = await UserModel.findById({ _id: userId });
+    const AquaFarmUserDetails = await UserModel.findById({
+      _id: userId,
+    });
     return AquaFarmUserDetails;
   }
 
@@ -100,7 +102,8 @@ class aquaFramMngUsersService {
     extend,
     gpsCoordinates,
     farmInternal,
-    establishmentDate
+    establishmentDate,
+    date
   ) {
     try {
       const createFarm = new aqFarmModel({
@@ -115,6 +118,7 @@ class aquaFramMngUsersService {
         gpsCoordinates,
         farmInternal,
         establishmentDate,
+        date,
       });
 
       return await createFarm.save();

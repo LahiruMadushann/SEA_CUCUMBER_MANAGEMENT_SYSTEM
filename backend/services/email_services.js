@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
 
 class exporterService {
   //REEGISTER EXPORTER DETAILS
-  static async sendAccountConfirmationEmail(recipient, subject, text) {
+  static async sendEmail(recipient, subject, text) {
     try {
       var mailOptions = {
         from: "cst19041@std.uwu.ac.lk",
@@ -24,7 +24,9 @@ class exporterService {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log(
+            "Email sent: " + info.response + "\nSend to: " + recipient
+          );
         }
       });
     } catch (err) {

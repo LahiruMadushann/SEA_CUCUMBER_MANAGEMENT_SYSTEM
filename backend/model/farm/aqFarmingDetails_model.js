@@ -10,44 +10,31 @@ const aquaFarmingDetailsSchema = new Schema({
     ref: aquaFarmModel.modelName,
   },
   stock: {
-    type: String,
-    required: true,
-    unique: true,
+    type: Number,
   },
   stockingDates: {
     type: String,
-    required: true,
-    unique: true,
   },
   hatchery: {
     type: String,
-    required: true,
-    unique: true,
   },
   hatcheryBatch: {
     type: String,
-    required: true,
-    unique: true,
   },
   harvest: {
     type: String,
-    required: true,
-    unique: true,
   },
   size: {
     type: String,
-    required: true,
-    unique: true,
   },
   survival: {
     type: String,
-    required: true,
-    unique: true,
   },
   diseases: {
     type: String,
-    required: true,
-    unique: true,
+  },
+  date: {
+    type: Date,
   },
 });
 
