@@ -187,6 +187,18 @@ exports.getAllExporters = async (req, res, next) => {
   }
 };
 
+/* -------------------- EXPORTER DETAILS - ADMIN CONTROLLERS ------------------- */
+
+exports.getAllExporters = async (req, res, next) => {
+  try {
+    let exportersDetails = await adminService.getExporters();
+    res.json({ status: true, success: exportersDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 /* -------------------- FISH PROCESSSORS DETAILS - ADMIN CONTROLLERS ------------------- */
 
 exports.getAllFishProcessors = async (req, res, next) => {

@@ -5,11 +5,11 @@ var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "cst19041@std.uwu.ac.lk",
-    pass: "Jmp2251271",
+    pass: "********",
   },
 });
 
-class exporterService {
+class emailService {
   //REEGISTER EXPORTER DETAILS
   static async sendEmail(recipient, subject, text) {
     try {
@@ -35,4 +35,4 @@ class exporterService {
   }
 }
 
-module.exports = exporterService;
+module.exports = emailService;

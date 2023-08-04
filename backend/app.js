@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 
+const cors = require("cors");
+
 const UserRoute = require("./routers/login_router");
 const adminRoute = require("./routers/admin_routes");
 const farmMngUsersRoute = require("./routers/farmMngUsers_routes");
@@ -15,6 +17,7 @@ const farmDashboardRoute = require("./routers/farmDashboard_routes");
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 //GLOBAL ERROR HANDLING

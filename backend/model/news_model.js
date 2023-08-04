@@ -21,11 +21,11 @@ const newsSchema = new Schema({
   },
 
   rates: {
-    type: String,
+    type: Number,
   },
 
   date: {
-    type: String,
+    type: Date,
     required: true,
   },
 

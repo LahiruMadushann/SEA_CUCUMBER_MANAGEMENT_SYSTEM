@@ -44,7 +44,7 @@ export default function LoginScreen() {
 
 
                     <View >
-                        <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[12vw]">Login</Text>
+                        <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[12vw]">Login</Text>z
                     </View>
                 </View>
 
