@@ -61,7 +61,7 @@ class fishProcesserService {
         address: address,
       }
     );
-    return "Successfully updated Fish Processer details";
+    return updateFishProcesserDetails;
   }
 
   //GET INDIVIDUAL FISH PROCESSER DETAILS
