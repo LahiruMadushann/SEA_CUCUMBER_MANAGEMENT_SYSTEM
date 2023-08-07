@@ -63,7 +63,7 @@ export default function FisheriesRegisterScreen() {
 
         <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
           <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-            Exporter Registration
+            Fish Processor Registration
           </Text>
         </View>
       </View>
@@ -163,8 +163,7 @@ export default function FisheriesRegisterScreen() {
         />
       </View>
 
-      <View className="p-4 mx-auto w-[80vw] mt-[25vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] ">
-      </View>
+      <View className="p-4 mx-auto w-[80vw] mt-[25vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] "></View>
 
       <View className="mt-[4vh]">
         <FooterBar />

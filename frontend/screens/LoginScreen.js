@@ -33,7 +33,7 @@ export default function LoginScreen() {
 
             <View className="mt-[24.6vh] ml-[72vw]">
               <TouchableOpacity
-                onPress={() => navigation.navigate("AquaRegister")}
+                onPress={() => navigation.navigate("MainBoard")}
               >
                 <View className="flex m-[auto] ">
                   <Image

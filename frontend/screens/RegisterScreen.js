@@ -18,7 +18,7 @@ export default function RegisterScreen() {
       <SafeAreaView>
         <View className="absolute w-[149.2vw] h-[35vh] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
           <View className="mt-[18vw]">
-            <TouchableOpacity onPress={() => navigation.navigate("AquaStart")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <View className="flex m-[auto] ">
                 <Image
                   source={require("../assets/fisheries/dotIcon.png")}
