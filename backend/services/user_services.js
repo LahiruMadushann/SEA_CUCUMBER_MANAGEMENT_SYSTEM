@@ -25,9 +25,9 @@ class userService {
       );
 
       if (changePassword) {
-        msg = "Successfully updated Password";
+        msg = true;
       } else {
-        msg = "Error when updating Password";
+        msg = false;
       }
 
       return msg;
