@@ -73,6 +73,19 @@ exports.updateFarm = async (req, res, next) => {
   }
 };
 
+//GETTING ALL AQUA CULTURE FARM DETAILS
+exports.getAllAquaFarmDetails = async (req, res, next) => {
+  try {
+    let allAquaFarmDetails =
+      await districtAquaCulturistService.getAllAquaFarms();
+
+    res.json({ status: true, success: allAquaFarmDetails });
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //CREATE ADVERTISEMENT FOR VACANCIES OR PROMOTIONS
 exports.createAdvertisement = async (req, res, next) => {
   try {

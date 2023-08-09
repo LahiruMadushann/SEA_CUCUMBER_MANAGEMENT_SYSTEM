@@ -66,6 +66,12 @@ class districtAquaCulturistService {
     return "Successfully updated Farm details";
   }
 
+  //GETTING ALL AQUACULTURE FARM DETAILS
+  static async getAllAquaFarms() {
+    const allAquaFarmDetails = await aqFarmModel.find();
+    return allAquaFarmDetails;
+  }
+
   //CREATE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS
   static async createAdvertisement(
     type,

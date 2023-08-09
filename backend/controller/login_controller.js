@@ -37,56 +37,79 @@ exports.login = async (req, res, next) => {
                       role: data.role,
                       username: data.username,
                       firstName: data.firstName,
-                    };
-                  } else if (data.role == "Chairman") {
-                    tokenData = {
-                      _id: data._id,
-                      role: data.role,
-                      username: data.username,
+                      age: data.age,
+                      gender: data.gender,
+                      email: data.email,
+                      contactNo: data.contactNo,
                       address: data.address,
                     };
-                  } else if (data.role == "DG") {
+                  } else if (
+                    data.role == "Chairman" ||
+                    data.role == "DG" ||
+                    data.role == "AssistantDirector" ||
+                    data.role == "DistrictAquaculturist"
+                  ) {
                     tokenData = {
                       _id: data._id,
-                      role: data.role,
                       username: data.username,
-                      address: data.address,
-                    };
-                    a;
-                  } else if (data.role == "AssistantDirector") {
-                    tokenData = {
-                      _id: data._id,
                       role: data.role,
-                      username: data.username,
+                      subrole: data.subrole,
+                      age: data.age,
+                      gender: data.gender,
+                      email: data.email,
+                      firstName: data.firstName,
+                      lastName: data.lastName,
+                      contactNo: data.contactNo,
                       address: data.address,
-                    };
-                  } else if (data.role == "DistrictAquaculturist") {
-                    tokenData = {
-                      _id: data._id,
-                      role: data.role,
-                      username: data.username,
-                      address: data.address,
+                      town: data.town,
+                      province: data.province,
+                      country: data.country,
+                      profilepic: data.profilepic,
+                      createdAt: data.createdAt,
                     };
                   } else if (data.role == "Farmer") {
                     tokenData = {
                       _id: data._id,
-                      role: data.role,
                       username: data.username,
+                      role: data.role,
+                      subrole: data.subrole,
+                      age: data.age,
+                      gender: data.gender,
+                      email: data.email,
+                      firstName: data.firstName,
+                      lastName: data.lastName,
+                      contactNo: data.contactNo,
                       address: data.address,
+                      town: data.town,
+                      province: data.province,
+                      country: data.country,
+                      farmId: data.farmId,
+                      farmName: data.farmName,
+                      accountStatus: data.accountStatus,
+                      profilepic: data.profilepic,
+                      createdAt: data.createdAt,
                     };
-                  } else if (data.role == "Exporter") {
+                  } else if (
+                    data.role == "Exporter" ||
+                    data.role == "FishProcessor"
+                  ) {
                     tokenData = {
                       _id: data._id,
-                      role: data.role,
                       username: data.username,
-                      address: data.address,
-                    };
-                  } else if (data.role == "FishProcessor") {
-                    tokenData = {
-                      _id: data._id,
                       role: data.role,
-                      username: data.username,
+                      subrole: data.subrole,
+                      age: data.age,
+                      gender: data.gender,
+                      email: data.email,
+                      firstName: data.firstName,
+                      lastName: data.lastName,
+                      contactNo: data.contactNo,
                       address: data.address,
+                      town: data.town,
+                      province: data.province,
+                      country: data.country,
+                      profilepic: data.profilepic,
+                      createdAt: data.createdAt,
                     };
                   }
 

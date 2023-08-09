@@ -74,10 +74,13 @@ exports.updateFarmer = async (req, res, next) => {
   }
 };
 
-//GETTING AQUA CULTURE FARM DETAILS
+
+
+//GETTING RELEVANT AQUACULTURE FARM OF THE FARMER
 exports.getAquaFarmDetails = async (req, res, next) => {
   try {
-    let aquaFarmDetails = await farmerService.getAllAquaFarms();
+    const { farmId } = req.body;
+    let aquaFarmDetails = await farmerService.getIndividFarmDetails(farmId);
 
     res.json({ status: true, success: aquaFarmDetails });
   } catch (error) {

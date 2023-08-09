@@ -82,11 +82,13 @@ class farmerService {
     return farmerDetails;
   }
 
-  //GETTING AQUACULTURE FARM DETAILS
-  static async getAllAquaFarms() {
-    const aquaFarmDetails = await farmModel.find();
-    return aquaFarmDetails;
+  //GET RELEVANT INDIVIDUAL FARM DETAILS
+  static async getIndividFarmDetails(farmId) {
+    const farmDetails = await farmModel.findById({ _id: farmId });
+    return farmDetails;
   }
+
+
 
   //GETTING FARM RELATED NEWS DETAILS
   static async getAquaFarmsNews() {
