@@ -73,7 +73,7 @@ class farmerService {
         address: address,
       }
     );
-    return "Successfully updated farmer details";
+    return updateFarmerDetails;
   }
 
   //GET INDIVIDUAL FARMER DETAILS
@@ -87,8 +87,6 @@ class farmerService {
     const farmDetails = await farmModel.findById({ _id: farmId });
     return farmDetails;
   }
-
-
 
   //GETTING FARM RELATED NEWS DETAILS
   static async getAquaFarmsNews() {

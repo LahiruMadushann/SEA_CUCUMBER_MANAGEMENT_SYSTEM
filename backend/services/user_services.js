@@ -7,13 +7,12 @@ class userService {
   //DELETE USER ACCOUNT
   static async deleteUserAccount(userId) {
     const deleteAccount = await userModel.findByIdAndDelete(userId);
-    return "Successfully deleted Account";
+    return deleteAccount;
   }
 
   //CHANGE USER PASSWORD
   static async changePassword(userId, newpassword) {
     try {
-      let msg;
       const salt = await bcrypt.genSalt(10);
       const hashpass = await bcrypt.hash(newpassword, salt);
 
@@ -24,13 +23,7 @@ class userService {
         }
       );
 
-      if (changePassword) {
-        msg = true;
-      } else {
-        msg = false;
-      }
-
-      return msg;
+      return changePassword;
     } catch (err) {
       throw err;
     }

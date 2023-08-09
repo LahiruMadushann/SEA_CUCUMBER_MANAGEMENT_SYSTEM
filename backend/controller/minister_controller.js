@@ -12,7 +12,11 @@ exports.updateMinister = async (req, res, next) => {
       contactNo,
       address
     );
-    res.json({ status: true, success: updateMinisterDetails });
+    if (updateMinisterDetails) {
+      res.status(200).json({ success: true, message: "Updated Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -26,17 +30,31 @@ exports.enterNews = async (req, res, next) => {
 
     let data = await ministerService.getMinisterDetails(userId);
 
-    let postedBy = data.firstName;
-    let role = data.role;
+    if (data) {
+      let postedBy = data.firstName;
+      let role = data.role;
 
-    const successResFarm = await ministerService.enterNewsRulesRegulations(
-      description,
-      type,
-      date,
-      role,
-      postedBy,
-      postedTo
-    );
+      const enterNews = await ministerService.enterNewsRulesRegulations(
+        description,
+        type,
+        date,
+        role,
+        postedBy,
+        postedTo
+      );
+
+      if (enterNews) {
+        res
+          .status(200)
+          .json({ success: true, message: "News entered successfully" });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: "News entered Unsuccessfully" });
+      }
+    } else {
+      res.status(400).json({ success: false, message: "Auuthor not found" });
+    }
 
     res.json({ status: true, success: "News Posted successfully" });
   } catch (error) {

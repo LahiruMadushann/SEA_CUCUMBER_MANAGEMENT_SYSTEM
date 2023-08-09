@@ -69,7 +69,7 @@ class AdminService {
         address: address,
       }
     );
-    return "Successfully updated admin details";
+    return updateadminDetails;
   }
 
   static async getAdminDetails(userId) {

@@ -23,7 +23,7 @@ class aquaFramMngUsersService {
         address: address,
       }
     );
-    return "Successfully updated Farm Management User details";
+    return updateFarmMngUsers;
   }
 
   //GET INDIVIDUAL AQUAFARMUSER DETAILS

@@ -63,7 +63,7 @@ class districtAquaCulturistService {
         establishmentDate: establishmentDate,
       }
     );
-    return "Successfully updated Farm details";
+    return updateFarmDetails;
   }
 
   //GETTING ALL AQUACULTURE FARM DETAILS

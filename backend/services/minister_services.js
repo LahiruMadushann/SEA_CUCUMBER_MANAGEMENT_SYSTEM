@@ -22,7 +22,7 @@ class ministerService {
         address: address,
       }
     );
-    return "Successfully updated Minister details";
+    return updateMinisterDetails;
   }
 
   //ENTER NEW RULES AND REGULATIONS

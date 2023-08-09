@@ -75,7 +75,8 @@ class exporterService {
         address: address,
       }
     );
-    return "Successfully updated exporter details";
+
+    return updateExporterDetails;
   }
 
   //GET INDIVIDUAL EXPORTER DETAILS

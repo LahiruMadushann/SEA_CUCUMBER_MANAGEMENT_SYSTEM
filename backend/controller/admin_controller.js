@@ -16,7 +16,9 @@ exports.register = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res
+        .status(400)
+        .json({ success: false, message: "you must select a file" });
     }
 
     const profilepic = req.file.filename;
@@ -35,7 +37,15 @@ exports.register = async (req, res, next) => {
       profilepic
     );
 
-    res.json({ status: true, success: successResFarm });
+    if (successResFarm) {
+      res
+        .status(200)
+        .json({ success: true, message: "Admin account successfully created" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Error during saving process" });
+    }
   } catch (error) {
     next(error);
   }
@@ -51,7 +61,15 @@ exports.updateAdminDetails = async (req, res, next) => {
       contactNo,
       address
     );
-    res.json({ status: true, success: updatedadminDetails });
+    if (updatedadminDetails) {
+      res
+        .status(200)
+        .json({ success: true, message: "Admin details updated successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, success: "Error during updating process" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -106,7 +124,17 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         createdAt
       );
 
-    res.json({ status: true, success: aquaFarmMngUsers });
+    if (aquaFarmMngUsers) {
+      res.status(201).json({
+        success: true,
+        message: "User account has been created successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "User account creation was unsuccessful",
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -116,8 +144,11 @@ exports.getAqAllFarmManagementUsers = async (req, res, next) => {
   try {
     let aqMnguserDetails = await adminService.getAllAqManagementUsers();
 
-    // console.log(aqMnguserDetails);
-    res.json({ status: true, success: aqMnguserDetails });
+    if (aqMnguserDetails) {
+      res.status(200).json({ success: true, data: aqMnguserDetails });
+    } else {
+      res.status(204).json({ success: false, message: "No data Found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -129,7 +160,16 @@ exports.getAqAllFarmManagementUsers = async (req, res, next) => {
 exports.getAqAllFarms = async (req, res, next) => {
   try {
     let aqFarmDetails = await adminService.getAllAqFarms();
-    res.json({ status: true, success: aqFarmDetails });
+
+    if (aqFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found farm details",
+        data: aqFarmDetails,
+      });
+    } else {
+      res.status(204).json({ success: false, message: "No farm data found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -141,11 +181,15 @@ exports.deleteAqFarm = async (req, res, next) => {
     const { userId } = req.body;
     let deletedDetails = await adminService.deleteFarmById(userId);
 
-    res.json({
-      status: true,
-      success: "Successfully Deleted Aquaculture Management User",
-      message: deletedDetails,
-    });
+    if (deletedDetails) {
+      res
+        .status(200)
+        .json({ success: true, message: "Successfully deleted Farm" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Error occured while deletind farm" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -158,7 +202,14 @@ exports.approveFarmerAccount = async (req, res, next) => {
   try {
     const { userId } = req.body;
     let approveAccount = await adminService.approveFarmerAc(userId);
-    res.json({ status: true, success: "Approved" });
+
+    if (approveAccount) {
+      res.status(200).json({ success: true, message: "Approved" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Error in approving account" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -168,19 +219,16 @@ exports.approveFarmerAccount = async (req, res, next) => {
 exports.getAllFarmers = async (req, res, next) => {
   try {
     let farmersDetails = await adminService.getAllFarmers();
-    res.json({ status: true, success: farmersDetails });
-  } catch (error) {
-    console.log(error, "err---->");
-    next(error);
-  }
-};
 
-/* -------------------- FARMER DETAILS - ADMIN CONTROLLERS ------------------- */
-
-exports.getAllExporters = async (req, res, next) => {
-  try {
-    let exporterDetails = await adminService.getAllFarmers();
-    res.json({ status: true, success: farmersDetails });
+    if (farmersDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found farmers details",
+        data: farmersDetails,
+      });
+    } else {
+      res.status(400).json({ success: false, message: "No farmer data found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -192,7 +240,18 @@ exports.getAllExporters = async (req, res, next) => {
 exports.getAllExporters = async (req, res, next) => {
   try {
     let exportersDetails = await adminService.getExporters();
-    res.json({ status: true, success: exportersDetails });
+
+    if (exportersDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found exporters details",
+        data: exportersDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No exporter data found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -204,7 +263,18 @@ exports.getAllExporters = async (req, res, next) => {
 exports.getAllFishProcessors = async (req, res, next) => {
   try {
     let fishProcessorsDetails = await adminService.getFishProcessors();
-    res.json({ status: true, success: fishProcessorsDetails });
+
+    if (fishProcessorsDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Fish Processors details",
+        data: fishProcessorsDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No Fish Processor data found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -239,7 +309,9 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
     // }
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res
+        .status(400)
+        .json({ success: false, message: "you must select a file" });
     }
 
     const seacucumberImages = req.file.filename;
@@ -255,7 +327,17 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
         seacucumberImages
       );
 
-    res.json({ status: true, success: enterSpeciesDetails });
+    if (enterSpeciesDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Species Details entered Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during saving species details",
+      });
+    }
   } catch (error) {
     next(error);
   }
