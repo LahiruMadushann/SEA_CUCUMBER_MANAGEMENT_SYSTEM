@@ -10,7 +10,13 @@ router.post(
   exporterController.registerExporter
 );
 
-router.put("/exporter/update", exporterController.updateExporter);
+router.put("/exporter/update", userController.updateUser);
+
+router.put(
+  "/exporter/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.delete("/exporter/delete", userController.deleteUser);
 

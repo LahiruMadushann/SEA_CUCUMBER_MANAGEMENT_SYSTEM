@@ -10,7 +10,13 @@ router.post(
   farmerController.registerFarmer
 );
 
-router.put("/farmer/update", farmerController.updateFarmer);
+router.put("/farmer/update", userController.updateUser);
+
+router.put(
+  "/farmer/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.delete("/farmer/delete", userController.deleteUser);
 

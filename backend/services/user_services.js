@@ -34,6 +34,51 @@ class userService {
     const userDetails = await userModel.findById({ _id: userId });
     return userDetails;
   }
+
+  //UPDATE USER
+  static async updateUserDetails(
+    userId,
+    firstName,
+    lastName,
+    age,
+    gender,
+    email,
+    contactNo,
+    address,
+    town,
+    province,
+    country,
+    updatedAt
+  ) {
+    const updateUserDetails = await userModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        age: age,
+        gender: gender,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        contactNo: contactNo,
+        address: address,
+        town: town,
+        province: province,
+        country: country,
+        updatedAt: updatedAt,
+      }
+    );
+    return updateUserDetails;
+  }
+
+  //UPDATE PROFILE PIC
+  static async updateProfilePic(userId, profilepic) {
+    const updateProPic = await userModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        profilepic: profilepic,
+      }
+    );
+    return updateProPic;
+  }
 }
 
 module.exports = userService;

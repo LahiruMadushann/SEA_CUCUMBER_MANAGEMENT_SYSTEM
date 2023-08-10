@@ -3,14 +3,41 @@ const ministerService = require("../services/minister_services");
 //UPDATE MINISTER DETAILS CONTROLLER
 exports.updateMinister = async (req, res, next) => {
   try {
-    const { userId, firstName, lastName, age, contactNo, address } = req.body;
-    let updateMinisterDetails = await ministerService.updateMinisterDetails(
+    const {
       userId,
+      age,
+      gender,
+      email,
       firstName,
       lastName,
-      age,
       contactNo,
-      address
+      address,
+      town,
+      province,
+      country,
+    } = req.body;
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const profilepic = req.file.filename;
+    const updatedAt = new Date().toISOString();
+
+    let updateMinisterDetails = await ministerService.updateMinisterDetails(
+      userId,
+      age,
+      gender,
+      email,
+      firstName,
+      lastName,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+      profilepic,
+      updatedAt
     );
     if (updateMinisterDetails) {
       res.status(200).json({ success: true, message: "Updated Successfully" });

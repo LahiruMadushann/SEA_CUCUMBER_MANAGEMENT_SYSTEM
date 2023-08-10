@@ -94,19 +94,95 @@ exports.getUserDetails = async (req, res, next) => {
   }
 };
 
-//UPLOAD IMAGES
-exports.uploadImage = async (req, res, next) => {
+//UPDATE USER DETAILS CONTROLLER
+exports.updateUser = async (req, res, next) => {
   try {
-    if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+    const {
+      userId,
+      age,
+      gender,
+      email,
+      firstName,
+      lastName,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+    } = req.body;
+
+    const updatedAt = new Date().toISOString();
+
+    let updateUserDetails = await userService.updateUserDetails(
+      userId,
+      firstName,
+      lastName,
+      age,
+      gender,
+      email,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+      updatedAt
+    );
+    if (updateUserDetails) {
+      res.status(200).json({ success: true, message: "Updated Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
     }
-    const imgUrl = `http://localhost:3000/images/${req.file.filename}`;
-    // console.log(imgUrl);
-
-    const successResFarm = await userService.saveImage(req.file.filename);
-
-    res.json({ status: true, success: req.file });
   } catch (error) {
+    console.log(error, "err---->");
     next(error);
   }
 };
+
+//UPDATE USER Profile Picture CONTROLLER
+exports.updateProfilePic = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const profilepic = req.file.filename;
+
+    let updateProfilepic = await userService.updateProfilePic(
+      userId,
+      profilepic
+    );
+    if (updateProfilepic) {
+      res.status(200).json({
+        success: true,
+        message: "Profile Piicture Updated Successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Profile Piicture Update Unsuccessful",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//UPLOAD IMAGES
+// exports.uploadImage = async (req, res, next) => {
+//   try {
+//     if (req.file === undefined) {
+//       return res.json({ status: false, success: "you must select a file" });
+//     }
+//     const imgUrl = `http://localhost:3000/images/${req.file.filename}`;
+//     // console.log(imgUrl);
+
+//     const successResFarm = await userService.saveImage(req.file.filename);
+
+//     res.json({ status: true, success: req.file });
+//   } catch (error) {
+//     next(error);
+//   }
+// };

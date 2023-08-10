@@ -4,7 +4,13 @@ const userController = require("../controller/user_controller");
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
 
-router.put("/minister/update", ministerController.updateMinister);
+router.put("/minister/update", userController.updateUser);
+
+router.put(
+  "/minister/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.delete("/minister/delete", userController.deleteUser);
 

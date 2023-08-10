@@ -3,23 +3,38 @@ const newsModel = require("../model/news_model");
 const bcrypt = require("bcrypt");
 
 class ministerService {
+  
   //UPDATE MINISTER ACCOUNT DETAILS
   static async updateMinisterDetails(
     userId,
+    age,
+    gender,
+    email,
     firstName,
     lastName,
-    age,
     contactNo,
-    address
+    address,
+    town,
+    province,
+    country,
+    profilepic,
+    updatedAt
   ) {
     const updateMinisterDetails = await userModel.findByIdAndUpdate(
       { _id: userId },
       {
+        age: age,
+        gender: gender,
+        email: email,
         firstName: firstName,
         lastName: lastName,
         contactNo: contactNo,
-        age: age,
         address: address,
+        town: town,
+        province: province,
+        country: country,
+        profilepic: profilepic,
+        updatedAt: updatedAt,
       }
     );
     return updateMinisterDetails;

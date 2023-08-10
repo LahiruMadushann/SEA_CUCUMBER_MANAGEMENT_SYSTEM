@@ -67,6 +67,9 @@ const userSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  updatedAt: {
+    type: Date,
+  },
   otp: {
     type: String,
   },
