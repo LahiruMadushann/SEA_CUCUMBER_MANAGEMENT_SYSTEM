@@ -68,7 +68,7 @@ export default function LoginScreen() {
           />
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate("MainBoard")}>
+        <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
           <View className="w-[275px] h-[46px] mx-auto mt-[6vw]">
             <Text className="bg-[#0013C0] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
               Login

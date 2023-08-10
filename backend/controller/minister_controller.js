@@ -1,54 +1,27 @@
 const ministerService = require("../services/minister_services");
 
-//UPDATE MINISTER DETAILS CONTROLLER
-exports.updateMinister = async (req, res, next) => {
-  try {
-    const {
-      userId,
-      age,
-      gender,
-      email,
-      firstName,
-      lastName,
-      contactNo,
-      address,
-      town,
-      province,
-      country,
-    } = req.body;
-
-    if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
-    }
-
-    const profilepic = req.file.filename;
-    const updatedAt = new Date().toISOString();
-
-    let updateMinisterDetails = await ministerService.updateMinisterDetails(
-      userId,
-      age,
-      gender,
-      email,
-      firstName,
-      lastName,
-      contactNo,
-      address,
-      town,
-      province,
-      country,
-      profilepic,
-      updatedAt
-    );
-    if (updateMinisterDetails) {
-      res.status(200).json({ success: true, message: "Updated Successfully" });
-    } else {
-      res.status(400).json({ success: false, message: "Update Unsuccessful" });
-    }
-  } catch (error) {
-    console.log(error, "err---->");
-    next(error);
-  }
-};
+// //UPDATE MINISTER DETAILS CONTROLLER
+// exports.updateMinister = async (req, res, next) => {
+//   try {
+//     const { userId, firstName, lastName, age, contactNo, address } = req.body;
+//     let updateMinisterDetails = await ministerService.updateMinisterDetails(
+//       userId,
+//       firstName,
+//       lastName,
+//       age,
+//       contactNo,
+//       address
+//     );
+//     if (updateMinisterDetails) {
+//       res.status(200).json({ success: true, message: "Updated Successfully" });
+//     } else {
+//       res.status(400).json({ success: false, message: "Update Unsuccessful" });
+//     }
+//   } catch (error) {
+//     console.log(error, "err---->");
+//     next(error);
+//   }
+// };
 
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterNews = async (req, res, next) => {
