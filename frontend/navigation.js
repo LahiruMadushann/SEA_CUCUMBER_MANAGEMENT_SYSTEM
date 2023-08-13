@@ -5,6 +5,8 @@ import { View, Text } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
+import MainBoardScreenAfterLogin from "./screens/MainBoardScreenAfterLogin";
+
 import LoginScreen from "./screens/LoginScreen";
 import AquacultureScreen from "./screens/AquacultureScreen";
 import FisheriesStartupScreen from "./screens/FisheriesStartupScreen";
@@ -17,6 +19,11 @@ import UserProfileScreen from "./screens/UserProfileScreen";
 import PopupScreen from "./components/PopupScreen";
 import SwitchScreen from "./screens/SwitchScreen";
 
+import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
+
+{
+  /*KNOWLEDGE CENTER SCREEN */
+}
 import KnowledgeCenterScreen from "./screens/KnowledgeCenter/KnowledgeCenterScreen";
 import KnowledgeCenterMainScreen from "./screens/KnowledgeCenter/KnowledgeCenterMainScreen";
 import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
@@ -50,6 +57,11 @@ export default function Navigation() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="MainBoard" component={MainBoardScreen} />
         <Stack.Screen
+          name="MainBoardScreenAfterLogin"
+          component={MainBoardScreenAfterLogin}
+        />
+        
+        <Stack.Screen
           name="MainFisheriesScreen"
           component={MainFisheriesScreen}
         />
@@ -59,12 +71,19 @@ export default function Navigation() {
           component={MainAquaFarmScreen}
         />
 
+        {/*USER PROFILE SCREENS*/}
+
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Switch" component={SwitchScreen} />
         <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
         <Stack.Screen name="Contact" component={ContactUsScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+
+        <Stack.Screen
+          name="UserProfileMainScreen"
+          component={UserProfileMainScreen}
+        />
 
         <Stack.Screen
           name="KnowledgeMain"

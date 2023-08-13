@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function PopupScreen() {
+export default function UserPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -29,10 +29,16 @@ export default function PopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[40vw] ">
           <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
-            <Text className="mx-[1vw]">Contact Us </Text>
+            <Text className="mx-[1vw]">Farm </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
-            <Text className="mx-[1vw]">Update Detail</Text>
+            <Text className="mx-[1vw]">Renew Password</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
+            <Text className="mx-[1vw]">Update</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
+            <Text className="mx-[1vw]">Logout</Text>
           </TouchableOpacity>
         </View>
       )}
