@@ -13,6 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
 import FooterBar from "../components/FooterBar";
+
+
+
 export default function FisheriesRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
@@ -31,6 +34,8 @@ export default function FisheriesRegisterScreen() {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [profilepic, setprofilepic] = useState("");
+
+ 
 
   return (
     <ScrollView className="flex-grow bg-white ">
@@ -81,7 +86,7 @@ export default function FisheriesRegisterScreen() {
         <TextInput
           className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
           value={password}
-          onChangeText={setPassword}
+          onChange={e => setPassword(e.target.valueOf)}
           placeholder="Enter Password"
         />
 
@@ -172,8 +177,20 @@ export default function FisheriesRegisterScreen() {
           placeholder="Farm Name"
         />
       </View>
+      <View>
+        <TouchableOpacity
+          className="rounded-[15px] w-[65vw] h-[6.2vh] p-2 bg-blue-800 justify-center items-center"
+          oonPress={() => {
+            // Call the registerFarmer function here
+            changePassword();
+          }}
+        >
+          <Text className="text-[18px] text-[#fff] font-bold">Submit</Text>
+        </TouchableOpacity>
+      </View>
 
       <View className="mt-[4vh]">
+      {/* registerFarmer */}
         <FooterBar />
       </View>
     </ScrollView>

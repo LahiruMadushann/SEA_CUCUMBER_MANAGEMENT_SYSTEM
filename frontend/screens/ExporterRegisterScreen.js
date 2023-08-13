@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+
 import {
   View,
   Text,
@@ -13,7 +15,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
 import FooterBar from "../components/FooterBar";
+import { registerExporter } from "../../backend/controller/exporter_controller";
+
+const handleSubmit = () => {
+  registerExporter();
+};
+
 export default function FisheriesRegisterScreen() {
+
+
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -161,10 +171,18 @@ export default function FisheriesRegisterScreen() {
           onChangeText={setprofilepic}
           placeholder="Select Picture"
         />
-      </View>
 
-      <View className="p-4 mx-auto w-[80vw] mt-[25vw]  rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-[25px] ">
+        
       </View>
+      <TouchableOpacity
+          
+          onPress={handleSubmit}
+          
+          className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[180px]"
+        >
+          <Text className="text-white text-[16px] h-[19px] font-bold mt-[-10] text-center">Submit</Text>
+        </TouchableOpacity>
+      
 
       <View className="mt-[4vh]">
         <FooterBar />
