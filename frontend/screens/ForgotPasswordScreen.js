@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,11 @@ import {
   SafeAreaView,
   Image,
   Button,
-} from 'react-native';
-import FooterBar from '../components/FooterBar';
-import { useNavigation } from '@react-navigation/native';
+} from "react-native";
+import FooterBar from "../components/FooterBar";
+import { useNavigation } from "@react-navigation/native";
 
-
-export default function ForgotPasswordScreen({phoneNumber}) {
-
+export default function ForgotPasswordScreen({ phoneNumber }) {
   const [countdown, setCountdown] = useState(30);
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export default function ForgotPasswordScreen({phoneNumber}) {
     // Verify OTP
   };
 
-
   const firstInput = useRef();
   const secondInput = useRef();
   const thirdInput = useRef();
@@ -38,54 +35,65 @@ export default function ForgotPasswordScreen({phoneNumber}) {
   const [otp, setOtp] = useState();
   const navigation = useNavigation();
 
-
   return (
     <ScrollView className="bg-[#fff]">
       <SafeAreaView>
-
         <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
           <View className="mt-[58vh] ">
             <View className="flex-row ">
               <View className=" ml-[72vw]">
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('GetANumber')}
+                  onPress={() => navigation.navigate("GetANumber")}
                 >
                   <View className="flex m-[auto] ">
-                    <Image source={require('../assets/main_board/arrow.png')} className=" w-[10.09216px] h-[15.62988px] " />
+                    <Image
+                      source={require("../assets/main_board/arrow.png")}
+                      className=" w-[10.09216px] h-[15.62988px] "
+                    />
                   </View>
                 </TouchableOpacity>
               </View>
 
               <View className=" ml-[72vw]">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Switch')}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
                   <View className="flex m-[auto] ">
-                    <Image source={require('../assets/fisheries/dotIcon.png')} className=" w-[24.21875px] h-[7.03125px] " />
+                    <Image
+                      source={require("../assets/fisheries/dotIcon.png")}
+                      className=" w-[24.21875px] h-[7.03125px] "
+                    />
                   </View>
                 </TouchableOpacity>
               </View>
             </View>
-            <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw]">Forgot Password</Text>
+            <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw]">
+              Forgot Password
+            </Text>
           </View>
         </View>
 
-        <View className="mt-[40vh]" >
+        <View className="mt-[40vh]">
           <View className="mx-[12vw]">
-            <Text className="text-[14px] text-[#000000A6]">Phone Verification {phoneNumber}</Text>
-            <Text className="text-[24px] font-bold text-[#000000A6]">Enter OTP Code</Text>
-            <Text className="text-[14px]">Enter your 4 digit code sent to you at +94 76 525 9905</Text>
-            <Text className="text-[14px] text-[#0013C0]">Did you enter the correct Number?</Text>
-
+            <Text className="text-[14px] text-[#000000A6]">
+              Email Verification {phoneNumber}
+            </Text>
+            <Text className="text-[24px] font-bold text-[#000000A6]">
+              Enter OTP Code
+            </Text>
+            <Text className="text-[14px]">
+              Enter your 4 digit code sent to you at nimal123@gmail.com
+            </Text>
+            <Text className="text-[14px] text-[#0013C0]">
+              Did you enter the correct Email?
+            </Text>
 
             <View className="my-[12vh]" style={styles.otpContainer}>
-              <View className="border-gray-400 border-b-gray-400 border-[0.5px] border-b-2 w-[38px] h-[57px]" >
+              <View className="border-gray-400 border-b-gray-400 border-[0.5px] border-b-2 w-[38px] h-[57px]">
                 <TextInput
                   className="text-center text-[26px] px-2 py-2"
                   keyboardType="number-pad"
                   maxLength={1}
                   ref={firstInput}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     setOtp({ ...otp, 1: text });
                     text && secondInput.current.focus();
                   }}
@@ -97,9 +105,11 @@ export default function ForgotPasswordScreen({phoneNumber}) {
                   keyboardType="number-pad"
                   maxLength={1}
                   ref={secondInput}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     setOtp({ ...otp, 2: text });
-                    text ? thirdInput.current.focus() : firstInput.current.focus();
+                    text
+                      ? thirdInput.current.focus()
+                      : firstInput.current.focus();
                   }}
                 />
               </View>
@@ -109,9 +119,11 @@ export default function ForgotPasswordScreen({phoneNumber}) {
                   keyboardType="number-pad"
                   maxLength={1}
                   ref={thirdInput}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     setOtp({ ...otp, 3: text });
-                    text ? fourthInput.current.focus() : secondInput.current.focus();
+                    text
+                      ? fourthInput.current.focus()
+                      : secondInput.current.focus();
                   }}
                 />
               </View>
@@ -121,7 +133,7 @@ export default function ForgotPasswordScreen({phoneNumber}) {
                   keyboardType="number-pad"
                   maxLength={1}
                   ref={fourthInput}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     setOtp({ ...otp, 4: text });
                     !text && thirdInput.current.focus();
                   }}
@@ -131,33 +143,40 @@ export default function ForgotPasswordScreen({phoneNumber}) {
             <TouchableOpacity
               className="bg-[#0013C0] rounded-[15px] mx-[20px] justify-center py-[10px] items-center mt-[20px]"
               onPress={
-                () => navigation.navigate('UpdatePassword')
+                () => navigation.navigate("UpdatePassword")
                 // () => console.log(otp)
-              }>
-              <Text className="text-[#fff] text-[18px] font-bold text-center" >Continue</Text>
+              }
+            >
+              <Text className="text-[#fff] text-[18px] font-bold text-center">
+                Continue
+              </Text>
             </TouchableOpacity>
 
             <View className="mt-[25px] mx-auto">
               {countdown > 0 ? (
-                <Text className="text-[16px] text-gray-700">Resend code in <Text className="text-[#0013C0] font-medium">{countdown} Seconds</Text></Text>
+                <Text className="text-[16px] text-gray-700">
+                  Resend code in{" "}
+                  <Text className="text-[#0013C0] font-medium">
+                    {countdown} Seconds
+                  </Text>
+                </Text>
               ) : (
                 <TouchableOpacity
                   className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
-                  onPress={() => { setCountdown(30) }}>
-                  <Text className="text-[#fff] text-[18px] font-bold text-center">Resend OTP</Text>
+                  onPress={() => {
+                    setCountdown(30);
+                  }}
+                >
+                  <Text className="text-[#fff] text-[18px] font-bold text-center">
+                    Resend OTP
+                  </Text>
                 </TouchableOpacity>
-
               )}
             </View>
-
           </View>
-
         </View>
 
-
-        <View>
-
-        </View>
+        <View></View>
 
         <View className="mt-[4vh]">
           <FooterBar />
@@ -165,7 +184,7 @@ export default function ForgotPasswordScreen({phoneNumber}) {
       </SafeAreaView>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -173,8 +192,8 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.DEFAULT_WHITE,
   },
   headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
@@ -183,7 +202,7 @@ const styles = StyleSheet.create({
     // fontFamily: Fonts.POPPINS_MEDIUM,
     lineHeight: 20 * 1.4,
     // width: Display.setWidth(80),
-    textAlign: 'center',
+    textAlign: "center",
   },
   title: {
     fontSize: 20,
@@ -209,9 +228,9 @@ const styles = StyleSheet.create({
   otpContainer: {
     marginHorizontal: 20,
     marginBottom: 20,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "row",
   },
   otpBox: {
     borderRadius: 0,
@@ -222,7 +241,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     // color: Colors.DEFAULT_BLACK,
     padding: 0,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
@@ -231,8 +250,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 20,
     // height: Display.setHeight(6),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
   },
   signinButtonText: {
@@ -242,4 +261,3 @@ const styles = StyleSheet.create({
     // fontFamily: Fonts.POPPINS_MEDIUM,
   },
 });
-

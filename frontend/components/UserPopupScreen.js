@@ -31,11 +31,15 @@ export default function UserPopupScreen() {
           <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
             <Text className="mx-[1vw]">Farm </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
-            <Text className="mx-[1vw]">Renew Password</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UpdatePasswordScreen")}
+          >
+            <Text className="mx-[1vw]">Update Password</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
-            <Text className="mx-[1vw]">Update</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UpdateUserScreen")}
+          >
+            <Text className="mx-[1vw]">Update Details</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
             <Text className="mx-[1vw]">Logout</Text>

@@ -1,3 +1,6 @@
+import axios from "axios";
+import { Alert } from "react-native";
+
 import {
   View,
   Text,
@@ -13,8 +16,43 @@ import FooterBar from "../components/FooterBar";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    // Assuming you have a backend API endpoint, replace 'YOUR_BACKEND_URL' with the actual URL
+    const backendUrl = "http://192.168.43.75:3000/login";
+
+    const userData = {
+      username: username,
+      password: password,
+    };
+    axios
+      .post(backendUrl, userData)
+      .then((response) => {
+        if (response.data.success) {
+          const token = response.data.token;
+          console.log("Token:", token);
+          // Handle successful login, possibly by navigating to another screen
+          navigation.navigate("MainBoardScreenAfterLogin");
+        } else {
+          // Show an alert for unsuccessful login
+          Alert.alert(
+            "Login Error",
+            "Unsuccessful login. Please check your credentials."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        // Handle login error, such as displaying an error message to the user
+        Alert.alert(
+          "Login Error",
+          "Unsuccessful login. Please check your credentials."
+        );
+      });
+  };
+
   return (
     <ScrollView className="flex-grow bg-white">
       <SafeAreaView>
@@ -55,9 +93,9 @@ export default function LoginScreen() {
         <View className="mt-[56vw] form space-y-2 mx-auto ">
           <TextInput
             className="p-4 border-b text-gray-700  w-64  mb-3"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Enter Email here"
+            value={username}
+            onChangeText={setUsername}
+            placeholder="Enter Username here"
           />
 
           <TextInput
@@ -68,9 +106,7 @@ export default function LoginScreen() {
           />
         </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("MainBoardScreenAfterLogin")}
-        >
+        <TouchableOpacity onPress={handleLogin}>
           <View className="w-[275px] h-[46px] mx-auto mt-[6vw]">
             <Text className="bg-[#0013C0] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
               Login
