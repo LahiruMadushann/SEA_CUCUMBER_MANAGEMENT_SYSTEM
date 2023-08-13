@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import PopupScreen from "../components/PopupScreen";
 import FooterBar from "../components/FooterBar";
 
-export default function MainBoardScreen() {
+export default function MainBoardScreenAfterLogin() {
   const navigation = useNavigation();
   return (
     <ScrollView className="flex-grow bg-white">
@@ -14,11 +14,10 @@ export default function MainBoardScreen() {
         {/* <StatusBar barStyle="dark-content" /> */}
 
         <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3]  rounded-b-full ">
-         
           <View className="flex-row mt-[-74vw]">
             <View className="mt-[112vw] ml-[66vw]">
               <TouchableOpacity
-                onPress={() => navigation.navigate("UserProfile")}
+                onPress={() => navigation.navigate("UserProfileMainScreen")}
               >
                 <View className="flex m-[auto] ">
                   <Image
@@ -109,25 +108,6 @@ export default function MainBoardScreen() {
               </Text>
             </View>
           </TouchableOpacity>
-          <View className="mt-[5vw] mx-auto">
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <View className="w-[73vw] h-[8vh]  ">
-                <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                  Login
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View className="mt-[1vw] mx-auto">
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <View className="w-[73vw] h-[8vh]  ">
-                <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                  Register
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
         </View>
         <View className="mt-[4vh]">
           <FooterBar />

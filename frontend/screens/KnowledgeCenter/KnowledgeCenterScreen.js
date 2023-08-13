@@ -8,47 +8,47 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import FooterBar from "../components/FooterBar";
+import FooterBar from "../../components/FooterBar";
 
 const data = [
   {
     id: 1,
-    title: "A Select",
+    title: "Holothuria scabra",
     image: "seaCucumberA.png",
     detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae.",
   },
   {
     id: 2,
-    title: "B Select",
+    title: "Holothuria atra",
     image: "seaCucumberA.png",
     detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Holothuria scabra Holothuria atra  Holothuria atramage of Holothuria atra  en.wikipedia.org  Holothuria atra, commonly known as the black sea cucumber or lollyfish",
   },
   {
     id: 3,
-    title: "C Select",
+    title: "Holothuria",
     image: "seaCucumberA.png",
     detail:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },
   {
     id: 4,
-    title: "D Select",
+    title: "Stichopus chloronotus",
     image: "seaCucumberA.png",
     detail:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },
   {
     id: 5,
-    title: "E Select",
+    title: "Bohadschia argus",
     image: "seaCucumberA.png",
     detail:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },
   {
     id: 6,
-    title: "F Select",
+    title: "Thelenota ananas",
     image: "seaCucumberA.png",
     detail:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -70,7 +70,7 @@ const data = [
 ];
 
 const images = {
-  "seaCucumberA.png": require("../assets/knowledge_center/seaCucumberA.png"),
+  "seaCucumberA.png": require("../../assets/knowledge_center/seaCucumberA.png"),
 };
 
 export default function KnowledgeCenterScreen() {
@@ -92,11 +92,11 @@ export default function KnowledgeCenterScreen() {
           <View className="flex-row mt-[60vh]">
             <View className=" ml-[4vw]">
               <TouchableOpacity
-                onPress={() => navigation.navigate("MainBoard")}
+                onPress={() => navigation.navigate("KnowledgeMain")}
               >
                 <View className="flex m-[auto] ">
                   <Image
-                    source={require("../assets/main_board/arrow.png")}
+                    source={require("../../assets/main_board/arrow.png")}
                     className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
                   />
                 </View>
@@ -107,7 +107,7 @@ export default function KnowledgeCenterScreen() {
               <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
                 <View className="flex m-[auto] ">
                   <Image
-                    source={require("../assets/fisheries/dotIcon.png")}
+                    source={require("../../assets/fisheries/dotIcon.png")}
                     className=" w-[24.21875px] h-[7.03125px] ml-[280px]"
                   />
                 </View>
@@ -132,7 +132,7 @@ export default function KnowledgeCenterScreen() {
         <View className="mt-[54vh]">
           {filteredData.map((item) => (
             <TouchableOpacity
-              // onPress={() => navigation.navigate('#')}
+              onPress={() => navigation.navigate("KCIndividualSpecies")}
               className="w-[92vw] h-[22.5vh] rounded-[30px] mx-[6.7vw]"
             >
               <View key={item.id} className="flex-row mb-[5vw]">
@@ -144,12 +144,12 @@ export default function KnowledgeCenterScreen() {
                     />
                   )}
                 </View>
-                <View className="mt-[5vw] w-[50vw] h-[125px]  bg-[#FFFFFF] shadow-lg shadow-gray-700 rounded-r-2xl	px-3 py-8">
-                  <Text className="text-[22px] mt-[] font-bold text-[#000000]">
+                <View className="mt-[5vw] w-[50vw] h-[125px] bg-[#FFFFFF] shadow-lg shadow-gray-700 rounded-r-2xl	px-3 py-8">
+                  <Text className="text-[20px] mt-[] font-bold text-[#000000]">
                     {item.title}
                   </Text>
-                  <Text className="text-[12px] text-[#000000]">
-                    {" "}
+                  <Text className="text-[12px] text-[#000000] text-justify mr-[5px]">
+                    {""}
                     {item.detail}{" "}
                   </Text>
                 </View>

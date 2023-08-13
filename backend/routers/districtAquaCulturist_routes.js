@@ -12,6 +12,11 @@ router.put(
   districtAquaCulturistController.updateFarm
 );
 
+router.get(
+  "/districtAquaCulturist/getAllAquaFarmDetails",
+  districtAquaCulturistController.getAllAquaFarmDetails
+);
+
 router.post(
   "/districtAquaCulturist/createAdvertisement",
   districtAquaCulturistController.createAdvertisement

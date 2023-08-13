@@ -1,9 +1,15 @@
 const router = require("express").Router();
 const farmMngUsersController = require("../controller/farmMngUsers_controller");
-
+const imageMiddleware = require("../middleware/profilepic_middleware");
 const userController = require("../controller/user_controller");
 
-router.put("/farmMngUsers/update", farmMngUsersController.updatefarmMngUsers);
+router.put("/farmMngUsers/update", userController.updateUser);
+
+router.put(
+  "/farmMngUsers/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.delete("/farmMngUsers/delete", userController.deleteUser);
 

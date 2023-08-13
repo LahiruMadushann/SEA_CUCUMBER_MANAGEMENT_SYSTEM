@@ -63,7 +63,13 @@ class districtAquaCulturistService {
         establishmentDate: establishmentDate,
       }
     );
-    return "Successfully updated Farm details";
+    return updateFarmDetails;
+  }
+
+  //GETTING ALL AQUACULTURE FARM DETAILS
+  static async getAllAquaFarms() {
+    const allAquaFarmDetails = await aqFarmModel.find();
+    return allAquaFarmDetails;
   }
 
   //CREATE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS

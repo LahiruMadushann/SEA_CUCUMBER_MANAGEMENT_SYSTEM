@@ -12,7 +12,13 @@ router.post(
   adminController.register
 );
 
-router.put("/admin/update", adminController.updateAdminDetails);
+router.put("/admin/update", userController.updateUser);
+
+router.put(
+  "/admin/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.post("/admin/changePassword", userController.changePassword);
 

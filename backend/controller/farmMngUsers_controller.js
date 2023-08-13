@@ -13,7 +13,12 @@ exports.updatefarmMngUsers = async (req, res, next) => {
         contactNo,
         address
       );
-    res.json({ status: true, success: updatefarmMngUserDetail });
+
+    if (updatefarmMngUserDetail) {
+      res.status(200).json({ success: true, message: "Update successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "update Unsuccessful" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -27,20 +32,32 @@ exports.enterNews = async (req, res, next) => {
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
 
-    let postedBy = data.firstName;
-    let role = data.role;
+    if (data) {
+      let postedBy = data.firstName;
+      let role = data.role;
 
-    const successEnteredNews =
-      await farmMngUserService.enterNewsRulesRegulations(
-        description,
-        type,
-        date,
-        role,
-        postedBy,
-        postedTo
-      );
+      const successEnteredNews =
+        await farmMngUserService.enterNewsRulesRegulations(
+          description,
+          type,
+          date,
+          role,
+          postedBy,
+          postedTo
+        );
 
-    res.json({ status: true, success: "News Posted successfully" });
+      if (successEnteredNews) {
+        res
+          .status(200)
+          .json({ success: true, message: "News Posted successfully" });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: "News posted Unsuccessful" });
+      }
+    } else {
+      res.status(400).json({ success: false, message: "Author not found" });
+    }
   } catch (error) {
     next(error);
   }
@@ -54,24 +71,36 @@ exports.enterSeacucumberRates = async (req, res, next) => {
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
 
-    let postedBy = data.firstName;
-    let role = data.role;
-    let type = "SeacucumberRates";
+    if (data) {
+      let postedBy = data.firstName;
+      let role = data.role;
+      let type = "SeacucumberRates";
 
-    const successEnteredSeacucumberRates =
-      await farmMngUserService.enterSeaCucumberRates(
-        title,
-        description,
-        type,
-        speciesType,
-        rates,
-        date,
-        role,
-        postedBy,
-        postedTo
-      );
+      const successEnteredSeacucumberRates =
+        await farmMngUserService.enterSeaCucumberRates(
+          title,
+          description,
+          type,
+          speciesType,
+          rates,
+          date,
+          role,
+          postedBy,
+          postedTo
+        );
 
-    res.json({ status: true, success: "Rates Entered successfully" });
+      if (successEnteredSeacucumberRates) {
+        res
+          .status(200)
+          .json({ success: true, message: "Rates Entered successfully" });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: "Rates Entered Unsuccessful" });
+      }
+    } else {
+      res.status(400).json({ success: false, message: "Author not found" });
+    }
   } catch (error) {
     next(error);
   }
@@ -108,8 +137,15 @@ exports.registerFarm = async (req, res, next) => {
       establishmentDate,
       date
     );
-
-    res.json({ status: true, success: "Farm registered successfully" });
+    if (successResFarm) {
+      res
+        .status(200)
+        .json({ success: true, message: "Farm registered successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Farm registration Unsuccessfully" });
+    }
   } catch (error) {
     next(error);
   }

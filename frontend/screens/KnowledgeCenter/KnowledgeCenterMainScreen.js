@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import FooterBar from "../components/FooterBar";
+import FooterBar from "../../components/FooterBar";
 
 const data = [
   {
@@ -70,10 +70,10 @@ const data = [
 ];
 
 const images = {
-  "seaCucumberA.png": require("../assets/knowledge_center/seaCucumberA.png"),
+  "seaCucumberA.png": require("../../assets/knowledge_center/seaCucumberA.png"),
 };
 
-export default function KnowledgeCenterScreen() {
+export default function KnowledgeCenterMainScreen() {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState(data);
@@ -96,7 +96,7 @@ export default function KnowledgeCenterScreen() {
               >
                 <View className="flex m-[auto] ">
                   <Image
-                    source={require("../assets/main_board/arrow.png")}
+                    source={require("../../assets/main_board/arrow.png")}
                     className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
                   />
                 </View>
@@ -107,7 +107,7 @@ export default function KnowledgeCenterScreen() {
               <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
                 <View className="flex m-[auto] ">
                   <Image
-                    source={require("../assets/fisheries/dotIcon.png")}
+                    source={require("../../assets/fisheries/dotIcon.png")}
                     className=" w-[24.21875px] h-[7.03125px] ml-[280px]"
                   />
                 </View>
@@ -115,47 +115,61 @@ export default function KnowledgeCenterScreen() {
             </View>
           </View>
 
-          <View className="mt-[6vh]">
+          <View className="mt-[2vh]">
             <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
               Knowledge Center
             </Text>
           </View>
-
-          <TextInput
-            style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
-            className="w-[63vw] mx-auto rounded-[20px] p-4 mt-[10vw] bg-[#fff] text-black	 "
-            onChangeText={handleSearch}
-            value={searchText}
-            placeholder="Search"
-          />
         </View>
-        <View className="mt-[54vh]">
-          {filteredData.map((item) => (
-            <TouchableOpacity
-              // onPress={() => navigation.navigate('#')}
-              className="w-[92vw] h-[22.5vh] rounded-[30px] mx-[6.7vw]"
-            >
-              <View key={item.id} className="flex-row mb-[5vw]">
-                <View>
-                  {item.image && (
-                    <Image
-                      source={images[item.image]}
-                      className=" w-[134px] h-[125px]  mt-[5vw] rounded-l-2xl"
-                    />
-                  )}
-                </View>
-                <View className="mt-[5vw] w-[50vw] h-[125px]  bg-[#FFFFFF] shadow-lg shadow-gray-700 rounded-r-2xl	px-3 py-8">
-                  <Text className="text-[22px] mt-[] font-bold text-[#000000]">
-                    {item.title}
-                  </Text>
-                  <Text className="text-[12px] text-[#000000]">
-                    {" "}
-                    {item.detail}{" "}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+        <View className="mt-[65vw] mx-auto">
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Knowledge_species")}
+            className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+          >
+            <View className="flex">
+              <Image
+                source={require("../../assets/knowledge_center/species_info.jpg")}
+                className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
+              />
+              <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
+                Sea cucumber Species
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View className="mt-[10vw] mx-auto">
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Knowledge_species")}
+            className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+          >
+            <View className="flex">
+              <Image
+                source={require("../../assets/knowledge_center/videos_icon.jpg")}
+                className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
+              />
+              <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
+                Sea cucumber {"\n"}Videos
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View className="mt-[10vw] mx-auto">
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Knowledge_species")}
+            className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+          >
+            <View className="flex">
+              <Image
+                source={require("../../assets/knowledge_center/aricles_icon.jpg")}
+                className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
+              />
+              <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
+                Sea cucumber Articles
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View className="mt-[4vh]">

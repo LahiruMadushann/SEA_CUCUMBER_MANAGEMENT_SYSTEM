@@ -45,7 +45,15 @@ exports.registerFishProcesser = async (req, res, next) => {
         createdAt
       );
 
-    res.json({ status: true, success: successResFishProcesser });
+    if (successResFishProcesser) {
+      res
+        .status(200)
+        .json({ success: true, message: "Registration Successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Registration Unsuccessful" });
+    }
   } catch (error) {
     next(error);
   }
@@ -63,7 +71,12 @@ exports.updateFishProcesser = async (req, res, next) => {
         contactNo,
         address
       );
-    res.json({ status: true, success: updateFishProcesserrDetails });
+
+    if (updateFishProcesserrDetails) {
+      res.status(200).json({ success: true, message: "Updated Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);

@@ -7,13 +7,12 @@ class userService {
   //DELETE USER ACCOUNT
   static async deleteUserAccount(userId) {
     const deleteAccount = await userModel.findByIdAndDelete(userId);
-    return "Successfully deleted Account";
+    return deleteAccount;
   }
 
   //CHANGE USER PASSWORD
   static async changePassword(userId, newpassword) {
     try {
-      let msg;
       const salt = await bcrypt.genSalt(10);
       const hashpass = await bcrypt.hash(newpassword, salt);
 
@@ -24,13 +23,7 @@ class userService {
         }
       );
 
-      if (changePassword) {
-        msg = "Successfully updated Password";
-      } else {
-        msg = "Error when updating Password";
-      }
-
-      return msg;
+      return changePassword;
     } catch (err) {
       throw err;
     }
@@ -40,6 +33,51 @@ class userService {
   static async getUserDetails(userId) {
     const userDetails = await userModel.findById({ _id: userId });
     return userDetails;
+  }
+
+  //UPDATE USER
+  static async updateUserDetails(
+    userId,
+    firstName,
+    lastName,
+    age,
+    gender,
+    email,
+    contactNo,
+    address,
+    town,
+    province,
+    country,
+    updatedAt
+  ) {
+    const updateUserDetails = await userModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        age: age,
+        gender: gender,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        contactNo: contactNo,
+        address: address,
+        town: town,
+        province: province,
+        country: country,
+        updatedAt: updatedAt,
+      }
+    );
+    return updateUserDetails;
+  }
+
+  //UPDATE PROFILE PIC
+  static async updateProfilePic(userId, profilepic) {
+    const updateProPic = await userModel.findByIdAndUpdate(
+      { _id: userId },
+      {
+        profilepic: profilepic,
+      }
+    );
+    return updateProPic;
   }
 }
 
