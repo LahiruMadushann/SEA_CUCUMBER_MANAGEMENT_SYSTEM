@@ -22,8 +22,8 @@ export default function PopupScreen() {
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>
         <Image
-          source={require("../assets/options.png")}
-          className=" w-[24.21875px] h-[25px] ml-[70vw]"
+          source={require("../assets/fisheries/dotIcon.png")}
+          className=" w-[25.21875px] h-[8px] ml-[70vw]"
         />
       </TouchableOpacity>
       {menuVisible && (

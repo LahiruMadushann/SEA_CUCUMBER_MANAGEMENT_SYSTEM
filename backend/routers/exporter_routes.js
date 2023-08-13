@@ -10,7 +10,7 @@ router.post(
   exporterController.registerExporter
 );
 
-router.put("/exporter/update", userController.updateUser);
+router.put("/user/update", userController.updateUser);
 
 router.put(
   "/exporter/updateProfilePic",

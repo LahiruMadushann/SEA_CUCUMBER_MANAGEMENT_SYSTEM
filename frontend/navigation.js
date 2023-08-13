@@ -20,6 +20,8 @@ import PopupScreen from "./components/PopupScreen";
 import SwitchScreen from "./screens/SwitchScreen";
 
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
+import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
+import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */
@@ -60,7 +62,7 @@ export default function Navigation() {
           name="MainBoardScreenAfterLogin"
           component={MainBoardScreenAfterLogin}
         />
-        
+
         <Stack.Screen
           name="MainFisheriesScreen"
           component={MainFisheriesScreen}
@@ -71,8 +73,6 @@ export default function Navigation() {
           component={MainAquaFarmScreen}
         />
 
-        {/*USER PROFILE SCREENS*/}
-
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Switch" component={SwitchScreen} />
         <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
@@ -80,10 +80,17 @@ export default function Navigation() {
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
 
+        {/*USER PROFILE SCREENS*/}
         <Stack.Screen
           name="UserProfileMainScreen"
           component={UserProfileMainScreen}
         />
+
+        <Stack.Screen
+          name="UpdatePasswordScreen"
+          component={UpdatePasswordScreen}
+        />
+        <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
 
         <Stack.Screen
           name="KnowledgeMain"
