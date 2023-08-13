@@ -49,7 +49,15 @@ exports.registerFarmer = async (req, res, next) => {
       createdAt
     );
 
-    res.json({ status: true, success: successResFarmer });
+    if (successResFarmer) {
+      res
+        .status(200)
+        .json({ success: true, message: "Registration Successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Registration Unsuccessful" });
+    }
   } catch (error) {
     next(error);
   }
@@ -67,19 +75,35 @@ exports.updateFarmer = async (req, res, next) => {
       contactNo,
       address
     );
-    res.json({ status: true, success: updateExporterDetails });
+
+    if (updateExporterDetails) {
+      res.status(200).json({ success: true, message: "Update Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "update Unsuccessful" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
   }
 };
 
-//GETTING AQUA CULTURE FARM DETAILS
+//GETTING RELEVANT AQUACULTURE FARM OF THE FARMER
 exports.getAquaFarmDetails = async (req, res, next) => {
   try {
-    let aquaFarmDetails = await farmerService.getAllAquaFarms();
+    const { farmId } = req.body;
+    let aquaFarmDetails = await farmerService.getIndividFarmDetails(farmId);
 
-    res.json({ status: true, success: aquaFarmDetails });
+    if (aquaFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Farm details",
+        data: aquaFarmDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Not found Farm details" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -92,6 +116,16 @@ exports.getAquaFarmNews = async (req, res, next) => {
     let aquaFarmNews = await farmerService.getAquaFarmsNews();
 
     res.json({ status: true, success: aquaFarmNews });
+
+    if (aquaFarmNews) {
+      res.status(200).json({
+        success: true,
+        message: "Found Farm news",
+        data: aquaFarmNews,
+      });
+    } else {
+      res.status(400).json({ success: false, message: "Not found Farm news" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);

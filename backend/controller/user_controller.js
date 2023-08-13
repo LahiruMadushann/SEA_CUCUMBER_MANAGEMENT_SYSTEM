@@ -7,7 +7,16 @@ exports.deleteUser = async (req, res, next) => {
   try {
     const { userId } = req.body;
     let deleteUserAccount = await userService.deleteUserAccount(userId);
-    res.json({ status: true, success: deleteUserAccount });
+
+    if (deleteUserAccount) {
+      res
+        .status(200)
+        .json({ success: true, message: "Deleted Account Successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Account Unsuccessfully" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -20,9 +29,15 @@ exports.changePassword = async (req, res, next) => {
     const { userId, oldpassword, newPassword, confirmPassword } = req.body;
 
     if (oldpassword == "" || newPassword == "" || confirmPassword == "") {
-      res.json({ status: "FAILED", message: "Please Enter a value" });
+      res.status(400).json({
+        success: false,
+        message: "Please Enter a value",
+      });
     } else if (newPassword != confirmPassword) {
-      res.json({ status: "FAILED", message: "New Password doesn't match" });
+      res.status(400).json({
+        success: false,
+        message: "New Password doesn't match",
+      });
     } else {
       let data = await userService.getUserDetails(userId);
 
@@ -33,13 +48,20 @@ exports.changePassword = async (req, res, next) => {
           userService
             .changePassword(userId, newPassword)
             .then((result) => {
-              res.json({ status: true, success: result });
+              res.status(200).json({
+                success: true,
+                message: "Password changed Successfully",
+                data: result,
+              });
             })
             .catch((error) => {
               console.error(error);
             });
         } else {
-          res.json({ status: true, success: "Error when comparing passwords" });
+          res.status(400).json({
+            success: false,
+            message: "Error when comparing passwords",
+          });
         }
       });
     }
@@ -55,7 +77,93 @@ exports.getUserDetails = async (req, res, next) => {
     const { userId } = req.body;
     let userDetails = await userService.getUserDetails(userId);
 
-    res.json({ status: true, success: FishProcessorDetails });
+    if (userDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found User deatils",
+        data: userDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "User details not found" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//UPDATE USER DETAILS CONTROLLER
+exports.updateUser = async (req, res, next) => {
+  try {
+    const {
+      userId,
+      age,
+      gender,
+      email,
+      firstName,
+      lastName,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+    } = req.body;
+
+    const updatedAt = new Date().toISOString();
+
+    let updateUserDetails = await userService.updateUserDetails(
+      userId,
+      firstName,
+      lastName,
+      age,
+      gender,
+      email,
+      contactNo,
+      address,
+      town,
+      province,
+      country,
+      updatedAt
+    );
+    if (updateUserDetails) {
+      res.status(200).json({ success: true, message: "Updated Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//UPDATE USER Profile Picture CONTROLLER
+exports.updateProfilePic = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const profilepic = req.file.filename;
+
+    let updateProfilepic = await userService.updateProfilePic(
+      userId,
+      profilepic
+    );
+    if (updateProfilepic) {
+      res.status(200).json({
+        success: true,
+        message: "Profile Piicture Updated Successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Profile Piicture Update Unsuccessful",
+      });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);

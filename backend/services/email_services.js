@@ -5,13 +5,13 @@ var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "cst19041@std.uwu.ac.lk",
-    pass: "Jmp2251271",
+    pass: "********",
   },
 });
 
-class exporterService {
+class emailService {
   //REEGISTER EXPORTER DETAILS
-  static async sendAccountConfirmationEmail(recipient, subject, text) {
+  static async sendEmail(recipient, subject, text) {
     try {
       var mailOptions = {
         from: "cst19041@std.uwu.ac.lk",
@@ -24,7 +24,9 @@ class exporterService {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log(
+            "Email sent: " + info.response + "\nSend to: " + recipient
+          );
         }
       });
     } catch (err) {
@@ -33,4 +35,4 @@ class exporterService {
   }
 }
 
-module.exports = exporterService;
+module.exports = emailService;

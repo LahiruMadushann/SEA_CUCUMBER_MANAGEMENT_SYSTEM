@@ -10,9 +10,12 @@ router.post(
   fishProcesserController.registerFishProcesser
 );
 
+router.put("/fishProcessers/update", userController.updateUser);
+
 router.put(
-  "/fishProcessers/update",
-  fishProcesserController.updateFishProcesser
+  "/fishProcessers/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
 );
 
 router.delete("/fishProcessers/delete", userController.deleteUser);

@@ -19,7 +19,9 @@ exports.registerExporter = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res
+        .status(400)
+        .json({ success: false, message: "you must select a file" });
     }
 
     const profilepic = req.file.filename;
@@ -44,7 +46,15 @@ exports.registerExporter = async (req, res, next) => {
       createdAt
     );
 
-    res.json({ status: true, success: successResExporter });
+    if (successResExporter) {
+      res
+        .status(200)
+        .json({ success: true, message: "Registration Successfully" });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Registration Unsuccessful" });
+    }
   } catch (error) {
     next(error);
   }
@@ -61,7 +71,12 @@ exports.updateExporter = async (req, res, next) => {
       contactNo,
       address
     );
-    res.json({ status: true, success: updateExporterDetails });
+
+    if (updateExporterDetails) {
+      res.status(200).json({ success: true, message: "Updated Successfully" });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -71,9 +86,19 @@ exports.updateExporter = async (req, res, next) => {
 //GETTING AQUA CULTURE FARM DETAILS
 exports.getAquaFarmDetails = async (req, res, next) => {
   try {
-    let aquaFarmDetails = await exporterService.getAllAquaFarms();
+    let aquaAllFarmDetails = await exporterService.getAllAquaFarms();
 
-    res.json({ status: true, success: aquaFarmDetails });
+    if (aquaAllFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found All farm details",
+        data: aquaAllFarmDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No farm details found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -88,7 +113,17 @@ exports.getIndividualAquaFarmDetails = async (req, res, next) => {
       farmId
     );
 
-    res.json({ status: true, success: aquaFarmDetails });
+    if (aquaFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found farm details",
+        data: aquaFarmDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No farm details found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -98,9 +133,19 @@ exports.getIndividualAquaFarmDetails = async (req, res, next) => {
 //GETTING FISH PROCESSORS DETAILS
 exports.getFishProcessorsDetails = async (req, res, next) => {
   try {
-    let fishProcessorDetails = await exporterService.getAllFishProcessors();
+    let allFishProcessorDetails = await exporterService.getAllFishProcessors();
 
-    res.json({ status: true, success: fishProcessorDetails });
+    if (allFishProcessorDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found all Fish Processor details",
+        data: allFishProcessorDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No Fish Processor details found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -111,11 +156,21 @@ exports.getFishProcessorsDetails = async (req, res, next) => {
 exports.getIndividualFishProcessorsDetails = async (req, res, next) => {
   try {
     const { userId } = req.body;
-    let FishProcessorDetails = await exporterService.getindividualFishProcessor(
+    let fishProcessorDetails = await exporterService.getindividualFishProcessor(
       userId
     );
 
-    res.json({ status: true, success: FishProcessorDetails });
+    if (fishProcessorDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Fish Processor details",
+        data: fishProcessorDetails,
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "No Fish Processor details found" });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);

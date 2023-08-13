@@ -15,6 +15,8 @@ exports.insertFarmingDetails = async (req, res, next) => {
       diseases,
     } = req.body;
 
+    const date = new Date().toISOString();
+
     let farmingData = await districtAquaCulturistService.insertFarmingDetails(
       farmId,
       stock,
@@ -24,9 +26,21 @@ exports.insertFarmingDetails = async (req, res, next) => {
       harvest,
       size,
       survival,
-      diseases
+      diseases,
+      date
     );
-    res.json({ status: true, success: farmingData });
+
+    if (farmingData) {
+      res.status(200).json({
+        success: true,
+        message: "Entered Farming details Successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error while saving farming details ",
+      });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -63,7 +77,41 @@ exports.updateFarm = async (req, res, next) => {
         farmInternal,
         establishmentDate
       );
-    res.json({ status: true, success: updateFarmDetails });
+
+    if (updateFarmDetails) {
+      res
+        .status(200)
+        .json({ success: true, message: "Successfully updated farm details" });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error while updating farm details ",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GETTING ALL AQUA CULTURE FARM DETAILS
+exports.getAllAquaFarmDetails = async (req, res, next) => {
+  try {
+    let allAquaFarmDetails =
+      await districtAquaCulturistService.getAllAquaFarms();
+
+    if (allAquaFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found All aqua Farm details",
+        data: allAquaFarmDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farm details found ",
+      });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);
@@ -84,7 +132,18 @@ exports.createAdvertisement = async (req, res, next) => {
         address,
         email
       );
-    res.json({ status: true, success: createAdvertisement });
+
+    if (createAdvertisement) {
+      res.status(200).json({
+        success: true,
+        message: "Successfully created Advertisement",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error in creating advertisement",
+      });
+    }
   } catch (error) {
     console.log(error, "err---->");
     next(error);

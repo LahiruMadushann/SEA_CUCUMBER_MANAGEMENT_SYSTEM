@@ -12,7 +12,13 @@ router.post(
   adminController.register
 );
 
-router.put("/admin/update", adminController.updateAdminDetails);
+router.put("/admin/update", userController.updateUser);
+
+router.put(
+  "/admin/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
 router.post("/admin/changePassword", userController.changePassword);
 
@@ -30,10 +36,48 @@ router.post(
 router.get("/admin/getAqMngUsers", adminController.getAqAllFarmManagementUsers);
 
 //To delete the details of Aquaculture Management Users
-router.delete(
-  "/admin/deleteAqMngUsers",
-  adminController.deleteAqFarmManagementUser
+router.delete("/admin/deleteAqMngUsers", userController.deleteUser);
+
+/* ---------------- CONTROLLING  FARMS------------------ */
+
+router.get("/admin/getAllFarms", adminController.getAqAllFarms);
+
+router.delete("/admin/deleteFarm", adminController.deleteAqFarm);
+
+/* ---------------- CONTROLLING  FARMERS------------------ */
+
+router.post(
+  "/admin/approveFarmerAccount",
+  adminController.approveFarmerAccount
 );
+
+router.get("/admin/getAllFarmers", adminController.getAllFarmers);
+
+router.delete("/admin/deleteFarmer", userController.deleteUser);
+
+/* ---------------- CONTROLLING  EXPORTERS------------------ */
+
+router.get("/admin/getAllExporters", adminController.getAllExporters);
+
+router.delete("/admin/deleteExporter", userController.deleteUser);
+
+/* ---------------- CONTROLLING  FISH PROCESSORS------------------ */
+
+router.get("/admin/getAllFishProcessors", adminController.getAllFishProcessors);
+
+router.delete("/admin/deleteFishProcessor", userController.deleteUser);
+
+/* ---------------- CONTROLLING  FISHERMEN------------------ */
+
+// router.get(
+//   "/admin/getAllFisherman",
+//   adminController.getAqAllFarmManagementUsers
+// );
+
+// router.delete(
+//   "/admin/deleteFishman",
+//   adminController.deleteAqFarmManagementUser
+// );
 
 /* --------------------------------------------------------------- */
 //ADMIN KNOWLEDGE CENTER OPERATIONS
