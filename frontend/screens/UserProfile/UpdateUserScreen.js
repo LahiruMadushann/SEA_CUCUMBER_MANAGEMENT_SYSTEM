@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
+import axios from "axios";
+
+//Token DATA
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+
 import {
   StyleSheet,
   Text,
@@ -9,56 +16,91 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
-
-const listTab = [
-  {
-    status: "Add",
-  },
-  {
-    status: "Sell",
-  },
-];
 
 export default function UpdateUserScreen() {
   const navigation = useNavigation();
-  const [status, setStatus] = useState("Add");
 
-  const [addFormData, setAddFormData] = useState({
-    farmName: "",
-    weight: "",
-    date: "",
-    updater: "",
-    userName: "",
-    password: "",
-  });
+  const { state } = useAuth();
+  // Access the token
+  const token = state.token;
+  // Decode the token
+  const decodedToken = jwtDecode(token);
 
-  const setStatusFilter = (status) => {
-    if (status === "Add") {
-      setStatus("Add");
-    } else {
-      setStatus("Sell");
-    }
-  };
+  const {
+    _id: db_id,
+    age: db_age,
+    gender: db_gender,
+    email: db_email,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    contactNo: db_contactNo,
+    address: db_address,
+    town: db_town,
+    province: db_province,
+    country: db_country,
+    // farmId: db_farmId,
+    // farmName: db_farmName,
+    // accountStatus: db_accountStatus,
+  } = decodedToken;
 
-  const handleAddFormChange = (name, value) => {
-    setAddFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const [firstName, setFirstName] = useState(db_firstName);
+  const [lastName, setLastName] = useState(db_lastName);
+  const [age, setAge] = useState(db_age);
+  const [gender, setGender] = useState(db_gender);
+  const [email, setEmail] = useState(db_email);
+  const [contactNo, setContactNo] = useState(db_contactNo);
+  const [address, setAddress] = useState(db_address);
+  const [town, setTown] = useState(db_town);
+  const [province, setProvince] = useState(db_province);
+  const [country, setCountry] = useState(db_country);
 
-  const handleAddFormSubmit = () => {
-    // handle form submission here
-    console.log(addFormData);
+  const handleUpdateDetails = () => {
+    // Create a data object to send to the backend
+    const userData = {
+      userId: db_id,
+      age: age,
+      gender: gender,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      contactNo: contactNo,
+      address: address,
+      town: town,
+      province: province,
+      country: country,
+    };
+
+    // Replace with your backend URL
+    const backendUrl = "http://192.168.43.75:3000/user/update";
+
+    // Send a POST request to update the password
+    axios
+      .put(backendUrl, userData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert(
+            "User Details",
+            "Your details has been updated successfully."
+          );
+          // Optionally, navigate to another screen after successful password update
+          // navigation.navigate("UserProfileMainScreen");
+        } else {
+          Alert.alert("Update Failed", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating details:", error);
+        Alert.alert("Error", "An error occurred while updating the details.");
+      });
   };
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView className="bg-[#fff]">
         <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
           <View className="mt-[58vh] ">
             <View className="flex-row ">
@@ -76,219 +118,109 @@ export default function UpdateUserScreen() {
               </View>
 
               <View className=" ml-[11vw]">
-                <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
-                  <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../../assets/fisheries/dotIcon.png")}
-                      className=" w-[24.21875px] h-[7.03125px] ml-[280px]"
-                    />
-                  </View>
-                </TouchableOpacity>
+                <View className="flex m-[auto] absolute ">
+                  <PopupScreen />
+                </View>
               </View>
             </View>
-            <Text className="text-center text-[#fff] font-bold text-[26px] mt-[vw]">
+
+            <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
               Update Details
             </Text>
           </View>
         </View>
 
         <View className="mt-[36vh]">
-          <View style={styles.listTab}>
-            {listTab.map((e) => (
-              <TouchableOpacity
-                style={[
-                  styles.btnTab,
-                  status === e.status && styles.btnTabActive,
-                ]}
-                className="mx-[2vw] w-[164px] h-[30px] "
-                onPress={() => setStatusFilter(e.status)}
-              >
-                <Text
-                  style={[
-                    styles.textTab,
-                    status === e.status && styles.textTabActive,
-                  ]}
-                >
-                  {e.status}
-                </Text>
-              </TouchableOpacity>
-            ))}
+          <View className="mt-[6vh]">
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+              value={firstName}
+              onChangeText={setFirstName}
+              placeholder={"FirstName"}
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+              value={lastName}
+              onChangeText={setLastName}
+              placeholder="LastName"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={age.toString()}
+              onChangeText={(text) => setAge(text)}
+              placeholder="Age"
+              keyboardType="numeric"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={gender}
+              onChangeText={setGender}
+              placeholder="Gender"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Email"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={contactNo}
+              onChangeText={setContactNo}
+              placeholder="ContactNo"
+              keyboardType="numeric"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={address}
+              onChangeText={setAddress}
+              placeholder="Address"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={town}
+              onChangeText={setTown}
+              placeholder="Town"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={province}
+              onChangeText={setProvince}
+              placeholder="Province"
+              required
+            />
+            <TextInput
+              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+              value={country}
+              onChangeText={setCountry}
+              placeholder="Country"
+              required
+            />
           </View>
 
-          {status === "Add" && (
-            <View className="mx-auto">
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.farmName}
-                onChangeText={(text) => handleAddFormChange("farmName", text)}
-                placeholder="Name of the Fish"
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.weight}
-                onChangeText={(text) => handleAddFormChange("weight", text)}
-                placeholder="Weight"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.date}
-                onChangeText={(text) => handleAddFormChange("date", text)}
-                placeholder="Date"
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.updater}
-                onChangeText={(text) => handleAddFormChange("updater", text)}
-                placeholder="Name of the updater"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.userName}
-                onChangeText={(text) => handleAddFormChange("userName", text)}
-                placeholder="User Name"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.password}
-                onChangeText={(text) => handleAddFormChange("password", text)}
-                placeholder="Password"
-              />
-              <View className="mb-4 mt-4 mx-auto">
-                <TouchableOpacity
-                  className="rounded-[15px] w-[65vw] h-[6.2vh] p-2 bg-blue-800 justify-center items-center"
-                  onPress={handleAddFormSubmit}
-                >
-                  <Text className="text-[18px] text-[#fff] font-bold">
-                    Update
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-
-          {status === "Sell" && (
-            <View className="mx-auto">
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.farmName}
-                onChangeText={(text) => handleAddFormChange("farmName", text)}
-                placeholder="Name of the Fish"
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.weight}
-                onChangeText={(text) => handleAddFormChange("weight", text)}
-                placeholder="Weight"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.date}
-                onChangeText={(text) => handleAddFormChange("date", text)}
-                placeholder="Date"
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.updater}
-                onChangeText={(text) => handleAddFormChange("updater", text)}
-                placeholder="Name of the updater"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.userName}
-                onChangeText={(text) => handleAddFormChange("userName", text)}
-                placeholder="User Name"
-              />
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-                value={addFormData.password}
-                onChangeText={(text) => handleAddFormChange("password", text)}
-                placeholder="Password"
-              />
-              <View className="mb-4 mt-4 mx-auto">
-                <TouchableOpacity
-                  className="rounded-[15px] w-[65vw] h-[6.2vh] p-2 bg-blue-800 justify-center items-center"
-                  onPress={handleAddFormSubmit}
-                >
-                  <Text className="text-[18px] text-[#fff] font-bold">
-                    Sell
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
+          <View className="mt-[2vh]">
+            <TouchableOpacity
+              className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+              onPress={handleUpdateDetails}
+            >
+              <Text className="text-[#fff] text-[18px] font-bold text-center">
+                Update
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View className="mt-[4vh]">
+        <View className="mt-[10vh]">
           <FooterBar />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    justifyContent: "center",
-  },
-  listTab: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginBottom: 20,
-  },
-  btnTab: {
-    flexDirection: "row",
-
-    justifyContent: "center",
-
-    fontWeight: "bold",
-    color: "#3644C5",
-    textAlign: "center",
-    fontSize: 14,
-    paddingLeft: 31,
-    paddingRight: 31,
-    paddingTop: 5,
-    paddingBottom: 5,
-
-    borderRadius: 8,
-    borderBottomRightRadius: 0,
-  },
-  textTab: {
-    fontSize: 16,
-  },
-  btnTabActive: {
-    backgroundColor: "#3644C5",
-  },
-  textTabActive: {
-    color: "#fff",
-  },
-  itemContainer: {},
-  itemLogo: {
-    padding: 10,
-  },
-  itemImage: {
-    width: 50,
-    height: 50,
-  },
-  itemBody: {
-    flex: 1,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-  },
-  itemName: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  itemStatus: {
-    backgroundColor: "green",
-    paddingHorizontal: 6,
-    justifyContent: "center",
-    right: 12,
-  },
-});

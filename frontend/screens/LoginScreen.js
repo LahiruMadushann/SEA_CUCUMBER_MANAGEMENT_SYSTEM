@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Alert } from "react-native";
+import { useAuth } from "../auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 import {
   View,
@@ -18,6 +20,7 @@ export default function LoginScreen() {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { dispatch } = useAuth();
 
   const handleLogin = () => {
     // Assuming you have a backend API endpoint, replace 'YOUR_BACKEND_URL' with the actual URL
@@ -33,6 +36,14 @@ export default function LoginScreen() {
         if (response.data.success) {
           const token = response.data.token;
           console.log("Token:", token);
+
+          const decodedToken = jwtDecode(token);
+          console.log("Decoded Token:", decodedToken);
+
+          // Set the token in the context
+
+          dispatch({ type: "SET_TOKEN", payload: token });
+
           // Handle successful login, possibly by navigating to another screen
           navigation.navigate("MainBoardScreenAfterLogin");
         } else {
@@ -96,6 +107,7 @@ export default function LoginScreen() {
             value={username}
             onChangeText={setUsername}
             placeholder="Enter Username here"
+            required
           />
 
           <TextInput
@@ -103,6 +115,8 @@ export default function LoginScreen() {
             value={password}
             onChangeText={setPassword}
             placeholder="Enter Password here"
+            secureTextEntry
+            required
           />
         </View>
 
@@ -116,7 +130,7 @@ export default function LoginScreen() {
 
         <View className="mx-auto flex-row mt-[22px]">
           <Text className="text-[#000000BF] text-[14px] ">
-            Forget your Password?
+            Forgot Password?
           </Text>
 
           <TouchableOpacity onPress={() => navigation.navigate("GetANumber")}>

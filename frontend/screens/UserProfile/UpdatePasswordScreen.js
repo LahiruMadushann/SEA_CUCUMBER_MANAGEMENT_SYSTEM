@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
+import axios from "axios";
+
+//Token DATA
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+
 import {
   StyleSheet,
   Text,
@@ -20,8 +27,51 @@ export default function UpdatePasswordScreen() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
+  const { state } = useAuth();
+  // Access the token
+  const token = state.token;
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  const { _id: db_id } = decodedToken;
+
   const handleUpdatePassword = () => {
-    // Update password
+    // Check if new password and confirm new password match
+    if (newPassword !== confirmNewPassword) {
+      Alert.alert("Password Mismatch", "New passwords do not match.");
+      return;
+    }
+
+    // Create a data object to send to the backend
+    const userData = {
+      userId: db_id,
+      oldpassword: oldPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmNewPassword,
+    };
+
+    // Replace with your backend URL
+    const backendUrl = "http://192.168.43.75:3000/farmer/changePassword";
+
+    // Send a POST request to update the password
+    axios
+      .post(backendUrl, userData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert(
+            "Password Updated",
+            "Your password has been updated successfully."
+          );
+          // Optionally, navigate to another screen after successful password update
+          // navigation.navigate("UserProfileMainScreen");
+        } else {
+          Alert.alert("Update Failed", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
+        Alert.alert("Error", "An error occurred while updating the password.");
+      });
   };
 
   return (
@@ -64,6 +114,7 @@ export default function UpdatePasswordScreen() {
               onChangeText={setOldPassword}
               placeholder="Old Password"
               secureTextEntry
+              required
             />
             <TextInput
               className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
@@ -71,6 +122,7 @@ export default function UpdatePasswordScreen() {
               onChangeText={setNewPassword}
               placeholder="New Password"
               secureTextEntry
+              required
             />
             <TextInput
               className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
@@ -78,6 +130,7 @@ export default function UpdatePasswordScreen() {
               onChangeText={setConfirmNewPassword}
               placeholder="Confirm New Password"
               secureTextEntry
+              required
             />
           </View>
 

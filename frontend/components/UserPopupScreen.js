@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useAuth } from "../auth/AuthContext";
+
 import {
   View,
   Text,
@@ -14,6 +16,15 @@ import { useNavigation } from "@react-navigation/native";
 export default function UserPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
+
+  const { dispatch } = useAuth(); // Access the dispatch function from the context
+
+  const handleLogout = async () => {
+    // Clear the token by dispatching the CLEAR_TOKEN action
+    dispatch({ type: "CLEAR_TOKEN" });
+
+    navigation.navigate("MainBoard");
+  };
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -41,7 +52,7 @@ export default function UserPopupScreen() {
           >
             <Text className="mx-[1vw]">Update Details</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("UpdateData")}>
+          <TouchableOpacity onPress={handleLogout}>
             <Text className="mx-[1vw]">Logout</Text>
           </TouchableOpacity>
         </View>

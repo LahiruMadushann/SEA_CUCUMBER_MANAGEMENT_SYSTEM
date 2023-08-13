@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+
 import {
   View,
   Text,
@@ -17,19 +20,34 @@ import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
   const navigation = useNavigation();
-  const [agree, setAgree] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [addressLine1, setAddressLine1] = useState("");
-  const [addressLine2, setAddressLine2] = useState("");
-  const [town, setTown] = useState("");
-  const [province, setProvince] = useState("");
-  const [country, setCountry] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [age, setAge] = useState("");
+
+  const { state } = useAuth();
+  // Access the token
+  const token = state.token;
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const {
+    _id: db_id,
+    username: db_username,
+    role: db_role,
+    age: db_age,
+    gender: db_gender,
+    email: db_email,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    contactNo: db_contactNo,
+    address: db_address,
+    town: db_town,
+    province: db_province,
+    country: db_country,
+    // farmId: db_farmId,
+    // farmName: db_farmName,
+    // accountStatus: db_accountStatus,
+    profilepic: db_profilepic,
+    createdAt: db_createdAt,
+  } = decodedToken;
 
   return (
     <ScrollView className="flex-grow bg-white ">
@@ -69,7 +87,7 @@ export default function UserProfileMainScreen() {
             <View className="flex m-[auto] ">
               <Text className="text-[3.5vw] text-[#FFFFFF] ">User Profile</Text>
               <Text className="text-[5vw] text-[#FFFFFF] font-bold">
-                Lahiru Madushanka
+                {db_username}
               </Text>
             </View>
           </View>
@@ -93,8 +111,26 @@ export default function UserProfileMainScreen() {
 
         <View className="flex ml-[6vw] mt-[-1vw] ">
           <Text className="text-[4vw] font-bold  ">Email</Text>
+          <Text className="text-[3.5vw] font-light">{db_email}</Text>
+        </View>
+      </View>
+
+      <View className="flex-row mt-[10vw] ml-[18vw]">
+        <View className=" ">
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <View className="flex m-[auto] ">
+              <Image
+                source={require("../../assets/user/name.png")}
+                className=" w-[16px] h-[18px] "
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Name</Text>
           <Text className="text-[3.5vw] font-light">
-            lahirumadushandl@gmail.com
+            {db_firstName} {db_lastName}
           </Text>
         </View>
       </View>
@@ -104,7 +140,7 @@ export default function UserProfileMainScreen() {
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <View className="flex m-[auto] ">
               <Image
-                source={require("../../assets/user/address.png")}
+                source={require("../../assets/user/job.png")}
                 className=" w-[16px] h-[18px] "
               />
             </View>
@@ -112,10 +148,44 @@ export default function UserProfileMainScreen() {
         </View>
 
         <View className="flex ml-[6vw] mt-[-1vw] ">
-          <Text className="text-[4vw] font-bold  ">Address</Text>
-          <Text className="text-[3.5vw] font-light">
-            Madiha , Matara, Sri Lanka
-          </Text>
+          <Text className="text-[4vw] font-bold  ">Role</Text>
+          <Text className="text-[3.5vw] font-light">{db_role}</Text>
+        </View>
+      </View>
+
+      <View className="flex-row mt-[10vw] ml-[18vw]">
+        <View className=" ">
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <View className="flex m-[auto] ">
+              <Image
+                source={require("../../assets/user/gender.png")}
+                className=" w-[16px] h-[19px] "
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Gender</Text>
+          <Text className="text-[3.5vw] font-light">{db_gender}</Text>
+        </View>
+      </View>
+
+      <View className="flex-row mt-[10vw] ml-[18vw]">
+        <View className=" ">
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <View className="flex m-[auto] ">
+              <Image
+                source={require("../../assets/user/birthday.png")}
+                className=" w-[16px] h-[18px] "
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View className="flex ml-[6vw] mt-[-1vw] ">
+          <Text className="text-[4vw] font-bold  ">Age</Text>
+          <Text className="text-[3.5vw] font-light">{db_age} years old</Text>
         </View>
       </View>
 
@@ -142,25 +212,7 @@ export default function UserProfileMainScreen() {
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <View className="flex m-[auto] ">
               <Image
-                source={require("../../assets/user/gender.png")}
-                className=" w-[16px] h-[19px] "
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View className="flex ml-[6vw] mt-[-1vw] ">
-          <Text className="text-[4vw] font-bold  ">Gender</Text>
-          <Text className="text-[3.5vw] font-light">Male</Text>
-        </View>
-      </View>
-
-      <View className="flex-row mt-[10vw] ml-[18vw]">
-        <View className=" ">
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <View className="flex m-[auto] ">
-              <Image
-                source={require("../../assets/user/birthday.png")}
+                source={require("../../assets/user/address.png")}
                 className=" w-[16px] h-[18px] "
               />
             </View>
@@ -168,28 +220,15 @@ export default function UserProfileMainScreen() {
         </View>
 
         <View className="flex ml-[6vw] mt-[-1vw] ">
-          <Text className="text-[4vw] font-bold  ">Age</Text>
-          <Text className="text-[3.5vw] font-light">25 years old</Text>
+          <Text className="text-[4vw] font-bold  ">Address</Text>
+          <Text className="text-[3.5vw] font-light">
+            {db_address}, {db_town},{"\n"}
+            {db_province},{"\n"}
+            {db_country}
+          </Text>
         </View>
       </View>
 
-      <View className="flex-row mt-[10vw] ml-[18vw]">
-        <View className="mb-[12vw] ">
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <View className="flex m-[auto] ">
-              <Image
-                source={require("../../assets/user/job.png")}
-                className=" w-[16px] h-[18px] "
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View className="flex ml-[6vw] mt-[-1vw] ">
-          <Text className="text-[4vw] font-bold  ">Job</Text>
-          <Text className="text-[3.5vw] font-light">Student</Text>
-        </View>
-      </View>
       <View className="mt-[4vh]">
         <FooterBar />
       </View>
