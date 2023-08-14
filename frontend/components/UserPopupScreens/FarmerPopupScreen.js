@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 
 import {
   View,
@@ -33,7 +33,7 @@ export default function UserPopupScreen() {
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>
         <Image
-          source={require("../assets/options.png")}
+          source={require("../../assets/options.png")}
           className=" w-[24.21875px] h-[25px] ml-[70vw]"
         />
       </TouchableOpacity>

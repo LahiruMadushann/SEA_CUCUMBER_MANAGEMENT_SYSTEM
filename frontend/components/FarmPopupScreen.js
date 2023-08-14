@@ -17,15 +17,6 @@ export default function UserPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
 
-  const { dispatch } = useAuth(); // Access the dispatch function from the context
-
-  const handleLogout = async () => {
-    // Clear the token by dispatching the CLEAR_TOKEN action
-    dispatch({ type: "CLEAR_TOKEN" });
-
-    navigation.navigate("MainBoard");
-  };
-
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -40,22 +31,19 @@ export default function UserPopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[40vw] ">
           <TouchableOpacity
-            onPress={() => navigation.navigate("MainFarmScreen")}
+            onPress={() => navigation.navigate("UpdateFarmScreen")}
           >
-            <Text className="mx-[1vw]">Farm </Text>
+            <Text className="mx-[1vw]">Update Farm </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("UpdatePasswordScreen")}
+            onPress={() => navigation.navigate("UpdateFarmingScreen")}
           >
-            <Text className="mx-[1vw]">Update Password</Text>
+            <Text className="mx-[1vw]">Update Farming Details</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("UpdateUserScreen")}
+            onPress={() => navigation.navigate("ViewFarmingRecordsScreen")}
           >
-            <Text className="mx-[1vw]">Update Details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleLogout}>
-            <Text className="mx-[1vw]">Logout</Text>
+            <Text className="mx-[1vw]">View Records</Text>
           </TouchableOpacity>
         </View>
       )}

@@ -22,6 +22,16 @@ import SwitchScreen from "./screens/SwitchScreen";
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
 import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
 import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
+import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
+
+{
+  /*FARM SCREENS */
+}
+import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
+import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
+import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
+import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
+import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */
@@ -73,6 +83,22 @@ export default function Navigation() {
           component={MainAquaFarmScreen}
         />
 
+        <Stack.Screen name="MainFarmScreen" component={MainFarmScreen} />
+        <Stack.Screen name="UpdateFarmScreen" component={UpdateFarmScreen} />
+        <Stack.Screen
+          name="UpdateFarmingScreen"
+          component={UpdateFarmingScreen}
+        />
+        <Stack.Screen
+          name="ViewFarmingRecordsScreen"
+          component={ViewFarmingRecordsScreen}
+        />
+
+        <Stack.Screen
+          name="ViewIndividualFarmingRecScreen"
+          component={ViewIndividualFarmingRecScreen}
+        />
+
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Switch" component={SwitchScreen} />
         <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
@@ -91,6 +117,11 @@ export default function Navigation() {
           component={UpdatePasswordScreen}
         />
         <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
+
+        <Stack.Screen
+          name="UpdateProfilePicScreen"
+          component={UpdateProfilePicScreen}
+        />
 
         <Stack.Screen
           name="KnowledgeMain"
