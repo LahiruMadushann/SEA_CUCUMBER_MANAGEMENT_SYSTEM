@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
 import UserPopupScreen from "../../components/UserPopupScreen";
 import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScreen";
+import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
@@ -77,7 +78,11 @@ export default function UserProfileMainScreen() {
                 </TouchableOpacity>
               </View>
               <View className="flex m-[auto] absolute mt-[135vw]">
-                <FarmerPopupScreen />
+                {db_role === "Exporter" ? (
+                  <ExporterPopupScreen />
+                ) : db_role === "Farmer" ? (
+                  <FarmerPopupScreen />
+                ) : null}
               </View>
             </View>
 
@@ -85,7 +90,7 @@ export default function UserProfileMainScreen() {
             <View className="flex-row">
               <View className="mt-[6vw] ml-[80vw]">
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Register")}
+                  onPress={() => navigation.navigate("UpdateProfilePicScreen")}
                 >
                   <View className="flex m-[auto] ">
                     <Image

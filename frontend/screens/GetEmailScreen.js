@@ -23,12 +23,10 @@ const COUNTRY_CODES = {
   // Add more country codes here
 };
 
-export default function GetAMobileNumberScreen() {
+export default function GetEmailScreen() {
   const navigation = useNavigation();
-  const [selectedCountry, setSelectedCountry] = useState("LK");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const countryCode = COUNTRY_CODES[selectedCountry];
+  const [emailAddress, setemailAddress] = useState("");
 
   return (
     <ScrollView className="flex-grow bg-white">
@@ -41,19 +39,6 @@ export default function GetAMobileNumberScreen() {
                   <Image
                     source={require("../assets/main_board/arrow.png")}
                     className=" w-[10.09216px] h-[15.62988px] "
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View className="mt-[24.6vh] ml-[72vw]">
-              <TouchableOpacity
-                onPress={() => navigation.navigate("AquaRegister")}
-              >
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../assets/fisheries/dotIcon.png")}
-                    className=" w-[24.21875px] h-[7.03125px] "
                   />
                 </View>
               </TouchableOpacity>
@@ -80,24 +65,17 @@ export default function GetAMobileNumberScreen() {
             <TouchableOpacity
               onPress={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <View className="flex-row border-gray-400 border-b">
-                <Flag code={selectedCountry} size={32} />
-                <Text className="ml-[2vw]  mt-[0.5vh]  text-gray-400 text-[18px]">
-                  {countryCode}
-                </Text>
-              </View>
-
               {/* <MaterialIcons name="keyboard-arrow-down" size={18} /> */}
             </TouchableOpacity>
             <View className="ml-[4vw] mt-[0.42vh]  ">
               <TextInput
-                placeholder="Enter Mobile No"
+                placeholder="Enter Email Here"
                 placeholderTextColor="#808080"
                 selectionColor="#808080"
                 keyboardType="number-pad"
                 onFocus={() => setIsDropdownOpen(false)}
-                className="text-[18px] border-b border-gray-400 text-gray-700  w-[42vw] p-[0.5px] "
-                onChangeText={(text) => setPhoneNumber(text)}
+                className="text-[18px] border-b border-gray-400 text-gray-700  w-[70vw] p-[0.5px] "
+                onChangeText={(text) => setemailAddress(text)}
               />
             </View>
           </View>
@@ -105,7 +83,7 @@ export default function GetAMobileNumberScreen() {
             className=" w-[275px] bg-[#0013C0] rounded-[15px] mx-auto justify-center py-[10px] items-center mt-[6vh]"
             activeOpacity={0.8}
             onPress={() =>
-              navigation.navigate("ForgotPassword", { phoneNumber })
+              navigation.navigate("ForgotPassword", { emailAddress })
             }
           >
             <Text className="text-[#fff] text-[18px] font-bold text-center">

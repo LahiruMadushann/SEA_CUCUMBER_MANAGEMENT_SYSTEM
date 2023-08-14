@@ -8,6 +8,8 @@ import MainBoardScreen from "./screens/MainBoardScreen";
 import MainBoardScreenAfterLogin from "./screens/MainBoardScreenAfterLogin";
 
 import LoginScreen from "./screens/LoginScreen";
+import GetEmailScreen from "./screens/GetEmailScreen";
+
 import AquacultureScreen from "./screens/AquacultureScreen";
 import FisheriesStartupScreen from "./screens/FisheriesStartupScreen";
 import AquacultureStartupScreen from "./screens/AquacultureStartupScreen";
@@ -32,6 +34,7 @@ import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
 import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
 import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
 import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
+import AllFarmsScreen from "./screens/ExporterScreens/AllFarmsScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */
@@ -93,6 +96,8 @@ export default function Navigation() {
           name="ViewFarmingRecordsScreen"
           component={ViewFarmingRecordsScreen}
         />
+
+        <Stack.Screen name="AllFarmsScreen" component={AllFarmsScreen} />
 
         <Stack.Screen
           name="ViewIndividualFarmingRecScreen"
@@ -156,6 +161,7 @@ export default function Navigation() {
 
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
+        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen
           name="UpdatePassword"

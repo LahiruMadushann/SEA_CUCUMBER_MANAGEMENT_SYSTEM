@@ -20,9 +20,6 @@ import FooterBar from "../../components/FooterBar";
 
 export default function ViewIndividualFarmingRecScreen() {
   const navigation = useNavigation();
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -30,45 +27,6 @@ export default function ViewIndividualFarmingRecScreen() {
       <Text style={styles.tableValue}>{value}</Text>
     </View>
   );
-
-  // const handleUpdatePassword = () => {
-  //   // Check if new password and confirm new password match
-  //   if (newPassword !== confirmNewPassword) {
-  //     Alert.alert("Password Mismatch", "New passwords do not match.");
-  //     return;
-  //   }
-
-  //   // Create a data object to send to the backend
-  //   const userData = {
-  //     userId: db_id,
-  //     oldpassword: oldPassword,
-  //     newPassword: newPassword,
-  //     confirmPassword: confirmNewPassword,
-  //   };
-
-  //   // Replace with your backend URL
-  //   const backendUrl = "http://192.168.43.75:3000/farmer/changePassword";
-
-  //   // Send a POST request to update the password
-  //   axios
-  //     .post(backendUrl, userData)
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         Alert.alert(
-  //           "Password Updated",
-  //           "Your password has been updated successfully."
-  //         );
-  //         // Optionally, navigate to another screen after successful password update
-  //         // navigation.navigate("UserProfileMainScreen");
-  //       } else {
-  //         Alert.alert("Update Failed", response.data.message);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating password:", error);
-  //       Alert.alert("Error", "An error occurred while updating the password.");
-  //     });
-  // };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>

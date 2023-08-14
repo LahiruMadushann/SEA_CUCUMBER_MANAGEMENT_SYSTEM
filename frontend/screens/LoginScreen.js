@@ -101,9 +101,9 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        <View className="mt-[56vw] form space-y-2 mx-auto ">
+        <View className="mt-[60vw] form space-y-2 mx-auto ">
           <TextInput
-            className="p-4 border-b text-gray-700  w-64  mb-3"
+            className="p-4 border-b text-[18px] text-gray-700  w-64  mb-3"
             value={username}
             onChangeText={setUsername}
             placeholder="Enter Username here"
@@ -111,7 +111,7 @@ export default function LoginScreen() {
           />
 
           <TextInput
-            className="p-4 border-b text-gray-700  w-64  mb-3"
+            className="p-4 border-b text-[18px] text-gray-700  w-64  mb-3"
             value={password}
             onChangeText={setPassword}
             placeholder="Enter Password here"
@@ -133,7 +133,9 @@ export default function LoginScreen() {
             Forgot Password?
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("GetANumber")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GetEmailScreen")}
+          >
             <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">
               Click here
             </Text>

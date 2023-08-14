@@ -17,7 +17,7 @@ export default function MainBoardScreen() {
           <View className="flex-row mt-[-74vw]">
             <View className="mt-[112vw] ml-[66vw]">
               <TouchableOpacity
-                onPress={() => navigation.navigate("MainFarmScreen")}
+                onPress={() => navigation.navigate("AllFarmsScreen")}
               >
                 <View className="flex m-[auto] ">
                   <Image

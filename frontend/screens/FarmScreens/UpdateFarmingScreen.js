@@ -19,48 +19,15 @@ import FooterBar from "../../components/FooterBar";
 
 export default function UpdateFarmingScreen() {
   const navigation = useNavigation();
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
-  // const handleUpdatePassword = () => {
-  //   // Check if new password and confirm new password match
-  //   if (newPassword !== confirmNewPassword) {
-  //     Alert.alert("Password Mismatch", "New passwords do not match.");
-  //     return;
-  //   }
-
-  //   // Create a data object to send to the backend
-  //   const userData = {
-  //     userId: db_id,
-  //     oldpassword: oldPassword,
-  //     newPassword: newPassword,
-  //     confirmPassword: confirmNewPassword,
-  //   };
-
-  //   // Replace with your backend URL
-  //   const backendUrl = "http://192.168.43.75:3000/farmer/changePassword";
-
-  //   // Send a POST request to update the password
-  //   axios
-  //     .post(backendUrl, userData)
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         Alert.alert(
-  //           "Password Updated",
-  //           "Your password has been updated successfully."
-  //         );
-  //         // Optionally, navigate to another screen after successful password update
-  //         // navigation.navigate("UserProfileMainScreen");
-  //       } else {
-  //         Alert.alert("Update Failed", response.data.message);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating password:", error);
-  //       Alert.alert("Error", "An error occurred while updating the password.");
-  //     });
-  // };
+  const [stock, setStock] = useState("");
+  const [stockingDates, setStockingDates] = useState("");
+  const [hatchery, setHatchery] = useState("");
+  const [hatcheryBatch, setHatcheryBatch] = useState("");
+  const [harvest, setHarvest] = useState("");
+  const [size, setSize] = useState("");
+  const [survival, setSurvival] = useState("");
+  const [diseases, setDiseases] = useState("");
+  const [date, setDate] = useState("");
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -98,72 +65,72 @@ export default function UpdateFarmingScreen() {
             <View className="mt-[6vh]">
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={stock}
+                onChangeText={setStock}
                 placeholder="Stock"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={stockingDates}
+                onChangeText={setStockingDates}
                 placeholder="Stocking Dates"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={hatchery}
+                onChangeText={setHatchery}
                 placeholder="Hatchery"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={hatcheryBatch}
+                onChangeText={setHatcheryBatch}
                 placeholder="Hatchery Batch"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={harvest}
+                onChangeText={setHarvest}
                 placeholder="Harvest"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={size}
+                onChangeText={setSize}
                 placeholder="Size"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={survival}
+                onChangeText={setSurvival}
                 placeholder="Survival"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={diseases}
+                onChangeText={setDiseases}
                 placeholder="Diseases"
                 secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={newPassword}
-                onChangeText={setNewPassword}
+                value={date}
+                onChangeText={setDate}
                 placeholder="Date"
                 secureTextEntry
                 required
