@@ -1,7 +1,7 @@
 const farmerService = require("../services/farmer_services");
 const bcrypt = require("bcrypt");
 
-//REGISTER EXPORTER DETAILS CONTROLLER
+//REGISTER FARMER DETAILS CONTROLLER
 exports.registerFarmer = async (req, res, next) => {
   try {
     const {

@@ -12,6 +12,7 @@ const fishProcesserRoute = require("./routers/fishProcessers_routes");
 const MinisterRoute = require("./routers/minister_routes");
 const districtAquaCulturistRoute = require("./routers/districtAquaCulturist_routes");
 const farmerRoute = require("./routers/farmer_routes");
+const fishermanRoute = require("./routers/fisherman_routes");
 
 const farmDashboardRoute = require("./routers/farmDashboard_routes");
 
@@ -38,6 +39,7 @@ app.use("/", fishProcesserRoute);
 app.use("/", MinisterRoute);
 app.use("/", districtAquaCulturistRoute);
 app.use("/", farmerRoute);
+app.use("/", fishermanRoute);
 
 app.use("/", farmDashboardRoute);
 
