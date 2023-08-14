@@ -15,6 +15,7 @@ const farmerRoute = require("./routers/farmer_routes");
 const fishermanRoute = require("./routers/fisherman_routes");
 
 const farmDashboardRoute = require("./routers/farmDashboard_routes");
+const fisheriesDashboardRoute = require("./routers/fisheriesDashboard_routes");
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use("/", farmerRoute);
 app.use("/", fishermanRoute);
 
 app.use("/", farmDashboardRoute);
+app.use("/", fisheriesDashboardRoute);
 
 app.use("/image", express.static("images"));
 app.use(errHandler);
