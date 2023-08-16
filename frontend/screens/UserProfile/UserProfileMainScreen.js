@@ -77,7 +77,7 @@ export default function UserProfileMainScreen() {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex m-[auto] absolute mt-[135vw]">
+              <View className="flex m-[auto] absolute mt-[132vw]">
                 {db_role === "Exporter" ? (
                   <ExporterPopupScreen />
                 ) : db_role === "Farmer" ? (

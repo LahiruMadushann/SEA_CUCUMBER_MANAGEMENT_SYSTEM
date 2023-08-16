@@ -25,10 +25,10 @@ const aquaFarmingDetailsSchema = new Schema({
     type: String,
   },
   size: {
-    type: String,
+    type: Number,
   },
   survival: {
-    type: String,
+    type: Number,
   },
   diseases: {
     type: String,

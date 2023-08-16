@@ -2,6 +2,7 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
+import BASE_URL from "../apiConfig/config";
 
 import {
   View,
@@ -24,7 +25,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // Assuming you have a backend API endpoint, replace 'YOUR_BACKEND_URL' with the actual URL
-    const backendUrl = "http://192.168.43.75:3000/login";
+    const backendUrl = `${BASE_URL}/login`;
 
     const userData = {
       username: username,

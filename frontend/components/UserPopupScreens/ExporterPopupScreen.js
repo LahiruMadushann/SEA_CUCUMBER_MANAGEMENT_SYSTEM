@@ -38,7 +38,7 @@ export default function ExporterPopupScreen() {
         />
       </TouchableOpacity>
       {menuVisible && (
-        <View style={styles.menu} className="ml-[40vw] ">
+        <View style={styles.menu} className="ml-[50vw] ">
           <TouchableOpacity
             onPress={() => navigation.navigate("AllFarmsScreen")}
           >
