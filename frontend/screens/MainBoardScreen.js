@@ -6,8 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 import PopupScreen from "../components/PopupScreen";
 import FooterBar from "../components/FooterBar";
 
+import { useAuth } from "../auth/AuthContext";
+
 export default function MainBoardScreen() {
   const navigation = useNavigation();
+  const { state } = useAuth(); // Access the dispatch function from the context
+  const hasToken = state.token;
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 1 }}>
@@ -19,23 +24,23 @@ export default function MainBoardScreen() {
 
           <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3]  rounded-b-full ">
             <View className="flex-row mt-[-74vw]">
-              <View className="mt-[112vw] ml-[66vw]">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("AllFarmsScreen")}
-                >
-                  <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../assets/profile.png")}
-                      className=" w-[24.21875px] h-[24.21875px] "
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
+              {hasToken && (
+                <View className="mt-[112vw] ml-[66vw]">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("UserProfileMainScreen")}
+                  >
+                    <View className="flex m-[auto] ">
+                      <Image
+                        source={require("../assets/profile.png")}
+                        className=" w-[24.21875px] h-[24.21875px] "
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              )}
 
               <View className="mt-[113vw]">
-                <View className="flex m-[auto] absolute ">
-                  <PopupScreen />
-                </View>
+                <View className="flex m-[auto] absolute "></View>
               </View>
             </View>
 
@@ -112,26 +117,32 @@ export default function MainBoardScreen() {
                 </Text>
               </View>
             </TouchableOpacity>
-            <View className="mt-[5vw] mx-auto">
-              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                <View className="w-[73vw] h-[8vh]  ">
-                  <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                    Login
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
 
-            <View className="mt-[1vw] mx-auto">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="w-[73vw] h-[8vh]  ">
-                  <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                    Register
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            
+            {!hasToken && (
+              <View className="mt-[5vw] mx-auto">
+                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                  <View className="w-[73vw] h-[8vh]  ">
+                    <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
+                      Login
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+
+            {!hasToken && (
+              <View className="mt-[1vw] mx-auto">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Register")}
+                >
+                  <View className="w-[73vw] h-[8vh]  ">
+                    <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
+                      Register
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </ScrollView>
         <View>

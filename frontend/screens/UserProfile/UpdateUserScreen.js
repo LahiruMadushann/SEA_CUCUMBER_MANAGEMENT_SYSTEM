@@ -20,6 +20,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
+import BASE_URL from "../../apiConfig/config";
 
 export default function UpdateUserScreen() {
   const navigation = useNavigation();
@@ -75,7 +76,7 @@ export default function UpdateUserScreen() {
     };
 
     // Replace with your backend URL
-    const backendUrl = "http://192.168.43.75:3000/user/update";
+    const backendUrl = `${BASE_URL}/user/update`;
 
     // Send a POST request to update the password
     axios
@@ -115,12 +116,6 @@ export default function UpdateUserScreen() {
                     />
                   </View>
                 </TouchableOpacity>
-              </View>
-
-              <View className=" ml-[11vw]">
-                <View className="flex m-[auto] absolute ">
-                  <PopupScreen />
-                </View>
               </View>
             </View>
 

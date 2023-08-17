@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import BASE_URL from "../../apiConfig/config";
+import axios from "axios";
 import {
   StyleSheet,
   Text,
@@ -9,130 +11,196 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import FarmPopupScreen from "../../components/FarmPopupScreen";
-import UserPopupScreen from "../../components/UserPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
-const listTab = [
-  {
-    status: "Detail",
-  },
-  {
-    status: "Stock",
-  },
-];
-
-const data = [
-  {
-    name: "Aqua Farm Name",
-    subName: "SeaGem Cucumber Farms",
-    status: "Detail",
-  },
-  {
-    name: "Address",
-    subName: "123 Ocean Avenue",
-    status: "Detail",
-  },
-  {
-    name: "Years Working",
-    subName: "5 years",
-    status: "Detail",
-  },
-  {
-    name: "licenseNo",
-    subName: "FARM2023-001",
-    status: "Detail",
-  },
-  {
-    name: "validity",
-    subName: "2023-12-31",
-    status: "Detail",
-  },
-  {
-    name: "location",
-    subName: "Coastal Bay Area",
-    status: "Detail",
-  },
-  {
-    name: "extend",
-    subName: "10 acres",
-    status: "Detail",
-  },
-  {
-    name: "gpsCoordinates",
-    subName: "40.7128° N, 74.0060° W",
-    status: "Detail",
-  },
-  {
-    name: "farmInternal",
-    subName: "Yes",
-    status: "Detail",
-  },
-  {
-    name: "establishmentDate",
-    subName: "2023-03-15",
-    status: "Detail",
-  },
-
-  {
-    name: "Stock",
-    subName: "Holothuria scabra",
-    status: "Stock",
-  },
-  {
-    name: "Stocking Date",
-    subName: "2023-04-15",
-    status: "Stock",
-  },
-  {
-    name: "Hatchery",
-    subName: "Sea Cucumber Hatcheries Ltd",
-    status: "Stock",
-  },
-  {
-    name: "Hatchery Batch",
-    subName: "Batch001",
-    status: "Stock",
-  },
-  {
-    name: "Harvest",
-    subName: "2023-09-01",
-    status: "Stock",
-  },
-  {
-    name: "Size",
-    subName: "40Kg",
-    status: "Stock",
-  },
-  {
-    name: "Survival",
-    subName: "87%",
-    status: "Stock",
-  },
-  {
-    name: "Diseases",
-    subName: "None",
-    status: "Stock",
-  },
-  {
-    name: "Date",
-    subName: "75th",
-    status: "Stock",
-  },
-];
-
 export default function MainFarmScreen() {
+  const route = useRoute(); // Get the route object
+  // Access the farmId parameter from route.params
+  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+
+  const [farmData, setFarmData] = useState([]);
+  const [stockData, setStockData] = useState([]);
+
+  useEffect(() => {
+    async function fetchFarmData() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/districtAquaCulturist/getAquaFarmDetails`,
+          { farmId: farmId }
+        );
+        setFarmData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching farm data:", error);
+      }
+    }
+
+    async function fetchStockData() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/districtAquaCulturist/getAquaFarmingDetails`,
+          { farmId: farmId }
+        );
+        setStockData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    }
+
+    fetchFarmData();
+    fetchStockData();
+  }, [farmId]);
+
+  // console.log(farmData);
+  // console.log(stockData);
+
+  const {
+    stock: db_stock,
+    stockingDates: db_stockingDates,
+    hatchery: db_hatchery,
+    hatcheryBatch: db_hatcheryBatch,
+    harvest: db_harvest,
+    size: db_size,
+    survival: db_survival,
+    diseases: db_diseases,
+    date: db_date,
+  } = stockData;
+
+  const {
+    _id: db_farmId,
+    name: db_name,
+    address: db_address,
+    age: db_age,
+    licenseNo: db_licenseNo,
+    validity: db_validity,
+    location: db_location,
+    extend: db_extend,
+    gpsCoordinates: db_gpsCoordinates,
+    farmInternal: db_farmInternal,
+    establishmentDate: db_establishmentDate,
+  } = farmData;
+
+  const listTab = [
+    {
+      status: "Detail",
+    },
+    {
+      status: "Stock",
+    },
+  ];
+
+  const data = [
+    {
+      name: "Aqua Farm Name",
+      subName: `${db_name}`,
+      status: "Detail",
+    },
+    {
+      name: "Address",
+      subName: `${db_address}`,
+      status: "Detail",
+    },
+    {
+      name: "Years Working",
+      subName: `${db_age} years`,
+      status: "Detail",
+    },
+    {
+      name: "licenseNo",
+      subName: `${db_licenseNo}`,
+      status: "Detail",
+    },
+    {
+      name: "validity",
+      subName: `${db_validity}`,
+      status: "Detail",
+    },
+    {
+      name: "location",
+      subName: `${db_location}`,
+      status: "Detail",
+    },
+    {
+      name: "extend",
+      subName: `${db_extend}`,
+      status: "Detail",
+    },
+    {
+      name: "gpsCoordinates",
+      subName: `${db_gpsCoordinates}`,
+      status: "Detail",
+    },
+    {
+      name: "farmInternal",
+      subName: `${db_farmInternal}`,
+      status: "Detail",
+    },
+    {
+      name: "establishmentDate",
+      subName: `${db_establishmentDate}`,
+      status: "Detail",
+    },
+
+    {
+      name: "Stock",
+      subName: `${db_stock}`,
+      status: "Stock",
+    },
+    {
+      name: "Stocking Date",
+      subName: `${db_stockingDates}`,
+      status: "Stock",
+    },
+    {
+      name: "Hatchery",
+      subName: `${db_hatchery}`,
+      status: "Stock",
+    },
+    {
+      name: "Hatchery Batch",
+      subName: `${db_hatcheryBatch}`,
+      status: "Stock",
+    },
+    {
+      name: "Harvest",
+      subName: `${db_harvest}`,
+      status: "Stock",
+    },
+    {
+      name: "Size",
+      subName: `${db_size}`,
+      status: "Stock",
+    },
+    {
+      name: "Survival",
+      subName: `${db_survival}`,
+      status: "Stock",
+    },
+    {
+      name: "Diseases",
+      subName: `${db_diseases}`,
+      status: "Stock",
+    },
+    {
+      name: "Date",
+      subName: `${db_date}`,
+      status: "Stock",
+    },
+  ];
+
   const navigation = useNavigation();
+
   const [status, setStatus] = useState("Detail");
   const [datalist, setDatalist] = useState(
     data.filter((e) => e.status === "Detail")
   );
+
   const setStatusFilter = (status) => {
     if (status === "Detail") {
-      setDatalist([...data.filter((e) => e.status === status)]);
+      setDatalist(data.filter((e) => e.status === "Details"));
     } else if (status === "Stock") {
-      setDatalist([...data.filter((e) => e.status === status)]);
+      setDatalist(data.filter((e) => e.status === "Stock"));
     } else {
       setDatalist(data);
     }
@@ -163,7 +231,7 @@ export default function MainFarmScreen() {
                   </TouchableOpacity>
                 </View>
                 <View className="flex m-[auto] absolute mt-[10vw] ml-[80vw]">
-                  <FarmPopupScreen />
+                  <FarmPopupScreen farmId={db_farmId} />
                 </View>
               </View>
 
@@ -175,7 +243,7 @@ export default function MainFarmScreen() {
 
           <View className="mt-[36vh]">
             <Text className="text-center text-[22px] font-bold text-[#000000A6]">
-              SeaGem Cucumber Farms
+              {farmData.name}
             </Text>
 
             <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
@@ -207,18 +275,167 @@ export default function MainFarmScreen() {
               ))}
             </View>
 
-            {datalist.map((item, index) => (
-              <View key={index} className="flex-row py-[2.5vw]">
-                <View className="ml-[16vw] mt-[-1.8vh]">
+            {/* Display Details or Stock Info based on the selected tab */}
+            {status === "Detail" && (
+              <View className="flex-col py-[2.5vw]">
+                <View className="ml-[16vw]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    {item.name}
+                    Aqua Farm Name
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
-                    {item.subName}
+                    {db_name}
+                  </Text>
+                </View>
+
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Address
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_address}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Years Working
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">{db_age}</Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    licenseNo
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_licenseNo}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    validity
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_validity}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    location
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_location}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    extend
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_extend}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    gpsCoordinates
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_gpsCoordinates}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    farmInternal
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_farmInternal}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Establishment Date
+                  </Text>
+                  <Text className="text-[13px] ml-[1vw] text-[#000000A6]">
+                    {db_establishmentDate}
                   </Text>
                 </View>
               </View>
-            ))}
+            )}
+            {status === "Stock" && (
+              <View className="flex-col py-[2.5vw]">
+                <View className="ml-[16vw]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Stock
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_stock}
+                  </Text>
+                </View>
+
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Stocking Dates
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_stockingDates}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Hatchery
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_hatchery}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Hatchery Batch
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_hatcheryBatch}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Harvest
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_harvest}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Size
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_size}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Survival
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_survival}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Diseases
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_diseases}
+                  </Text>
+                </View>
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    Date
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_date}
+                  </Text>
+                </View>
+              </View>
+            )}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

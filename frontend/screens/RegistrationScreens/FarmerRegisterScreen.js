@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import BASE_URL from "../apiConfig/config";
+import React, { useState, useEffect } from "react";
+import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+
 import {
   View,
   Text,
@@ -11,15 +12,15 @@ import {
   ScrollView,
   StyleSheet,
   Button,
-  Picker,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
-import FooterBar from "../components/FooterBar";
+import FooterBar from "../../components/FooterBar";
+import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
-export default function FisheriesRegisterScreen() {
+export default function FarmerRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -35,8 +36,28 @@ export default function FisheriesRegisterScreen() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [farmName, setFarmName] = useState("");
+  const [farmId, setFarmId] = useState("");
+  const [farmNames, setFarmNames] = useState([]);
 
   const [image, setImage] = useState(null); // Use state for selected image
+
+  useEffect(() => {
+    async function fetchFarmNames() {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
+        );
+
+        const farmNamesData = response.data.data; // Access the data property
+        setFarmNames(farmNamesData); // Store farm names with IDs
+      } catch (error) {
+        console.error("Error fetching farm names:", error);
+      }
+    }
+
+    fetchFarmNames();
+  }, []);
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -85,14 +106,17 @@ export default function FisheriesRegisterScreen() {
     formData.append("province", province);
     formData.append("country", country);
     formData.append("contactNo", phoneNumber);
+    formData.append("farmId", farmId);
+    formData.append("farmName", farmName);
     formData.append("profilepic", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
       name: "profile.jpg", // Change to the desired file name
     });
 
-    const backendUrl = `${BASE_URL}/exporter/register`; // Replace with your actual backend URL
+    console.log(formData);
 
+    const backendUrl = `${BASE_URL}/farmer/register`; // Replace with your actual backend URL
     try {
       const response = await axios.post(backendUrl, formData, {
         headers: {
@@ -109,6 +133,7 @@ export default function FisheriesRegisterScreen() {
       console.error("Error during registration:", error);
     }
   };
+
   return (
     <ScrollView className="flex-grow bg-white ">
       <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
@@ -117,7 +142,7 @@ export default function FisheriesRegisterScreen() {
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
               <View className="flex m-[auto] ">
                 <Image
-                  source={require("../assets/main_board/arrow.png")}
+                  source={require("../../assets/main_board/arrow.png")}
                   className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
                 />
               </View>
@@ -127,12 +152,12 @@ export default function FisheriesRegisterScreen() {
 
         <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
           <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-            Exporter Registration
+            Farmer Registration
           </Text>
         </View>
       </View>
 
-      <View className="p-4 mx-auto w-[80vw] h-[100vh] mb-[-28vw] mt-[60vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
+      <View className="p-4 mx-auto w-[80vw] h-[auto] mb-[-28vw] mt-[60vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
         <Text className="text-lg font-bold mb-4">Login Details</Text>
 
         <View style={styles.fieldContainer}>
@@ -208,13 +233,15 @@ export default function FisheriesRegisterScreen() {
 
         <View style={styles.fieldContainer}>
           <Text style={styles.requiredLabel}>*</Text>
-          <TextInput
-            className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-            value={gender}
-            onChangeText={setGender}
-            placeholder="Gender"
-            required
-          />
+          <Picker
+            style={styles.picker}
+            selectedValue={gender}
+            onValueChange={(itemValue) => setGender(itemValue)}
+          >
+            <Picker.Item label="Select Gender" value="" />
+            <Picker.Item label="Male" value="male" />
+            <Picker.Item label="Female" value="female" />
+          </Picker>
         </View>
 
         <View style={styles.fieldContainer}>
@@ -281,6 +308,27 @@ export default function FisheriesRegisterScreen() {
             required
           />
         </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.requiredLabel}>*</Text>
+
+          <Picker
+            style={styles.picker}
+            selectedValue={farmName}
+            onValueChange={(itemValue) => {
+              const selectedFarm = farmNames.find(
+                (farm) => farm.name === itemValue
+              );
+              setFarmName(selectedFarm.name); // Set selected farm name
+              setFarmId(selectedFarm._id); // Set selected farm ID
+            }}
+          >
+            <Picker.Item label="Select Farm Name" value="" />
+            {farmNames.map((farm, index) => (
+              <Picker.Item key={index} label={farm.name} value={farm.name} />
+            ))}
+          </Picker>
+        </View>
+
         <View style={styles.pickImageContainer}>
           <TouchableOpacity
             onPress={selectImage}
@@ -346,7 +394,7 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 200,
+    width: 225,
     color: "gray",
   },
 });

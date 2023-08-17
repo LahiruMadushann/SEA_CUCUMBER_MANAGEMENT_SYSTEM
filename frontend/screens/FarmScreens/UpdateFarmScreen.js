@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
 
 import {
   StyleSheet,
@@ -13,7 +14,7 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
@@ -23,44 +24,78 @@ export default function UpdateFarmScreen() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  // const handleUpdatePassword = () => {
-  //   // Check if new password and confirm new password match
-  //   if (newPassword !== confirmNewPassword) {
-  //     Alert.alert("Password Mismatch", "New passwords do not match.");
-  //     return;
-  //   }
+  const route = useRoute(); // Get the route object
+  // Access the farmId parameter from route.params
+  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
 
-  //   // Create a data object to send to the backend
-  //   const userData = {
-  //     userId: db_id,
-  //     oldpassword: oldPassword,
-  //     newPassword: newPassword,
-  //     confirmPassword: confirmNewPassword,
-  //   };
+  useEffect(() => {
+    async function fetchFarmData() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/districtAquaCulturist/getAquaFarmDetails`,
+          { farmId: farmId }
+        );
+        setFarmData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching farm data:", error);
+      }
+    }
 
-  //   // Replace with your backend URL
-  //   const backendUrl = "http://192.168.43.75:3000/farmer/changePassword";
+    fetchFarmData();
+  }, []);
 
-  //   // Send a POST request to update the password
-  //   axios
-  //     .post(backendUrl, userData)
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         Alert.alert(
-  //           "Password Updated",
-  //           "Your password has been updated successfully."
-  //         );
-  //         // Optionally, navigate to another screen after successful password update
-  //         // navigation.navigate("UserProfileMainScreen");
-  //       } else {
-  //         Alert.alert("Update Failed", response.data.message);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating password:", error);
-  //       Alert.alert("Error", "An error occurred while updating the password.");
-  //     });
-  // };
+  const [farmData, setFarmData] = useState({
+    name: "",
+    address: "",
+    age: "",
+    licenseNo: "",
+    validity: "",
+    location: "",
+    extend: "",
+    gpsCoordinates: "",
+    farmInternal: "",
+    establishmentDate: "",
+  });
+
+  const handleUpdate = () => {
+    const updatedData = {
+      farmId: farmId,
+      name: farmData.name,
+      address: farmData.address,
+      age: farmData.age,
+      licenseNo: farmData.licenseNo,
+      validity: farmData.validity,
+      location: farmData.location,
+      extend: farmData.extend,
+      gpsCoordinates: farmData.gpsCoordinates,
+      farmInternal: farmData.farmInternal,
+      establishmentDate: farmData.establishmentDate,
+    };
+
+    const updateUrl = `${BASE_URL}/districtAquaCulturist/updateFarmDetails`;
+
+    // Make a PUT or POST request to update the data
+    axios
+      .put(updateUrl, updatedData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert(
+            "Farm Details",
+            "Farm details has been updated successfully."
+          );
+          // Optionally, navigate to another screen after successful password update
+          // navigation.navigate("UserProfileMainScreen");
+        } else {
+          Alert.alert("Update Failed", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        Alert.alert("Error", "An error occurred while updating the details.");
+      });
+  };
+
+  console.log(farmData);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -98,88 +133,122 @@ export default function UpdateFarmScreen() {
             <View className="mt-[6vh]">
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
+                value={farmData.name}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({ ...prevState, name: value }))
+                }
                 placeholder="Farm Name"
-                secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="Address"
-                secureTextEntry
+                value={farmData.address}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({ ...prevState, address: value }))
+                }
+                placeholder="Farm Address"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="Years Worked after establsihment"
-                secureTextEntry
+                value={farmData.age}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    age: value,
+                  }))
+                }
+                placeholder="Years Worked"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="licenseNo"
-                secureTextEntry
+                value={farmData.licenseNo}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    licenseNo: value,
+                  }))
+                }
+                placeholder="License No"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="validity"
-                secureTextEntry
+                value={farmData.validity}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    validity: value,
+                  }))
+                }
+                placeholder="Validity"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="location"
-                secureTextEntry
+                value={farmData.location}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    location: value,
+                  }))
+                }
+                placeholder="Location"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="extend"
-                secureTextEntry
+                value={farmData.extend}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({ ...prevState, extend: value }))
+                }
+                placeholder="Extend"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                placeholder="gpsCoordinates"
-                secureTextEntry
+                value={farmData.gpsCoordinates}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    gpsCoordinates: value,
+                  }))
+                }
+                placeholder="GPS Coordinates"
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={newPassword}
-                onChangeText={setNewPassword}
-                placeholder="farmInternal"
-                secureTextEntry
+                value={farmData.farmInternal}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    farmInternal: value,
+                  }))
+                }
+                placeholder="Farm Internal"
                 required
               />
               <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={confirmNewPassword}
-                onChangeText={setConfirmNewPassword}
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={farmData.establishmentDate}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    establishmentDate: value,
+                  }))
+                }
                 placeholder="establishmentDate"
-                secureTextEntry
                 required
               />
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">
-              <TouchableOpacity className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]">
+              <TouchableOpacity
+                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                onPress={handleUpdate}
+              >
                 <Text className="text-[#fff] text-[18px] font-bold text-center">
                   Update
                 </Text>

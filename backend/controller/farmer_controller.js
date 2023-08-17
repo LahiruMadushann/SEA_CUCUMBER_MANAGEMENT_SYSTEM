@@ -131,3 +131,25 @@ exports.getAquaFarmNews = async (req, res, next) => {
     next(error);
   }
 };
+
+//GETTING AQUACULTURE FARM NAMES
+exports.getAquaFarmNames = async (req, res, next) => {
+  try {
+    let aquaFarmNames = await farmerService.getAllAquaFarmNames();
+
+    res.json({ status: true, success: aquaFarmNames });
+
+    if (aquaFarmNames) {
+      res.status(200).json({
+        success: true,
+        message: "Found Farm Names",
+        data: aquaFarmNames,
+      });
+    } else {
+      res.status(400).json({ success: false, message: "Not found Farm Found" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};

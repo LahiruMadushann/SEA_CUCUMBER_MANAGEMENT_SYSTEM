@@ -1,9 +1,14 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../auth/AuthContext";
 
 export default function FooterBar() {
   const navigation = useNavigation();
+
+  const { state } = useAuth(); // Access the dispatch function from the context
+  const hasToken = state.token;
+
   return (
     <View className="mt-auto mb-[4vh]">
       <View className="border-b-[0.55px] border-b-gray-500 mb-[4vh]  w-[100vw] " />
@@ -17,22 +22,31 @@ export default function FooterBar() {
           </TouchableOpacity>
         </View>
 
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
-            <Image
-              source={require("../assets/footer_bar/profile.png")}
-              className=" w-[21.875px] h-[25px] mr-[10vw]"
-            />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
-            <Image
-              source={require("../assets/footer_bar/notification.png")}
-              className=" w-[21.87507px] h-[25px] mr-[10vw]"
-            />
-          </TouchableOpacity>
-        </View>
+        {hasToken && (
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("UserProfileMainScreen")}
+            >
+              <Image
+                source={require("../assets/footer_bar/profile.png")}
+                className=" w-[21.875px] h-[25px] mr-[10vw]"
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {hasToken && (
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Notification")}
+            >
+              <Image
+                source={require("../assets/footer_bar/notification.png")}
+                className=" w-[21.87507px] h-[25px] mr-[10vw]"
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         <View>
           <TouchableOpacity onPress={() => navigation.navigate("Knowledge")}>
             <Image

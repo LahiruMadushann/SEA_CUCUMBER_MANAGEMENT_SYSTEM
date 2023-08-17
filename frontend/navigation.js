@@ -53,8 +53,8 @@ import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 {
   /*REGISTRATION SCREEN */
 }
-import FarmerRegisterScreen from "./screens/FarmerRegisterScreen";
-import ExporterRegisterScreen from "./screens/ExporterRegisterScreen";
+import FarmerRegisterScreen from "./screens/RegistrationScreens/FarmerRegisterScreen";
+import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegisterScreen";
 import FishProcessorRegisterScreen from "./screens/FishProcessorRegisterScreen";
 
 {

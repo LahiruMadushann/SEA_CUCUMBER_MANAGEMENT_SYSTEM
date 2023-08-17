@@ -44,9 +44,9 @@ export default function UserProfileMainScreen() {
     town: db_town,
     province: db_province,
     country: db_country,
-    // farmId: db_farmId,
-    // farmName: db_farmName,
-    // accountStatus: db_accountStatus,
+    farmId: db_farmId,
+    farmName: db_farmName,
+    accountStatus: db_accountStatus,
     profilepic: db_profilepic,
     createdAt: db_createdAt,
   } = decodedToken;
@@ -65,9 +65,7 @@ export default function UserProfileMainScreen() {
             <View className="flex-row ml-[70vw]">
               <View className="mt-[110vw] ">
                 <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("MainBoardScreenAfterLogin")
-                  }
+                  onPress={() => navigation.navigate("MainBoard")}
                 >
                   <View className="flex m-[auto] ">
                     <Image

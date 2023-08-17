@@ -118,6 +118,90 @@ exports.getAllAquaFarmDetails = async (req, res, next) => {
   }
 };
 
+//GETTING INDIVIDUAL AQUACULTURE FARM DETAIL
+exports.getIndividualAquaFarmDetail = async (req, res, next) => {
+  try {
+    const { farmId } = req.body;
+    let aquaFarmDetails = await districtAquaCulturistService.getAquaFarmDetails(
+      farmId
+    );
+
+    if (aquaFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found aqua Farm details",
+        data: aquaFarmDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farm details found for the Id",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GETTING INDIVIDUAL LATEST FARMING DETAILS AQUACULTURE FARM DETAILS
+exports.getIndividualAquaFarmingDetails = async (req, res, next) => {
+  try {
+    const { farmId } = req.body;
+    let aquaFarmingDetails =
+      await districtAquaCulturistService.getAquaFarmingDetails(farmId);
+
+    if (aquaFarmingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found aqua Farming details",
+        data: aquaFarmingDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farming details found for the Id",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GETTING INDIVIDUAL FARM DETAILS ALONG WITH LATEST FARMING DETAILS AQUACULTURE FARM DETAILS
+exports.getFarmAndLatestFarmingDetails = async (req, res, next) => {
+  try {
+    const { farmId } = req.body;
+    let aquaFarmingDetails =
+      await districtAquaCulturistService.getAquaFarmingDetails(farmId);
+    let aquaFarmDetails = await districtAquaCulturistService.getAquaFarmDetails(
+      farmId
+    );
+
+    const combinedData = {
+      farmdata: aquaFarmDetails,
+      latestStockdata: aquaFarmingDetails,
+    };
+    if (aquaFarmingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found aqua Farming details",
+        combinedData: aquaFarmingDetails,
+        latestStockdata: aquaFarmDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farming details found for the Id",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //CREATE ADVERTISEMENT FOR VACANCIES OR PROMOTIONS
 exports.createAdvertisement = async (req, res, next) => {
   try {

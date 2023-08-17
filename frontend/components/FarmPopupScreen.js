@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function UserPopupScreen() {
+export default function FarmPopupScreen({ farmId }) {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -31,12 +31,14 @@ export default function UserPopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[40vw] ">
           <TouchableOpacity
-            onPress={() => navigation.navigate("UpdateFarmScreen")}
+            onPress={() =>
+              navigation.navigate("UpdateFarmScreen", { farmId: farmId })
+            }
           >
             <Text className="mx-[1vw]">Update Farm </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("UpdateFarmingScreen")}
+            onPress={() => navigation.navigate("UpdateFarmingScreen", { farmId: farmId })}
           >
             <Text className="mx-[1vw]">Update Farming Details</Text>
           </TouchableOpacity>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 
 import {
   View,
@@ -16,8 +17,17 @@ import { useNavigation } from "@react-navigation/native";
 export default function UserPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
+  const { state } = useAuth();
+  // Access the token
+  const token = state.token;
 
-  const { dispatch } = useAuth(); // Access the dispatch function from the context
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const { farmId: db_farmId, farmName: db_farmName } = decodedToken;
+
+  // Logout Functionalities
+  const { dispatch } = useAuth();
 
   const handleLogout = async () => {
     // Clear the token by dispatching the CLEAR_TOKEN action
@@ -40,7 +50,9 @@ export default function UserPopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
           <TouchableOpacity
-            onPress={() => navigation.navigate("MainFarmScreen")}
+            onPress={() =>
+              navigation.navigate("MainFarmScreen", { farmId: db_farmId })
+            }
           >
             <Text className="mx-[1vw]">Farm </Text>
           </TouchableOpacity>

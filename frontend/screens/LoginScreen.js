@@ -46,7 +46,7 @@ export default function LoginScreen() {
           dispatch({ type: "SET_TOKEN", payload: token });
 
           // Handle successful login, possibly by navigating to another screen
-          navigation.navigate("MainBoardScreenAfterLogin");
+          navigation.navigate("MainBoard");
         } else {
           // Show an alert for unsuccessful login
           Alert.alert(
