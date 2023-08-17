@@ -26,9 +26,15 @@ router.post(
   "/districtAquaCulturist/getAquaFarmingDetails",
   districtAquaCulturistController.getIndividualAquaFarmingDetails
 );
+
 router.post(
-  "/districtAquaCulturist/getFarmAndLatestFarmingDetails",
-  districtAquaCulturistController.getFarmAndLatestFarmingDetails
+  "/districtAquaCulturist/getFarmingDetailsOfSingleFarm",
+  districtAquaCulturistController.getIndividualAquaAllFarmingDetails
+);
+
+router.post(
+  "/districtAquaCulturist/getFarmingDetailsFromId",
+  districtAquaCulturistController.getIndividualFarmingDetails
 );
 
 router.post(

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
 
 import {
   StyleSheet,
@@ -13,12 +14,16 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 
 export default function UpdateFarmingScreen() {
   const navigation = useNavigation();
+
+  const route = useRoute(); // Get the route object
+  // Access the farmId parameter from route.params
+  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+
   const [stock, setStock] = useState("");
   const [stockingDates, setStockingDates] = useState("");
   const [hatchery, setHatchery] = useState("");
@@ -28,6 +33,42 @@ export default function UpdateFarmingScreen() {
   const [survival, setSurvival] = useState("");
   const [diseases, setDiseases] = useState("");
   const [date, setDate] = useState("");
+
+  const handleUpdate = () => {
+    const insertData = {
+      farmId: farmId,
+      stock: stock,
+      stockingDates: stockingDates,
+      hatchery: hatchery,
+      hatcheryBatch: hatcheryBatch,
+      harvest: harvest,
+      size: size,
+      survival: survival,
+      diseases: diseases,
+      date: date,
+    };
+    const insertUrl = `${BASE_URL}/districtAquaCulturist/insertFarmingDetails`;
+
+    // Make a PUT or POST request to update the data
+    axios
+      .post(insertUrl, insertData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert(
+            "Stock Details",
+            "Stock details has been updated Inserted."
+          );
+          // Optionally, navigate to another screen after successful password update
+          // navigation.navigate("UserProfileMainScreen");
+        } else {
+          Alert.alert("Stock Update Failed", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating stock:", error);
+        Alert.alert("Error", "An error occurred while updating the stock.");
+      });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -56,7 +97,7 @@ export default function UpdateFarmingScreen() {
                 Update Details
               </Text>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[2vw] fixed">
-                Farming
+                Stock
               </Text>
             </View>
           </View>
@@ -68,7 +109,6 @@ export default function UpdateFarmingScreen() {
                 value={stock}
                 onChangeText={setStock}
                 placeholder="Stock"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -76,7 +116,6 @@ export default function UpdateFarmingScreen() {
                 value={stockingDates}
                 onChangeText={setStockingDates}
                 placeholder="Stocking Dates"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -84,7 +123,6 @@ export default function UpdateFarmingScreen() {
                 value={hatchery}
                 onChangeText={setHatchery}
                 placeholder="Hatchery"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -92,7 +130,6 @@ export default function UpdateFarmingScreen() {
                 value={hatcheryBatch}
                 onChangeText={setHatcheryBatch}
                 placeholder="Hatchery Batch"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -100,7 +137,6 @@ export default function UpdateFarmingScreen() {
                 value={harvest}
                 onChangeText={setHarvest}
                 placeholder="Harvest"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -108,7 +144,6 @@ export default function UpdateFarmingScreen() {
                 value={size}
                 onChangeText={setSize}
                 placeholder="Size"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -116,7 +151,6 @@ export default function UpdateFarmingScreen() {
                 value={survival}
                 onChangeText={setSurvival}
                 placeholder="Survival"
-                secureTextEntry
                 required
               />
               <TextInput
@@ -124,21 +158,22 @@ export default function UpdateFarmingScreen() {
                 value={diseases}
                 onChangeText={setDiseases}
                 placeholder="Diseases"
-                secureTextEntry
                 required
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={date}
                 onChangeText={setDate}
-                placeholder="Date"
-                secureTextEntry
+                placeholder="Date (2023-11-05)"
                 required
               />
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">
-              <TouchableOpacity className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]">
+              <TouchableOpacity
+                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                onPress={handleUpdate}
+              >
                 <Text className="text-[#fff] text-[18px] font-bold text-center">
                   Update
                 </Text>

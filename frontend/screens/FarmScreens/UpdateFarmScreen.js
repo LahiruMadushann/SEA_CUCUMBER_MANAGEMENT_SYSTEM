@@ -15,18 +15,14 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UpdateFarmScreen() {
   const navigation = useNavigation();
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  const route = useRoute(); // Get the route object
+  const route = useRoute(); 
   // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+  const farmId = route.params?.farmId || ""; 
 
   useEffect(() => {
     async function fetchFarmData() {

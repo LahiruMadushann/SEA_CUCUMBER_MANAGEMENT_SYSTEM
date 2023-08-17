@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
 
 import {
   StyleSheet,
@@ -14,12 +15,36 @@ import {
   TextInput,
   FlatList,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 
 export default function ViewFarmingRecordsScreen() {
   const navigation = useNavigation();
+
+  const route = useRoute();
+  // Access the farmId parameter from route.params
+  const farmId = route.params?.farmId || "";
+  const farmName = route.params?.farmName || "";
+
+  const [allStockData, setAllStockData] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllStockData() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/districtAquaCulturist/getFarmingDetailsOfSingleFarm`,
+          { farmId: farmId }
+        );
+        setAllStockData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    }
+
+    fetchAllStockData();
+  }, [farmId]);
+
+  console.log(allStockData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -27,6 +52,14 @@ export default function ViewFarmingRecordsScreen() {
       <Text style={styles.tableValue}>{value}</Text>
     </View>
   );
+
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -52,7 +85,7 @@ export default function ViewFarmingRecordsScreen() {
                 </View>
               </View>
               <Text className="text-center text-[#fff]  text-[18px] mt-[10vw] fixed">
-                View
+                View {farmName}
               </Text>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[2vw] fixed">
                 Farming Records
@@ -63,25 +96,24 @@ export default function ViewFarmingRecordsScreen() {
           <View className="mt-[36vh]">
             {/* Table */}
             <FlatList
-              data={[
-                { label: "DATE", value: "TOTAL STOCK" },
-                { label: "2023-07-05", value: "55Kg" },
-                { label: "2023-06-12", value: "60Kg" },
-                { label: "2023-05-12", value: "70Kg" },
-                { label: "2023-04-11", value: "56Kg" },
-                { label: "2023-03-18", value: "40Kg" },
-                { label: "2023-02-13", value: "65Kg" },
-              ]}
+              data={[...allStockData]}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("ViewIndividualFarmingRecScreen")
+                    navigation.navigate("ViewIndividualFarmingRecScreen", {
+                      farmId: farmId,
+                      farmName: farmName,
+                      farmingId: item._id,
+                    })
                   }
                 >
-                  <TableRow label={item.label} value={item.value} />
+                  <TableRow
+                    label={formatDate(item.date)}
+                    value={`${item.stock}Kg`}
+                  />
                 </TouchableOpacity>
               )}
-              keyExtractor={(item) => item.label}
+              keyExtractor={(item) => item._id}
             />
           </View>
         </ScrollView>

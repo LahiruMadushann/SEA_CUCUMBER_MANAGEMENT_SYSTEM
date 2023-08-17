@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
 
 import {
   StyleSheet,
@@ -14,12 +15,50 @@ import {
   TextInput,
   FlatList,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function ViewIndividualFarmingRecScreen() {
   const navigation = useNavigation();
+
+  const route = useRoute();
+  // Access the farmId parameter from route.params
+  const farmId = route.params?.farmId || "";
+  const farmName = route.params?.farmName || "";
+  const farmingId = route.params?.farmingId || "";
+
+  const [singleStockData, setSingleStockData] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllStockData() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/districtAquaCulturist/getFarmingDetailsFromId`,
+          { farmingId: farmingId }
+        );
+        setSingleStockData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    }
+
+    fetchAllStockData();
+  }, [farmId]);
+
+  const {
+    stock: db_stock,
+    stockingDates: db_stockingDates,
+    hatchery: db_hatchery,
+    hatcheryBatch: db_hatcheryBatch,
+    harvest: db_harvest,
+    size: db_size,
+    survival: db_survival,
+    diseases: db_diseases,
+    date: db_date,
+  } = singleStockData.length > 0 ? singleStockData[0] : {};
+
+  console.log(singleStockData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -27,6 +66,14 @@ export default function ViewIndividualFarmingRecScreen() {
       <Text style={styles.tableValue}>{value}</Text>
     </View>
   );
+
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -41,7 +88,10 @@ export default function ViewIndividualFarmingRecScreen() {
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("ViewFarmingRecordsScreen")
+                      navigation.navigate("ViewFarmingRecordsScreen", {
+                        farmId: farmId,
+                        farmName: farmName,
+                      })
                     }
                   >
                     <View className="flex m-[auto] ">
@@ -54,10 +104,10 @@ export default function ViewIndividualFarmingRecScreen() {
                 </View>
               </View>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Farming Records
+                Farming Records {farmName}
               </Text>
               <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
-                Date : 2023- 07 -05
+                Date : {formatDate(db_date)}
               </Text>
             </View>
           </View>
@@ -66,14 +116,14 @@ export default function ViewIndividualFarmingRecScreen() {
             {/* Table */}
             <FlatList
               data={[
-                { label: "Stock", value: "Holothuria scabra" },
-                { label: "StockingDates", value: "2023-04-15" },
-                { label: "Hatchery", value: "Sea Cucumber Hatcheries Ltd" },
-                { label: "HatcheryBatch", value: "Batch001" },
-                { label: "Harvest", value: "2023-09-01" },
-                { label: "Size", value: "40Kg" },
-                { label: "Survival", value: "87%" },
-                { label: "Diseases", value: "None" },
+                { label: "Stock", value: `${db_stock}` },
+                { label: "StockingDates", value: `${db_stockingDates}` },
+                { label: "Hatchery", value: `${db_hatchery}` },
+                { label: "HatcheryBatch", value: `${db_hatcheryBatch}` },
+                { label: "Harvest", value: `${db_harvest}` },
+                { label: "Size", value: `${db_size}` },
+                { label: "Survival", value: `${db_survival}` },
+                { label: "Diseases", value: `${db_diseases}` },
               ]}
               renderItem={({ item }) => (
                 <TableRow label={item.label} value={item.value} />

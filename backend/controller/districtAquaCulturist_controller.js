@@ -169,26 +169,47 @@ exports.getIndividualAquaFarmingDetails = async (req, res, next) => {
   }
 };
 
-//GETTING INDIVIDUAL FARM DETAILS ALONG WITH LATEST FARMING DETAILS AQUACULTURE FARM DETAILS
-exports.getFarmAndLatestFarmingDetails = async (req, res, next) => {
+//GETTING INDIVIDUAL FARMING DETAILS FROM AQUACULTURE FARM ID
+exports.getIndividualAquaAllFarmingDetails = async (req, res, next) => {
   try {
     const { farmId } = req.body;
     let aquaFarmingDetails =
-      await districtAquaCulturistService.getAquaFarmingDetails(farmId);
-    let aquaFarmDetails = await districtAquaCulturistService.getAquaFarmDetails(
-      farmId
-    );
+      await districtAquaCulturistService.getAllAquaFarmingDetailsSingelFarm(
+        farmId
+      );
 
-    const combinedData = {
-      farmdata: aquaFarmDetails,
-      latestStockdata: aquaFarmingDetails,
-    };
     if (aquaFarmingDetails) {
       res.status(200).json({
         success: true,
         message: "Found aqua Farming details",
-        combinedData: aquaFarmingDetails,
-        latestStockdata: aquaFarmDetails,
+        data: aquaFarmingDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farming details found for the Id",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GETTING INDIVIDUAL FARMING DETAILS FROM FARMING ID
+exports.getIndividualFarmingDetails = async (req, res, next) => {
+  try {
+    const { farmingId } = req.body;
+    let aquaFarmingDetails =
+      await districtAquaCulturistService.getFarmingDetailsFromFarmingId(
+        farmingId
+      );
+
+    if (aquaFarmingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found aqua Farming details",
+        data: aquaFarmingDetails,
       });
     } else {
       res.status(400).json({

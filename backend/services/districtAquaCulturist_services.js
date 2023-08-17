@@ -89,6 +89,24 @@ class districtAquaCulturistService {
     return getAquaFarmingDetails;
   }
 
+  //GETTING FARMING DETAILS OF A INDIVIDUAL FARM
+  static async getAllAquaFarmingDetailsSingelFarm(farmId) {
+    const getAllAquaFarmingDetails = await aqFarmingDetailsModel
+      .find({
+        farmId: farmId,
+      })
+      .sort({ date: -1 });
+    return getAllAquaFarmingDetails;
+  }
+
+  //GETTING FARMING DETAILS OF A INDIVIDUAL FARM
+  static async getFarmingDetailsFromFarmingId(farmingId) {
+    const getAquaFarmingDetails = await aqFarmingDetailsModel.find({
+      _id: farmingId,
+    });
+    return getAquaFarmingDetails;
+  }
+
   //CREATE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS
   static async createAdvertisement(
     type,

@@ -19,6 +19,7 @@ export default function MainFarmScreen() {
   const route = useRoute(); // Get the route object
   // Access the farmId parameter from route.params
   const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+  const farmName = route.params?.farmName || ""; // Default value if parameter is not available
 
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);
@@ -65,7 +66,7 @@ export default function MainFarmScreen() {
     survival: db_survival,
     diseases: db_diseases,
     date: db_date,
-  } = stockData;
+  } = stockData.length > 0 ? stockData[0] : {};
 
   const {
     _id: db_farmId,
@@ -231,7 +232,7 @@ export default function MainFarmScreen() {
                   </TouchableOpacity>
                 </View>
                 <View className="flex m-[auto] absolute mt-[10vw] ml-[80vw]">
-                  <FarmPopupScreen farmId={db_farmId} />
+                  <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
                 </View>
               </View>
 

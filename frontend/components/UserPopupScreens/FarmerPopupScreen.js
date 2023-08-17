@@ -51,7 +51,10 @@ export default function UserPopupScreen() {
         <View style={styles.menu} className="ml-[50vw] ">
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("MainFarmScreen", { farmId: db_farmId })
+              navigation.navigate("MainFarmScreen", {
+                farmId: db_farmId,
+                farmName: db_farmName,
+              })
             }
           >
             <Text className="mx-[1vw]">Farm </Text>
