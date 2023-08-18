@@ -102,17 +102,6 @@ export default function KnowledgeCenterMainScreen() {
                 </View>
               </TouchableOpacity>
             </View>
-
-            <View className=" ml-[11vw]">
-              <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/fisheries/dotIcon.png")}
-                    className=" w-[24.21875px] h-[7.03125px] ml-[280px]"
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
           </View>
 
           <View className="mt-[2vh]">

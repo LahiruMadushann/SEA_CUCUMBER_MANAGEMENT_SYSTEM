@@ -18,6 +18,7 @@ import CheckBox from "expo-checkbox";
 import UserPopupScreen from "../../components/UserPopupScreen";
 import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScreen";
 import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
+import AquaculturistPopupScreen from "../../components/UserPopupScreens/AquaculturistPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
@@ -80,6 +81,8 @@ export default function UserProfileMainScreen() {
                   <ExporterPopupScreen />
                 ) : db_role === "Farmer" ? (
                   <FarmerPopupScreen />
+                ) : db_role === "DistrictAquaculturist" ? (
+                  <AquaculturistPopupScreen />
                 ) : null}
               </View>
             </View>

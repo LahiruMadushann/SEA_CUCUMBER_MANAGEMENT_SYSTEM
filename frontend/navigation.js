@@ -34,7 +34,7 @@ import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
 import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
 import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
 import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
-import AllFarmsScreen from "./screens/ExporterScreens/AllFarmsScreen";
+import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */

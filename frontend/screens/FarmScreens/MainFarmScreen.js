@@ -21,6 +21,9 @@ export default function MainFarmScreen() {
   const farmId = route.params?.farmId || ""; // Default value if parameter is not available
   const farmName = route.params?.farmName || ""; // Default value if parameter is not available
 
+  const directedFarm = route.params?.directedFarm || ""; // Default value if parameter is not available
+  // console.log(directedFarm);
+
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);
 
@@ -220,16 +223,32 @@ export default function MainFarmScreen() {
             <View className="mt-[58vh] ">
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("UserProfileMainScreen")}
-                  >
-                    <View className="flex m-[auto] ">
-                      <Image
-                        source={require("../../assets/main_board/arrow.png")}
-                        className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
-                      />
-                    </View>
-                  </TouchableOpacity>
+                  {!directedFarm && (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("UserProfileMainScreen")
+                      }
+                    >
+                      <View className="flex m-[auto] ">
+                        <Image
+                          source={require("../../assets/main_board/arrow.png")}
+                          className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                  {directedFarm == "allFarmsPage" && (
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("AllFarmsScreen")}
+                    >
+                      <View className="flex m-[auto] ">
+                        <Image
+                          source={require("../../assets/main_board/arrow.png")}
+                          className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  )}
                 </View>
                 <View className="flex m-[auto] absolute mt-[10vw] ml-[80vw]">
                   <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
