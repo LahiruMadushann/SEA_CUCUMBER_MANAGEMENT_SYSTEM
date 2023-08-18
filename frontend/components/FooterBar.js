@@ -38,7 +38,7 @@ export default function FooterBar() {
         {hasToken && (
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Notification")}
+              onPress={() => navigation.navigate("MainNotificationScreen")}
             >
               <Image
                 source={require("../assets/footer_bar/notification.png")}

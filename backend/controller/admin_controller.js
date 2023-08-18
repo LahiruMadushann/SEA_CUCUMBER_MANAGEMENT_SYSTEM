@@ -51,31 +51,6 @@ exports.register = async (req, res, next) => {
   }
 };
 
-// exports.updateAdminDetails = async (req, res, next) => {
-//   try {
-//     const { userId, firstName, lastName, contactNo, address } = req.body;
-//     let updatedadminDetails = await adminService.updateAdminDetails(
-//       userId,
-//       firstName,
-//       lastName,
-//       contactNo,
-//       address
-//     );
-//     if (updatedadminDetails) {
-//       res
-//         .status(200)
-//         .json({ success: true, message: "Admin details updated successfully" });
-//     } else {
-//       res
-//         .status(400)
-//         .json({ success: false, success: "Error during updating process" });
-//     }
-//   } catch (error) {
-//     console.log(error, "err---->");
-//     next(error);
-//   }
-// };
-
 //AQUACULTURE MANAGEMENT USERS - ADMIN CONTROLLERS
 
 exports.registerAqFarmManagementUsers = async (req, res, next) => {

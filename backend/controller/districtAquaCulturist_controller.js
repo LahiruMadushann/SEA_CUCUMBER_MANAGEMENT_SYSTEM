@@ -228,6 +228,8 @@ exports.createAdvertisement = async (req, res, next) => {
   try {
     const { type, title, description, contactNo, address, email } = req.body;
 
+    const createdAt = new Date().toISOString();
+
     let createAdvertisement =
       await districtAquaCulturistService.createAdvertisement(
         type,
@@ -235,7 +237,8 @@ exports.createAdvertisement = async (req, res, next) => {
         description,
         contactNo,
         address,
-        email
+        email,
+        createdAt
       );
 
     if (createAdvertisement) {

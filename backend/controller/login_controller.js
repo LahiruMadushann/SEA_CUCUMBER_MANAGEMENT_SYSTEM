@@ -45,9 +45,10 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Chairman" ||
-                    data.role == "DG" ||
+                    data.role == "DirectorGeneral" ||
                     data.role == "AssistantDirector" ||
-                    data.role == "DistrictAquaculturist"
+                    data.role == "DistrictAquaculturist" ||
+                    data.role == "Minister"
                   ) {
                     tokenData = {
                       _id: data._id,

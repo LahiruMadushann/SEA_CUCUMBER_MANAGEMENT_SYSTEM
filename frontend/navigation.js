@@ -27,6 +27,12 @@ import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
 import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
 
 {
+  /*DISTRICT AQUACULTURIST */
+}
+import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
+import CreateAdsScreen from "./screens/AquaculturistScreens/CreateAdsScreen";
+
+{
   /*FARM SCREENS */
 }
 import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
@@ -34,7 +40,6 @@ import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
 import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
 import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
 import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
-import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */
@@ -62,6 +67,11 @@ import FishProcessorRegisterScreen from "./screens/FishProcessorRegisterScreen";
 }
 import MainFisheriesScreen from "./screens/MainFisheriesScreen";
 import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
+
+{
+  /*NOTIFICATION SCREENS*/
+}
+import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
 
 export default function Navigation() {
   return (
@@ -98,6 +108,7 @@ export default function Navigation() {
         />
 
         <Stack.Screen name="AllFarmsScreen" component={AllFarmsScreen} />
+        <Stack.Screen name="CreateAdsScreen" component={CreateAdsScreen} />
 
         <Stack.Screen
           name="ViewIndividualFarmingRecScreen"
@@ -160,6 +171,12 @@ export default function Navigation() {
         />
 
         <Stack.Screen name="Notification" component={NotificationScreen} />
+
+        <Stack.Screen
+          name="MainNotificationScreen"
+          component={MainNotificationScreen}
+        />
+
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
         <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />

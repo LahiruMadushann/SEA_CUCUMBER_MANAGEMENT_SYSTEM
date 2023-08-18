@@ -51,7 +51,13 @@ export default function LoginScreen() {
           // Show an alert for unsuccessful login
           Alert.alert(
             "Login Error",
-            "Unsuccessful login. Please check your credentials."
+            "Unsuccessful login. Please check your credentials.",
+            [
+              {
+                text: "OK",
+              },
+            ],
+            { cancelable: true } // Prevent dismissal by tapping outside
           );
         }
       })

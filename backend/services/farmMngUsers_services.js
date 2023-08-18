@@ -36,6 +36,7 @@ class aquaFramMngUsersService {
 
   //ENTER NEW RULES AND REGULATIONS
   static async enterNewsRulesRegulations(
+    title,
     description,
     type,
     date,
@@ -45,6 +46,7 @@ class aquaFramMngUsersService {
   ) {
     try {
       const enterNews = new newsModel({
+        title,
         description,
         type,
         date,

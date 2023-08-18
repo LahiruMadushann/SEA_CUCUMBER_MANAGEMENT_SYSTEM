@@ -114,7 +114,8 @@ class districtAquaCulturistService {
     description,
     contactNo,
     address,
-    email
+    email,
+    createdAt
   ) {
     try {
       const createAdvertisement = new advertisementModel({
@@ -124,6 +125,7 @@ class districtAquaCulturistService {
         contactNo,
         address,
         email,
+        createdAt,
       });
       return await createAdvertisement.save();
     } catch (error) {

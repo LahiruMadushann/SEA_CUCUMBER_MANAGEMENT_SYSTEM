@@ -28,16 +28,18 @@ exports.updatefarmMngUsers = async (req, res, next) => {
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterNews = async (req, res, next) => {
   try {
-    const { userId, description, type, date, postedTo } = req.body;
+    const { userId, title, description, type, postedTo } = req.body;
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
 
     if (data) {
       let postedBy = data.firstName;
       let role = data.role;
+      const date = new Date().toISOString();
 
       const successEnteredNews =
         await farmMngUserService.enterNewsRulesRegulations(
+          title,
           description,
           type,
           date,
