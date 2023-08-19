@@ -107,11 +107,15 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
     } else {
       res.status(400).json({
         success: false,
-        success: "User account creation was unsuccessful",
+        message: "User account creation was unsuccessful",
       });
     }
   } catch (error) {
     next(error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 

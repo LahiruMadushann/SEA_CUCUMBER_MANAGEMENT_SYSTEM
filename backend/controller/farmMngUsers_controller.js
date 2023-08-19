@@ -70,7 +70,7 @@ exports.enterNews = async (req, res, next) => {
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterSeacucumberRates = async (req, res, next) => {
   try {
-    const { userId, title, description, speciesType, rates, date, postedTo } =
+    const { userId, title, description, speciesType, rates, postedTo } =
       req.body;
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
@@ -79,6 +79,8 @@ exports.enterSeacucumberRates = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       let type = "SeacucumberRates";
+
+      const date = new Date().toISOString();
 
       const successEnteredSeacucumberRates =
         await farmMngUserService.enterSeaCucumberRates(

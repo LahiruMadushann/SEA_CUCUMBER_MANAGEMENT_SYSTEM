@@ -30,7 +30,7 @@ exports.registerFishProcesser = async (req, res, next) => {
       await fishProcesserService.registerFishProcesser(
         username,
         password,
-        "FishProcessor",
+        "Fish Processor",
         age,
         gender,
         email,

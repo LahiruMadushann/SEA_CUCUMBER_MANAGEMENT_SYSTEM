@@ -45,9 +45,9 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Chairman" ||
-                    data.role == "DirectorGeneral" ||
-                    data.role == "AssistantDirector" ||
-                    data.role == "DistrictAquaculturist" ||
+                    data.role == "Director General" ||
+                    data.role == "Assistant Director" ||
+                    data.role == "District Aquaculturist" ||
                     data.role == "Minister"
                   ) {
                     tokenData = {
@@ -92,7 +92,7 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Exporter" ||
-                    data.role == "FishProcessor"
+                    data.role == "Fish Processor"
                   ) {
                     tokenData = {
                       _id: data._id,

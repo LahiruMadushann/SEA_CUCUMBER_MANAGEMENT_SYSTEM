@@ -83,7 +83,7 @@ export default function UserProfileMainScreen() {
                   <FarmerPopupScreen />
                 ) : db_role === "District Aquaculturist" ? (
                   <AquaculturistPopupScreen />
-                ) : db_role === "AssitantDirector" ||
+                ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
                   "Chairman" ? (
                   <NaqdaMngUsersPopupScreen />
