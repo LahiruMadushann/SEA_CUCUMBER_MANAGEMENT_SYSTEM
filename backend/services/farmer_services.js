@@ -76,6 +76,12 @@ class farmerService {
     return updateFarmerDetails;
   }
 
+  static async getAllAquaFarmNames() {
+    const allAquaFarmDetails = await aqFarmModel.find().select("farmName");
+    const aquaFarmNames = allAquaFarmDetails.map((farm) => farm.farmName);
+    return aquaFarmNames;
+  }
+
   //GET INDIVIDUAL FARMER DETAILS
   static async getFarmerDetails(userId) {
     const farmerDetails = await userModel.findById({ _id: userId });

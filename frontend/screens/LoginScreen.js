@@ -2,6 +2,7 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
+import BASE_URL from "../apiConfig/config";
 
 import {
   View,
@@ -24,7 +25,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // Assuming you have a backend API endpoint, replace 'YOUR_BACKEND_URL' with the actual URL
-    const backendUrl = "http://192.168.43.75:3000/login";
+    const backendUrl = `${BASE_URL}/login`;
 
     const userData = {
       username: username,
@@ -45,12 +46,18 @@ export default function LoginScreen() {
           dispatch({ type: "SET_TOKEN", payload: token });
 
           // Handle successful login, possibly by navigating to another screen
-          navigation.navigate("MainBoardScreenAfterLogin");
+          navigation.navigate("MainBoard");
         } else {
           // Show an alert for unsuccessful login
           Alert.alert(
             "Login Error",
-            "Unsuccessful login. Please check your credentials."
+            "Unsuccessful login. Please check your credentials.",
+            [
+              {
+                text: "OK",
+              },
+            ],
+            { cancelable: true } // Prevent dismissal by tapping outside
           );
         }
       })
@@ -101,9 +108,9 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        <View className="mt-[56vw] form space-y-2 mx-auto ">
+        <View className="mt-[60vw] form space-y-2 mx-auto ">
           <TextInput
-            className="p-4 border-b text-gray-700  w-64  mb-3"
+            className="p-4 border-b text-[18px] text-gray-700  w-64  mb-3"
             value={username}
             onChangeText={setUsername}
             placeholder="Enter Username here"
@@ -111,7 +118,7 @@ export default function LoginScreen() {
           />
 
           <TextInput
-            className="p-4 border-b text-gray-700  w-64  mb-3"
+            className="p-4 border-b text-[18px] text-gray-700  w-64  mb-3"
             value={password}
             onChangeText={setPassword}
             placeholder="Enter Password here"
@@ -133,7 +140,9 @@ export default function LoginScreen() {
             Forgot Password?
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("GetANumber")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GetEmailScreen")}
+          >
             <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">
               Click here
             </Text>

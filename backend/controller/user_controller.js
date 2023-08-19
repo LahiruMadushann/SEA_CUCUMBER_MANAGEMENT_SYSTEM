@@ -170,6 +170,24 @@ exports.updateProfilePic = async (req, res, next) => {
   }
 };
 
+//GET ALL NOTIFICATION DETAILS
+exports.getAllNotifications = async (req, res, next) => {
+  try {
+    let allNotifications = await userService.getAllNotifications();
+
+    if (allNotifications) {
+      res.status(200).json({ status: true, data: allNotifications });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notifications" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //UPLOAD IMAGES
 exports.uploadImage = async (req, res, next) => {
   try {

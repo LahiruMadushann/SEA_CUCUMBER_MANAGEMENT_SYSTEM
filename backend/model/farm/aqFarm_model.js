@@ -17,10 +17,6 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
   },
-  age: {
-    type: String,
-    required: true,
-  },
   licenseNo: {
     type: String,
     required: true,
@@ -48,6 +44,9 @@ const aquaFarmSchema = new Schema({
   establishmentDate: {
     type: String,
     required: true,
+  },
+  picture: {
+    type: String,
   },
   createdAt: {
     type: Date,

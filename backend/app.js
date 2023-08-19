@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const cors = require("cors");
 
-const UserRoute = require("./routers/login_router");
+const loginRoute = require("./routers/login_router");
 const adminRoute = require("./routers/admin_routes");
 const farmMngUsersRoute = require("./routers/farmMngUsers_routes");
 const exporterRoute = require("./routers/exporter_routes");
@@ -12,8 +12,11 @@ const fishProcesserRoute = require("./routers/fishProcessers_routes");
 const MinisterRoute = require("./routers/minister_routes");
 const districtAquaCulturistRoute = require("./routers/districtAquaCulturist_routes");
 const farmerRoute = require("./routers/farmer_routes");
+const fishermanRoute = require("./routers/fisherman_routes");
+const userRoute = require("./routers/user_routes");
 
 const farmDashboardRoute = require("./routers/farmDashboard_routes");
+const fisheriesDashboardRoute = require("./routers/fisheriesDashboard_routes");
 
 const app = express();
 
@@ -30,7 +33,8 @@ function errHandler(err, req, res, next) {
   }
 }
 
-app.use("/", UserRoute);
+app.use("/", userRoute);
+app.use("/", loginRoute);
 app.use("/", adminRoute);
 app.use("/", farmMngUsersRoute);
 app.use("/", exporterRoute);
@@ -38,8 +42,10 @@ app.use("/", fishProcesserRoute);
 app.use("/", MinisterRoute);
 app.use("/", districtAquaCulturistRoute);
 app.use("/", farmerRoute);
+app.use("/", fishermanRoute);
 
 app.use("/", farmDashboardRoute);
+app.use("/", fisheriesDashboardRoute);
 
 app.use("/image", express.static("images"));
 app.use(errHandler);

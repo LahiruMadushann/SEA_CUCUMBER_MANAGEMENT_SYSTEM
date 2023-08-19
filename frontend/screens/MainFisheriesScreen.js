@@ -101,12 +101,6 @@ export default function MainFisheriesScreen() {
                   </View>
                 </TouchableOpacity>
               </View>
-
-              <View className=" ml-[11vw]">
-                <View className="flex m-[auto] absolute ">
-                  <PopupScreen />
-                </View>
-              </View>
             </View>
 
             <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">

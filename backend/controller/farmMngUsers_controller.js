@@ -22,22 +22,25 @@ exports.updatefarmMngUsers = async (req, res, next) => {
   } catch (error) {
     console.log(error, "err---->");
     next(error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterNews = async (req, res, next) => {
   try {
-    const { userId, description, type, date, postedTo } = req.body;
+    const { userId, title, description, type, postedTo } = req.body;
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
 
     if (data) {
       let postedBy = data.firstName;
       let role = data.role;
+      const date = new Date().toISOString();
 
       const successEnteredNews =
         await farmMngUserService.enterNewsRulesRegulations(
+          title,
           description,
           type,
           date,
@@ -60,6 +63,7 @@ exports.enterNews = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -103,6 +107,7 @@ exports.enterSeacucumberRates = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -111,7 +116,6 @@ exports.registerFarm = async (req, res, next) => {
     const {
       name,
       address,
-      age,
       licenseNo,
       validity,
       location,
@@ -121,12 +125,17 @@ exports.registerFarm = async (req, res, next) => {
       establishmentDate,
     } = req.body;
 
+    if (req.file === undefined) {
+      return res.json({ status: false, success: "you must select a file" });
+    }
+
+    const picture = req.file.filename;
+
     const date = new Date().toISOString();
 
     const successResFarm = await farmMngUserService.registerFarm(
       name,
       address,
-      age,
       "Farm",
       licenseNo,
       validity,
@@ -135,7 +144,8 @@ exports.registerFarm = async (req, res, next) => {
       gpsCoordinates,
       farmInternal,
       establishmentDate,
-      date
+      date,
+      picture
     );
     if (successResFarm) {
       res
@@ -148,5 +158,6 @@ exports.registerFarm = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };

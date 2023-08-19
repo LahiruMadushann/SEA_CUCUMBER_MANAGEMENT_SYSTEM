@@ -43,23 +43,12 @@ export default function ForgotPasswordScreen({ phoneNumber }) {
             <View className="flex-row ">
               <View className=" ml-[72vw]">
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("GetANumber")}
+                  onPress={() => navigation.navigate("GetEmailScreen")}
                 >
                   <View className="flex m-[auto] ">
                     <Image
                       source={require("../assets/main_board/arrow.png")}
                       className=" w-[10.09216px] h-[15.62988px] "
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-              <View className=" ml-[72vw]">
-                <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
-                  <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../assets/fisheries/dotIcon.png")}
-                      className=" w-[24.21875px] h-[7.03125px] "
                     />
                   </View>
                 </TouchableOpacity>

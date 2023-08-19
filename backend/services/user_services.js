@@ -79,6 +79,12 @@ class userService {
     );
     return updateProPic;
   }
+
+  //GET ALL NOTIFICATIONS
+  static async getAllNotifications() {
+    const allNotifications = await newsModel.find();
+    return allNotifications;
+  }
 }
 
 module.exports = userService;

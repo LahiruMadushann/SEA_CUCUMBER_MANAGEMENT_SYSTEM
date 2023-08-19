@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const connection = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://seaCucumber:qTNf8FVwoHGHBVg4@cluster0.btdmq5f.mongodb.net/seacucumberdb?retryWrites=true&w=majority"
+      "mongodb+srv://jeevake:Jeevake@cluster0.sbjmf6j.mongodb.net/seacucumberdb?retryWrites=true&w=majority"
     );
     console.log("MongoDb Connected");
   } catch (error) {

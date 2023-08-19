@@ -28,6 +28,9 @@ const advertisementSchema = new Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+  },
 });
 
 const advertisementModel = mongoose.model(

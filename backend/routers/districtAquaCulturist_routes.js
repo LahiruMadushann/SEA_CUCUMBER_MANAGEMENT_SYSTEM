@@ -18,6 +18,26 @@ router.get(
 );
 
 router.post(
+  "/districtAquaCulturist/getAquaFarmDetails",
+  districtAquaCulturistController.getIndividualAquaFarmDetail
+);
+
+router.post(
+  "/districtAquaCulturist/getAquaFarmingDetails",
+  districtAquaCulturistController.getIndividualAquaFarmingDetails
+);
+
+router.post(
+  "/districtAquaCulturist/getFarmingDetailsOfSingleFarm",
+  districtAquaCulturistController.getIndividualAquaAllFarmingDetails
+);
+
+router.post(
+  "/districtAquaCulturist/getFarmingDetailsFromId",
+  districtAquaCulturistController.getIndividualFarmingDetails
+);
+
+router.post(
   "/districtAquaCulturist/createAdvertisement",
   districtAquaCulturistController.createAdvertisement
 );

@@ -26,4 +26,6 @@ router.get("/farmer/getAquaFarmDetails", farmerController.getAquaFarmDetails);
 
 router.get("/farmer/getAquaFarmNews", farmerController.getAquaFarmNews);
 
+router.get("/farm/getAquaFarmNames", farmerController.getAquaFarmDetails);
+
 module.exports = router;

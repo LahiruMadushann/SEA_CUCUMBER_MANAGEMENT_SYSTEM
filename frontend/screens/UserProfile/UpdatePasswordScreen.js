@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
-
+import BASE_URL from "../../apiConfig/config";
 //Token DATA
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
@@ -51,7 +51,7 @@ export default function UpdatePasswordScreen() {
     };
 
     // Replace with your backend URL
-    const backendUrl = "http://192.168.43.75:3000/farmer/changePassword";
+    const backendUrl = `${BASE_URL}/farmer/changePassword`;
 
     // Send a POST request to update the password
     axios
@@ -91,12 +91,6 @@ export default function UpdatePasswordScreen() {
                     />
                   </View>
                 </TouchableOpacity>
-              </View>
-
-              <View className=" ml-[11vw]">
-                <View className="flex m-[auto] absolute ">
-                  <PopupScreen />
-                </View>
               </View>
             </View>
 

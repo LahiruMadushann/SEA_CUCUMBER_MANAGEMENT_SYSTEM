@@ -72,6 +72,41 @@ class districtAquaCulturistService {
     return allAquaFarmDetails;
   }
 
+  //GETTING INDIVIDUAL AQUACULTURE FARM DETAIL
+  static async getAquaFarmDetails(farmId) {
+    const getAquaFarmDetails = await aqFarmModel.findById(farmId);
+    return getAquaFarmDetails;
+  }
+
+  //GETTING LATEST FARMING DETAILS OF A INDIVIDUAL FARM
+  static async getAquaFarmingDetails(farmId) {
+    const getAquaFarmingDetails = await aqFarmingDetailsModel
+      .find({
+        farmId: farmId,
+      })
+      .sort({ date: -1 })
+      .limit(1);
+    return getAquaFarmingDetails;
+  }
+
+  //GETTING FARMING DETAILS OF A INDIVIDUAL FARM
+  static async getAllAquaFarmingDetailsSingelFarm(farmId) {
+    const getAllAquaFarmingDetails = await aqFarmingDetailsModel
+      .find({
+        farmId: farmId,
+      })
+      .sort({ date: -1 });
+    return getAllAquaFarmingDetails;
+  }
+
+  //GETTING FARMING DETAILS OF A INDIVIDUAL FARM
+  static async getFarmingDetailsFromFarmingId(farmingId) {
+    const getAquaFarmingDetails = await aqFarmingDetailsModel.find({
+      _id: farmingId,
+    });
+    return getAquaFarmingDetails;
+  }
+
   //CREATE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS
   static async createAdvertisement(
     type,
@@ -79,7 +114,8 @@ class districtAquaCulturistService {
     description,
     contactNo,
     address,
-    email
+    email,
+    createdAt
   ) {
     try {
       const createAdvertisement = new advertisementModel({
@@ -89,6 +125,7 @@ class districtAquaCulturistService {
         contactNo,
         address,
         email,
+        createdAt,
       });
       return await createAdvertisement.save();
     } catch (error) {

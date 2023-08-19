@@ -7,7 +7,7 @@ const userSchema = new Schema({
   username: {
     type: String,
     lowercase: true,
-    // required: true,
+    required: true,
     unique: true,
   },
   password: {
@@ -15,41 +15,50 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
+    required: true,
   },
   subrole: {
     type: String,
   },
   firstName: {
     type: String,
+    required: true,
   },
   lastName: {
     type: String,
+    required: true,
   },
   age: {
     type: Number,
+    required: true,
   },
   gender: {
     type: String,
   },
   contactNo: {
     type: String,
-    // required: true,
+    required: true,
     unique: true,
   },
   address: {
     type: String,
+    required: true,
   },
   town: {
     type: String,
+    required: true,
   },
   province: {
     type: String,
+    required: true,
   },
   country: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
+    required: true,
   },
   farmName: {
     type: String,
@@ -59,6 +68,9 @@ const userSchema = new Schema({
     ref: aquaFarmModel.modelName,
   },
   accountStatus: {
+    type: String,
+  },
+  accountType: {
     type: String,
   },
   profilepic: {
