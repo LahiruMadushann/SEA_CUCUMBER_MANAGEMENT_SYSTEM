@@ -60,7 +60,7 @@ export default function NaqdaMngUsersPopupScreen() {
             <Text className="mx-[1vw]">Enter News </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateAdsScreen")}
+            onPress={() => navigation.navigate("EnterSeaCucumberRatesScreen")}
           >
             <Text className="mx-[1vw]">Enter Rates </Text>
           </TouchableOpacity>

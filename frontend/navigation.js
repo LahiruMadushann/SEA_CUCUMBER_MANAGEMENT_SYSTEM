@@ -77,6 +77,7 @@ import MainNotificationScreen from "./screens/NotificationScreens/MainNotificati
   /*NAQDA MANAGEMENT USER SCREENS*/
 }
 import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
+import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
 
 export default function Navigation() {
   return (
@@ -179,6 +180,10 @@ export default function Navigation() {
           component={FarmRegisterScreen}
         />
 
+        <Stack.Screen
+          name="EnterSeaCucumberRatesScreen"
+          component={EnterSeaCucumberRatesScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
