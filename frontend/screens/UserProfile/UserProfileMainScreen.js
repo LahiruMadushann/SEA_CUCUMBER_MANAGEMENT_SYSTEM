@@ -15,7 +15,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
-import UserPopupScreen from "../../components/UserPopupScreen";
+import NaqdaMngUsersPopupScreen from "../../components/UserPopupScreens/NaqdaMngUsersPopupScreen";
 import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScreen";
 import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
 import AquaculturistPopupScreen from "../../components/UserPopupScreens/AquaculturistPopupScreen";
@@ -83,8 +83,9 @@ export default function UserProfileMainScreen() {
                   <FarmerPopupScreen />
                 ) : db_role === "District Aquaculturist" ? (
                   <AquaculturistPopupScreen />
-                ) : db_role ===
-                  ("Assitant Director" || "Director General" || "Chairman") ? (
+                ) : db_role === "AssitantDirector" ||
+                  "DirectorGeneral" ||
+                  "Chairman" ? (
                   <NaqdaMngUsersPopupScreen />
                 ) : null}
               </View>

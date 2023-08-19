@@ -121,7 +121,6 @@ export default function MainNotificationScreen() {
                     {notification.title}
                   </Text>
                 </View>
-                
               </TouchableOpacity>
             ))}
           </View>

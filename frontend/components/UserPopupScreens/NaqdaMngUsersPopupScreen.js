@@ -50,14 +50,24 @@ export default function NaqdaMngUsersPopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
           <TouchableOpacity
+            onPress={() => navigation.navigate("FarmRegisterScreen")}
+          >
+            <Text className="mx-[1vw]">Register Farms </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigation.navigate("AllFarmsScreen")}
           >
-            <Text className="mx-[1vw]">All Farms </Text>
+            <Text className="mx-[1vw]">Enter News </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("CreateAdsScreen")}
           >
-            <Text className="mx-[1vw]">Create Ads </Text>
+            <Text className="mx-[1vw]">Enter Rates </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CreateAdsScreen")}
+          >
+            <Text className="mx-[1vw]">Enter Rules and Regulations </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}

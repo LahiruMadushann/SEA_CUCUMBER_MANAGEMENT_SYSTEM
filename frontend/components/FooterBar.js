@@ -10,8 +10,8 @@ export default function FooterBar() {
   const hasToken = state.token;
 
   return (
-    <View className="mt-auto mb-[4vh]">
-      <View className="border-b-[0.55px] border-b-gray-500 mb-[4vh]  w-[100vw] " />
+    <View className="mt-auto mb-[3vh]">
+      <View className="border-b-[0.55px] border-b-gray-500 mb-[3vh]  w-[100vw] " />
       <View className="flex-row mx-auto">
         <View>
           <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
