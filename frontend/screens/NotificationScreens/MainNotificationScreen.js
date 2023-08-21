@@ -100,7 +100,7 @@ export default function MainNotificationScreen() {
                 onPress={() => navigation.navigate("MainBoard")}
                 className="w-[82vw] h-[12.5vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
               >
-                <View className="w-[143px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
+                <View className="w-[140px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                   <Image
                     source={require("../../assets/notification/calender.png")}
                     className="w-[13px] h-[15px] ml-[10vw]"
@@ -121,6 +121,18 @@ export default function MainNotificationScreen() {
                     {notification.title}
                   </Text>
                 </View>
+
+                {notification.type === "RulesAndRegulations" && (
+                  <View className="flex mx-[30vw] w-[200px] ">
+                    <Image
+                      source={require("../../assets/notification/rulesAndRegulations.png")}
+                      className="w-[15px] h-[18px] ml-[11vw] mt-[1vw]"
+                    />
+                    <Text className=" text-[11px] text-[#ff0000] font-bold flex-auto mt-[-5vw] ml-[17vw]">
+                      Rules and Regulations
+                    </Text>
+                  </View>
+                )}
               </TouchableOpacity>
             ))}
           </View>

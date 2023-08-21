@@ -48,14 +48,14 @@ export default function NaqdaMngUsersPopupScreen() {
         />
       </TouchableOpacity>
       {menuVisible && (
-        <View style={styles.menu} className="ml-[50vw] ">
+        <View style={styles.menu} className="ml-[50vw]">
           <TouchableOpacity
             onPress={() => navigation.navigate("FarmRegisterScreen")}
           >
-            <Text className="mx-[1vw]">Register Farms </Text>
+            <Text className="mx-[1vw]">Reg Farms </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("AllFarmsScreen")}
+            onPress={() => navigation.navigate("EnterSeaCucumberNewsScreen")}
           >
             <Text className="mx-[1vw]">Enter News </Text>
           </TouchableOpacity>
@@ -64,11 +64,7 @@ export default function NaqdaMngUsersPopupScreen() {
           >
             <Text className="mx-[1vw]">Enter Rates </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CreateAdsScreen")}
-          >
-            <Text className="mx-[1vw]">Enter Rules and Regulations </Text>
-          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     position: "absolute",
-    top: 15,
-    left: 30,
+    top: 10,
+    right: -50,
   },
 });
