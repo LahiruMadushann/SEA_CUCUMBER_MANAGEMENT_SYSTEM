@@ -72,6 +72,7 @@ import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
   /*NOTIFICATION SCREENS*/
 }
 import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
+import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
 
 {
   /*NAQDA MANAGEMENT USER SCREENS*/
@@ -168,6 +169,11 @@ export default function Navigation() {
           name="MainNotificationScreen"
           component={MainNotificationScreen}
         />
+        <Stack.Screen
+          name="SingleNotificationScreen"
+          component={SingleNotificationScreen}
+        />
+
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
         <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />

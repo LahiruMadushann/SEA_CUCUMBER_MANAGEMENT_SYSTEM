@@ -85,6 +85,12 @@ class userService {
     const allNotifications = await newsModel.find();
     return allNotifications;
   }
+
+  //GET SINGLE NOTIFICATION
+  static async getSingleNotification(notificationId) {
+    const singleNotification = await newsModel.find({ _id: notificationId });
+    return singleNotification;
+  }
 }
 
 module.exports = userService;

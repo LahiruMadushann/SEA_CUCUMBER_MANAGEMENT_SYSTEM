@@ -170,6 +170,28 @@ exports.updateProfilePic = async (req, res, next) => {
   }
 };
 
+//GET SINGLE NOTIFICATION DETAILS
+exports.getSingleNotification = async (req, res, next) => {
+  try {
+    const { notificationId } = req.body;
+
+    let singleNotification = await userService.getSingleNotification(
+      notificationId
+    );
+
+    if (singleNotification) {
+      res.status(200).json({ status: true, data: singleNotification });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notification" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //GET ALL NOTIFICATION DETAILS
 exports.getAllNotifications = async (req, res, next) => {
   try {
