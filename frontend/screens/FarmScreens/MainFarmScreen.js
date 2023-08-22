@@ -22,7 +22,6 @@ export default function MainFarmScreen() {
   const farmName = route.params?.farmName || ""; // Default value if parameter is not available
 
   const directedFarm = route.params?.directedFarm || ""; // Default value if parameter is not available
-  // console.log(directedFarm);
 
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);
@@ -58,7 +57,7 @@ export default function MainFarmScreen() {
 
   // console.log(farmData);
   // console.log(stockData);
-
+  // console.log(farmId);
   const {
     stock: db_stock,
     stockingDates: db_stockingDates,

@@ -210,6 +210,46 @@ exports.getAllNotifications = async (req, res, next) => {
   }
 };
 
+//GET SINGLE ADVERTISEMENT DETAILS
+exports.getSingleAdvertisement = async (req, res, next) => {
+  try {
+    const { advertisementId } = req.body;
+
+    let singleAdvertisement = await userService.getSingleAdvertisement(
+      advertisementId
+    );
+
+    if (singleAdvertisement) {
+      res.status(200).json({ status: true, data: singleAdvertisement });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notification" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GET ALL ADVERTISEMENTS DETAILS
+exports.getAllAdvertisements = async (req, res, next) => {
+  try {
+    let allAdvertisements = await userService.getAllAdvertisements();
+
+    if (allAdvertisements) {
+      res.status(200).json({ status: true, data: allAdvertisements });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notifications" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //UPLOAD IMAGES
 exports.uploadImage = async (req, res, next) => {
   try {

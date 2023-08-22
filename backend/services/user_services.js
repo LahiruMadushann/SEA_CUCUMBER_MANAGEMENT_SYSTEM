@@ -1,5 +1,6 @@
 const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
+const advertiementModel = require("../model/farm/advertisement_model");
 
 const bcrypt = require("bcrypt");
 
@@ -90,6 +91,20 @@ class userService {
   static async getSingleNotification(notificationId) {
     const singleNotification = await newsModel.find({ _id: notificationId });
     return singleNotification;
+  }
+
+  //GET ALL ADVERTISEMENTS
+  static async getAllAdvertisements() {
+    const allAdvertisements = await advertiementModel.find();
+    return allAdvertisements;
+  }
+
+  //GET SINGLE ADVERTISEMENT
+  static async getSingleAdvertisement(advertisementId) {
+    const singleAdvertisement = await advertiementModel.find({
+      _id: advertisementId,
+    });
+    return singleAdvertisement;
   }
 }
 

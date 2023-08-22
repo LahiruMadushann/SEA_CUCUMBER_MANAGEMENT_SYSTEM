@@ -74,6 +74,9 @@ import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
 import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
 import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
 
+import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
+import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
+
 {
   /*NAQDA MANAGEMENT USER SCREENS*/
 }
@@ -172,6 +175,16 @@ export default function Navigation() {
         <Stack.Screen
           name="SingleNotificationScreen"
           component={SingleNotificationScreen}
+        />
+
+        <Stack.Screen
+          name="MainAdvertisementScreen"
+          component={MainAdvertisementScreen}
+        />
+
+        <Stack.Screen
+          name="SingleAdvertisementScreen"
+          component={SingleAdvertisementScreen}
         />
 
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />

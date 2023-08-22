@@ -44,7 +44,7 @@ export default function UserPopupScreen() {
       <TouchableOpacity onPress={toggleMenu}>
         <Image
           source={require("../../assets/options.png")}
-          className=" w-[24.21875px] h-[25px] ml-[70vw]"
+          className=" w-[24.21875px] h-[25px] ml-[80vw]"
         />
       </TouchableOpacity>
       {menuVisible && (

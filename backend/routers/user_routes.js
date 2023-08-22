@@ -10,4 +10,11 @@ router.post(
   userController.getSingleNotification
 );
 
+router.get("/user/getAllAdvertisements", userController.getAllAdvertisements);
+
+router.post(
+  "/user/getSingleAdvertisement",
+  userController.getSingleAdvertisement
+);
+
 module.exports = router;
