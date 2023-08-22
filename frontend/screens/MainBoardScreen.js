@@ -7,11 +7,24 @@ import PopupScreen from "../components/PopupScreen";
 import FooterBar from "../components/FooterBar";
 
 import { useAuth } from "../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 
 export default function MainBoardScreen() {
   const navigation = useNavigation();
   const { state } = useAuth(); // Access the dispatch function from the context
   const hasToken = state.token;
+
+  let profilePicUrl = "";
+
+  if (hasToken) {
+    const decodedToken = jwtDecode(hasToken);
+
+    // Access payload data from the decoded token
+    const { profilepic: db_profilepic } = decodedToken;
+
+    const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+    profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -31,8 +44,8 @@ export default function MainBoardScreen() {
                   >
                     <View className="flex m-[auto] ">
                       <Image
-                        source={require("../assets/profile.png")}
-                        className=" w-[24.21875px] h-[24.21875px] "
+                        source={{ uri: profilePicUrl }}
+                        className=" w-[30px] h-[30px] rounded-full"
                       />
                     </View>
                   </TouchableOpacity>
@@ -50,7 +63,7 @@ export default function MainBoardScreen() {
               </Text>
             </View>
           </View>
-          <View className="mt-[35vw] mx-auto">
+          <View className="mt-[40vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("MainFisheriesScreen")}
               className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "

@@ -27,6 +27,7 @@ export default function UserProfileMainScreen() {
   const { state } = useAuth();
   // Access the token
   const token = state.token;
+
   // Decode the token
   const decodedToken = jwtDecode(token);
 
@@ -51,6 +52,9 @@ export default function UserProfileMainScreen() {
     profilepic: db_profilepic,
     createdAt: db_createdAt,
   } = decodedToken;
+
+  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+  const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
 
   return (
     <SafeAreaView
@@ -99,8 +103,8 @@ export default function UserProfileMainScreen() {
                 >
                   <View className="flex m-[auto] ">
                     <Image
-                      source={require("../../assets/user/user.png")}
-                      className=" w-[61px] h-[61px] "
+                      source={{ uri: profilePicUrl }}
+                      className=" w-[61px] h-[61px] rounded-full"
                     />
                   </View>
                 </TouchableOpacity>

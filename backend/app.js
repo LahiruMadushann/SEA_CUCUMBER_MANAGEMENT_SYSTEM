@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-
+const path = require("path");
 const cors = require("cors");
 
 const loginRoute = require("./routers/login_router");
@@ -49,5 +49,10 @@ app.use("/", fisheriesDashboardRoute);
 
 app.use("/image", express.static("images"));
 app.use(errHandler);
+
+app.use(
+  "/profile-pics",
+  express.static(path.join(__dirname, "Images/profilePics"))
+);
 
 module.exports = app;
