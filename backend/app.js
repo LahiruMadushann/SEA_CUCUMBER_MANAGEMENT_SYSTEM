@@ -55,4 +55,9 @@ app.use(
   express.static(path.join(__dirname, "Images/profilePics"))
 );
 
+app.use(
+  "/farm-pics",
+  express.static(path.join(__dirname, "Images/farmImages"))
+);
+
 module.exports = app;

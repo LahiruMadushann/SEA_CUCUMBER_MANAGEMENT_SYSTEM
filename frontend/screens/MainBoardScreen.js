@@ -66,7 +66,7 @@ export default function MainBoardScreen() {
           <View className="mt-[40vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("MainFisheriesScreen")}
-              className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+              className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700"
             >
               <View className="flex ">
                 <Image

@@ -97,14 +97,14 @@ export default function UserProfileMainScreen() {
 
             {/* User Profile  */}
             <View className="flex-row">
-              <View className="mt-[6vw] ml-[80vw]">
+              <View className="mt-[6vw] ml-[80vw] ">
                 <TouchableOpacity
                   onPress={() => navigation.navigate("UpdateProfilePicScreen")}
                 >
-                  <View className="flex m-[auto] ">
+                  <View className="flex m-[auto]">
                     <Image
                       source={{ uri: profilePicUrl }}
-                      className=" w-[61px] h-[61px] rounded-full"
+                      className=" w-[61px] h-[61px] rounded-full bg-[#FFFFFF] shadow-lg shadow-gray-800"
                     />
                   </View>
                 </TouchableOpacity>

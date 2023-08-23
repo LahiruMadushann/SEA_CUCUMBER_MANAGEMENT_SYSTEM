@@ -39,7 +39,6 @@ class districtAquaCulturistService {
     farmId,
     name,
     address,
-    age,
     licenseNo,
     validity,
     location,
@@ -53,7 +52,6 @@ class districtAquaCulturistService {
       {
         name: name,
         address: address,
-        age: age,
         licenseNo: licenseNo,
         validity: validity,
         location: location,

@@ -20,9 +20,9 @@ import FooterBar from "../../components/FooterBar";
 export default function UpdateFarmScreen() {
   const navigation = useNavigation();
 
-  const route = useRoute(); 
+  const route = useRoute();
   // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; 
+  const farmId = route.params?.farmId || "";
 
   useEffect(() => {
     async function fetchFarmData() {
@@ -43,7 +43,6 @@ export default function UpdateFarmScreen() {
   const [farmData, setFarmData] = useState({
     name: "",
     address: "",
-    age: "",
     licenseNo: "",
     validity: "",
     location: "",
@@ -58,7 +57,6 @@ export default function UpdateFarmScreen() {
       farmId: farmId,
       name: farmData.name,
       address: farmData.address,
-      age: farmData.age,
       licenseNo: farmData.licenseNo,
       validity: farmData.validity,
       location: farmData.location,
@@ -143,18 +141,6 @@ export default function UpdateFarmScreen() {
                   setFarmData((prevState) => ({ ...prevState, address: value }))
                 }
                 placeholder="Farm Address"
-                required
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={farmData.age}
-                onChangeText={(value) =>
-                  setFarmData((prevState) => ({
-                    ...prevState,
-                    age: value,
-                  }))
-                }
-                placeholder="Years Worked"
                 required
               />
               <TextInput

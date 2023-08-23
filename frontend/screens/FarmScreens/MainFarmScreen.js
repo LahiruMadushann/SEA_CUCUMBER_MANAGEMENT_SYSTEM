@@ -74,7 +74,6 @@ export default function MainFarmScreen() {
     _id: db_farmId,
     name: db_name,
     address: db_address,
-    age: db_age,
     licenseNo: db_licenseNo,
     validity: db_validity,
     location: db_location,
@@ -82,7 +81,13 @@ export default function MainFarmScreen() {
     gpsCoordinates: db_gpsCoordinates,
     farmInternal: db_farmInternal,
     establishmentDate: db_establishmentDate,
+    picture: db_picture,
   } = farmData;
+
+  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/farm-pics";
+  const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
+
+  console.log(profilePicUrl);
 
   const listTab = [
     {
@@ -106,7 +111,7 @@ export default function MainFarmScreen() {
     },
     {
       name: "Years Working",
-      subName: `${db_age} years`,
+      subName: ` years`,
       status: "Detail",
     },
     {
@@ -267,7 +272,7 @@ export default function MainFarmScreen() {
 
             <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
               <Image
-                source={require("../../assets/farms/mainpic.png")}
+                source={{ uri: profilePicUrl }}
                 className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
               />
             </View>
@@ -313,12 +318,6 @@ export default function MainFarmScreen() {
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_address}
                   </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Years Working
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">{db_age}</Text>
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
