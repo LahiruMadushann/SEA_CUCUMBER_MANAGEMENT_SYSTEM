@@ -52,8 +52,10 @@ export default function MainBoardScreen() {
                 </View>
               )}
 
-              <View className="mt-[113vw]">
-                <View className="flex m-[auto] absolute "></View>
+              <View className="mt-[113vw] ml-[65vw]">
+                {/* <View className="flex m-[auto] absolute ">
+                  <PopupScreen />
+                </View> */}
               </View>
             </View>
 

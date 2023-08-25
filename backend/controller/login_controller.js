@@ -198,7 +198,7 @@ exports.signout = async (req, res) => {
   }
 };
 
-exports.forgotPasswordOTPSend = async (req, res) => {
+exports.forgotPasswordOTPSend = async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -228,8 +228,8 @@ exports.forgotPasswordOTPSend = async (req, res) => {
 
         res.status(200).json({
           success: true,
-          message: "Reset Code sent to " + email,
-          data: email,
+          message: "OTP Code sent to " + email,
+          email,
           userId,
         });
       }
@@ -240,7 +240,7 @@ exports.forgotPasswordOTPSend = async (req, res) => {
   }
 };
 
-exports.otpVerification = async (req, res) => {
+exports.otpVerification = async (req, res, next) => {
   try {
     const { otp, userId } = req.body;
 
@@ -257,9 +257,10 @@ exports.otpVerification = async (req, res) => {
       } else {
         var deleteOtp = loginService.deleteOtp(userId, otp);
 
-        res.status(400).json({
+        res.status(200).json({
           success: true,
           message: "Enter New Password to recover account",
+          userId,
         });
       }
     }
@@ -288,7 +289,11 @@ exports.forgotPasswordChange = async (req, res) => {
       if (passwordChanged) {
         res
           .status(200)
-          .json({ success: true, message: "Successfully changed password" });
+          .json({
+            success: true,
+            message:
+              "Successfully changed password. Please Login with your new password",
+          });
       } else {
         res.status(400).json({
           success: false,

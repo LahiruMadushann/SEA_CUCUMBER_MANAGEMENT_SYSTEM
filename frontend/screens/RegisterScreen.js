@@ -22,15 +22,19 @@ export default function RegisterScreen() {
         >
           <View>
             <View className="absolute w-[149.2vw] h-[35vh] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
-              <View className="mt-[18vw]">
-                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                  <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../assets/fisheries/dotIcon.png")}
-                      className=" w-[24.21875px] h-[7.03125px] ml-[334px]"
-                    />
-                  </View>
-                </TouchableOpacity>
+              <View className="flex-row">
+                <View className="ml-[42vw] mt-[10vh]">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("MainBoard")}
+                  >
+                    <View className="flex m-[auto] ">
+                      <Image
+                        source={require("../assets/main_board/arrow.png")}
+                        className=" w-[10.09216px] h-[15.62988px] "
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View className="flex-row mt-[30px] mx-auto">

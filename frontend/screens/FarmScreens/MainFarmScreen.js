@@ -18,10 +18,10 @@ import FooterBar from "../../components/FooterBar";
 export default function MainFarmScreen() {
   const route = useRoute(); // Get the route object
   // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
-  const farmName = route.params?.farmName || ""; // Default value if parameter is not available
+  const farmId = route.params?.farmId || "";
+  const farmName = route.params?.farmName || "";
 
-  const directedFarm = route.params?.directedFarm || ""; // Default value if parameter is not available
+  const directedFarm = route.params?.directedFarm || "";
 
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);

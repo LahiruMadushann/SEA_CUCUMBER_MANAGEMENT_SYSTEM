@@ -5,7 +5,6 @@ import { View, Text } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
-import MainBoardScreenAfterLogin from "./screens/MainBoardScreenAfterLogin";
 
 import LoginScreen from "./screens/LoginScreen";
 import GetEmailScreen from "./screens/GetEmailScreen";
@@ -51,7 +50,7 @@ import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
 import UpdateDataScreen from "./screens/UpdateDataScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
 import NotificationScreen from "./screens/NotificationScreen";
-import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import EnterOptScreen from "./screens/EnterOptScreen";
 import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
 import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 
@@ -91,10 +90,7 @@ export default function Navigation() {
         {/*TABS INSIDE MAIN BOARD*/}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="MainBoard" component={MainBoardScreen} />
-        <Stack.Screen
-          name="MainBoardScreenAfterLogin"
-          component={MainBoardScreenAfterLogin}
-        />
+
         <Stack.Screen
           name="MainFisheriesScreen"
           component={MainFisheriesScreen}
@@ -189,7 +185,7 @@ export default function Navigation() {
 
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
         <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
         <Stack.Screen
           name="UpdatePassword"
           component={UpdateNewPasswordScreen}
