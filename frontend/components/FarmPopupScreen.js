@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function FarmPopupScreen({ farmId, farmName }) {
@@ -25,7 +16,7 @@ export default function FarmPopupScreen({ farmId, farmName }) {
       <TouchableOpacity onPress={toggleMenu}>
         <Image
           source={require("../assets/options.png")}
-          className=" w-[24.21875px] h-[25px] ml-[70vw]"
+          className=" w-[24.21875px] h-[28px] ml-[70vw]"
         />
       </TouchableOpacity>
       {menuVisible && (
@@ -38,14 +29,18 @@ export default function FarmPopupScreen({ farmId, farmName }) {
               })
             }
           >
-            <Text className="mx-[1vw]">Update Farm </Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Update Farm </Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("UpdateFarmingScreen", { farmId: farmId })
             }
           >
-            <Text className="mx-[1vw]">Update Stock Details</Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Update Stock Details</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -55,7 +50,9 @@ export default function FarmPopupScreen({ farmId, farmName }) {
               })
             }
           >
-            <Text className="mx-[1vw]">View Records</Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">View Records</Text>
+            </View>
           </TouchableOpacity>
         </View>
       )}
@@ -66,9 +63,7 @@ export default function FarmPopupScreen({ farmId, farmName }) {
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: "#fff",
-    padding: 10,
-
-    zIndex: 999,
+    zIndex: 1,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -76,7 +71,17 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     position: "absolute",
-    top: 15,
-    left: 30,
+    top: 20,
+    left: 38,
+  },
+
+  tab: {
+    padding: 5,
+    height: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "grey",
   },
 });

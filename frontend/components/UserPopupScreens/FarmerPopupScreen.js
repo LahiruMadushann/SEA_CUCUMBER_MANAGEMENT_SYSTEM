@@ -94,10 +94,10 @@ const styles = StyleSheet.create({
   tab: {
     padding: 5,
     height: "auto",
-    flexDirection: "row", // Arrange items horizontally
-    alignItems: "center", // Align vertically in the center
-    justifyContent: "center", // Align horizontally in the center
-    borderBottomWidth: 0.5, // Add a 1-pixel border at the bottom
-    borderBottomColor: "grey", // Border color
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "grey",
   },
 });

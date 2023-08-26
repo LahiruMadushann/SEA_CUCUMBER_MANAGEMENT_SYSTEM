@@ -224,9 +224,9 @@ export default function MainFarmScreen() {
           className="bg-[#fff]"
         >
           <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
-            <View className="mt-[58vh] ">
+            <View className="mt-[60vh] ">
               <View className="flex-row ">
-                <View className=" ml-[4vw]">
+                <View className=" ml-[4vw]" style={{ zIndex: -1 }}>
                   {!directedFarm && (
                     <TouchableOpacity
                       onPress={() =>
@@ -254,12 +254,15 @@ export default function MainFarmScreen() {
                     </TouchableOpacity>
                   )}
                 </View>
-                <View className="flex m-[auto] absolute mt-[10vw] ml-[80vw]">
+                <View className="flex m-[auto] absolute ml-[80vw]">
                   <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
                 </View>
               </View>
 
-              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[1vw] fixed">
+              <Text
+                style={{ zIndex: -1 }}
+                className="text-center text-[#fff] font-bold text-[22px] mt-[1vw] fixed"
+              >
                 Aquaculture Farm
               </Text>
             </View>
