@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
-import PopupScreen from "../components/PopupScreen";
 import FooterBar from "../components/FooterBar";
 
 import { useAuth } from "../auth/AuthContext";

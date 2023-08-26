@@ -17,4 +17,6 @@ router.post(
   userController.getSingleAdvertisement
 );
 
+router.post("/user/contactUs", userController.contactUs);
+
 module.exports = router;

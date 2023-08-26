@@ -1,5 +1,6 @@
 const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
+const contactUsModel = require("../model/contactUs_model");
 const advertiementModel = require("../model/farm/advertisement_model");
 
 const bcrypt = require("bcrypt");
@@ -105,6 +106,29 @@ class userService {
       _id: advertisementId,
     });
     return singleAdvertisement;
+  }
+
+  //ENTER CONTACT US INFORMATION
+  static async enterContactUsInfo(
+    name,
+    email,
+    contactNo,
+    comment,
+    commentDate
+  ) {
+    try {
+      const enterContactUsInfo = new contactUsModel({
+        name,
+        email,
+        contactNo,
+        comment,
+        commentDate,
+      });
+
+      return await enterContactUsInfo.save();
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

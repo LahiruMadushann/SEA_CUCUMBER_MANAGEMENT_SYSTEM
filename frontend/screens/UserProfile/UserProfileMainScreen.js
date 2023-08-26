@@ -68,15 +68,16 @@ export default function UserProfileMainScreen() {
         >
           <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
             <View className="flex-row ml-[70vw]">
-              <View className="mt-[110vw] " style={{ zIndex: -1 }}>
+              <View className="mt-[110vw] ">
                 <TouchableOpacity
                   onPress={() => navigation.navigate("MainBoard")}
                 >
                   <View className="flex m-[auto] ">
-                    <Image
+                    {/* <Image
                       source={require("../../assets/main_board/arrow.png")}
                       className=" w-[10.09216px] h-[15.62988px] "
-                    />
+                      style={{ zIndex: 2 }}
+                    /> */}
                   </View>
                 </TouchableOpacity>
               </View>
@@ -113,11 +114,32 @@ export default function UserProfileMainScreen() {
               <View className="mt-[4vw] ml-[5vw]">
                 <View className="flex m-[auto] ">
                   <Text className="text-[3.5vw] text-[#FFFFFF] ">
-                    User Profile
+                    User Profile ({db_role})
                   </Text>
                   <Text className="text-[5vw] text-[#FFFFFF] font-bold">
                     {db_username}
                   </Text>
+                  <View className="mt-[3vw]">
+                    {db_accountStatus === "Inactive" ? (
+                      <Image
+                        source={require("../../assets/user/inactive.png")}
+                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        className="rounded-full bg-[#FFFFFF]"
+                      />
+                    ) : db_accountStatus === "Active" ? (
+                      <Image
+                        source={require("../../assets/user/active.png")}
+                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        className="rounded-full bg-[#FFFFFF]"
+                      />
+                    ) : null}
+                    <Text
+                      className="text-[4vw] ml-[5vw] mt-[-5vw] text-[#FFFFFF]"
+                      style={{ fontStyle: "italic" }}
+                    >
+                      {db_accountStatus}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

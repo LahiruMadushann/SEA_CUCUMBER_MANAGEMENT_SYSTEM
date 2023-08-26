@@ -13,7 +13,11 @@ export default function UserPopupScreen() {
   const token = state.token;
   const decodedToken = jwtDecode(token);
 
-  const { farmId: db_farmId, farmName: db_farmName } = decodedToken;
+  const {
+    farmId: db_farmId,
+    farmName: db_farmName,
+    accountStatus: db_accountStatus,
+  } = decodedToken;
 
   // Logout Functionalities
   const { dispatch } = useAuth();
@@ -38,19 +42,20 @@ export default function UserPopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("MainFarmScreen", {
-                farmId: db_farmId,
-                farmName: db_farmName,
-              })
-            }
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Farm </Text>
-            </View>
-          </TouchableOpacity>
-
+          {db_accountStatus == "Active" && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("MainFarmScreen", {
+                  farmId: db_farmId,
+                  farmName: db_farmName,
+                })
+              }
+            >
+              <View style={styles.tab}>
+                <Text className="mx-[1vw]">Farm </Text>
+              </View>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >

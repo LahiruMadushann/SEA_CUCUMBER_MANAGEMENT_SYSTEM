@@ -266,3 +266,33 @@ exports.uploadImage = async (req, res, next) => {
     next(error);
   }
 };
+
+//CONTACT US
+exports.contactUs = async (req, res, next) => {
+  try {
+    const { name, email, contactNo, comment } = req.body;
+
+    const commentDate = new Date().toISOString();
+
+    let commentSend = await userService.enterContactUsInfo(
+      name,
+      email,
+      contactNo,
+      comment,
+      commentDate
+    );
+    if (commentSend) {
+      res.status(200).json({
+        success: true,
+        message: "Message recieved. We'll get to you as soon as possible",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Message send Unsuccessful" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
