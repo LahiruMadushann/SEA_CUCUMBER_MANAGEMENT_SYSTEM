@@ -68,7 +68,7 @@ export default function UserProfileMainScreen() {
         >
           <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
             <View className="flex-row ml-[70vw]">
-              <View className="mt-[110vw] ">
+              <View className="mt-[110vw] " style={{ zIndex: -1 }}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("MainBoard")}
                 >
@@ -80,7 +80,7 @@ export default function UserProfileMainScreen() {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex m-[auto] absolute mt-[132vw]">
+              <View className="flex m-[auto] absolute mt-[110vw]">
                 {db_role === "Exporter" ? (
                   <ExporterPopupScreen />
                 ) : db_role === "Farmer" ? (
@@ -96,7 +96,7 @@ export default function UserProfileMainScreen() {
             </View>
 
             {/* User Profile  */}
-            <View className="flex-row">
+            <View className="flex-row" style={{ zIndex: -1 }}>
               <View className="mt-[6vw] ml-[80vw] ">
                 <TouchableOpacity
                   onPress={() => navigation.navigate("UpdateProfilePicScreen")}
