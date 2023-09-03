@@ -45,9 +45,9 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Chairman" ||
-                    data.role == "DirectorGeneral" ||
-                    data.role == "AssistantDirector" ||
-                    data.role == "DistrictAquaculturist" ||
+                    data.role == "Director General" ||
+                    data.role == "Assistant Director" ||
+                    data.role == "District Aquaculturist" ||
                     data.role == "Minister"
                   ) {
                     tokenData = {
@@ -58,6 +58,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -77,6 +78,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -92,7 +94,7 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Exporter" ||
-                    data.role == "FishProcessor"
+                    data.role == "Processor"
                   ) {
                     tokenData = {
                       _id: data._id,
@@ -102,6 +104,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo:data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -198,7 +201,7 @@ exports.signout = async (req, res) => {
   }
 };
 
-exports.forgotPasswordOTPSend = async (req, res) => {
+exports.forgotPasswordOTPSend = async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -228,8 +231,8 @@ exports.forgotPasswordOTPSend = async (req, res) => {
 
         res.status(200).json({
           success: true,
-          message: "Reset Code sent to " + email,
-          data: email,
+          message: "OTP Code sent to " + email,
+          email,
           userId,
         });
       }
@@ -240,7 +243,7 @@ exports.forgotPasswordOTPSend = async (req, res) => {
   }
 };
 
-exports.otpVerification = async (req, res) => {
+exports.otpVerification = async (req, res, next) => {
   try {
     const { otp, userId } = req.body;
 
@@ -257,9 +260,10 @@ exports.otpVerification = async (req, res) => {
       } else {
         var deleteOtp = loginService.deleteOtp(userId, otp);
 
-        res.status(400).json({
+        res.status(200).json({
           success: true,
           message: "Enter New Password to recover account",
+          userId,
         });
       }
     }
@@ -286,9 +290,11 @@ exports.forgotPasswordChange = async (req, res) => {
       );
 
       if (passwordChanged) {
-        res
-          .status(200)
-          .json({ success: true, message: "Successfully changed password" });
+        res.status(200).json({
+          success: true,
+          message:
+            "Successfully changed password. Please Login with your new password",
+        });
       } else {
         res.status(400).json({
           success: false,

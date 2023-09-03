@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { Alert } from "react-native";
+import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
+import { LogBox } from "react-native";
 
 import {
   View,
@@ -19,14 +23,17 @@ import NaqdaMngUsersPopupScreen from "../../components/UserPopupScreens/NaqdaMng
 import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScreen";
 import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
 import AquaculturistPopupScreen from "../../components/UserPopupScreens/AquaculturistPopupScreen";
+import ProcessorPopupScreen from "../../components/UserPopupScreens/ProcessorPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
 
-  const { state } = useAuth();
+  const { state, dispatch } = useAuth();
   // Access the token
   const token = state.token;
+
   // Decode the token
   const decodedToken = jwtDecode(token);
 
@@ -38,6 +45,7 @@ export default function UserProfileMainScreen() {
     age: db_age,
     gender: db_gender,
     email: db_email,
+    nicNo: db_nicNo,
     firstName: db_firstName,
     lastName: db_lastName,
     contactNo: db_contactNo,
@@ -51,6 +59,57 @@ export default function UserProfileMainScreen() {
     profilepic: db_profilepic,
     createdAt: db_createdAt,
   } = decodedToken;
+
+  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+  const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
+
+  const handleDelete = async () => {
+    // Clear the token by dispatching the CLEAR_TOKEN action
+
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete your account, you won't be able to recover it.",
+      [
+        {
+          text: "Delete Account",
+          onPress: () => {
+            // Add your delete account logic here
+            const userData = {
+              userId: db_id,
+            };
+            const backendUrl = `${BASE_URL}/user/deleteAccount`;
+
+            axios
+              .post(backendUrl, userData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Account Deleted", response.data.message);
+
+                  navigation.navigate("MainBoard");
+                  dispatch({ type: "CLEAR_TOKEN" });
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Error Deleting Account:", error);
+                Alert.alert(
+                  "Error",
+                  "An error occurred while deleting the account."
+                );
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
 
   return (
     <SafeAreaView
@@ -69,21 +128,24 @@ export default function UserProfileMainScreen() {
                   onPress={() => navigation.navigate("MainBoard")}
                 >
                   <View className="flex m-[auto] ">
-                    <Image
+                    {/* <Image
                       source={require("../../assets/main_board/arrow.png")}
                       className=" w-[10.09216px] h-[15.62988px] "
-                    />
+                      style={{ zIndex: 2 }}
+                    /> */}
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex m-[auto] absolute mt-[132vw]">
+              <View className="flex m-[auto] absolute mt-[110vw]">
                 {db_role === "Exporter" ? (
                   <ExporterPopupScreen />
                 ) : db_role === "Farmer" ? (
                   <FarmerPopupScreen />
                 ) : db_role === "District Aquaculturist" ? (
                   <AquaculturistPopupScreen />
-                ) : db_role === "AssitantDirector" ||
+                ) : db_role === "Processor" ? (
+                  <ProcessorPopupScreen />
+                ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
                   "Chairman" ? (
                   <NaqdaMngUsersPopupScreen />
@@ -92,15 +154,15 @@ export default function UserProfileMainScreen() {
             </View>
 
             {/* User Profile  */}
-            <View className="flex-row">
-              <View className="mt-[6vw] ml-[80vw]">
+            <View className="flex-row" style={{ zIndex: -1 }}>
+              <View className="mt-[6vw] ml-[80vw] ">
                 <TouchableOpacity
                   onPress={() => navigation.navigate("UpdateProfilePicScreen")}
                 >
-                  <View className="flex m-[auto] ">
+                  <View className="flex m-[auto]">
                     <Image
-                      source={require("../../assets/user/user.png")}
-                      className=" w-[61px] h-[61px] "
+                      source={{ uri: profilePicUrl }}
+                      className=" w-[61px] h-[61px] rounded-full bg-[#FFFFFF] shadow-lg shadow-gray-800"
                     />
                   </View>
                 </TouchableOpacity>
@@ -109,11 +171,32 @@ export default function UserProfileMainScreen() {
               <View className="mt-[4vw] ml-[5vw]">
                 <View className="flex m-[auto] ">
                   <Text className="text-[3.5vw] text-[#FFFFFF] ">
-                    User Profile
+                    User Profile ({db_role})
                   </Text>
                   <Text className="text-[5vw] text-[#FFFFFF] font-bold">
                     {db_username}
                   </Text>
+                  <View className="mt-[3vw]">
+                    {db_accountStatus === "Inactive" ? (
+                      <Image
+                        source={require("../../assets/user/inactive.png")}
+                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        className="rounded-full bg-[#FFFFFF]"
+                      />
+                    ) : db_accountStatus === "Active" ? (
+                      <Image
+                        source={require("../../assets/user/active.png")}
+                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        className="rounded-full bg-[#FFFFFF]"
+                      />
+                    ) : null}
+                    <Text
+                      className="text-[4vw] ml-[5vw] mt-[-5vw] text-[#FFFFFF]"
+                      style={{ fontStyle: "italic" }}
+                    >
+                      {db_accountStatus}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -175,6 +258,24 @@ export default function UserProfileMainScreen() {
             <View className="flex ml-[6vw] mt-[-1vw] ">
               <Text className="text-[4vw] font-bold  ">Role</Text>
               <Text className="text-[3.5vw] font-light">{db_role}</Text>
+            </View>
+          </View>
+
+          <View className="flex-row mt-[10vw] ml-[18vw]">
+            <View className=" ">
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <View className="flex m-[auto] ">
+                  <Image
+                    source={require("../../assets/user/job.png")}
+                    className=" w-[16px] h-[18px] "
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View className="flex ml-[6vw] mt-[-1vw] ">
+              <Text className="text-[4vw] font-bold  ">NIC No</Text>
+              <Text className="text-[3.5vw] font-light">{db_nicNo}</Text>
             </View>
           </View>
 
@@ -246,7 +347,7 @@ export default function UserProfileMainScreen() {
               </TouchableOpacity>
             </View>
 
-            <View className="flex ml-[6vw] mt-[-1vw]  mb-[5vw]">
+            <View className="flex ml-[6vw] mt-[-1vw]">
               <Text className="text-[4vw] font-bold  ">Address</Text>
               <Text className="text-[3.5vw] font-light">
                 {db_address}, {db_town},{"\n"}
@@ -254,6 +355,16 @@ export default function UserProfileMainScreen() {
                 {db_country}
               </Text>
             </View>
+          </View>
+          <View className="flex ml-[6vw]  mt-[5vh] mb-[4vh]">
+            <TouchableOpacity
+              className="bg-[#C61A1A] rounded-[15px] w-[40vw] mx-auto justify-center py-[5px] px-[10px]"
+              onPress={handleDelete}
+            >
+              <Text className="text-[#fff] text-[18px] font-bold text-center">
+                Delete Account
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

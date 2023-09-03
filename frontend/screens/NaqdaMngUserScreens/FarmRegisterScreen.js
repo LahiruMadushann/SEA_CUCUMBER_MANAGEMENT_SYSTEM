@@ -24,12 +24,14 @@ export default function FarmRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
   const [licenseNo, setLicenseNo] = useState("");
   const [validity, setValidity] = useState("");
   const [location, setLocation] = useState("");
   const [extend, setExtend] = useState("");
-  const [gpsCoordinates, setGpsCoordinates] = useState("");
+  const [gpsCoordinatesOne, setGpsCoordinatesOne] = useState("");
+  const [gpsCoordinatesTwo, setGpsCoordinatesTwo] = useState("");
+  const [gpsCoordinatesThree, setGpsCoordinatesThree] = useState("");
+  const [gpsCoordinatesFour, setGpsCoordinatesFour] = useState("");
   const [farmInternal, setFarmInternal] = useState("");
   const [establishmentDate, setEstablishmentDate] = useState("");
 
@@ -51,12 +53,14 @@ export default function FarmRegisterScreen() {
   const handleRegistration = async () => {
     if (
       name == "" ||
-      address == "" ||
       licenseNo == "" ||
       validity == "" ||
       location == "" ||
       extend == "" ||
-      gpsCoordinates == "" ||
+      gpsCoordinatesOne == "" ||
+      gpsCoordinatesTwo == "" ||
+      gpsCoordinatesThree == "" ||
+      gpsCoordinatesFour == "" ||
       farmInternal == "" ||
       establishmentDate == "" ||
       image == ""
@@ -66,12 +70,14 @@ export default function FarmRegisterScreen() {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("address", address);
     formData.append("licenseNo", licenseNo);
     formData.append("validity", validity);
     formData.append("location", location);
     formData.append("extend", extend);
-    formData.append("gpsCoordinates", gpsCoordinates);
+    formData.append("gpsCoordinatesOne", gpsCoordinatesOne);
+    formData.append("gpsCoordinatesTwo", gpsCoordinatesTwo);
+    formData.append("gpsCoordinatesThree", gpsCoordinatesThree);
+    formData.append("gpsCoordinatesFour", gpsCoordinatesFour);
     formData.append("farmInternal", farmInternal);
     formData.append("establishmentDate", establishmentDate);
     formData.append("picture", {
@@ -149,18 +155,6 @@ export default function FarmRegisterScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={address}
-                onChangeText={setAddress}
-                placeholder="Address"
-                secureTextEntry
-                required
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                 value={licenseNo}
                 onChangeText={setLicenseNo}
                 placeholder="License No"
@@ -207,9 +201,39 @@ export default function FarmRegisterScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={gpsCoordinates}
-                onChangeText={setGpsCoordinates}
-                placeholder="GPS Coordinates"
+                value={gpsCoordinatesOne}
+                onChangeText={setGpsCoordinatesOne}
+                placeholder="First Point GPS Coordinates"
+                required
+              />
+            </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={gpsCoordinatesTwo}
+                onChangeText={setGpsCoordinatesTwo}
+                placeholder="Second Point GPS Coordinates"
+                required
+              />
+            </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={gpsCoordinatesThree}
+                onChangeText={setGpsCoordinatesThree}
+                placeholder="Third Point GPS Coordinates"
+                required
+              />
+            </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={gpsCoordinatesFour}
+                onChangeText={setGpsCoordinatesFour}
+                placeholder="Fourth Point GPS Coordinates"
                 required
               />
             </View>

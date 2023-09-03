@@ -1,30 +1,23 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
-import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import jwtDecode from "jwt-decode";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function UserPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const { state } = useAuth();
-  // Access the token
-  const token = state.token;
 
+  const token = state.token;
   const decodedToken = jwtDecode(token);
 
-  // Access payload data from the decoded token
-  const { farmId: db_farmId, farmName: db_farmName } = decodedToken;
+  const {
+    farmId: db_farmId,
+    farmName: db_farmName,
+    accountStatus: db_accountStatus,
+  } = decodedToken;
 
   // Logout Functionalities
   const { dispatch } = useAuth();
@@ -44,33 +37,43 @@ export default function UserPopupScreen() {
       <TouchableOpacity onPress={toggleMenu}>
         <Image
           source={require("../../assets/options.png")}
-          className=" w-[24.21875px] h-[25px] ml-[70vw]"
+          className=" w-[24.21875px] h-[28px] ml-[80vw]"
         />
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("MainFarmScreen", {
-                farmId: db_farmId,
-                farmName: db_farmName,
-              })
-            }
-          >
-            <Text className="mx-[1vw]">Farm </Text>
-          </TouchableOpacity>
+          {db_accountStatus == "Active" && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("MainFarmScreen", {
+                  farmId: db_farmId,
+                  farmName: db_farmName,
+                })
+              }
+            >
+              <View style={styles.tab}>
+                <Text className="mx-[1vw]">Farm </Text>
+              </View>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >
-            <Text className="mx-[1vw]">Update Password</Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Update Password</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdateUserScreen")}
           >
-            <Text className="mx-[1vw]">Update Details</Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Update Details</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleLogout}>
-            <Text className="mx-[1vw]">Logout</Text>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Logout</Text>
+            </View>
           </TouchableOpacity>
         </View>
       )}
@@ -81,9 +84,7 @@ export default function UserPopupScreen() {
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: "#fff",
-    padding: 10,
-
-    zIndex: 999,
+    zIndex: 1,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -91,7 +92,17 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     position: "absolute",
-    top: 15,
-    left: 30,
+    top: 20,
+    left: 15,
+  },
+
+  tab: {
+    padding: 5,
+    height: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "grey",
   },
 });

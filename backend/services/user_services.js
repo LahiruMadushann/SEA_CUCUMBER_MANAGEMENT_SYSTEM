@@ -1,5 +1,7 @@
 const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
+const contactUsModel = require("../model/contactUs_model");
+const advertiementModel = require("../model/farm/advertisement_model");
 
 const bcrypt = require("bcrypt");
 
@@ -84,6 +86,49 @@ class userService {
   static async getAllNotifications() {
     const allNotifications = await newsModel.find();
     return allNotifications;
+  }
+
+  //GET SINGLE NOTIFICATION
+  static async getSingleNotification(notificationId) {
+    const singleNotification = await newsModel.find({ _id: notificationId });
+    return singleNotification;
+  }
+
+  //GET ALL ADVERTISEMENTS
+  static async getAllAdvertisements() {
+    const allAdvertisements = await advertiementModel.find();
+    return allAdvertisements;
+  }
+
+  //GET SINGLE ADVERTISEMENT
+  static async getSingleAdvertisement(advertisementId) {
+    const singleAdvertisement = await advertiementModel.find({
+      _id: advertisementId,
+    });
+    return singleAdvertisement;
+  }
+
+  //ENTER CONTACT US INFORMATION
+  static async enterContactUsInfo(
+    name,
+    email,
+    contactNo,
+    comment,
+    commentDate
+  ) {
+    try {
+      const enterContactUsInfo = new contactUsModel({
+        name,
+        email,
+        contactNo,
+        comment,
+        commentDate,
+      });
+
+      return await enterContactUsInfo.save();
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

@@ -4,30 +4,37 @@ const db = require("../../config/db");
 const { Schema } = mongoose;
 
 const knowledgeCenterSchema = new Schema({
-  speciestype: {
+  speciesType: {
     type: String,
     unique: true,
   },
-
   scientificName: {
     type: String,
     unique: true,
   },
-
   description: {
     type: String,
   },
-  habitatsAndFeeding: {
+  habitats: {
     type: String,
   },
-  reproductionAndLifecycle: {
+  feeding: {
+    type: String,
+  },
+  reproduction: {
+    type: String,
+  },
+  lifecycle: {
     type: String,
   },
   fishingMethods: {
     type: String,
   },
-  images: {
+  seaCucumberImages: {
     type: String,
+  },
+  createdAt: {
+    type: Date,
   },
 });
 

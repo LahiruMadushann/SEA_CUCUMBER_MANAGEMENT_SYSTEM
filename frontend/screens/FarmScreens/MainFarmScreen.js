@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
+
+import { WebView } from "react-native-webview";
 import {
   StyleSheet,
   Text,
@@ -15,14 +17,32 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import FarmPopupScreen from "../../components/FarmPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
+
 export default function MainFarmScreen() {
   const route = useRoute(); // Get the route object
   // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
-  const farmName = route.params?.farmName || ""; // Default value if parameter is not available
+  const farmId = route.params?.farmId || "";
+  const farmName = route.params?.farmName || "";
 
-  const directedFarm = route.params?.directedFarm || ""; // Default value if parameter is not available
-  // console.log(directedFarm);
+  const directedFarm = route.params?.directedFarm || "";
+
+  const { state } = useAuth();
+
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { role: db_role } = decodedToken;
+  console.log(db_role);
+
+  let haveFarmAccess;
+
+  if (db_role == "Exporter") {
+    haveFarmAccess = false;
+  } else {
+    haveFarmAccess = true;
+  }
 
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);
@@ -58,7 +78,7 @@ export default function MainFarmScreen() {
 
   // console.log(farmData);
   // console.log(stockData);
-
+  // console.log(farmId);
   const {
     stock: db_stock,
     stockingDates: db_stockingDates,
@@ -74,16 +94,23 @@ export default function MainFarmScreen() {
   const {
     _id: db_farmId,
     name: db_name,
-    address: db_address,
-    age: db_age,
     licenseNo: db_licenseNo,
     validity: db_validity,
     location: db_location,
     extend: db_extend,
-    gpsCoordinates: db_gpsCoordinates,
+    gpsCoordinatesOne: db_gpsCoordinatesOne,
+    gpsCoordinatesTwo: db_gpsCoordinatesTwo,
+    gpsCoordinatesThree: db_gpsCoordinatesThree,
+    gpsCoordinatesFour: db_gpsCoordinatesFour,
     farmInternal: db_farmInternal,
     establishmentDate: db_establishmentDate,
+    picture: db_picture,
   } = farmData;
+
+  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/farm-pics";
+  const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
+
+  console.log(profilePicUrl);
 
   const listTab = [
     {
@@ -101,13 +128,8 @@ export default function MainFarmScreen() {
       status: "Detail",
     },
     {
-      name: "Address",
-      subName: `${db_address}`,
-      status: "Detail",
-    },
-    {
       name: "Years Working",
-      subName: `${db_age} years`,
+      subName: ` years`,
       status: "Detail",
     },
     {
@@ -128,11 +150,6 @@ export default function MainFarmScreen() {
     {
       name: "extend",
       subName: `${db_extend}`,
-      status: "Detail",
-    },
-    {
-      name: "gpsCoordinates",
-      subName: `${db_gpsCoordinates}`,
       status: "Detail",
     },
     {
@@ -220,9 +237,9 @@ export default function MainFarmScreen() {
           className="bg-[#fff]"
         >
           <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
-            <View className="mt-[58vh] ">
+            <View className="mt-[60vh] ">
               <View className="flex-row ">
-                <View className=" ml-[4vw]">
+                <View className=" ml-[4vw]" style={{ zIndex: -1 }}>
                   {!directedFarm && (
                     <TouchableOpacity
                       onPress={() =>
@@ -250,12 +267,17 @@ export default function MainFarmScreen() {
                     </TouchableOpacity>
                   )}
                 </View>
-                <View className="flex m-[auto] absolute mt-[10vw] ml-[80vw]">
-                  <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
-                </View>
+                {haveFarmAccess && (
+                  <View className="flex m-[auto] absolute ml-[80vw]">
+                    <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
+                  </View>
+                )}
               </View>
 
-              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[1vw] fixed">
+              <Text
+                style={{ zIndex: -1 }}
+                className="text-center text-[#fff] font-bold text-[22px] mt-[1vw] fixed"
+              >
                 Aquaculture Farm
               </Text>
             </View>
@@ -268,10 +290,24 @@ export default function MainFarmScreen() {
 
             <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
               <Image
-                source={require("../../assets/farms/mainpic.png")}
+                source={{ uri: profilePicUrl }}
                 className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
               />
             </View>
+
+            {/* <View>
+              <WebView
+                source={{
+                  html: '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d158593.503734646!2d80.01017143727412!3d9.628194039152763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1693728427746!5m2!1sen!2slk" width="100%" height="500" style="border:0;" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+                }}
+                style={{
+                  alignContent: "center",
+                  alignItems: "center",
+                  width: "80%",
+                  height: 200,
+                }}
+              />
+            </View> */}
 
             <View className="mt-[-32vh]" style={styles.listTab}>
               {listTab.map((e) => (
@@ -309,20 +345,6 @@ export default function MainFarmScreen() {
 
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Address
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_address}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Years Working
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">{db_age}</Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
                     licenseNo
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
@@ -358,7 +380,13 @@ export default function MainFarmScreen() {
                     gpsCoordinates
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
-                    {db_gpsCoordinates}
+                    {db_gpsCoordinatesOne}
+                    {"\n"}
+                    {db_gpsCoordinatesTwo}
+                    {"\n"}
+                    {db_gpsCoordinatesThree}
+                    {"\n"}
+                    {db_gpsCoordinatesFour}
                   </Text>
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">

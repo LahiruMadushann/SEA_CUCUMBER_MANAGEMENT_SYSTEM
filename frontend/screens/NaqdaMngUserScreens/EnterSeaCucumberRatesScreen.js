@@ -3,6 +3,10 @@ import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
 
+//Token DATA
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+
 import {
   View,
   Text,
@@ -21,81 +25,62 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function EnterSeaCucumberRatesScreen() {
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const {
+    _id: db_id,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    role: db_role,
+  } = decodedToken;
+
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [licenseNo, setLicenseNo] = useState("");
-  const [validity, setValidity] = useState("");
-  const [location, setLocation] = useState("");
-  const [extend, setExtend] = useState("");
-  const [gpsCoordinates, setGpsCoordinates] = useState("");
-  const [farmInternal, setFarmInternal] = useState("");
-  const [establishmentDate, setEstablishmentDate] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [speciesType, setSpeciesType] = useState("");
+  const [rates, setRates] = useState("");
+  const [postedTo, setPostedTo] = useState("");
 
-  const [image, setImage] = useState(null); // Use state for selected image
-
-  const selectImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
-    }
-  };
-
-  const handleRegistration = async () => {
+  const handleSeaCucumberRates = async () => {
     if (
-      name == "" ||
-      address == "" ||
-      licenseNo == "" ||
-      validity == "" ||
-      location == "" ||
-      extend == "" ||
-      gpsCoordinates == "" ||
-      farmInternal == "" ||
-      establishmentDate == "" ||
-      image == ""
+      title == "" ||
+      description == "" ||
+      speciesType == "" ||
+      rates == "" ||
+      postedTo == ""
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
     }
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("address", address);
-    formData.append("licenseNo", licenseNo);
-    formData.append("validity", validity);
-    formData.append("location", location);
-    formData.append("extend", extend);
-    formData.append("gpsCoordinates", gpsCoordinates);
-    formData.append("farmInternal", farmInternal);
-    formData.append("establishmentDate", establishmentDate);
-    formData.append("picture", {
-      uri: image,
-      type: "image/jpeg", // Change to the appropriate MIME type if needed
-      name: "profile.jpg", // Change to the desired file name
-    });
+    const insertData = {
+      userId: db_id,
+      title: title,
+      description: description,
+      speciesType: speciesType,
+      rates: rates,
+      postedTo: postedTo,
+    };
+    const insertUrl = `${BASE_URL}/farmMngUsers/enterSeacucumberRates`;
 
-    console.log(formData);
+    // Make a PUT or POST request to update the data
+    axios
+      .post(insertUrl, insertData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert("Sea cucumber Rates", response.data.message);
 
-    const backendUrl = `${BASE_URL}/farmMngUsers/farmRegistration`; // Replace with your actual backend URL
-    try {
-      const response = await axios.post(backendUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+          // navigation.navigate("UserProfileMainScreen");
+        } else {
+          Alert.alert("SeaCucumber rates enter Failed", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error occured while entering Seacucumber Rates:", error);
+        Alert.alert("Error", "Error occured while entering Seacucumber Rates");
       });
-
-      Alert.alert("Registration", response.data.message);
-
-      navigation.navigate("UserProfileMainScreen");
-    } catch (error) {
-      console.error("Error during registration:", error);
-    }
   };
 
   return (
@@ -126,21 +111,21 @@ export default function EnterSeaCucumberRatesScreen() {
 
             <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
               <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-                Farmer Registration
+                Sea Cucumber Rates
               </Text>
             </View>
           </View>
 
           <View className="p-4 mx-auto w-[80vw] h-[auto] mb-[-28vw] mt-[60vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
-            <Text className="text-lg font-bold mb-4">Farm Details</Text>
+            <Text className="text-lg font-bold mb-4">Enter Rates</Text>
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={name}
-                onChangeText={setName}
-                placeholder="Farm Name"
+                value={title}
+                onChangeText={setTitle}
+                placeholder="Title"
                 required
               />
             </View>
@@ -149,10 +134,9 @@ export default function EnterSeaCucumberRatesScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={address}
-                onChangeText={setAddress}
-                placeholder="Address"
-                secureTextEntry
+                value={description}
+                onChangeText={setDescription}
+                placeholder="Description"
                 required
               />
             </View>
@@ -161,10 +145,9 @@ export default function EnterSeaCucumberRatesScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={licenseNo}
-                onChangeText={setLicenseNo}
-                placeholder="License No"
-                secureTextEntry
+                value={speciesType}
+                onChangeText={setSpeciesType}
+                placeholder="Species Type"
                 required
               />
             </View>
@@ -173,92 +156,48 @@ export default function EnterSeaCucumberRatesScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={validity}
-                onChangeText={setValidity}
-                placeholder="Validity"
+                value={rates}
+                onChangeText={setRates}
+                placeholder="Rates"
+                keyboardType="numeric"
                 required
               />
             </View>
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
-
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={location}
-                onChangeText={setLocation}
-                placeholder="Location"
-                required
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={extend}
-                onChangeText={setExtend}
-                placeholder="Extend"
-                required
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={gpsCoordinates}
-                onChangeText={setGpsCoordinates}
-                placeholder="GPS Coordinates"
-                required
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={farmInternal}
-                onChangeText={setFarmInternal}
-                placeholder="Farm Internal"
-                required
-              />
-            </View>
-
-            <View style={styles.fieldContainer}>
-              <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={establishmentDate}
-                onChangeText={setEstablishmentDate}
-                placeholder="Establishment Date"
-                required
-              />
-            </View>
-
-            <View style={styles.pickImageContainer}>
-              <TouchableOpacity
-                onPress={selectImage}
-                style={styles.pickImageButton}
+              <Picker
+                style={styles.picker}
+                selectedValue={postedTo}
+                onValueChange={(itemValue) => setPostedTo(itemValue)}
               >
-                <Text style={styles.pickImageText}>Pick Image</Text>
-              </TouchableOpacity>
+                <Picker.Item label="Post To" value="" />
+                <Picker.Item label="Farmer" value="Farmer" />
+                <Picker.Item
+                  label="District Aquaculturist"
+                  value="District Aquaculturist"
+                />
+                <Picker.Item label="Exporter" value="Exporter" />
+                <Picker.Item label="All" value="All" />
+              </Picker>
             </View>
-            {image && (
-              <Image
-                className="mt-[3vh] mx-auto rounded-[15px]"
-                source={{ uri: image }}
-                style={{ width: 250, height: 150 }}
-              />
-            )}
+
+            <View style={styles.fieldContainer}>
+              <Text className="text-[15px] ml-auto text-right">
+                Post By : {db_firstName} {db_lastName}
+                {"\n"}
+                Role : {db_role}
+              </Text>
+            </View>
           </View>
+
           <View className="mt-[20vh] mb-[5vh]">
             <TouchableOpacity
               className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
-              onPress={handleRegistration}
+              onPress={handleSeaCucumberRates}
             >
               <Text className="text-[#fff] text-[18px] font-bold text-center">
-                Register Farm
+                Post Rates
               </Text>
             </TouchableOpacity>
           </View>

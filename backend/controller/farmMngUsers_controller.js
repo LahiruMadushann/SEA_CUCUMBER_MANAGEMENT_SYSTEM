@@ -70,7 +70,7 @@ exports.enterNews = async (req, res, next) => {
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterSeacucumberRates = async (req, res, next) => {
   try {
-    const { userId, title, description, speciesType, rates, date, postedTo } =
+    const { userId, title, description, speciesType, rates, postedTo } =
       req.body;
 
     let data = await farmMngUserService.getAquaFarmUserDetails(userId);
@@ -79,6 +79,8 @@ exports.enterSeacucumberRates = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       let type = "SeacucumberRates";
+
+      const date = new Date().toISOString();
 
       const successEnteredSeacucumberRates =
         await farmMngUserService.enterSeaCucumberRates(
@@ -115,12 +117,14 @@ exports.registerFarm = async (req, res, next) => {
   try {
     const {
       name,
-      address,
       licenseNo,
       validity,
       location,
       extend,
-      gpsCoordinates,
+      gpsCoordinatesOne,
+      gpsCoordinatesTwo,
+      gpsCoordinatesThree,
+      gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
     } = req.body;
@@ -135,13 +139,14 @@ exports.registerFarm = async (req, res, next) => {
 
     const successResFarm = await farmMngUserService.registerFarm(
       name,
-      address,
-      "Farm",
       licenseNo,
       validity,
       location,
       extend,
-      gpsCoordinates,
+      gpsCoordinatesOne,
+      gpsCoordinatesTwo,
+      gpsCoordinatesThree,
+      gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
       date,

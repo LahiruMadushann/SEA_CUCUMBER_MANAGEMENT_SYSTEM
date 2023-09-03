@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { Alert } from "react-native";
 import {
   StyleSheet,
   Text,
@@ -13,26 +15,42 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
+import BASE_URL from "../apiConfig/config";
+
 export default function ContactUsScreen() {
   const navigation = useNavigation();
-
-  const [addFormData, setAddFormData] = useState({
-    userName: "",
-    email: "",
-    telephoneNo: "",
-    comment: "",
-  });
-
-  const handleAddFormChange = (name, value) => {
-    setAddFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [comment, setComment] = useState("");
 
   const handleAddFormSubmit = () => {
-    // handle form submission here
-    console.log(addFormData);
+    if (email == "" || name == "" || contactNo == "" || comment == "") {
+      return Alert.alert("Invalid Input", "Please fill all the fields");
+    }
+
+    const insertData = {
+      name: name,
+      email: email,
+      contactNo: contactNo,
+      comment: comment,
+    };
+
+    const insertUrl = `${BASE_URL}/user/contactUs`;
+
+    axios
+      .post(insertUrl, insertData)
+      .then((response) => {
+        if (response.data.success) {
+          Alert.alert("Success", response.data.message);
+        } else {
+          Alert.alert("Unsuccessful", response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending Otp:", error);
+        Alert.alert("Error", "An error occurred while sending Message");
+      });
   };
 
   return (
@@ -64,28 +82,29 @@ export default function ContactUsScreen() {
           <View className="mx-auto">
             <TextInput
               className=" text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-              value={addFormData.userName}
-              onChangeText={(text) => handleAddFormChange("userName", text)}
-              placeholder="User Name"
+              value={name}
+              onChangeText={setName}
+              placeholder="Name"
             />
             <TextInput
               className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-              value={addFormData.email}
-              onChangeText={(text) => handleAddFormChange("email", text)}
+              value={email}
+              onChangeText={setEmail}
               placeholder="Email"
             />
 
             <TextInput
               className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
-              value={addFormData.telephoneNo}
-              onChangeText={(text) => handleAddFormChange("telephoneNo", text)}
+              value={contactNo}
+              onChangeText={setContactNo}
               placeholder="Telephone No"
+              keyboardType="Numeric"
             />
 
             <TextInput
               className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw] h-[14vh]  mb-3"
-              value={addFormData.comment}
-              onChangeText={(text) => handleAddFormChange("comment", text)}
+              value={comment}
+              onChangeText={setComment}
               placeholder="Comment"
               multiline={true}
             />
@@ -105,7 +124,7 @@ export default function ContactUsScreen() {
         <View className="border-b-[0.55px] border-b-gray-500 mt-[8vw]" />
         <View className="mt-[2vh] mx-[14vw]">
           <Text className="text-[12px] font-bold mb-[1.5vh]">
-            Sea Cucumber Animal
+            For more information
           </Text>
           <View className="mx-[8vw]">
             <View className="flex-row mb-[1.2vh]">

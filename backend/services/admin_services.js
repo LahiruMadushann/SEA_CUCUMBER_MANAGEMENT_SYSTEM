@@ -208,23 +208,29 @@ class AdminService {
   //OPERATIONS RELATED TO KNOWLEDGE CENTER
 
   static async enterIndividualSeacucumberDetails(
-    sc_speciesType,
-    sc_scientificName,
-    sc_description,
-    sc_habitatsAndFeeding,
-    sc_reproductionAndLifecycle,
-    sc_fishingMethods,
-    sc_seacucumberImages
+    speciesType,
+    scientificName,
+    description,
+    habitats,
+    feeding,
+    reproduction,
+    lifecycle,
+    fishingMethods,
+    seaCucumberImages,
+    createdAt
   ) {
     try {
       const enterSpeciesDetails = new knowledgeCenterModel({
-        speciesType: sc_speciesType,
-        scientificName: sc_scientificName,
-        description: sc_description,
-        habitatsAndFeeding: sc_habitatsAndFeeding,
-        reproductionAndLifecycle: sc_reproductionAndLifecycle,
-        fishingMethods: sc_fishingMethods,
-        images: sc_seacucumberImages,
+        speciesType,
+        scientificName,
+        description,
+        habitats,
+        feeding,
+        reproduction,
+        lifecycle,
+        fishingMethods,
+        seaCucumberImages,
+        createdAt,
       });
 
       return await enterSpeciesDetails.save();

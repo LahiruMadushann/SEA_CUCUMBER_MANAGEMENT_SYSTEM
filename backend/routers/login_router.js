@@ -4,7 +4,7 @@ const { isAuth } = require("../middleware/auth_middleware");
 
 router.post("/login", loginController.login);
 
-router.post("/forgotPassword", loginController.forgotPasswordOTPSend);
+router.post("/emailOtpSend", loginController.forgotPasswordOTPSend);
 
 router.post("/otpverification", loginController.otpVerification);
 

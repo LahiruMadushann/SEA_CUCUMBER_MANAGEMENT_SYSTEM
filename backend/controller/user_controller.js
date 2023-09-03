@@ -11,7 +11,10 @@ exports.deleteUser = async (req, res, next) => {
     if (deleteUserAccount) {
       res
         .status(200)
-        .json({ success: true, message: "Deleted Account Successfully" });
+        .json({
+          success: true,
+          message: "Your account was deleted Successfully",
+        });
     } else {
       res
         .status(400)
@@ -170,6 +173,28 @@ exports.updateProfilePic = async (req, res, next) => {
   }
 };
 
+//GET SINGLE NOTIFICATION DETAILS
+exports.getSingleNotification = async (req, res, next) => {
+  try {
+    const { notificationId } = req.body;
+
+    let singleNotification = await userService.getSingleNotification(
+      notificationId
+    );
+
+    if (singleNotification) {
+      res.status(200).json({ status: true, data: singleNotification });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notification" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 //GET ALL NOTIFICATION DETAILS
 exports.getAllNotifications = async (req, res, next) => {
   try {
@@ -177,6 +202,46 @@ exports.getAllNotifications = async (req, res, next) => {
 
     if (allNotifications) {
       res.status(200).json({ status: true, data: allNotifications });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notifications" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GET SINGLE ADVERTISEMENT DETAILS
+exports.getSingleAdvertisement = async (req, res, next) => {
+  try {
+    const { advertisementId } = req.body;
+
+    let singleAdvertisement = await userService.getSingleAdvertisement(
+      advertisementId
+    );
+
+    if (singleAdvertisement) {
+      res.status(200).json({ status: true, data: singleAdvertisement });
+    } else {
+      res
+        .status(404)
+        .json({ status: false, message: "There are no Notification" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GET ALL ADVERTISEMENTS DETAILS
+exports.getAllAdvertisements = async (req, res, next) => {
+  try {
+    let allAdvertisements = await userService.getAllAdvertisements();
+
+    if (allAdvertisements) {
+      res.status(200).json({ status: true, data: allAdvertisements });
     } else {
       res
         .status(404)
@@ -201,6 +266,36 @@ exports.uploadImage = async (req, res, next) => {
 
     res.json({ status: true, success: req.file });
   } catch (error) {
+    next(error);
+  }
+};
+
+//CONTACT US
+exports.contactUs = async (req, res, next) => {
+  try {
+    const { name, email, contactNo, comment } = req.body;
+
+    const commentDate = new Date().toISOString();
+
+    let commentSend = await userService.enterContactUsInfo(
+      name,
+      email,
+      contactNo,
+      comment,
+      commentDate
+    );
+    if (commentSend) {
+      res.status(200).json({
+        success: true,
+        message: "Message recieved. We'll get to you as soon as possible",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Message send Unsuccessful" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
     next(error);
   }
 };

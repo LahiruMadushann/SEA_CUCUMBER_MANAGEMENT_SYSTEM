@@ -22,15 +22,19 @@ export default function RegisterScreen() {
         >
           <View>
             <View className="absolute w-[149.2vw] h-[35vh] inset-x-[-104px] top-[-22px] bg-[#0013C0]  rounded-b-full ">
-              <View className="mt-[18vw]">
-                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                  <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../assets/fisheries/dotIcon.png")}
-                      className=" w-[24.21875px] h-[7.03125px] ml-[334px]"
-                    />
-                  </View>
-                </TouchableOpacity>
+              <View className="flex-row">
+                <View className="ml-[42vw] mt-[10vh]">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("MainBoard")}
+                  >
+                    <View className="flex m-[auto] ">
+                      <Image
+                        source={require("../assets/main_board/arrow.png")}
+                        className=" w-[10.09216px] h-[15.62988px] "
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View className="flex-row mt-[30px] mx-auto">
@@ -135,7 +139,7 @@ export default function RegisterScreen() {
 
               {/*REGISTER AS A FISH PROCESSOR */}
               <TouchableOpacity
-                onPress={() => navigation.navigate("FishProcessorRegister")}
+                onPress={() => navigation.navigate("ProcessorRegisterScreen")}
                 className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
@@ -149,7 +153,7 @@ export default function RegisterScreen() {
                     className="w-[83px] h-[77px] ml-[39px] mt-[-18px]"
                   />
                   <Text className="text-center text-[18px] font-bold flex-auto mt-[-58px] ml-[83px]">
-                    Fish Processor
+                    Processor
                   </Text>
                   <Text className=" text-[8px] mt-[4px] ml-[132px] mr-8 flex-auto ">
                     Use knowledge center with better experience User other

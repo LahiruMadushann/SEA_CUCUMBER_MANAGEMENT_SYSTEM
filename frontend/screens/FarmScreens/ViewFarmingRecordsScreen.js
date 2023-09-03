@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { LogBox } from "react-native";
 
 import {
   StyleSheet,
@@ -20,7 +21,7 @@ import FooterBar from "../../components/FooterBar";
 
 export default function ViewFarmingRecordsScreen() {
   const navigation = useNavigation();
-
+  LogBox.ignoreAllLogs();
   const route = useRoute();
   // Access the farmId parameter from route.params
   const farmId = route.params?.farmId || "";

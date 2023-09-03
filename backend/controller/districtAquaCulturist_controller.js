@@ -53,13 +53,14 @@ exports.updateFarm = async (req, res, next) => {
     const {
       farmId,
       name,
-      address,
-      age,
       licenseNo,
       validity,
       location,
       extend,
-      gpsCoordinates,
+      gpsCoordinatesOne,
+      gpsCoordinatesTwo,
+      gpsCoordinatesThree,
+      gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
     } = req.body;
@@ -67,13 +68,14 @@ exports.updateFarm = async (req, res, next) => {
       await districtAquaCulturistService.updateFarmDetails(
         farmId,
         name,
-        address,
-        age,
         licenseNo,
         validity,
         location,
         extend,
-        gpsCoordinates,
+        gpsCoordinatesOne,
+        gpsCoordinatesTwo,
+        gpsCoordinatesThree,
+        gpsCoordinatesFour,
         farmInternal,
         establishmentDate
       );

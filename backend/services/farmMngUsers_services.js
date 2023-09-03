@@ -95,13 +95,14 @@ class aquaFramMngUsersService {
   //REGISTER FARMS TO THE SYSTEM
   static async registerFarm(
     name,
-    address,
-    role,
     licenseNo,
     validity,
     location,
     extend,
-    gpsCoordinates,
+    gpsCoordinatesOne,
+    gpsCoordinatesTwo,
+    gpsCoordinatesThree,
+    gpsCoordinatesFour,
     farmInternal,
     establishmentDate,
     date,
@@ -110,16 +111,17 @@ class aquaFramMngUsersService {
     try {
       const createFarm = new aqFarmModel({
         name,
-        address,
-        role,
         licenseNo,
         validity,
         location,
         extend,
-        gpsCoordinates,
+        gpsCoordinatesOne,
+        gpsCoordinatesTwo,
+        gpsCoordinatesThree,
+        gpsCoordinatesFour,
         farmInternal,
         establishmentDate,
-        createdAt: date,
+        date,
         picture,
       });
 

@@ -5,7 +5,6 @@ import { View, Text } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
-import MainBoardScreenAfterLogin from "./screens/MainBoardScreenAfterLogin";
 
 import LoginScreen from "./screens/LoginScreen";
 import GetEmailScreen from "./screens/GetEmailScreen";
@@ -51,7 +50,7 @@ import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
 import UpdateDataScreen from "./screens/UpdateDataScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
 import NotificationScreen from "./screens/NotificationScreen";
-import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import EnterOptScreen from "./screens/EnterOptScreen";
 import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
 import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 
@@ -60,7 +59,7 @@ import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 }
 import FarmerRegisterScreen from "./screens/RegistrationScreens/FarmerRegisterScreen";
 import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegisterScreen";
-import FishProcessorRegisterScreen from "./screens/FishProcessorRegisterScreen";
+import ProcessorRegisterScreen from "./screens/RegistrationScreens/ProcessorRegisterScreen";
 
 {
   /*TABS INSIDE MAIN BOARD*/
@@ -72,12 +71,19 @@ import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
   /*NOTIFICATION SCREENS*/
 }
 import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
+import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
+
+import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
+import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
 
 {
   /*NAQDA MANAGEMENT USER SCREENS*/
 }
 import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
 import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
+import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
+
+import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
 
 export default function Navigation() {
   return (
@@ -86,10 +92,7 @@ export default function Navigation() {
         {/*TABS INSIDE MAIN BOARD*/}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="MainBoard" component={MainBoardScreen} />
-        <Stack.Screen
-          name="MainBoardScreenAfterLogin"
-          component={MainBoardScreenAfterLogin}
-        />
+
         <Stack.Screen
           name="MainFisheriesScreen"
           component={MainFisheriesScreen}
@@ -159,17 +162,32 @@ export default function Navigation() {
           component={ExporterRegisterScreen}
         />
         <Stack.Screen
-          name="FishProcessorRegister"
-          component={FishProcessorRegisterScreen}
+          name="ProcessorRegisterScreen"
+          component={ProcessorRegisterScreen}
         />
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen
           name="MainNotificationScreen"
           component={MainNotificationScreen}
         />
+        <Stack.Screen
+          name="SingleNotificationScreen"
+          component={SingleNotificationScreen}
+        />
+
+        <Stack.Screen
+          name="MainAdvertisementScreen"
+          component={MainAdvertisementScreen}
+        />
+
+        <Stack.Screen
+          name="SingleAdvertisementScreen"
+          component={SingleAdvertisementScreen}
+        />
+
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
         <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
         <Stack.Screen
           name="UpdatePassword"
           component={UpdateNewPasswordScreen}
@@ -183,6 +201,16 @@ export default function Navigation() {
         <Stack.Screen
           name="EnterSeaCucumberRatesScreen"
           component={EnterSeaCucumberRatesScreen}
+        />
+
+        <Stack.Screen
+          name="EnterSeaCucumberNewsScreen"
+          component={EnterSeaCucumberNewsScreen}
+        />
+
+        <Stack.Screen
+          name="EnterProcessedDataScreen"
+          component={EnterProcessedDataScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
