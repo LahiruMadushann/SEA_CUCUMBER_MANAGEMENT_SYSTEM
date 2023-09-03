@@ -38,12 +38,14 @@ class districtAquaCulturistService {
   static async updateFarmDetails(
     farmId,
     name,
-    address,
     licenseNo,
     validity,
     location,
     extend,
-    gpsCoordinates,
+    gpsCoordinatesOne,
+    gpsCoordinatesTwo,
+    gpsCoordinatesThree,
+    gpsCoordinatesFour,
     farmInternal,
     establishmentDate
   ) {
@@ -51,12 +53,14 @@ class districtAquaCulturistService {
       { _id: farmId },
       {
         name: name,
-        address: address,
         licenseNo: licenseNo,
         validity: validity,
         location: location,
         extend: extend,
-        gpsCoordinates: gpsCoordinates,
+        gpsCoordinatesOne: gpsCoordinatesOne,
+        gpsCoordinatesTwo: gpsCoordinatesTwo,
+        gpsCoordinatesThree: gpsCoordinatesThree,
+        gpsCoordinatesFour: gpsCoordinatesFour,
         farmInternal: farmInternal,
         establishmentDate: establishmentDate,
       }

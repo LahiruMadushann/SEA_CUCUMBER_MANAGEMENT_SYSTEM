@@ -117,12 +117,14 @@ exports.registerFarm = async (req, res, next) => {
   try {
     const {
       name,
-      address,
       licenseNo,
       validity,
       location,
       extend,
-      gpsCoordinates,
+      gpsCoordinatesOne,
+      gpsCoordinatesTwo,
+      gpsCoordinatesThree,
+      gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
     } = req.body;
@@ -137,13 +139,14 @@ exports.registerFarm = async (req, res, next) => {
 
     const successResFarm = await farmMngUserService.registerFarm(
       name,
-      address,
-      "Farm",
       licenseNo,
       validity,
       location,
       extend,
-      gpsCoordinates,
+      gpsCoordinatesOne,
+      gpsCoordinatesTwo,
+      gpsCoordinatesThree,
+      gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
       date,

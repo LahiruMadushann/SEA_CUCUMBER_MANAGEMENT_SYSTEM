@@ -42,12 +42,14 @@ export default function UpdateFarmScreen() {
 
   const [farmData, setFarmData] = useState({
     name: "",
-    address: "",
     licenseNo: "",
     validity: "",
     location: "",
     extend: "",
-    gpsCoordinates: "",
+    gpsCoordinatesOne: "",
+    gpsCoordinatesTwo: "",
+    gpsCoordinatesThree: "",
+    gpsCoordinatesFour: "",
     farmInternal: "",
     establishmentDate: "",
   });
@@ -56,12 +58,14 @@ export default function UpdateFarmScreen() {
     const updatedData = {
       farmId: farmId,
       name: farmData.name,
-      address: farmData.address,
       licenseNo: farmData.licenseNo,
       validity: farmData.validity,
       location: farmData.location,
       extend: farmData.extend,
-      gpsCoordinates: farmData.gpsCoordinates,
+      gpsCoordinatesOne: farmData.gpsCoordinatesOne,
+      gpsCoordinatesTwo: farmData.gpsCoordinatesTwo,
+      gpsCoordinatesThree: farmData.gpsCoordinatesThree,
+      gpsCoordinatesFour: farmData.gpsCoordinatesFour,
       farmInternal: farmData.farmInternal,
       establishmentDate: farmData.establishmentDate,
     };
@@ -136,15 +140,6 @@ export default function UpdateFarmScreen() {
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={farmData.address}
-                onChangeText={(value) =>
-                  setFarmData((prevState) => ({ ...prevState, address: value }))
-                }
-                placeholder="Farm Address"
-                required
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={farmData.licenseNo}
                 onChangeText={(value) =>
                   setFarmData((prevState) => ({
@@ -190,14 +185,50 @@ export default function UpdateFarmScreen() {
               />
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={farmData.gpsCoordinates}
+                value={farmData.gpsCoordinatesOne}
                 onChangeText={(value) =>
                   setFarmData((prevState) => ({
                     ...prevState,
-                    gpsCoordinates: value,
+                    gpsCoordinatesOne: value,
                   }))
                 }
-                placeholder="GPS Coordinates"
+                placeholder="First Point GPS Coordinates"
+                required
+              />
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={farmData.gpsCoordinatesTwo}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    gpsCoordinatesTwo: value,
+                  }))
+                }
+                placeholder="Second Point GPS Coordinates"
+                required
+              />
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={farmData.gpsCoordinatesThree}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    gpsCoordinatesThree: value,
+                  }))
+                }
+                placeholder="Third Point GPS Coordinates"
+                required
+              />
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={farmData.gpsCoordinatesFour}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    gpsCoordinatesFour: value,
+                  }))
+                }
+                placeholder="Fourth Point GPS Coordinates"
                 required
               />
               <TextInput

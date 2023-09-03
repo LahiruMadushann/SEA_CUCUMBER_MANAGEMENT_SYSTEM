@@ -9,14 +9,6 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
   licenseNo: {
     type: String,
     required: true,
@@ -33,7 +25,19 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
   },
-  gpsCoordinates: {
+  gpsCoordinatesOne: {
+    type: String,
+    required: true,
+  },
+  gpsCoordinatesTwo: {
+    type: String,
+    required: true,
+  },
+  gpsCoordinatesThree: {
+    type: String,
+    required: true,
+  },
+  gpsCoordinatesFour: {
     type: String,
     required: true,
   },

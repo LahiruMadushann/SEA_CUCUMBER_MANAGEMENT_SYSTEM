@@ -92,12 +92,14 @@ export default function MainFarmScreen() {
   const {
     _id: db_farmId,
     name: db_name,
-    address: db_address,
     licenseNo: db_licenseNo,
     validity: db_validity,
     location: db_location,
     extend: db_extend,
-    gpsCoordinates: db_gpsCoordinates,
+    gpsCoordinatesOne: db_gpsCoordinatesOne,
+    gpsCoordinatesTwo: db_gpsCoordinatesTwo,
+    gpsCoordinatesThree: db_gpsCoordinatesThree,
+    gpsCoordinatesFour: db_gpsCoordinatesFour,
     farmInternal: db_farmInternal,
     establishmentDate: db_establishmentDate,
     picture: db_picture,
@@ -124,11 +126,6 @@ export default function MainFarmScreen() {
       status: "Detail",
     },
     {
-      name: "Address",
-      subName: `${db_address}`,
-      status: "Detail",
-    },
-    {
       name: "Years Working",
       subName: ` years`,
       status: "Detail",
@@ -151,11 +148,6 @@ export default function MainFarmScreen() {
     {
       name: "extend",
       subName: `${db_extend}`,
-      status: "Detail",
-    },
-    {
-      name: "gpsCoordinates",
-      subName: `${db_gpsCoordinates}`,
       status: "Detail",
     },
     {
@@ -337,14 +329,6 @@ export default function MainFarmScreen() {
 
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Address
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_address}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
                     licenseNo
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
@@ -380,7 +364,13 @@ export default function MainFarmScreen() {
                     gpsCoordinates
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
-                    {db_gpsCoordinates}
+                    {db_gpsCoordinatesOne}
+                    {"\n"}
+                    {db_gpsCoordinatesTwo}
+                    {"\n"}
+                    {db_gpsCoordinatesThree}
+                    {"\n"}
+                    {db_gpsCoordinatesFour}
                   </Text>
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
