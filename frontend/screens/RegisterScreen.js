@@ -139,7 +139,7 @@ export default function RegisterScreen() {
 
               {/*REGISTER AS A FISH PROCESSOR */}
               <TouchableOpacity
-                onPress={() => navigation.navigate("FishProcessorRegister")}
+                onPress={() => navigation.navigate("ProcessorRegisterScreen")}
                 className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
@@ -153,7 +153,7 @@ export default function RegisterScreen() {
                     className="w-[83px] h-[77px] ml-[39px] mt-[-18px]"
                   />
                   <Text className="text-center text-[18px] font-bold flex-auto mt-[-58px] ml-[83px]">
-                    Fish Processor
+                    Processor
                   </Text>
                   <Text className=" text-[8px] mt-[4px] ml-[132px] mr-8 flex-auto ">
                     Use knowledge center with better experience User other

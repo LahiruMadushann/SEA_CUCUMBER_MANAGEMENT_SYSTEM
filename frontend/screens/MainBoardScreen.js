@@ -34,7 +34,7 @@ export default function MainBoardScreen() {
         >
           {/* <StatusBar barStyle="dark-content" /> */}
 
-          <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3]  rounded-b-full ">
+          <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3] rounded-b-full">
             <View className="flex-row mt-[-74vw]">
               {hasToken && (
                 <View className="mt-[112vw] ml-[66vw]">

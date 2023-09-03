@@ -59,7 +59,7 @@ import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 }
 import FarmerRegisterScreen from "./screens/RegistrationScreens/FarmerRegisterScreen";
 import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegisterScreen";
-import FishProcessorRegisterScreen from "./screens/FishProcessorRegisterScreen";
+import ProcessorRegisterScreen from "./screens/RegistrationScreens/ProcessorRegisterScreen";
 
 {
   /*TABS INSIDE MAIN BOARD*/
@@ -160,8 +160,8 @@ export default function Navigation() {
           component={ExporterRegisterScreen}
         />
         <Stack.Screen
-          name="FishProcessorRegister"
-          component={FishProcessorRegisterScreen}
+          name="ProcessorRegisterScreen"
+          component={ProcessorRegisterScreen}
         />
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen

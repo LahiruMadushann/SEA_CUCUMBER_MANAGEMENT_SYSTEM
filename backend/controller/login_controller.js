@@ -58,6 +58,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -77,6 +78,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -92,7 +94,7 @@ exports.login = async (req, res, next) => {
                     };
                   } else if (
                     data.role == "Exporter" ||
-                    data.role == "Fish Processor"
+                    data.role == "Processor"
                   ) {
                     tokenData = {
                       _id: data._id,
@@ -102,6 +104,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -287,13 +290,11 @@ exports.forgotPasswordChange = async (req, res) => {
       );
 
       if (passwordChanged) {
-        res
-          .status(200)
-          .json({
-            success: true,
-            message:
-              "Successfully changed password. Please Login with your new password",
-          });
+        res.status(200).json({
+          success: true,
+          message:
+            "Successfully changed password. Please Login with your new password",
+        });
       } else {
         res.status(400).json({
           success: false,

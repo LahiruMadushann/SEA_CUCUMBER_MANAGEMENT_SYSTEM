@@ -60,6 +60,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  nicNo: {
+    type: String,
+    required: true,
+  },
   farmName: {
     type: String,
   },

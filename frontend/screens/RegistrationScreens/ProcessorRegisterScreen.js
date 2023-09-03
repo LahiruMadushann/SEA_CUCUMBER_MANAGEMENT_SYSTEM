@@ -19,7 +19,7 @@ import FooterBar from "../../components/FooterBar";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
-export default function ExporterRegisterScreen() {
+export default function ProcessorRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -94,7 +94,7 @@ export default function ExporterRegisterScreen() {
       name: "profile.jpg", // Change to the desired file name
     });
 
-    const backendUrl = `${BASE_URL}/exporter/register`; // Replace with your actual backend URL
+    const backendUrl = `${BASE_URL}/fishProcessers/register`; // Replace with your actual backend URL
 
     try {
       const response = await axios.post(backendUrl, formData, {

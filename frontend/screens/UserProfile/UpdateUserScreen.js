@@ -141,6 +141,7 @@ export default function UpdateUserScreen() {
                 placeholder={"FirstName"}
                 required
               />
+
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={lastName}

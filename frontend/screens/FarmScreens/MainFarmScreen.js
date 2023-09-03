@@ -15,6 +15,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import FarmPopupScreen from "../../components/FarmPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
+
 export default function MainFarmScreen() {
   const route = useRoute(); // Get the route object
   // Access the farmId parameter from route.params
@@ -22,6 +25,22 @@ export default function MainFarmScreen() {
   const farmName = route.params?.farmName || "";
 
   const directedFarm = route.params?.directedFarm || "";
+
+  const { state } = useAuth();
+
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { role: db_role } = decodedToken;
+  console.log(db_role);
+
+  let haveFarmAccess;
+
+  if (db_role == "Exporter") {
+    haveFarmAccess = false;
+  } else {
+    haveFarmAccess = true;
+  }
 
   const [farmData, setFarmData] = useState([]);
   const [stockData, setStockData] = useState([]);
@@ -254,9 +273,11 @@ export default function MainFarmScreen() {
                     </TouchableOpacity>
                   )}
                 </View>
-                <View className="flex m-[auto] absolute ml-[80vw]">
-                  <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
-                </View>
+                {haveFarmAccess && (
+                  <View className="flex m-[auto] absolute ml-[80vw]">
+                    <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
+                  </View>
+                )}
               </View>
 
               <Text

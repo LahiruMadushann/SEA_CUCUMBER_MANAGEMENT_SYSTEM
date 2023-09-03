@@ -28,12 +28,14 @@ export default function ContactUsScreen() {
     if (email == "" || name == "" || contactNo == "" || comment == "") {
       return Alert.alert("Invalid Input", "Please fill all the fields");
     }
+
     const insertData = {
       name: name,
       email: email,
       contactNo: contactNo,
       comment: comment,
     };
+
     const insertUrl = `${BASE_URL}/user/contactUs`;
 
     axios
@@ -122,7 +124,7 @@ export default function ContactUsScreen() {
         <View className="border-b-[0.55px] border-b-gray-500 mt-[8vw]" />
         <View className="mt-[2vh] mx-[14vw]">
           <Text className="text-[12px] font-bold mb-[1.5vh]">
-            Sea Cucumber Animal
+            For more information
           </Text>
           <View className="mx-[8vw]">
             <View className="flex-row mb-[1.2vh]">

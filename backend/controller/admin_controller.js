@@ -270,8 +270,10 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
       speciesType,
       scientificName,
       description,
-      habitatsAndFeeding,
-      reproductionAndLifecycle,
+      habitats,
+      feeding,
+      reproduction,
+      lifecycle,
       fishingMethods,
     } = req.body;
 
@@ -293,17 +295,21 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
         .json({ success: false, message: "you must select a file" });
     }
 
-    const seacucumberImages = req.file.filename;
+    const seaCucumberImages = req.file.filename;
+    const createdAt = new Date().toISOString();
 
     const enterSpeciesDetails =
       await adminService.enterIndividualSeacucumberDetails(
         speciesType,
         scientificName,
         description,
-        habitatsAndFeeding,
-        reproductionAndLifecycle,
+        habitats,
+        feeding,
+        reproduction,
+        lifecycle,
         fishingMethods,
-        seacucumberImages
+        seaCucumberImages,
+        createdAt
       );
 
     if (enterSpeciesDetails) {
@@ -318,6 +324,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
       });
     }
   } catch (error) {
+    res.status(400).json({ success: false, message: error });
     next(error);
   }
 };

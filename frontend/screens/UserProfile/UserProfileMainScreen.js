@@ -39,6 +39,7 @@ export default function UserProfileMainScreen() {
     age: db_age,
     gender: db_gender,
     email: db_email,
+    nicNo: db_nicNo,
     firstName: db_firstName,
     lastName: db_lastName,
     contactNo: db_contactNo,
@@ -201,6 +202,24 @@ export default function UserProfileMainScreen() {
             <View className="flex ml-[6vw] mt-[-1vw] ">
               <Text className="text-[4vw] font-bold  ">Role</Text>
               <Text className="text-[3.5vw] font-light">{db_role}</Text>
+            </View>
+          </View>
+
+          <View className="flex-row mt-[10vw] ml-[18vw]">
+            <View className=" ">
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <View className="flex m-[auto] ">
+                  <Image
+                    source={require("../../assets/user/job.png")}
+                    className=" w-[16px] h-[18px] "
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View className="flex ml-[6vw] mt-[-1vw] ">
+              <Text className="text-[4vw] font-bold  ">NIC No</Text>
+              <Text className="text-[3.5vw] font-light">{db_nicNo}</Text>
             </View>
           </View>
 
