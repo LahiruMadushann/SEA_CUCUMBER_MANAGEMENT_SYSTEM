@@ -104,7 +104,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
-                      nicNo: data.nicNo,
+                      nicNo:data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { Alert } from "react-native";
+import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
+import { LogBox } from "react-native";
 
 import {
   View,
@@ -19,12 +23,14 @@ import NaqdaMngUsersPopupScreen from "../../components/UserPopupScreens/NaqdaMng
 import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScreen";
 import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
 import AquaculturistPopupScreen from "../../components/UserPopupScreens/AquaculturistPopupScreen";
+import ProcessorPopupScreen from "../../components/UserPopupScreens/ProcessorPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
 
-  const { state } = useAuth();
+  const { state, dispatch } = useAuth();
   // Access the token
   const token = state.token;
 
@@ -56,6 +62,54 @@ export default function UserProfileMainScreen() {
 
   const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
+
+  const handleDelete = async () => {
+    // Clear the token by dispatching the CLEAR_TOKEN action
+
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete your account, you won't be able to recover it.",
+      [
+        {
+          text: "Delete Account",
+          onPress: () => {
+            // Add your delete account logic here
+            const userData = {
+              userId: db_id,
+            };
+            const backendUrl = `${BASE_URL}/user/deleteAccount`;
+
+            axios
+              .post(backendUrl, userData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Account Deleted", response.data.message);
+
+                  navigation.navigate("MainBoard");
+                  dispatch({ type: "CLEAR_TOKEN" });
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Error Deleting Account:", error);
+                Alert.alert(
+                  "Error",
+                  "An error occurred while deleting the account."
+                );
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
 
   return (
     <SafeAreaView
@@ -89,6 +143,8 @@ export default function UserProfileMainScreen() {
                   <FarmerPopupScreen />
                 ) : db_role === "District Aquaculturist" ? (
                   <AquaculturistPopupScreen />
+                ) : db_role === "Processor" ? (
+                  <ProcessorPopupScreen />
                 ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
                   "Chairman" ? (
@@ -291,7 +347,7 @@ export default function UserProfileMainScreen() {
               </TouchableOpacity>
             </View>
 
-            <View className="flex ml-[6vw] mt-[-1vw]  mb-[5vw]">
+            <View className="flex ml-[6vw] mt-[-1vw]">
               <Text className="text-[4vw] font-bold  ">Address</Text>
               <Text className="text-[3.5vw] font-light">
                 {db_address}, {db_town},{"\n"}
@@ -299,6 +355,16 @@ export default function UserProfileMainScreen() {
                 {db_country}
               </Text>
             </View>
+          </View>
+          <View className="flex ml-[6vw]  mt-[5vh] mb-[4vh]">
+            <TouchableOpacity
+              className="bg-[#C61A1A] rounded-[15px] w-[40vw] mx-auto justify-center py-[5px] px-[10px]"
+              onPress={handleDelete}
+            >
+              <Text className="text-[#fff] text-[18px] font-bold text-center">
+                Delete Account
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

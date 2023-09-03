@@ -83,6 +83,8 @@ import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen
 import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
 import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
 
+import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
+
 export default function Navigation() {
   return (
     <NavigationContainer>
@@ -204,6 +206,11 @@ export default function Navigation() {
         <Stack.Screen
           name="EnterSeaCucumberNewsScreen"
           component={EnterSeaCucumberNewsScreen}
+        />
+
+        <Stack.Screen
+          name="EnterProcessedDataScreen"
+          component={EnterProcessedDataScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

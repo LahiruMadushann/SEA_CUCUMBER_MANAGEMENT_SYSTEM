@@ -11,7 +11,10 @@ exports.deleteUser = async (req, res, next) => {
     if (deleteUserAccount) {
       res
         .status(200)
-        .json({ success: true, message: "Deleted Account Successfully" });
+        .json({
+          success: true,
+          message: "Your account was deleted Successfully",
+        });
     } else {
       res
         .status(400)

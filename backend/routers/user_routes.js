@@ -19,4 +19,6 @@ router.post(
 
 router.post("/user/contactUs", userController.contactUs);
 
+router.post("/user/deleteAccount", userController.deleteUser);
+
 module.exports = router;

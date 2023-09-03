@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
+
+import { WebView } from "react-native-webview";
 import {
   StyleSheet,
   Text,
@@ -292,6 +294,20 @@ export default function MainFarmScreen() {
                 className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
               />
             </View>
+
+            {/* <View>
+              <WebView
+                source={{
+                  html: '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d158593.503734646!2d80.01017143727412!3d9.628194039152763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1693728427746!5m2!1sen!2slk" width="100%" height="500" style="border:0;" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+                }}
+                style={{
+                  alignContent: "center",
+                  alignItems: "center",
+                  width: "80%",
+                  height: 200,
+                }}
+              />
+            </View> */}
 
             <View className="mt-[-32vh]" style={styles.listTab}>
               {listTab.map((e) => (
