@@ -70,7 +70,7 @@ export default function KCIndividualSpecies() {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  console.log(allSpeciesData);
+  // console.log(allSpeciesData);
   // console.log(db_speciesType);
   return (
     <SafeAreaView

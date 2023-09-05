@@ -23,13 +23,13 @@ export default function KnowledgeCenterScreen() {
 
   const [allSpeciesData, setAllSpeciesData] = useState([]);
 
-  const handleSearch = (text) => {
-    setSearchText(text);
-    const filtered = data.filter((item) =>
-      item.title.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
+  // const handleSearch = (text) => {
+  //   setSearchText(text);
+  //   const filtered = data.filter((item) =>
+  //     item.title.toLowerCase().includes(text.toLowerCase())
+  //   );
+  //   setFilteredData(filtered);
+  // };
 
   useEffect(() => {
     async function fetchAllSpeciesData() {
@@ -76,14 +76,14 @@ export default function KnowledgeCenterScreen() {
 
             <View className="mt-[6vh]">
               <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
-                Knowledge Center
+                Sea Cucumber Species
               </Text>
             </View>
 
             <TextInput
               style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
               className="w-[63vw] mx-auto rounded-[20px] p-4 mt-[10vw] bg-[#fff] text-black	 "
-              onChangeText={handleSearch}
+              // onChangeText={handleSearch}
               value={searchText}
               placeholder="Search"
             />
