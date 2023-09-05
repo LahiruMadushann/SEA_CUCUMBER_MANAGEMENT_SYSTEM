@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Alert } from "react-native";
+import axios from "axios";
+import BASE_URL from "../../apiConfig/config";
+import { LogBox } from "react-native";
 import {
   View,
   TextInput,
@@ -7,160 +11,132 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
-
-const data = [
-  {
-    id: 1,
-    title: "Holothuria scabra",
-    image: "seaCucumberA.png",
-    detail:
-      "Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae.",
-  },
-  {
-    id: 2,
-    title: "Holothuria atra",
-    image: "seaCucumberA.png",
-    detail:
-      "Holothuria scabra Holothuria atra  Holothuria atramage of Holothuria atra  en.wikipedia.org  Holothuria atra, commonly known as the black sea cucumber or lollyfish",
-  },
-  {
-    id: 3,
-    title: "Holothuria",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 4,
-    title: "Stichopus chloronotus",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 5,
-    title: "Bohadschia argus",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 6,
-    title: "Thelenota ananas",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 7,
-    title: "G Select",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 8,
-    title: "H Select",
-    image: "seaCucumberA.png",
-    detail:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-];
-
-const images = {
-  "seaCucumberA.png": require("../../assets/knowledge_center/seaCucumberA.png"),
-};
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function KnowledgeCenterScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+
   const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
-  const handleSearch = (text) => {
-    setSearchText(text);
-    const filtered = data.filter((item) =>
-      item.title.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
+
+  const [allSpeciesData, setAllSpeciesData] = useState([]);
+
+  // const handleSearch = (text) => {
+  //   setSearchText(text);
+  //   const filtered = data.filter((item) =>
+  //     item.title.toLowerCase().includes(text.toLowerCase())
+  //   );
+  //   setFilteredData(filtered);
+  // };
+
+  useEffect(() => {
+    async function fetchAllSpeciesData() {
+      try {
+        const response = await axios.get(`${BASE_URL}/user/getAllSpeciesData`);
+        setAllSpeciesData(response.data.data); // Update state with fetched data
+      } catch (error) {
+        console.error("Error fetching Species data:", error);
+      }
+    }
+
+    fetchAllSpeciesData();
+  }, []);
+
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/seacucumber-pics`;
+
+  console.log(allSpeciesData);
 
   return (
-    <ScrollView className="bg-[#fff]">
-      <View className="">
-        <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
-          <View className="flex-row mt-[60vh]">
-            <View className=" ml-[4vw]">
-              <TouchableOpacity
-                onPress={() => navigation.navigate("KnowledgeMain")}
-              >
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/main_board/arrow.png")}
-                    className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View className=" ml-[11vw]">
-              <TouchableOpacity onPress={() => navigation.navigate("Switch")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/fisheries/dotIcon.png")}
-                    className=" w-[24.21875px] h-[7.03125px] ml-[280px]"
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View className="mt-[6vh]">
-            <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
-              Knowledge Center
-            </Text>
-          </View>
-
-          <TextInput
-            style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
-            className="w-[63vw] mx-auto rounded-[20px] p-4 mt-[10vw] bg-[#fff] text-black	 "
-            onChangeText={handleSearch}
-            value={searchText}
-            placeholder="Search"
-          />
-        </View>
-        <View className="mt-[54vh]">
-          {filteredData.map((item) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("KCIndividualSpecies")}
-              className="w-[92vw] h-[22.5vh] rounded-[30px] mx-[6.7vw]"
-            >
-              <View key={item.id} className="flex-row mb-[5vw]">
-                <View>
-                  {item.image && (
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "white" }}
+      className="flex-grow bg-white "
+    >
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          className="bg-[#fff]"
+        >
+          <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
+            <View className="flex-row mt-[60vh]">
+              <View className=" ml-[4vw]">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("KnowledgeMain")}
+                >
+                  <View className="flex m-[auto] ">
                     <Image
-                      source={images[item.image]}
-                      className=" w-[134px] h-[125px]  mt-[5vw] rounded-l-2xl"
+                      source={require("../../assets/main_board/arrow.png")}
+                      className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
                     />
-                  )}
-                </View>
-                <View className="mt-[5vw] w-[50vw] h-[125px] bg-[#FFFFFF] shadow-lg shadow-gray-700 rounded-r-2xl	px-3 py-8">
-                  <Text className="text-[20px] mt-[] font-bold text-[#000000]">
-                    {item.title}
-                  </Text>
-                  <Text className="text-[12px] text-[#000000] text-justify mr-[5px]">
-                    {""}
-                    {item.detail}{" "}
-                  </Text>
-                </View>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          ))}
+            </View>
+
+            <View className="mt-[6vh]">
+              <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
+                Sea Cucumber Species
+              </Text>
+            </View>
+
+            <TextInput
+              style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+              className="w-[63vw] mx-auto rounded-[20px] p-4 mt-[10vw] bg-[#fff] text-black	 "
+              // onChangeText={handleSearch}
+              value={searchText}
+              placeholder="Search"
+            />
+          </View>
+
+          <View className="mt-[45vh] mx-auto">
+            {/* Loop through allFarmData and display farm details */}
+            {allSpeciesData.map((species) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("KCIndividualSpecies", {
+                    id: species._id,
+                  })
+                }
+                className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+              >
+                <View key={species._id}>
+                  <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
+                    <Text className="text-[15px] font-bold text-[#0000FF]">
+                      {species.scientificName}
+                    </Text>
+                  </View>
+
+                  <View className="flex-row mt-[0vw] mr-[5vw] mb-[5vw]">
+                    <Image
+                      source={{
+                        uri: `${BASE_URL_FOR_PROFILE_PICS}/${species.seaCucumberImages}`,
+                      }}
+                      className=" w-[80px] h-[80px] ml-[2vw] bg-[#FFFFFF] rounded-full my-[auto] shadow-lg shadow-gray-800"
+                    />
+
+                    <View className="flex-auto mt-[1vw] ml-[3vw]">
+                      <Text className="text-[12px] flex-auto mt-[0vw]">
+                        Species Type : {species.speciesType}
+                      </Text>
+                      <Text className=" text-[10px] flex-auto mt-[1vw]">
+                        Description :{" "}
+                        {species.description.slice(
+                          0,
+                          species.description.length / 2
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+        <View style={{ marginBottom: 5 }}>
+          <FooterBar />
         </View>
       </View>
-      <View className="mt-[4vh]">
-        <FooterBar />
-      </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
