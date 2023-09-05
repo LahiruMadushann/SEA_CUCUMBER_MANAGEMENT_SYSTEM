@@ -21,4 +21,8 @@ router.post("/user/contactUs", userController.contactUs);
 
 router.post("/user/deleteAccount", userController.deleteUser);
 
+router.get("/user/getAllSpeciesData", userController.getAllSpeciesData);
+
+router.post("/user/getSingleSpeciesData", userController.getSingleSpeciesDetail);
+
 module.exports = router;

@@ -9,12 +9,10 @@ exports.deleteUser = async (req, res, next) => {
     let deleteUserAccount = await userService.deleteUserAccount(userId);
 
     if (deleteUserAccount) {
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "Your account was deleted Successfully",
-        });
+      res.status(200).json({
+        success: true,
+        message: "Your account was deleted Successfully",
+      });
     } else {
       res
         .status(400)
@@ -296,6 +294,42 @@ exports.contactUs = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GET ALL SEA CUCUMBER SPECIES DETAILS
+exports.getAllSpeciesData = async (req, res, next) => {
+  try {
+    let allSpeciesData = await userService.getAllSeacucumberSpeciesData();
+
+    if (allSpeciesData) {
+      res.status(200).json({ status: true, data: allSpeciesData });
+    } else {
+      res.status(404).json({ status: false, message: "There are no Data" });
+    }
+  } catch (error) {
+    console.log(error, error.message);
+    next(error);
+  }
+};
+
+//GET SINGLE SPECIES DETAILS
+exports.getSingleSpeciesDetail = async (req, res, next) => {
+  try {
+    const { speciesId } = req.body;
+
+    let singleSpeciesDeatails = await userService.getSingleSpeciesDetails(
+      speciesId
+    );
+
+    if (singleSpeciesDeatails) {
+      res.status(200).json({ status: true, data: singleSpeciesDeatails });
+    } else {
+      res.status(404).json({ status: false, message: "There are no Data" });
+    }
+  } catch (error) {
+    console.log(error, error.message);
     next(error);
   }
 };

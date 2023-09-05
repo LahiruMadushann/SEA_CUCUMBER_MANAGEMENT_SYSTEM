@@ -2,6 +2,7 @@ const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
 const contactUsModel = require("../model/contactUs_model");
 const advertiementModel = require("../model/farm/advertisement_model");
+const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
 
 const bcrypt = require("bcrypt");
 
@@ -129,6 +130,20 @@ class userService {
     } catch (err) {
       throw err;
     }
+  }
+
+  //GET ALL SEA CUCUMBER SPECIES DATA
+  static async getAllSeacucumberSpeciesData() {
+    const allSeacucumberSpeciesData = await knowledgeCenterModel.find();
+    return allSeacucumberSpeciesData;
+  }
+
+  //GET SINGLE SEA CUCUMBER DETAILS
+  static async getSingleSpeciesDetails(speciesId) {
+    const singleSpeciesDeatials = await knowledgeCenterModel.find({
+      _id: speciesId,
+    });
+    return singleSpeciesDeatials;
   }
 }
 
