@@ -88,4 +88,6 @@ router.post(
   adminController.enterSeacucumberDetails
 );
 
+router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
+
 module.exports = router;

@@ -328,3 +328,34 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.enterArticleDetails = async (req, res, next) => {
+  try {
+    const { category, heading, content, link } = req.body;
+
+    const createdAt = new Date().toISOString();
+
+    const enterArticleDetails = await adminService.enterArticleDetails(
+      category,
+      heading,
+      content,
+      link,
+      createdAt
+    );
+
+    if (enterArticleDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Article Details entered Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during saving article details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};

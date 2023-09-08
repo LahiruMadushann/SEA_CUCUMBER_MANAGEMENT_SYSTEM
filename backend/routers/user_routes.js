@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const userController = require("../controller/user_controller");
+const knowledgeCenterController = require("../controller/knowledgeCenter_controller");
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
 
@@ -23,6 +24,20 @@ router.post("/user/deleteAccount", userController.deleteUser);
 
 router.get("/user/getAllSpeciesData", userController.getAllSpeciesData);
 
-router.post("/user/getSingleSpeciesData", userController.getSingleSpeciesDetail);
+router.post(
+  "/user/getSingleSpeciesData",
+  userController.getSingleSpeciesDetail
+);
+
+//KNOWLEDGE CENTER ROUTES
+router.get(
+  "/user/getAllArticlesData",
+  knowledgeCenterController.getAllArticlesData
+);
+
+router.get(
+  "/user/getAllArticlesCategories",
+  knowledgeCenterController.getAllArticlesCategories
+);
 
 module.exports = router;

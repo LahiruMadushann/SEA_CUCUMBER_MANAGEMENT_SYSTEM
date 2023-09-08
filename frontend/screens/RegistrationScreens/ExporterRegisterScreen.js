@@ -144,9 +144,14 @@ export default function ExporterRegisterScreen() {
             </View>
 
             <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
-              <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
+              <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-center text-[22px] px-[31px] py-[5px] ">
                 Exporter Registration
               </Text>
+              <Image
+                source={require("../../assets/register/exporter.png")}
+                className=" w-[160px] h-[160px] ml-[90px] mt-[0vw]"
+                style={{ opacity: 0.5 }}
+              />
             </View>
           </View>
 

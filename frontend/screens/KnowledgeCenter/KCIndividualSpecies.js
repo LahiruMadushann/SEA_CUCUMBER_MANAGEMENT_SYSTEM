@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import { LogBox } from "react-native";
 import axios from "axios";
+import CustomLink from "../../components/customlink";
 import {
   StyleSheet,
   Text,
@@ -23,7 +24,7 @@ export default function KCIndividualSpecies() {
   const route = useRoute();
   const speciesId = route.params?.id || "";
 
-  console.log(speciesId);
+  // console.log(speciesId);
 
   const [allSpeciesData, setAllSpeciesData] = useState([]);
 
@@ -118,6 +119,7 @@ export default function KCIndividualSpecies() {
             <Text className="text-left text-[15px] mt-[2vh] ml-[5vh] mr-[5vh] font-bold text-[#000000A6]">
               Description
             </Text>
+
             <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#000000A6]">
               {db_description}
             </Text>

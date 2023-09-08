@@ -46,6 +46,8 @@ import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividual
 import KnowledgeCenterScreen from "./screens/KnowledgeCenter/KnowledgeCenterScreen";
 import KnowledgeCenterMainScreen from "./screens/KnowledgeCenter/KnowledgeCenterMainScreen";
 import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
+import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategoryScreen";
+import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
 
 import UpdateDataScreen from "./screens/UpdateDataScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
@@ -149,6 +151,13 @@ export default function Navigation() {
           name="KCIndividualSpecies"
           component={KCIndividualSpecies}
         />
+        <Stack.Screen
+          name="ArticlesCategoryScreen"
+          component={ArticlesCategoryScreen}
+        />
+
+        <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+
         <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
         <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
         <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />

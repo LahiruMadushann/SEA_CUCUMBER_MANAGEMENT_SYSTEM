@@ -14,6 +14,7 @@
 // const adminModel = require("../model/admin_model");
 const UserModel = require("../model/user_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
+const ArticleModel = require("../model/knowledgeCenter/articles_model");
 const FarmModel = require("../model/farm/aqFarm_model");
 
 class AdminService {
@@ -230,6 +231,28 @@ class AdminService {
         lifecycle,
         fishingMethods,
         seaCucumberImages,
+        createdAt,
+      });
+
+      return await enterSpeciesDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async enterArticleDetails(
+    category,
+    heading,
+    content,
+    link,
+    createdAt
+  ) {
+    try {
+      const enterSpeciesDetails = new ArticleModel({
+        category,
+        heading,
+        content,
+        link,
         createdAt,
       });
 
