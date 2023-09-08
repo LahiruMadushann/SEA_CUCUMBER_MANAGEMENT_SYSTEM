@@ -68,10 +68,14 @@ export default function ArticlesCategoryScreen() {
               <Text className="text-[25px] text-center font-bold text-[#FFFFFF]">
                 Articles
               </Text>
+              <Image
+                source={require("../../assets/knowledge_center/reading.png")}
+                className="w-[30vw] h-[130px] mt-[2vh] mb-[1vh] mx-auto"
+              />
             </View>
           </View>
 
-          <View className="mt-[30vh] mx-auto">
+          <View className="mt-[45vh] mx-auto">
             {/* Loop through Articles and display category */}
             {allArticlesCategories.map((articles) => (
               <TouchableOpacity
@@ -80,7 +84,7 @@ export default function ArticlesCategoryScreen() {
                     category: articles,
                   })
                 }
-                className="w-[80vw] h-[auto] rounded-[30px] my-auto bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-4"
+                className="w-[80vw] h-[auto] rounded-[30px] my-auto bg-[#E0F4F1] shadow-lg shadow-gray-700 mb-4"
               >
                 <View key={articles}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mx-auto mb-3  mt-3 flex-row ">
@@ -89,8 +93,10 @@ export default function ArticlesCategoryScreen() {
                       {articles === "exportRelated" ? "Export" : ""}
                       {articles === "farmingRealted" ? "Farming" : ""}
                       {articles === "fisheriesRelated" ? "Fisheries" : ""}
-                      {articles === "processingRelated" ? "Processing" : ""}
-                      {articles === "other" ? "Export" : ""} Related Articles
+                      {articles === "processingRelated"
+                        ? "Sea Cucumber Processing"
+                        : ""}
+                      {articles === "other" ? "Other" : ""} Articles
                     </Text>
                   </View>
                 </View>

@@ -54,7 +54,7 @@ export default function ArticlesScreen() {
           className="bg-[#fff]"
         >
           <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
-            <View className="mt-[58vh] ">
+            <View className="mt-[60vh] ">
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
@@ -78,7 +78,7 @@ export default function ArticlesScreen() {
                 {category === "farmingRealted" ? "Farming" : ""}
                 {category === "fisheriesRelated" ? "Fisheries" : ""}
                 {category === "processingRelated" ? "Processing" : ""}
-                {category === "other" ? "Export" : ""} Related Articles
+                {category === "other" ? "Other" : ""} related Articles
               </Text>
             </View>
           </View>

@@ -44,30 +44,34 @@ export default function KnowledgeCenterMainScreen() {
               </View>
             </View>
 
-            <View className="mt-[2vh]">
+            <View className="mt-[2vh] mx-auto">
               <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
                 Knowledge Center
               </Text>
+              <Image
+                source={require("../../assets/knowledge_center/knowledge-center.png")}
+                className="w-[40vw] h-[120px] mt-[2vh] mb-[1vh] mx-auto"
+              />
             </View>
           </View>
-          <View className="mt-[65vw] mx-auto">
+          <View className="mt-[80vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("Knowledge_species")}
-              className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+              className="w-[74vw] h-[auto] rounded-[30px] bg-[#DAF7F2] shadow-lg shadow-gray-700 "
             >
-              <View className="flex">
+              <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
                 <Image
-                  source={require("../../assets/knowledge_center/species_info.jpg")}
-                  className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
+                  source={require("../../assets/knowledge_center/seaCucumber.png")}
+                  className="w-[20vw] h-[75px] rounded-[10px] rounded-full"
                 />
-                <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
+                <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto">
                   Sea cucumber Species
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
 
-          <View className="mt-[10vw] mx-auto">
+          {/* <View className="mt-[10vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("Knowledge_species")}
               className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
@@ -82,20 +86,20 @@ export default function KnowledgeCenterMainScreen() {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
-          <View className="mt-[10vw] mx-auto">
+          <View className="mt-[10vw] mx-auto flex-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("ArticlesCategoryScreen")}
-              className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+              className="w-[74vw] h-[auto] rounded-[30px] bg-[#DAF7F2] shadow-lg shadow-gray-700 "
             >
-              <View className="flex">
+              <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
                 <Image
-                  source={require("../../assets/knowledge_center/aricles_icon.jpg")}
-                  className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
+                  source={require("../../assets/knowledge_center/articles.png")}
+                  className="w-[20vw] h-[75px] rounded-[10px] rounded-full"
                 />
-                <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
-                  Sea cucumber Articles
+                <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto">
+                  Articles
                 </Text>
               </View>
             </TouchableOpacity>
