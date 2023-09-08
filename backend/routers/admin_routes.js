@@ -90,4 +90,7 @@ router.post(
 
 router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 
+/*-- FREQUENTLY ASKED QUESTIONS --*/
+router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
+
 module.exports = router;

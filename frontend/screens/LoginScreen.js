@@ -24,7 +24,6 @@ export default function LoginScreen() {
   const { dispatch } = useAuth();
 
   const handleLogin = () => {
-    // Assuming you have a backend API endpoint, replace 'YOUR_BACKEND_URL' with the actual URL
     const backendUrl = `${BASE_URL}/login`;
 
     const userData = {
@@ -45,7 +44,7 @@ export default function LoginScreen() {
 
           dispatch({ type: "SET_TOKEN", payload: token });
 
-          // Handle successful login, possibly by navigating to another screen
+          // navigating to another screen
           navigation.navigate("MainBoard");
         } else {
           // Show an alert for unsuccessful login
@@ -57,13 +56,12 @@ export default function LoginScreen() {
                 text: "OK",
               },
             ],
-            { cancelable: true } // Prevent dismissal by tapping outside
+            { cancelable: true } 
           );
         }
       })
       .catch((error) => {
         console.error("Login error:", error);
-        // Handle login error, such as displaying an error message to the user
         Alert.alert(
           "Login Error",
           "Unsuccessful login. Please check your credentials."

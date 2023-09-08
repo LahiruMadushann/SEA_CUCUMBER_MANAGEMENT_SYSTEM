@@ -40,4 +40,8 @@ router.get(
   knowledgeCenterController.getAllArticlesCategories
 );
 
+//FAQ DETAILS
+
+router.get("/user/getAllFAQDetails", userController.getAllFAQDetails);
+
 module.exports = router;

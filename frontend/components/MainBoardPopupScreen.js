@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function FarmPopupScreen({ farmId, farmName }) {
+export default function MainBoardPopupScreen({ farmId, farmName }) {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -16,11 +25,11 @@ export default function FarmPopupScreen({ farmId, farmName }) {
       <TouchableOpacity onPress={toggleMenu}>
         <Image
           source={require("../assets/options.png")}
-          className=" w-[24.21875px] h-[28px] ml-[70vw]"
+          className=" w-[24.21875px] h-[28px] ml-[80vw]"
         />
       </TouchableOpacity>
       {menuVisible && (
-        <View style={styles.menu} className="ml-[40vw] ">
+        <View style={styles.menu} className="ml-[50vw] ">
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <View style={styles.tab}>
               <Text className="mx-[1vw]">Login</Text>
@@ -29,6 +38,13 @@ export default function FarmPopupScreen({ farmId, farmName }) {
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <View style={styles.tab}>
               <Text className="mx-[1vw]">Register</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("FAQScreen")}
+          >
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">FAQ</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -40,7 +56,7 @@ export default function FarmPopupScreen({ farmId, farmName }) {
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: "#fff",
-    zIndex: 1,
+    zIndex: 999,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -49,7 +65,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     position: "absolute",
     top: 20,
-    left: 38,
+    left: 75,
   },
 
   tab: {

@@ -333,3 +333,19 @@ exports.getSingleSpeciesDetail = async (req, res, next) => {
     next(error);
   }
 };
+
+//GET ALL FAQ DETAILS
+exports.getAllFAQDetails = async (req, res, next) => {
+  try {
+    let allFAQDetails = await userService.getAllFaqDetails();
+
+    if (allFAQDetails) {
+      res.status(200).json({ status: true, data: allFAQDetails });
+    } else {
+      res.status(404).json({ status: false, message: "There are no Data" });
+    }
+  } catch (error) {
+    console.log(error, error.message);
+    next(error);
+  }
+};

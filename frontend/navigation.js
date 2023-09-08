@@ -7,6 +7,7 @@ import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
 
 import LoginScreen from "./screens/LoginScreen";
+import FAQScreen from "./screens/FAQScreens/FAQScreen";
 import GetEmailScreen from "./screens/GetEmailScreen";
 
 import AquacultureScreen from "./screens/AquacultureScreen";
@@ -17,7 +18,6 @@ import RegisterScreen from "./screens/RegisterScreen";
 import FishermanRegisterScreen from "./screens/FisheriesRegisterScreen";
 
 import UserProfileScreen from "./screens/UserProfileScreen";
-import PopupScreen from "./components/PopupScreen";
 import SwitchScreen from "./screens/SwitchScreen";
 
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
@@ -119,12 +119,15 @@ export default function Navigation() {
           name="ViewIndividualFarmingRecScreen"
           component={ViewIndividualFarmingRecScreen}
         />
+
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Switch" component={SwitchScreen} />
         <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
         <Stack.Screen name="Contact" component={ContactUsScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="FAQScreen" component={FAQScreen} />
+
         {/*USER PROFILE SCREENS*/}
         <Stack.Screen
           name="UserProfileMainScreen"

@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
+import MainBoardPopupScreen from "../components/MainBoardPopupScreen";
 
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
@@ -34,8 +35,11 @@ export default function MainBoardScreen() {
         >
           {/* <StatusBar barStyle="dark-content" /> */}
 
-          <View className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3] rounded-b-full">
-            <View className="flex-row mt-[-74vw]">
+          <View
+            className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#5A73F3] rounded-b-full"
+            style={{ zIndex: -1 }}
+          >
+            <View className="flex-row mt-[-74vw]" style={{ zIndex: -1 }}>
               {hasToken && (
                 <View className="mt-[112vw] ml-[66vw]">
                   <TouchableOpacity
@@ -52,19 +56,16 @@ export default function MainBoardScreen() {
               )}
 
               <View className="mt-[113vw] ml-[65vw]">
-                {/* <View className="flex m-[auto] absolute ">
-                  <PopupScreen />
-                </View> */}
+                <View className="flex m-[auto] absolute ">
+                  <MainBoardPopupScreen />
+                </View>
               </View>
             </View>
-
-            <View>
-              <Text className="text-center text-[5.6vw] text-[#ffff] font-bold mt-[10vw] ">
-                Main Board
-              </Text>
-            </View>
           </View>
-          <View className="mt-[40vw] mx-auto">
+          <View className="mt-[15vw] mx-auto" style={{ zIndex: -1 }}>
+            <Text className="text-center text-[6vw] text-[#ffff] font-bold mt-[10vw] mb-[10vw]">
+              Main Board
+            </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("MainFisheriesScreen")}
               className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700"

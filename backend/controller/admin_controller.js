@@ -359,3 +359,35 @@ exports.enterArticleDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+//ENTER FAQ DETAILS
+exports.enterFAQDetails = async (req, res, next) => {
+  try {
+    const { question, answer, link, category } = req.body;
+
+    const createdAt = new Date().toISOString();
+
+    const enterFAQDetails = await adminService.enterFAQDetails(
+      question,
+      answer,
+      link,
+      category,
+      createdAt
+    );
+
+    if (enterFAQDetails) {
+      res.status(200).json({
+        success: true,
+        message: "FAQ Details entered Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during saving FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
