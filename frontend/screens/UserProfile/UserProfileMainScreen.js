@@ -24,6 +24,7 @@ import FarmerPopupScreen from "../../components/UserPopupScreens/FarmerPopupScre
 import ExporterPopupScreen from "../../components/UserPopupScreens/ExporterPopupScreen";
 import AquaculturistPopupScreen from "../../components/UserPopupScreens/AquaculturistPopupScreen";
 import ProcessorPopupScreen from "../../components/UserPopupScreens/ProcessorPopupScreen";
+import FishermanPopupScreen from "../../components/UserPopupScreens/FishermanPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UserProfileMainScreen() {
@@ -56,9 +57,12 @@ export default function UserProfileMainScreen() {
     farmId: db_farmId,
     farmName: db_farmName,
     accountStatus: db_accountStatus,
+    accountType: accountType,
     profilepic: db_profilepic,
     createdAt: db_createdAt,
   } = decodedToken;
+
+  // console.log(decodedToken);
 
   const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
@@ -145,6 +149,8 @@ export default function UserProfileMainScreen() {
                   <AquaculturistPopupScreen />
                 ) : db_role === "Processor" ? (
                   <ProcessorPopupScreen />
+                ) : db_role === "Fisherman" ? (
+                  <FishermanPopupScreen />
                 ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
                   "Chairman" ? (
@@ -210,24 +216,6 @@ export default function UserProfileMainScreen() {
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">
                   <Image
-                    source={require("../../assets/user/email.png")}
-                    className=" w-[17px] h-[15px] "
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View className="flex ml-[6vw] mt-[-1vw] ">
-              <Text className="text-[4vw] font-bold  ">Email</Text>
-              <Text className="text-[3.5vw] font-light">{db_email}</Text>
-            </View>
-          </View>
-
-          <View className="flex-row mt-[10vw] ml-[18vw]">
-            <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
                     source={require("../../assets/user/name.png")}
                     className=" w-[16px] h-[18px] "
                   />
@@ -243,7 +231,49 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[3vh] ml-[18vw]">
+            <View className=" ">
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <View className="flex m-[auto] ">
+                  <Image
+                    source={require("../../assets/user/email.png")}
+                    className=" w-[17px] h-[15px] "
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View className="flex ml-[6vw] mt-[-1vw] ">
+              <Text className="text-[4vw] font-bold  ">Account Type</Text>
+              {accountType === "individual" ? (
+                <Text className="text-[3.5vw] font-light">
+                  Individual Account
+                </Text>
+              ) : accountType === "group" ? (
+                <Text className="text-[3.5vw] font-light">Group Account</Text>
+              ) : null}
+            </View>
+          </View>
+
+          <View className="flex-row mt-[3vh] ml-[18vw]">
+            <View className=" ">
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <View className="flex m-[auto] ">
+                  <Image
+                    source={require("../../assets/user/email.png")}
+                    className=" w-[17px] h-[15px] "
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View className="flex ml-[6vw] mt-[-1vw] ">
+              <Text className="text-[4vw] font-bold  ">Email</Text>
+              <Text className="text-[3.5vw] font-light">{db_email}</Text>
+            </View>
+          </View>
+
+          <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">
@@ -261,7 +291,7 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">
@@ -279,7 +309,7 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">
@@ -297,7 +327,7 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">
@@ -317,7 +347,7 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
               <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                 <View className="flex m-[auto] ">

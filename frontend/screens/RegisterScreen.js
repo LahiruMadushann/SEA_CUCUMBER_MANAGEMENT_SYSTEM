@@ -89,7 +89,7 @@ export default function RegisterScreen() {
 
               {/*REGISTER AS A FISHERMAN */}
               <TouchableOpacity
-                onPress={() => navigation.navigate("FishermanRegister")}
+                onPress={() => navigation.navigate("FishermanRegisterScreen")}
                 className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
