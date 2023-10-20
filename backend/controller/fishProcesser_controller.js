@@ -61,26 +61,62 @@ exports.registerFishProcesser = async (req, res, next) => {
   }
 };
 
-//UPDATE FISH PROCESSER ACCOUNT CONTROLLER
-exports.updateFishProcesser = async (req, res, next) => {
+//ENTER PROCESSED SEA CUCUMBER DETAILS
+exports.enterSCProcessedDetails = async (req, res, next) => {
   try {
-    const { userId, firstName, lastName, contactNo, address } = req.body;
-    let updateFishProcesserrDetails =
-      await fishProcesserService.updateFishProcesserDetails(
-        userId,
-        firstName,
-        lastName,
-        contactNo,
-        address
+    const { processorId, spiecesType, weight, receivedFrom, date } = req.body;
+
+    const successEnterProcessedDetails =
+      await fishProcesserService.enterProcessedDetails(
+        processorId,
+        spiecesType,
+        weight,
+        receivedFrom,
+        date
       );
 
-    if (updateFishProcesserrDetails) {
-      res.status(200).json({ success: true, message: "Updated Successfully" });
+    if (successEnterProcessedDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Seacucumber Processed Details entered Successfully",
+      });
     } else {
-      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+      res.status(400).json({
+        success: false,
+        message: "Seacucumber Processed Details entered was Unsuccessful",
+      });
     }
   } catch (error) {
-    console.log(error, "err---->");
+    console.log(error.message);
+    next(error);
+  }
+};
+
+//GETTING PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
+exports.getProcessedSeacucumberDetails = async (req, res, next) => {
+  try {
+    const { processorId } = req.body;
+
+    let pscDetails = await fishProcesserService.getProcessedSCDetails(
+      processorId
+    );
+
+    console.log(pscDetails);
+    console.log(processorId);
+    if (pscDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Processed Sea cucumber details",
+        data: pscDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No data found",
+      });
+    }
+  } catch (error) {
+    console.log(error.message, "err---->");
     next(error);
   }
 };

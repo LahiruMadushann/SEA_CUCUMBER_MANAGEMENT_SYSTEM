@@ -69,9 +69,10 @@ class fishermanService {
 
   static async enterFishingDetails(
     userId,
-    location,
-    size,
     speciesType,
+    weight,
+    numOfSpecies,
+    location,
     gearType,
     date,
     fishingImage
@@ -79,9 +80,10 @@ class fishermanService {
     try {
       const fishingDetails = new fishingModel({
         fishermanId: userId,
-        location,
-        size,
         speciesType,
+        weight,
+        numOfSpecies,
+        location,
         gearType,
         date,
         fishingImage,

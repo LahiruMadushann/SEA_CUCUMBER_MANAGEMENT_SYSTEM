@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
@@ -22,54 +24,82 @@ import FooterBar from "../../components/FooterBar";
 export default function EnterFishingDetailsScreen() {
   const navigation = useNavigation();
 
-  const route = useRoute(); // Get the route object
-  // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
 
-  const [stock, setStock] = useState("");
-  const [stockingDates, setStockingDates] = useState("");
-  const [hatchery, setHatchery] = useState("");
-  const [hatcheryBatch, setHatcheryBatch] = useState("");
-  const [harvest, setHarvest] = useState("");
-  const [size, setSize] = useState("");
-  const [survival, setSurvival] = useState("");
-  const [diseases, setDiseases] = useState("");
+  const { _id: db_id } = decodedToken;
+
+  const [speciesType, setSpeciesType] = useState("");
+  const [weight, setWeight] = useState("");
+  const [numOfSpecies, setNumOfSpecies] = useState("");
+  const [location, setLocation] = useState("");
+  const [gearType, setGearType] = useState("");
   const [date, setDate] = useState("");
+  const [image, setImage] = useState(null);
 
-  const handleUpdate = () => {
+  const selectImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.uri); // Update the image state with the selected image URI
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (
+      speciesType == "" ||
+      weight == "" ||
+      numOfSpecies == "" ||
+      location == "" ||
+      gearType == ""
+    ) {
+      Alert.alert("Empty Field", "Please fill all the fields");
+    }
+
+    const formData = new FormData();
+    formData.append("speciesType", speciesType);
+    formData.append("weight", weight);
+    formData.append("numOfSpecies", numOfSpecies);
+    formData.append("location", location);
+    formData.append("gearType", gearType);
+    formData.append("date", date);
+    formData.append("fishingImage", {
+      uri: image,
+      type: "image/jpeg", // Change to the appropriate MIME type if needed
+      name: "profile.jpg", // Change to the desired file name
+    });
+
     const insertData = {
-      farmId: farmId,
-      stock: stock,
-      stockingDates: stockingDates,
-      hatchery: hatchery,
-      hatcheryBatch: hatcheryBatch,
-      harvest: harvest,
-      size: size,
-      survival: survival,
-      diseases: diseases,
+      userId: db_id,
+      speciesType: speciesType,
+      weight: weight,
+      numOfSpecies: numOfSpecies,
+      location: location,
       date: date,
     };
-    const insertUrl = `${BASE_URL}/districtAquaCulturist/insertFarmingDetails`;
+    const insertUrl = `${BASE_URL}/fisherman/enterFishingDetails`;
 
-    // Make a PUT or POST request to update the data
-    axios
-      .post(insertUrl, insertData)
-      .then((response) => {
-        if (response.data.success) {
-          Alert.alert(
-            "Stock Details",
-            "Stock details has been updated Inserted."
-          );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
-        } else {
-          Alert.alert("Stock Update Failed", response.data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error updating stock:", error);
-        Alert.alert("Error", "An error occurred while updating the stock.");
+    try {
+      const response = await axios.post(insertUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+
+      console.log("Backend response:", response.data);
+
+      Alert.alert("Success", "Catch details entered Successfully");
+
+      navigation.navigate("UserProfileMainScreen");
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
@@ -103,53 +133,103 @@ export default function EnterFishingDetailsScreen() {
 
           <View className="mt-[30vh]">
             <View className="mt-[6vh]">
-              <View style={styles.fieldContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={stockingDates}
-                  onValueChange={(itemValue) => setStockingDates(itemValue)}
-                >
-                  <Picker.Item label="Species Type" value="" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                </Picker>
-              </View>
-
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={stockingDates}
-                onChangeText={setStockingDates}
-                placeholder="Weight in Kg"
+                value={speciesType}
+                onChangeText={setSpeciesType}
+                placeholder="Species Type"
                 required
               />
 
-              <View style={styles.fieldContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={stockingDates}
-                  onValueChange={(itemValue) => setStockingDates(itemValue)}
-                >
-                  <Picker.Item label="Location" value="" />
-                  <Picker.Item label="Individual" value="individual" />
-                  <Picker.Item label="Group" value="group" />
-                </Picker>
-              </View>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={weight}
+                onChangeText={setWeight}
+                placeholder="Weight in Kg"
+                keyboardType="numeric"
+                required
+              />
+
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={numOfSpecies}
+                onChangeText={setNumOfSpecies}
+                placeholder="Number of species"
+                keyboardType="numeric"
+                required
+              />
+
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={gearType}
+                onChangeText={setGearType}
+                placeholder="Gear Type"
+                required
+              />
 
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={date}
                 onChangeText={setDate}
-                placeholder="Date (2023-11-05)"
+                placeholder="Date (2023-05-28)"
                 required
               />
+
+              <View style={styles.fieldContainer}>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={location}
+                  onValueChange={(itemValue) => setLocation(itemValue)}
+                >
+                  <Picker.Item label="Location" value="" />
+                  <Picker.Item label="Uddappuwa" value="Uddappuwa" />
+                  <Picker.Item label="Sinnapaduwa" value="Sinnapaduwa" />
+                  <Picker.Item label="Kandakuliya" value="Kandakuliya" />
+                  <Picker.Item label="Kudawa" value="Kudawa" />
+                  <Picker.Item label="Kalpitiya" value="Kalpitiya" />
+                  <Picker.Item label="Wannimundalama" value="Wannimundalama" />
+                  <Picker.Item label="Kathirawelli" value="Kathirawelli" />
+                  <Picker.Item label="Wakarei" value="Wakarei" />
+                  <Picker.Item label="Kayankerni" value="Kayankerni" />
+                  <Picker.Item label="Oddamawadi" value="Oddamawadi" />
+                  <Picker.Item label="Kalkuda" value="Kalkuda" />
+                  <Picker.Item label="Punnakuda" value="Punnakuda" />
+                  <Picker.Item label="Navaladi" value="Navaladi" />
+                  <Picker.Item label="Kaththankudi" value="Kaththankudi" />
+                  <Picker.Item label="Kalmunei" value="Kalmunei" />
+                  <Picker.Item label="Kalmuneikudi" value="Kalmuneikudi" />
+                  <Picker.Item label="Palamunei" value="Palamunei" />
+                  <Picker.Item
+                    label="Akkarapaththuwa"
+                    value="Akkarapaththuwa"
+                  />
+                  <Picker.Item label="Komariya" value="Komariya" />
+                </Picker>
+              </View>
+
+              <View style={styles.pickImageContainer}>
+                <TouchableOpacity
+                  onPress={selectImage}
+                  style={styles.pickImageButton}
+                >
+                  <Text style={styles.pickImageText}>Pick Image</Text>
+                </TouchableOpacity>
+              </View>
+              {image && (
+                <Image
+                  className="mt-[3vh] mx-auto rounded-[15px]"
+                  source={{ uri: image }}
+                  style={{ width: 200, height: 200 }}
+                />
+              )}
+
+              {/* <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={date}
+                onChangeText={setDate}
+                placeholder="Date (2023-11-05)"
+                required
+              /> */}
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">
@@ -158,7 +238,7 @@ export default function EnterFishingDetailsScreen() {
                 onPress={handleUpdate}
               >
                 <Text className="text-[#fff] text-[18px] font-bold text-center">
-                  Update
+                  + New Catch
                 </Text>
               </TouchableOpacity>
             </View>

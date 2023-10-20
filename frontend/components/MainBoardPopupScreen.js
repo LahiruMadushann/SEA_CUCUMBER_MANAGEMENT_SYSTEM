@@ -40,9 +40,7 @@ export default function MainBoardPopupScreen({ farmId, farmName }) {
               <Text className="mx-[1vw]">Register</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("FAQScreen")}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("FAQScreen")}>
             <View style={styles.tab}>
               <Text className="mx-[1vw]">FAQ</Text>
             </View>
@@ -65,11 +63,12 @@ const styles = StyleSheet.create({
     elevation: 2,
     position: "absolute",
     top: 20,
-    left: 75,
+    left: 55,
   },
 
   tab: {
     padding: 5,
+    paddingHorizontal: 15,
     height: "auto",
     flexDirection: "row",
     alignItems: "center",
