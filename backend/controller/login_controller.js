@@ -92,6 +92,28 @@ exports.login = async (req, res, next) => {
                       profilepic: data.profilepic,
                       createdAt: data.createdAt,
                     };
+                  } else if (data.role == "Fisherman") {
+                    tokenData = {
+                      _id: data._id,
+                      username: data.username,
+                      role: data.role,
+                      subrole: data.subrole,
+                      age: data.age,
+                      gender: data.gender,
+                      email: data.email,
+                      accountType: data.accountType,
+                      nicNo: data.nicNo,
+                      firstName: data.firstName,
+                      lastName: data.lastName,
+                      contactNo: data.contactNo,
+                      address: data.address,
+                      town: data.town,
+                      province: data.province,
+                      country: data.country,
+                      accountStatus: data.accountStatus,
+                      profilepic: data.profilepic,
+                      createdAt: data.createdAt,
+                    };
                   } else if (
                     data.role == "Exporter" ||
                     data.role == "Processor"
@@ -104,7 +126,7 @@ exports.login = async (req, res, next) => {
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
-                      nicNo:data.nicNo,
+                      nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,

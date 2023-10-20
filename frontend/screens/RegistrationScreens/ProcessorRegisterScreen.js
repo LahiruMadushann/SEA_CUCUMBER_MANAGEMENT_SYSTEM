@@ -144,9 +144,14 @@ export default function ProcessorRegisterScreen() {
             </View>
 
             <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
-              <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-                Exporter Registration
+              <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-center text-[22px] px-[31px] py-[5px] ">
+                Processor Registration
               </Text>
+              <Image
+                source={require("../../assets/register/processor.png")}
+                className=" w-[200px] h-[200px] ml-[80px] mt-[-10vw]"
+                style={{ opacity: 0.5 }}
+              />
             </View>
           </View>
 

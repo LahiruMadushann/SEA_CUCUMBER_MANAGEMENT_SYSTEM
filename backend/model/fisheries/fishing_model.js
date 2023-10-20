@@ -12,8 +12,11 @@ const fishingSchema = new Schema({
   location: {
     type: String,
   },
-  size: {
-    type: String,
+  numOfSpecies: {
+    type: Number,
+  },
+  weight: {
+    type: Number,
   },
   gearType: {
     type: String,

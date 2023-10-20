@@ -1,4 +1,5 @@
 const userModel = require("../model/user_model");
+const processedDetailModel = require("../model/processedDetails_model");
 
 class fishProcesserService {
   //REGISTER FISH PROCESSER
@@ -46,24 +47,27 @@ class fishProcesserService {
     }
   }
 
-  //UPDATE FISH PROCESSER ACCOUNT DETAILS
-  static async updateFishProcesserDetails(
-    userId,
-    firstName,
-    lastName,
-    contactNo,
-    address
+  //ENTER PROCESSED DETAILS
+  static async enterProcessedDetails(
+    processorId,
+    spiecesType,
+    weight,
+    receivedFrom,
+    date
   ) {
-    const updateFishProcesserDetails = await userModel.findByIdAndUpdate(
-      { _id: userId },
-      {
-        firstName: firstName,
-        lastName: lastName,
-        contactNo: contactNo,
-        address: address,
-      }
-    );
-    return updateFishProcesserDetails;
+    try {
+      const enterProcessedDetails = new processedDetailModel({
+        processorId,
+        spiecesType,
+        weight,
+        receivedFrom,
+        date,
+      });
+
+      return await enterProcessedDetails.save();
+    } catch (err) {
+      throw err;
+    }
   }
 
   //GET INDIVIDUAL FISH PROCESSER DETAILS
@@ -72,11 +76,19 @@ class fishProcesserService {
     return FishProcesserDetails;
   }
 
-  //GETTING FISHERMAN DETAILS
-  // static async getAllFisherman() {
-  //   const finshermanDetails = await fishCollectorModel.find();
-  //   return finshermanDetails;
-  // }
+  //GETTING PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
+  static async getProcessedSCDetails(processorId) {
+    try {
+      const getPCDetails = await processedDetailModel.find({
+        processorId: processorId,
+      });
+      console.log("Details: ", getPCDetails);
+      return getPCDetails;
+    } catch (error) {
+      console.error("Error fetching details:", error.message);
+      throw error;
+    }
+  }
 }
 
 module.exports = fishProcesserService;

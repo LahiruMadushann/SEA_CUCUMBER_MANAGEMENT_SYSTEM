@@ -1,6 +1,7 @@
 const userModel = require("../model/user_model");
 const newsModel = require("../model/news_model");
 const contactUsModel = require("../model/contactUs_model");
+const faqModel = require("../model/faq_model");
 const advertiementModel = require("../model/farm/advertisement_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
 
@@ -144,6 +145,12 @@ class userService {
       _id: speciesId,
     });
     return singleSpeciesDeatials;
+  }
+
+  //GET ALL FAQ DETAILS
+  static async getAllFaqDetails() {
+    const allFaqDetails = await faqModel.find();
+    return allFaqDetails;
   }
 }
 

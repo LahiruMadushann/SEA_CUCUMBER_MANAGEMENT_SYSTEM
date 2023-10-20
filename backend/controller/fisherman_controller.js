@@ -12,6 +12,7 @@ exports.registerFisherman = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       contactNo,
       address,
       town,
@@ -36,6 +37,7 @@ exports.registerFisherman = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       contactNo,
       address,
       town,
@@ -64,7 +66,15 @@ exports.registerFisherman = async (req, res, next) => {
 //ENTER FISHING DETAILS
 exports.enterFishingDetails = async (req, res, next) => {
   try {
-    const { userId, location, size, speciesType, gearType, date } = req.body;
+    const {
+      userId,
+      speciesType,
+      weight,
+      numOfSpecies,
+      location,
+      gearType,
+      date,
+    } = req.body;
 
     if (req.file === undefined) {
       return res.json({ status: false, success: "you must select a file" });
@@ -74,9 +84,10 @@ exports.enterFishingDetails = async (req, res, next) => {
 
     const enteringFishingDetails = await fishermanService.enterFishingDetails(
       userId,
-      location,
-      size,
       speciesType,
+      weight,
+      numOfSpecies,
+      location,
       gearType,
       date,
       fishingImage

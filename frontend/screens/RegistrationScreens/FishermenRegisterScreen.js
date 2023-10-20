@@ -19,7 +19,7 @@ import FooterBar from "../../components/FooterBar";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
-export default function ExporterRegisterScreen() {
+export default function FishermanRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -36,6 +36,7 @@ export default function ExporterRegisterScreen() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [accountType, setAccountType] = useState("");
 
   const [image, setImage] = useState(null); // Use state for selected image
 
@@ -67,6 +68,7 @@ export default function ExporterRegisterScreen() {
       country == "" ||
       phoneNumber == "" ||
       gender == "" ||
+      accountType == "" ||
       age == ""
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
@@ -88,13 +90,14 @@ export default function ExporterRegisterScreen() {
     formData.append("province", province);
     formData.append("country", country);
     formData.append("contactNo", phoneNumber);
+    formData.append("accountType", accountType);
     formData.append("profilepic", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
       name: "profile.jpg", // Change to the desired file name
     });
 
-    const backendUrl = `${BASE_URL}/exporter/register`; // Replace with your actual backend URL
+    const backendUrl = `${BASE_URL}/fisherman/register`; // Replace with your actual backend URL
 
     try {
       const response = await axios.post(backendUrl, formData, {
@@ -145,11 +148,11 @@ export default function ExporterRegisterScreen() {
 
             <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
               <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-center text-[22px] px-[31px] py-[5px] ">
-                Exporter Registration
+                Fisherman Registration
               </Text>
               <Image
-                source={require("../../assets/register/exporter.png")}
-                className=" w-[160px] h-[160px] ml-[90px] mt-[0vw]"
+                source={require("../../assets/register/fisherman.png")}
+                className=" w-[140px] h-[130px] ml-[100px] mt-[0vw] rounded-bottom-[100px]"
                 style={{ opacity: 0.5 }}
               />
             </View>
@@ -191,6 +194,21 @@ export default function ExporterRegisterScreen() {
                 secureTextEntry
                 required
               />
+            </View>
+
+            <Text className="text-lg font-bold mb-4 mt-5">Account Details</Text>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <Picker
+                style={styles.picker}
+                selectedValue={accountType}
+                onValueChange={(itemValue) => setAccountType(itemValue)}
+              >
+                <Picker.Item label="Account Type" value="" />
+                <Picker.Item label="Individual" value="individual" />
+                <Picker.Item label="Group" value="group" />
+              </Picker>
             </View>
 
             <Text className="text-lg font-bold mb-4 mt-5">

@@ -14,7 +14,9 @@
 // const adminModel = require("../model/admin_model");
 const UserModel = require("../model/user_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
+const ArticleModel = require("../model/knowledgeCenter/articles_model");
 const FarmModel = require("../model/farm/aqFarm_model");
+const faqModel = require("../model/faq_model");
 
 class AdminService {
   //REGISTER ADMIN ACCOUNTS
@@ -234,6 +236,45 @@ class AdminService {
       });
 
       return await enterSpeciesDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async enterArticleDetails(
+    category,
+    heading,
+    content,
+    link,
+    createdAt
+  ) {
+    try {
+      const enterSpeciesDetails = new ArticleModel({
+        category,
+        heading,
+        content,
+        link,
+        createdAt,
+      });
+
+      return await enterSpeciesDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //ENTER FAQ DETAILS
+  static async enterFAQDetails(question, answer, link, category, createdAt) {
+    try {
+      const enterFAQDetails = new faqModel({
+        question,
+        answer,
+        link,
+        category,
+        createdAt,
+      });
+
+      return await enterFAQDetails.save();
     } catch (err) {
       throw err;
     }

@@ -29,6 +29,7 @@ export default function ExporterPopupScreen() {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+  
   return (
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>

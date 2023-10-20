@@ -22,9 +22,14 @@ router.delete("/fishProcessers/delete", userController.deleteUser);
 
 router.post("/fishProcessers/changePassword", userController.changePassword);
 
-// router.get(
-//   "/exporter/getAquaFarmDetails",
-//   exporterController.getAquaFarmDetails
-// );
+router.post(
+  "/fishProcessers/enterProcessedDetails",
+  fishProcesserController.enterSCProcessedDetails
+);
+
+router.post(
+  "/fishProcessers/getProcessedDetails",
+  fishProcesserController.getProcessedSeacucumberDetails
+);
 
 module.exports = router;

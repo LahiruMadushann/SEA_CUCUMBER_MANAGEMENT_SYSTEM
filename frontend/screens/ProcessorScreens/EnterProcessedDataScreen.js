@@ -3,6 +3,8 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import { Picker } from "@react-native-picker/picker";
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 import {
   StyleSheet,
@@ -21,39 +23,48 @@ import FooterBar from "../../components/FooterBar";
 export default function EnterProcessedDataScreen() {
   const navigation = useNavigation();
 
-  const route = useRoute(); // Get the route object
-  // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || ""; // Default value if parameter is not available
+  const { state, dispatch } = useAuth();
+  // Access the token
+  const token = state.token;
+
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  const { _id: db_id } = decodedToken;
 
   const [speciesType, setSpeciesType] = useState("");
   const [recievedFrom, setRecievedFrom] = useState("");
-  const [amount, setAmount] = useState("");
+  const [weight, setWeight] = useState("");
   const [date, setDate] = useState("");
 
   const handleUpdate = () => {
     const insertData = {
+      processorId: db_id,
+      spiecesType: speciesType,
+      weight: weight,
+      receivedFrom: recievedFrom,
       date: date,
     };
-    const insertUrl = `${BASE_URL}/districtAquaCulturist/insertFarmingDetails`;
 
-    // Make a PUT or POST request to update the data
+    const insertUrl = `${BASE_URL}/fishProcessers/enterProcessedDetails`;
+
     axios
       .post(insertUrl, insertData)
       .then((response) => {
         if (response.data.success) {
           Alert.alert(
-            "Stock Details",
-            "Stock details has been updated Inserted."
+            "Success",
+            "Successfully entered Sea cucumber processed details"
           );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
+
+          navigation.navigate("UserProfileMainScreen");
         } else {
-          Alert.alert("Stock Update Failed", response.data.message);
+          Alert.alert("Fail", response.data.message);
         }
       })
       .catch((error) => {
-        console.error("Error updating stock:", error);
-        Alert.alert("Error", "An error occurred while updating the stock.");
+        console.error("Error", error.message);
+        Alert.alert("Error", "Server Error");
       });
   };
 
@@ -113,8 +124,8 @@ export default function EnterProcessedDataScreen() {
 
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={amount}
-                onChangeText={setAmount}
+                value={weight}
+                onChangeText={setWeight}
                 placeholder="Weight In Kg"
                 required
               />

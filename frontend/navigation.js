@@ -7,6 +7,7 @@ import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
 
 import LoginScreen from "./screens/LoginScreen";
+import FAQScreen from "./screens/FAQScreens/FAQScreen";
 import GetEmailScreen from "./screens/GetEmailScreen";
 
 import AquacultureScreen from "./screens/AquacultureScreen";
@@ -14,10 +15,8 @@ import FisheriesStartupScreen from "./screens/FisheriesStartupScreen";
 import AquacultureStartupScreen from "./screens/AquacultureStartupScreen";
 
 import RegisterScreen from "./screens/RegisterScreen";
-import FishermanRegisterScreen from "./screens/FisheriesRegisterScreen";
 
 import UserProfileScreen from "./screens/UserProfileScreen";
-import PopupScreen from "./components/PopupScreen";
 import SwitchScreen from "./screens/SwitchScreen";
 
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
@@ -46,6 +45,8 @@ import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividual
 import KnowledgeCenterScreen from "./screens/KnowledgeCenter/KnowledgeCenterScreen";
 import KnowledgeCenterMainScreen from "./screens/KnowledgeCenter/KnowledgeCenterMainScreen";
 import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
+import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategoryScreen";
+import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
 
 import UpdateDataScreen from "./screens/UpdateDataScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
@@ -60,6 +61,7 @@ import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 import FarmerRegisterScreen from "./screens/RegistrationScreens/FarmerRegisterScreen";
 import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegisterScreen";
 import ProcessorRegisterScreen from "./screens/RegistrationScreens/ProcessorRegisterScreen";
+import FishermanRegisterScreen from "./screens/RegistrationScreens/FishermenRegisterScreen";
 
 {
   /*TABS INSIDE MAIN BOARD*/
@@ -84,6 +86,8 @@ import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaC
 import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
 
 import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
+
+import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
 
 export default function Navigation() {
   return (
@@ -117,12 +121,15 @@ export default function Navigation() {
           name="ViewIndividualFarmingRecScreen"
           component={ViewIndividualFarmingRecScreen}
         />
+
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Switch" component={SwitchScreen} />
         <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
         <Stack.Screen name="Contact" component={ContactUsScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="FAQScreen" component={FAQScreen} />
+
         {/*USER PROFILE SCREENS*/}
         <Stack.Screen
           name="UserProfileMainScreen"
@@ -149,13 +156,17 @@ export default function Navigation() {
           name="KCIndividualSpecies"
           component={KCIndividualSpecies}
         />
+        <Stack.Screen
+          name="ArticlesCategoryScreen"
+          component={ArticlesCategoryScreen}
+        />
+
+        <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+
         <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
         <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
         <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />
-        <Stack.Screen
-          name="FishermanRegister"
-          component={FishermanRegisterScreen}
-        />
+
         <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
         <Stack.Screen
           name="ExporterRegister"
@@ -164,6 +175,10 @@ export default function Navigation() {
         <Stack.Screen
           name="ProcessorRegisterScreen"
           component={ProcessorRegisterScreen}
+        />
+        <Stack.Screen
+          name="FishermanRegisterScreen"
+          component={FishermanRegisterScreen}
         />
         <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen
@@ -211,6 +226,11 @@ export default function Navigation() {
         <Stack.Screen
           name="EnterProcessedDataScreen"
           component={EnterProcessedDataScreen}
+        />
+
+        <Stack.Screen
+          name="EnterFishingDetailsScreen"
+          component={EnterFishingDetailsScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

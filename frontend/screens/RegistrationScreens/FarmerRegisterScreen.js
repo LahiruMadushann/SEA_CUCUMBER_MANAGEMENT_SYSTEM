@@ -170,10 +170,15 @@ export default function FarmerRegisterScreen() {
               </View>
             </View>
 
-            <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
-              <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
+            <View className="w-auto h-[48px] mt-[5vw] mx-auto">
+              <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-[22px] px-[31px] py-[5px] ">
                 Farmer Registration
               </Text>
+              <Image
+                source={require("../../assets/register/farmer.png")}
+                className=" w-[130px] h-[130px] ml-[90px] mt-[1vw]"
+                style={{ opacity: 0.7 }}
+              />
             </View>
           </View>
 

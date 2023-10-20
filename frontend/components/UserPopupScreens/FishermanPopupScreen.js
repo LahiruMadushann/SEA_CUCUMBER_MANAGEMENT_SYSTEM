@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 
 import {
   View,
@@ -13,36 +13,57 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function MainBoardPopupScreen({ farmId, farmName }) {
+export default function FishermanPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
+
+  const { dispatch } = useAuth(); // Access the dispatch function from the context
+
+  const handleLogout = async () => {
+    // Clear the token by dispatching the CLEAR_TOKEN action
+    dispatch({ type: "CLEAR_TOKEN" });
+
+    navigation.navigate("MainBoard");
+  };
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+
   return (
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>
         <Image
-          source={require("../assets/options.png")}
+          source={require("../../assets/options.png")}
           className=" w-[24.21875px] h-[28px] ml-[80vw]"
         />
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("EnterFishingDetailsScreen")}
+          >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">Login</Text>
+              <Text className="mx-[1vw]">New Catch</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UpdatePasswordScreen")}
+          >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">Register</Text>
+              <Text className="mx-[1vw]">Update Password</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("FAQScreen")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UpdateUserScreen")}
+          >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">FAQ</Text>
+              <Text className="mx-[1vw]">Update Details</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleLogout}>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Logout</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -54,7 +75,7 @@ export default function MainBoardPopupScreen({ farmId, farmName }) {
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: "#fff",
-    zIndex: 999,
+    zIndex: 1,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -63,12 +84,11 @@ const styles = StyleSheet.create({
     elevation: 2,
     position: "absolute",
     top: 20,
-    left: 55,
+    left: 15,
   },
 
   tab: {
     padding: 5,
-    paddingHorizontal: 15,
     height: "auto",
     flexDirection: "row",
     alignItems: "center",
