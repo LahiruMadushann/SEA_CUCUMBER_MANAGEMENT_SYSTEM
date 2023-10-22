@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
   Image,
   SafeAreaView,
   TouchableOpacity,
@@ -18,7 +17,6 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UpdatePasswordScreen() {

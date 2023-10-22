@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
 import BASE_URL from "../apiConfig/config";
+import { LogBox } from "react-native";
 
 import {
   View,
@@ -18,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
 export default function LoginScreen() {
+  LogBox.ignoreAllLogs();
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

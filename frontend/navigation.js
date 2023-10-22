@@ -25,6 +25,12 @@ import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
 import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
 
 {
+  /*EXPORTER */
+}
+
+import AllProcessorsScreen from "./screens/ExporterScreens/AllProcessorsScreen";
+
+{
   /*DISTRICT AQUACULTURIST */
 }
 import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
@@ -231,6 +237,11 @@ export default function Navigation() {
         <Stack.Screen
           name="EnterFishingDetailsScreen"
           component={EnterFishingDetailsScreen}
+        />
+
+        <Stack.Screen
+          name="AllProcessorsScreen"
+          component={AllProcessorsScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

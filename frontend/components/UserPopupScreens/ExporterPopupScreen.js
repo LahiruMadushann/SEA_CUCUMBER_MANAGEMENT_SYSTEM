@@ -29,7 +29,7 @@ export default function ExporterPopupScreen() {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
-  
+
   return (
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>
@@ -48,10 +48,10 @@ export default function ExporterPopupScreen() {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("MainFarmScreen")}
+            onPress={() => navigation.navigate("AllProcessorsScreen")}
           >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">Fish Processors </Text>
+              <Text className="mx-[1vw]">Processors</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

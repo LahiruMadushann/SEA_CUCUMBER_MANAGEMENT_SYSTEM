@@ -103,7 +103,7 @@ class exporterService {
 
   //GET ALL FISHPROCESSORS DETAILS
   static async getAllFishProcessors() {
-    const roleName = "FishProcessor";
+    const roleName = "Processor";
     const fishProcessorDetails = await userModel.find({ role: roleName });
     return fishProcessorDetails;
   }
