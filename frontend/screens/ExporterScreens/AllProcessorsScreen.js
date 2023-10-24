@@ -79,13 +79,11 @@ export default function AllProcessorsScreen() {
             {/* Loop through allFarmData and display farm details */}
             {allProcessorsData.map((processor) => (
               <TouchableOpacity
-                // onPress={() =>
-                //   navigation.navigate("MainFarmScreen", {
-                //     farmId: farm._id,
-                //     farmName: farm.name,
-                //     directedFarm: "allFarmsPage",
-                //   })
-                // }
+                onPress={() =>
+                  navigation.navigate("SingleProcessorScreen", {
+                    processorId: processor._id,
+                  })
+                }
                 className="w-[82vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
               >
                 <View key={processor._id}>

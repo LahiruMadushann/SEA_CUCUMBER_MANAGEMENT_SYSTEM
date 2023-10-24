@@ -79,11 +79,27 @@ class fishProcesserService {
   //GETTING PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
   static async getProcessedSCDetails(processorId) {
     try {
-      const getPCDetails = await processedDetailModel.find({
-        processorId: processorId,
-      });
+      const getPCDetails = await processedDetailModel
+        .find({
+          processorId: processorId,
+        })
+        .sort({ date: -1 });
       console.log("Details: ", getPCDetails);
       return getPCDetails;
+    } catch (error) {
+      console.error("Error fetching details:", error.message);
+      throw error;
+    }
+  }
+
+  //GETTING SINGLE PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
+  static async getProcessedRecordDetails(recordId) {
+    try {
+      const getRecordDetails = await processedDetailModel.find({
+        _id: recordId,
+      });
+      console.log("Details: ", getRecordDetails);
+      return getRecordDetails;
     } catch (error) {
       console.error("Error fetching details:", error.message);
       throw error;

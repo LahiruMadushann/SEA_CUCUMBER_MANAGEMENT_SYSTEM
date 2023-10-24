@@ -120,3 +120,30 @@ exports.getProcessedSeacucumberDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+//GETTING SINGLE PROCESSED SEA CUCUMBER DETAILS
+exports.getSingleProcessedSeacucumberDetails = async (req, res, next) => {
+  try {
+    const { recordId } = req.body;
+
+    let pscDetails = await fishProcesserService.getProcessedRecordDetails(
+      recordId
+    );
+
+    if (pscDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Processed Sea cucumber details",
+        data: pscDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No data found",
+      });
+    }
+  } catch (error) {
+    console.log("err---->", error.message);
+    next(error);
+  }
+};

@@ -92,6 +92,9 @@ import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaC
 import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
 
 import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
+import SingleProcessorScreen from "./screens/ExporterScreens/SingleProcessorScreen";
+import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
+import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
 
 import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
 
@@ -242,6 +245,20 @@ export default function Navigation() {
         <Stack.Screen
           name="AllProcessorsScreen"
           component={AllProcessorsScreen}
+        />
+
+        <Stack.Screen
+          name="SingleProcessorScreen"
+          component={SingleProcessorScreen}
+        />
+
+        <Stack.Screen
+          name="ViewProcessedRecordsScreen"
+          component={ViewProcessedRecordsScreen}
+        />
+        <Stack.Screen
+          name="ViewSingleProcessedRecScreen"
+          component={ViewSingleProcessedRecScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
