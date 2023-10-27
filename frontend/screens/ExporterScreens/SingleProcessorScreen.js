@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 
-import { WebView } from "react-native-webview";
 import {
   StyleSheet,
   Text,
@@ -12,9 +11,10 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
+
 import { useNavigation, useRoute } from "@react-navigation/native";
-import FarmPopupScreen from "../../components/FarmPopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 import { useAuth } from "../../auth/AuthContext";
@@ -42,7 +42,7 @@ export default function SingleProcessorScreen() {
   }
 
   const [processorDetails, setProcessorDetails] = useState([]);
-  const [stockData, setStockData] = useState([]);
+  const [processedDetails, setProcessedDetails] = useState([]);
 
   useEffect(() => {
     async function fetchProcessorDetails() {
@@ -51,45 +51,47 @@ export default function SingleProcessorScreen() {
           `${BASE_URL}/exporter/getIndividualProcessorDetails`,
           { userId: processorId }
         );
-        console.log("Response: ", response.data.data);
-        setProcessorDetails(response.data.data); // Update state with fetched data
+
+        setProcessorDetails(response.data.data);
       } catch (error) {
         console.error("Error fetching farm data:", error.message);
         console.log("asdasd", error.message);
       }
     }
 
-    // async function fetchStockData() {
-    //   try {
-    //     const response = await axios.post(
-    //       `${BASE_URL}/districtAquaCulturist/getAquaFarmingDetails`,
-    //       { processorId: processorId }
-    //     );
-    //     setStockData(response.data.data); // Update state with fetched data
-    //   } catch (error) {
-    //     console.error("Error fetching stock data:", error);
-    //   }
-    // }
+    async function fetchProcessedDetails() {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/processer/getProcessedDetails`,
+          { processorId: processorId }
+        );
+        setProcessedDetails(response.data.data);
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    }
 
     fetchProcessorDetails();
-    // fetchStockData();
+    fetchProcessedDetails();
   }, [processorId]);
 
-  // console.log(farmData);
-  // console.log(stockData);
-  console.log("Processor ID: " + processorId);
+  const TableRow = ({ label, value }) => (
+    <View style={styles.tableRow}>
+      <Text style={styles.tableLabel}>{label}</Text>
+      <Text style={styles.tableValue}>{value}</Text>
+    </View>
+  );
 
-  // const {
-  //   stock: db_stock,
-  //   stockingDates: db_stockingDates,
-  //   hatchery: db_hatchery,
-  //   hatcheryBatch: db_hatcheryBatch,
-  //   harvest: db_harvest,
-  //   size: db_size,
-  //   survival: db_survival,
-  //   diseases: db_diseases,
-  //   date: db_date,
-  // } = stockData.length > 0 ? stockData[0] : {};
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
+
+  console.log("All Procesed Details: -----> ", processedDetails);
+  console.log("Processor ID: " + processorId);
 
   const {
     _id: db_processorId,
@@ -159,26 +161,20 @@ export default function SingleProcessorScreen() {
                     </View>
                   </TouchableOpacity>
                 </View>
-
-                {/* <View className="flex m-[auto] absolute ml-[80vw]">
-                  <FarmPopupScreen farmId={db_farmId} farmName={db_name} />
-                </View> */}
               </View>
 
               <Text
                 style={{ zIndex: -1 }}
                 className="text-center text-[#fff] font-bold text-[22px] mt-[1vw] fixed"
               >
-                Processor
+                {processorDetails.firstName} {processorDetails.lastName}
+                {"\n"}
+                (Processor)
               </Text>
             </View>
           </View>
 
           <View className="mt-[36vh]">
-            <Text className="text-center text-[22px] font-bold text-[#000000A6]">
-              {processorDetails.firstName}
-            </Text>
-
             {/* <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
               <Image
                 source={{ uri: profilePicUrl }}
@@ -250,78 +246,18 @@ export default function SingleProcessorScreen() {
             )}
             {status === "Stock" && (
               <View className="flex-col py-[2.5vw]">
-                <View className="ml-[16vw]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Stock
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Stocking Dates
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Hatchery
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Hatchery Batch
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Harvest
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Size
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Survival
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Diseases
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Date
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_fname}
-                  </Text>
+                <View className="mt-[2vh]">
+                  {/* Table */}
+                  <FlatList
+                    data={[...processedDetails]}
+                    renderItem={({ item }) => (
+                      <TableRow
+                        label={formatDate(item.date)}
+                        value={`${item.spiecesType} - ${item.weight}Kg`}
+                      />
+                    )}
+                    keyExtractor={(item) => item._id}
+                  />
                 </View>
               </View>
             )}
@@ -394,5 +330,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     justifyContent: "center",
     right: 12,
+  },
+
+  tableRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    marginHorizontal: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: "#00000040",
+  },
+  tableLabel: {
+    fontSize: 12,
+    color: "gray",
+  },
+  tableValue: {
+    fontSize: 12,
+    color: "black",
   },
 });

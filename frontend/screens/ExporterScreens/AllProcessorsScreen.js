@@ -8,36 +8,43 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  TextInput,
   ScrollView,
   StyleSheet,
-  Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
+
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function AllProcessorsScreen() {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [allProcessorsData, setAllProcessorsData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllProcessorData() {
       try {
         const response = await axios.get(
           `${BASE_URL}/exporter/getFishProcessorsDetails`
         );
         setAllProcessorsData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching processor data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllProcessorData();
   }, []);
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+  
   console.log(allProcessorsData);
 
   return (

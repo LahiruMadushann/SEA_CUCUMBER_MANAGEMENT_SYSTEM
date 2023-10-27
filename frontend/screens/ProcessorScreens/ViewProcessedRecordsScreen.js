@@ -22,10 +22,18 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function ViewProcessedRecordsScreen() {
+  const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
+
   const { state } = useAuth();
   const token = state.token;
   const decodedToken = jwtDecode(token);
+
+  const route = useRoute();
 
   const {
     _id: db_id,
@@ -34,27 +42,30 @@ export default function ViewProcessedRecordsScreen() {
     role: db_role,
   } = decodedToken;
 
-  const navigation = useNavigation();
-  LogBox.ignoreAllLogs();
-  const route = useRoute();
-
   const [allProcessedData, setAllProcessedData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchProcessedDetails() {
       try {
         const response = await axios.post(
           `${BASE_URL}/processer/getProcessedDetails`,
           { processorId: db_id }
         );
-        setAllProcessedData(response.data.data); // Update state with fetched data
+        setAllProcessedData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchProcessedDetails();
   }, [db_id]);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   console.log(allProcessedData);
 
@@ -85,7 +96,7 @@ export default function ViewProcessedRecordsScreen() {
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("MainFarmScreen")}
+                    onPress={() => navigation.navigate("UserProfileMainScreen")}
                   >
                     <View className="flex m-[auto] ">
                       <Image

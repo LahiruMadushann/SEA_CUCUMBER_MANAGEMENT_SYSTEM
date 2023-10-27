@@ -91,20 +91,20 @@ export default function ContactUsScreen() {
           <View className="mt-[36vh]">
             <View className="mx-auto">
               <TextInput
-                className=" text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
+                className=" text-[15px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
                 value={name}
                 onChangeText={setName}
                 placeholder="Name"
               />
               <TextInput
-                className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
+                className="text-[15px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Email"
               />
 
               <TextInput
-                className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
+                className="text-[15px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw]  mb-3"
                 value={contactNo}
                 onChangeText={setContactNo}
                 placeholder="Telephone No"
@@ -112,7 +112,7 @@ export default function ContactUsScreen() {
               />
 
               <TextInput
-                className="text-[18px] border-b border-[#00000040] text-gray-700 p-1 w-[84vw] h-[14vh]  mb-3"
+                className="text-[15dpx] border-b border-[#00000040] text-gray-700 p-1 w-[84vw] h-[14vh]  mb-3"
                 value={comment}
                 onChangeText={setComment}
                 placeholder="Comment"

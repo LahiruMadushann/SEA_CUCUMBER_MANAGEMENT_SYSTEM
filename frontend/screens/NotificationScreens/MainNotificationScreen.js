@@ -15,27 +15,38 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import { LogBox } from "react-native";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function MainNotificationScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [allNotificationData, setAllNotificationData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllNotificationData() {
       try {
         const response = await axios.get(
           `${BASE_URL}/user/getAllNotifications`
         );
-        setAllNotificationData(response.data.data); // Update state with fetched data
+        setAllNotificationData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Notifications:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllNotificationData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);

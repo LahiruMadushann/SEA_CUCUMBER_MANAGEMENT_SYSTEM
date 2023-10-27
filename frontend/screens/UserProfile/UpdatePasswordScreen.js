@@ -60,8 +60,6 @@ export default function UpdatePasswordScreen() {
             "Password Updated",
             "Your password has been updated successfully."
           );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }

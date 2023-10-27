@@ -15,9 +15,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import { LogBox } from "react-native";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function SingleNotificationScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
+
   const route = useRoute();
   const notificationId = route.params?.notificationId || "";
 
@@ -26,20 +31,27 @@ export default function SingleNotificationScreen() {
   const [singleNotificationData, setSingleNotificationData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchSingleNotificationData() {
       try {
         const response = await axios.post(
           `${BASE_URL}/user/getSingleNotification`,
           { notificationId: notificationId }
         );
-        setSingleNotificationData(response.data.data); // Update state with fetched data
+        setSingleNotificationData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Notifications:", error);
+        setIsLoading(false);
       }
     }
 
     fetchSingleNotificationData();
   }, [notificationId]);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const {
     title: db_title,

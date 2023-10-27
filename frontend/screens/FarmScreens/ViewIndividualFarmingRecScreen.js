@@ -19,8 +19,13 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
+import { LogBox } from "react-native";
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function ViewIndividualFarmingRecScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute();
   // Access the farmId parameter from route.params
@@ -31,6 +36,7 @@ export default function ViewIndividualFarmingRecScreen() {
   const [singleStockData, setSingleStockData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllStockData() {
       try {
         const response = await axios.post(
@@ -38,13 +44,19 @@ export default function ViewIndividualFarmingRecScreen() {
           { farmingId: farmingId }
         );
         setSingleStockData(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllStockData();
   }, [farmId]);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const {
     stock: db_stock,

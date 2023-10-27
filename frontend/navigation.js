@@ -10,14 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import FAQScreen from "./screens/FAQScreens/FAQScreen";
 import GetEmailScreen from "./screens/GetEmailScreen";
 
-import AquacultureScreen from "./screens/AquacultureScreen";
-import FisheriesStartupScreen from "./screens/FisheriesStartupScreen";
-import AquacultureStartupScreen from "./screens/AquacultureStartupScreen";
-
 import RegisterScreen from "./screens/RegisterScreen";
-
-import UserProfileScreen from "./screens/UserProfileScreen";
-import SwitchScreen from "./screens/SwitchScreen";
 
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
 import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
@@ -54,9 +47,7 @@ import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
 import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategoryScreen";
 import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
 
-import UpdateDataScreen from "./screens/UpdateDataScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
-import NotificationScreen from "./screens/NotificationScreen";
 import EnterOptScreen from "./screens/EnterOptScreen";
 import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
 import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
@@ -132,10 +123,7 @@ export default function Navigation() {
         />
 
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Switch" component={SwitchScreen} />
-        <Stack.Screen name="UpdateData" component={UpdateDataScreen} />
         <Stack.Screen name="Contact" component={ContactUsScreen} />
-        <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="FAQScreen" component={FAQScreen} />
 
@@ -172,10 +160,6 @@ export default function Navigation() {
 
         <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
 
-        <Stack.Screen name="AquaStart" component={AquacultureStartupScreen} />
-        <Stack.Screen name="Aquaculture" component={AquacultureScreen} />
-        <Stack.Screen name="FishStart" component={FisheriesStartupScreen} />
-
         <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
         <Stack.Screen
           name="ExporterRegister"
@@ -189,7 +173,6 @@ export default function Navigation() {
           name="FishermanRegisterScreen"
           component={FishermanRegisterScreen}
         />
-        <Stack.Screen name="Notification" component={NotificationScreen} />
         <Stack.Screen
           name="MainNotificationScreen"
           component={MainNotificationScreen}

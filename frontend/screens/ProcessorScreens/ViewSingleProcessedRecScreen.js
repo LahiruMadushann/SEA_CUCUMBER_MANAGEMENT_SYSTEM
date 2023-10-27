@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 
@@ -10,22 +9,23 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
   Image,
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
-  TextInput,
   FlatList,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function ViewSingleProcessedRecScreen() {
   const navigation = useNavigation();
   const { state } = useAuth();
   const token = state.token;
   const decodedToken = jwtDecode(token);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     _id: db_id,
@@ -41,20 +41,27 @@ export default function ViewSingleProcessedRecScreen() {
   const [singleProcessedDetails, setSingleProcessedDetails] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchSingleProcessedDetails() {
       try {
         const response = await axios.post(
           `${BASE_URL}/processer/getSingleProcessedDetails`,
           { recordId: recordId }
         );
-        setSingleProcessedDetails(response.data.data); // Update state with fetched data
+        setSingleProcessedDetails(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchSingleProcessedDetails();
   }, [recordId]);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const {
     spiecesType: db_spiecesType,

@@ -110,6 +110,8 @@ export default function LoginScreen() {
               value={username}
               onChangeText={setUsername}
               placeholder="Enter Username here"
+              autoCapitalize="none"
+              autoCorrect={false}
               required
             />
 
@@ -118,6 +120,8 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
               placeholder="Enter Password here"
+              autoCapitalize="none"
+              autoCorrect={false}
               secureTextEntry
               required
             />
@@ -161,7 +165,7 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
 
-          <View className="ml-[46.5vw] flex-row mt-[12px] mx-auto">
+          {/* <View className="ml-[46.5vw] flex-row mt-[12px] mx-auto">
             <Text className="text-[#000000BF] text-[18px]">- or -</Text>
           </View>
 
@@ -180,7 +184,7 @@ export default function LoginScreen() {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
           <FooterBar />
