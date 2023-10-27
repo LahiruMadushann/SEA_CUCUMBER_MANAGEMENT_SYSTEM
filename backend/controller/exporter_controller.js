@@ -1,4 +1,5 @@
 const exporterService = require("../services/exporter_services");
+const emailService = require("../services/email_services");
 
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
@@ -52,6 +53,17 @@ exports.registerExporter = async (req, res, next) => {
       res
         .status(200)
         .json({ success: true, message: "Registration Successfully" });
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your Processor Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res
         .status(400)
@@ -59,6 +71,7 @@ exports.registerExporter = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    console.log(error.message);
   }
 };
 
