@@ -1,5 +1,6 @@
 const adminService = require("../services/admin_services");
 const bcrypt = require("bcrypt");
+const emailService = require("../services/email_services");
 
 exports.register = async (req, res, next) => {
   try {
@@ -104,6 +105,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         success: true,
         message: "User account has been created successfully",
       });
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your " +
+        role +
+        " Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res.status(400).json({
         success: false,

@@ -1,5 +1,6 @@
 const farmMngUserService = require("../services/farmMngUsers_services");
 const bcrypt = require("bcrypt");
+const emailService = require("../services/email_services");
 
 exports.updatefarmMngUsers = async (req, res, next) => {
   try {

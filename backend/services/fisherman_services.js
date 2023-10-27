@@ -28,18 +28,6 @@ class fishermanService {
     createdAt
   ) {
     try {
-      let recipient = email;
-      let subject = "Account Created for " + username;
-      let text =
-        "Hi," +
-        firstName +
-        " " +
-        lastName +
-        "\n" +
-        "Your Fisherman Account has be successfully created";
-
-      emailService.sendEmail(recipient, subject, text);
-
       const createFisherman = new userModel({
         username,
         password,

@@ -20,7 +20,11 @@ import FooterBar from "../../components/FooterBar";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function FarmerRegisterScreen() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -44,6 +48,7 @@ export default function FarmerRegisterScreen() {
   const [image, setImage] = useState(null); // Use state for selected image
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchFarmNames() {
       try {
         const response = await axios.get(
@@ -52,13 +57,19 @@ export default function FarmerRegisterScreen() {
 
         const farmNamesData = response.data.data; // Access the data property
         setFarmNames(farmNamesData); // Store farm names with IDs
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching farm names:", error);
+        setIsLoading(false);
       }
     }
 
     fetchFarmNames();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({

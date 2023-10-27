@@ -23,18 +23,6 @@ class exporterService {
     createdAt
   ) {
     try {
-      let recipient = email;
-      let subject = "Account Created for " + username;
-      let text =
-        "Hi," +
-        firstName +
-        " " +
-        lastName +
-        "\n" +
-        "Your Exporter Account has be successfully created";
-
-      emailService.sendEmail(recipient, subject, text);
-
       const createExporter = new userModel({
         username,
         password,
