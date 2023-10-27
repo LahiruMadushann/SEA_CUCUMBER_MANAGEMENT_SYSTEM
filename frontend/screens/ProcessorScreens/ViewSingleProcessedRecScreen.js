@@ -1,49 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
   Image,
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
-  TextInput,
   FlatList,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
-
-import { LogBox } from "react-native";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function ViewIndividualFarmingRecScreen() {
+export default function ViewSingleProcessedRecScreen() {
   const navigation = useNavigation();
-  LogBox.ignoreAllLogs();
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const route = useRoute();
-  // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || "";
-  const farmName = route.params?.farmName || "";
-  const farmingId = route.params?.farmingId || "";
+  const {
+    _id: db_id,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    role: db_role,
+  } = decodedToken;
 
-  const [singleStockData, setSingleStockData] = useState([]);
+  const route = useRoute();
+  // Access the recordId parameter from route.params
+  const recordId = route.params?.recordId || "";
+
+  const [singleProcessedDetails, setSingleProcessedDetails] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchAllStockData() {
+    async function fetchSingleProcessedDetails() {
       try {
         const response = await axios.post(
-          `${BASE_URL}/districtAquaCulturist/getFarmingDetailsFromId`,
-          { farmingId: farmingId }
+          `${BASE_URL}/processer/getSingleProcessedDetails`,
+          { recordId: recordId }
         );
-        setSingleStockData(response.data.data); // Update state with fetched data
+        setSingleProcessedDetails(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
@@ -51,26 +56,19 @@ export default function ViewIndividualFarmingRecScreen() {
       }
     }
 
-    fetchAllStockData();
-  }, [farmId]);
+    fetchSingleProcessedDetails();
+  }, [recordId]);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
   const {
-    stock: db_stock,
-    stockingDates: db_stockingDates,
-    hatchery: db_hatchery,
-    hatcheryBatch: db_hatcheryBatch,
-    harvest: db_harvest,
-    size: db_size,
-    survival: db_survival,
-    diseases: db_diseases,
+    spiecesType: db_spiecesType,
+    weight: db_weight,
+    receivedFrom: db_receivedFrom,
     date: db_date,
-  } = singleStockData.length > 0 ? singleStockData[0] : {};
-
-  console.log(singleStockData);
+  } = singleProcessedDetails.length > 0 ? singleProcessedDetails[0] : {};
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -100,10 +98,7 @@ export default function ViewIndividualFarmingRecScreen() {
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("ViewFarmingRecordsScreen", {
-                        farmId: farmId,
-                        farmName: farmName,
-                      })
+                      navigation.navigate("ViewProcessedRecordsScreen")
                     }
                   >
                     <View className="flex m-[auto] ">
@@ -116,7 +111,10 @@ export default function ViewIndividualFarmingRecScreen() {
                 </View>
               </View>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Farming Records {farmName}
+                Processed Records
+              </Text>
+              <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
+                {db_firstName} {db_lastName}
               </Text>
               <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
                 Date : {formatDate(db_date)}
@@ -128,14 +126,9 @@ export default function ViewIndividualFarmingRecScreen() {
             {/* Table */}
             <FlatList
               data={[
-                { label: "Stock", value: `${db_stock}` },
-                { label: "StockingDates", value: `${db_stockingDates}` },
-                { label: "Hatchery", value: `${db_hatchery}` },
-                { label: "HatcheryBatch", value: `${db_hatcheryBatch}` },
-                { label: "Harvest", value: `${db_harvest}` },
-                { label: "Size", value: `${db_size}` },
-                { label: "Survival", value: `${db_survival}` },
-                { label: "Diseases", value: `${db_diseases}` },
+                { label: "spiecesType", value: `${db_spiecesType}` },
+                { label: "weight", value: `${db_weight}` },
+                { label: "receivedFrom", value: `${db_receivedFrom}` },
               ]}
               renderItem={({ item }) => (
                 <TableRow label={item.label} value={item.value} />

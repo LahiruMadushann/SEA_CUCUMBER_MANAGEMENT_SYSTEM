@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
   Image,
   SafeAreaView,
   TouchableOpacity,
@@ -18,7 +17,6 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 export default function UpdatePasswordScreen() {
@@ -62,8 +60,6 @@ export default function UpdatePasswordScreen() {
             "Password Updated",
             "Your password has been updated successfully."
           );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }

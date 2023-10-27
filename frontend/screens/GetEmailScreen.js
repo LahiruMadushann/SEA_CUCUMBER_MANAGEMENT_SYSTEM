@@ -61,9 +61,9 @@ export default function GetEmailScreen() {
           contentContainerStyle={{ flexGrow: 1 }}
           className="bg-[#fff]"
         >
-          <View className="absolute w-[162vw] h-[50vh] left-[-32vw] top-[-16vh] bg-[#0013C0]  rounded-b-full ">
+          <View className="absolute w-[162vw] h-[50vh] left-[-32vw] top-[-20vh] bg-[#0013C0]  rounded-b-full ">
             <View className="flex-row">
-              <View className="ml-[42vw] mt-[24vh]">
+              <View className="ml-[42vw] mt-[26vh]">
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                   <View className="flex m-[auto] ">
                     <Image

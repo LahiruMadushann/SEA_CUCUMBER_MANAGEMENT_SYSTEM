@@ -17,9 +17,12 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function KCIndividualSpecies() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute();
   const speciesId = route.params?.id || "";
@@ -29,6 +32,7 @@ export default function KCIndividualSpecies() {
   const [allSpeciesData, setAllSpeciesData] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllSpeciesData() {
       try {
         const response = await axios.post(
@@ -37,14 +41,20 @@ export default function KCIndividualSpecies() {
             speciesId: speciesId,
           }
         );
-        setAllSpeciesData(response.data.data); // Update state with fetched data
+        setAllSpeciesData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Species data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllSpeciesData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const {
     _id: db_speciesId,

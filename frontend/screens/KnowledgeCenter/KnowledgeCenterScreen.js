@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import { LogBox } from "react-native";
@@ -14,39 +13,63 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator } from "react-native";
+
+import filter from "lodash.filter";
+import { FlatList } from "react-native";
+
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function KnowledgeCenterScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
+  const [data, setData] = useState("");
 
   const [allSpeciesData, setAllSpeciesData] = useState([]);
 
-  // const handleSearch = (text) => {
-  //   setSearchText(text);
-  //   const filtered = data.filter((item) =>
-  //     item.title.toLowerCase().includes(text.toLowerCase())
-  //   );
-  //   setFilteredData(filtered);
-  // };
-
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllSpeciesData() {
       try {
         const response = await axios.get(`${BASE_URL}/user/getAllSpeciesData`);
-        setAllSpeciesData(response.data.data); // Update state with fetched data
+        setAllSpeciesData(response.data.data);
+        setData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching Species data:", error);
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllSpeciesData();
   }, []);
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/seacucumber-pics`;
 
-  console.log(allSpeciesData);
+  const handleSearch = (query) => {
+    setSearchText(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(allSpeciesData, (species) => {
+      return contains(species, formattedQuery);
+    });
+    setData(filteredData);
+  };
+
+  const contains = ({ scientificName, speciesType }, query) => {
+    if (scientificName.includes(query) || speciesType.includes(query)) {
+      return true;
+    }
+    return false;
+  };
+
+  //console.log(allSpeciesData);
 
   return (
     <SafeAreaView
@@ -82,55 +105,53 @@ export default function KnowledgeCenterScreen() {
 
             <TextInput
               style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
-              className="w-[63vw] mx-auto rounded-[20px] p-4 mt-[10vw] bg-[#fff] text-black	 "
-              // onChangeText={handleSearch}
+              className="w-[75vw] mx-auto rounded-[15px] p-4 mt-[10vw] bg-[#fff] text-black"
+              onChangeText={(query) => handleSearch(query)}
               value={searchText}
               placeholder="Search"
+              clearButtonMode="always"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
           </View>
 
-          <View className="mt-[45vh] mx-auto">
-            {/* Loop through allFarmData and display farm details */}
-            {allSpeciesData.map((species) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("KCIndividualSpecies", {
-                    id: species._id,
-                  })
-                }
-                className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-              >
-                <View key={species._id}>
-                  <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                    <Text className="text-[15px] font-bold text-[#0000FF]">
-                      {species.scientificName}
-                    </Text>
-                  </View>
-
-                  <View className="flex-row mt-[0vw] mr-[5vw] mb-[5vw]">
+          <View className="mt-[40vh] mx-auto">
+            <FlatList
+              data={data}
+              keyExtractor={(species) => species._id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("KCIndividualSpecies", {
+                      id: item._id,
+                    })
+                  }
+                  className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                >
+                  <View className="flex-row mt-[3vw] mr-[5vw] mb-[3vw]">
                     <Image
                       source={{
-                        uri: `${BASE_URL_FOR_PROFILE_PICS}/${species.seaCucumberImages}`,
+                        uri: `${BASE_URL_FOR_PROFILE_PICS}/${item.seaCucumberImages}`,
                       }}
-                      className=" w-[80px] h-[80px] ml-[2vw] bg-[#FFFFFF] rounded-full my-[auto] shadow-lg shadow-gray-800"
+                      className=" w-[60px] h-[60px] ml-[2vw] bg-[#FFFFFF] rounded-full my-[auto] shadow-lg shadow-gray-800"
                     />
 
-                    <View className="flex-auto mt-[1vw] ml-[3vw]">
-                      <Text className="text-[12px] flex-auto mt-[0vw]">
-                        Species Type : {species.speciesType}
+                    <View className="flex-auto ml-[3vw] my-[auto]">
+                      <Text className="text-[15px] font-bold text-[#0000FF]">
+                        {item.scientificName}
                       </Text>
-                      <Text className=" text-[10px] flex-auto mt-[1vw]">
+                      <Text className="text-[12px] flex-auto">
+                        Species Type : {item.speciesType}
+                      </Text>
+                      {/* <Text className=" text-[10px] flex-auto mt-[1vw]">
                         Description :{" "}
-                        {species.description.slice(
-                          0,
-                          species.description.length / 2
-                        )}
-                      </Text>
+                        {item.description.slice(0, item.description.length / 2)}
+                      </Text> */}
                     </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

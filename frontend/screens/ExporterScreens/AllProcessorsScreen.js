@@ -8,48 +8,44 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  TextInput,
   ScrollView,
   StyleSheet,
-  Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function AllFarmsScreen() {
+export default function AllProcessorsScreen() {
   const navigation = useNavigation();
-
-  const [allFarmData, setAllFarmData] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
+
+  const [allProcessorsData, setAllProcessorsData] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchAllFarmData() {
+    async function fetchAllProcessorData() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
+          `${BASE_URL}/exporter/getFishProcessorsDetails`
         );
-        setAllFarmData(response.data.data); // Update state with fetched data
+        setAllProcessorsData(response.data.data);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching farm data:", error);
+        console.error("Error fetching processor data:", error);
         setIsLoading(false);
       }
     }
 
-    fetchAllFarmData();
+    fetchAllProcessorData();
   }, []);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
-
-  console.log(allFarmData);
+  
+  console.log(allProcessorsData);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -76,7 +72,7 @@ export default function AllFarmsScreen() {
               </View>
 
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                All Aquaculture Farms
+                Processors
               </Text>
               <View className="mt-[4vh] mx-auto">
                 <Image
@@ -88,30 +84,28 @@ export default function AllFarmsScreen() {
           </View>
           <View className="mt-[45vh] mx-auto">
             {/* Loop through allFarmData and display farm details */}
-            {allFarmData.map((farm) => (
+            {allProcessorsData.map((processor) => (
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("MainFarmScreen", {
-                    farmId: farm._id,
-                    farmName: farm.name,
-                    directedFarm: "allFarmsPage",
+                  navigation.navigate("SingleProcessorScreen", {
+                    processorId: processor._id,
                   })
                 }
                 className="w-[82vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
               >
-                <View key={farm._id}>
+                <View key={processor._id}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
                     <Text className="text-[18px] font-bold text-[#0000FF]">
-                      {farm.name}
+                      {processor.firstName} {processor.lastName}
                     </Text>
                   </View>
 
                   <View className="flex mt-[1vw] ml-[10vw]">
                     <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                      Total Stock : {farm.licenseNo}
+                      Contact No: {processor.contactNo}
                     </Text>
                     <Text className=" text-[15px] flex-auto mt-[1vw]">
-                      Location : {farm.address}
+                      Location : {processor.address}
                     </Text>
                   </View>
                 </View>

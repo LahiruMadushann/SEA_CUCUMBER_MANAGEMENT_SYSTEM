@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { LogBox } from "react-native";
+
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 import {
   StyleSheet,
@@ -16,34 +20,39 @@ import {
   FlatList,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
-import { LogBox } from "react-native";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function ViewIndividualFarmingRecScreen() {
+export default function ViewProcessedRecordsScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
 
-  const route = useRoute();
-  // Access the farmId parameter from route.params
-  const farmId = route.params?.farmId || "";
-  const farmName = route.params?.farmName || "";
-  const farmingId = route.params?.farmingId || "";
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
 
-  const [singleStockData, setSingleStockData] = useState([]);
+  const route = useRoute();
+
+  const {
+    _id: db_id,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    role: db_role,
+  } = decodedToken;
+
+  const [allProcessedData, setAllProcessedData] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchAllStockData() {
+    async function fetchProcessedDetails() {
       try {
         const response = await axios.post(
-          `${BASE_URL}/districtAquaCulturist/getFarmingDetailsFromId`,
-          { farmingId: farmingId }
+          `${BASE_URL}/processer/getProcessedDetails`,
+          { processorId: db_id }
         );
-        setSingleStockData(response.data.data); // Update state with fetched data
+        setAllProcessedData(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
@@ -51,26 +60,14 @@ export default function ViewIndividualFarmingRecScreen() {
       }
     }
 
-    fetchAllStockData();
-  }, [farmId]);
+    fetchProcessedDetails();
+  }, [db_id]);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
-  const {
-    stock: db_stock,
-    stockingDates: db_stockingDates,
-    hatchery: db_hatchery,
-    hatcheryBatch: db_hatcheryBatch,
-    harvest: db_harvest,
-    size: db_size,
-    survival: db_survival,
-    diseases: db_diseases,
-    date: db_date,
-  } = singleStockData.length > 0 ? singleStockData[0] : {};
-
-  console.log(singleStockData);
+  console.log(allProcessedData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -99,12 +96,7 @@ export default function ViewIndividualFarmingRecScreen() {
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("ViewFarmingRecordsScreen", {
-                        farmId: farmId,
-                        farmName: farmName,
-                      })
-                    }
+                    onPress={() => navigation.navigate("UserProfileMainScreen")}
                   >
                     <View className="flex m-[auto] ">
                       <Image
@@ -115,11 +107,11 @@ export default function ViewIndividualFarmingRecScreen() {
                   </TouchableOpacity>
                 </View>
               </View>
-              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Farming Records {farmName}
+              <Text className="text-center text-[#fff]  text-[18px] mt-[10vw] fixed">
+                View {db_firstName} {db_lastName}
               </Text>
-              <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
-                Date : {formatDate(db_date)}
+              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[2vw] fixed">
+                Processed Sea Cucumber Records
               </Text>
             </View>
           </View>
@@ -127,20 +119,22 @@ export default function ViewIndividualFarmingRecScreen() {
           <View className="mt-[36vh]">
             {/* Table */}
             <FlatList
-              data={[
-                { label: "Stock", value: `${db_stock}` },
-                { label: "StockingDates", value: `${db_stockingDates}` },
-                { label: "Hatchery", value: `${db_hatchery}` },
-                { label: "HatcheryBatch", value: `${db_hatcheryBatch}` },
-                { label: "Harvest", value: `${db_harvest}` },
-                { label: "Size", value: `${db_size}` },
-                { label: "Survival", value: `${db_survival}` },
-                { label: "Diseases", value: `${db_diseases}` },
-              ]}
+              data={[...allProcessedData]}
               renderItem={({ item }) => (
-                <TableRow label={item.label} value={item.value} />
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("ViewSingleProcessedRecScreen", {
+                      recordId: item._id,
+                    })
+                  }
+                >
+                  <TableRow
+                    label={formatDate(item.date)}
+                    value={`${item.spiecesType} - ${item.weight}Kg`}
+                  />
+                </TouchableOpacity>
               )}
-              keyExtractor={(item) => item.label}
+              keyExtractor={(item) => item._id}
             />
           </View>
         </ScrollView>

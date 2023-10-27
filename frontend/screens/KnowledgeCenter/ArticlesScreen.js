@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
-import { LogBox } from "react-native";
+
 import axios from "axios";
 import CustomLink from "../../components/customlink";
 import {
@@ -14,12 +14,15 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
+
+import { LogBox } from "react-native";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function ArticlesScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute();
   const category = route.params?.category || "";
@@ -29,17 +32,24 @@ export default function ArticlesScreen() {
   const [allArticlesCategories, setAllArticlesCategories] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchArticlesCategories() {
       try {
         const response = await axios.get(`${BASE_URL}/user/getAllArticlesData`);
         setAllArticlesCategories(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Species data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchArticlesCategories();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   // console.log(allArticlesCategories);
 

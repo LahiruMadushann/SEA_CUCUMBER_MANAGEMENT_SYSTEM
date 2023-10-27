@@ -28,8 +28,13 @@ router.post(
 );
 
 router.post(
-  "/fishProcessers/getProcessedDetails",
+  "/processer/getProcessedDetails",
   fishProcesserController.getProcessedSeacucumberDetails
+);
+
+router.post(
+  "/processer/getSingleProcessedDetails",
+  fishProcesserController.getSingleProcessedSeacucumberDetails
 );
 
 module.exports = router;
