@@ -196,7 +196,32 @@ exports.getSingleNotification = async (req, res, next) => {
 //GET ALL NOTIFICATION DETAILS
 exports.getAllNotifications = async (req, res, next) => {
   try {
-    let allNotifications = await userService.getAllNotifications();
+    const { userRole } = req.body;
+    console.log(userRole);
+
+    let allNotifications;
+
+    if (
+      userRole == "Admin" ||
+      userRole == "Chairman" ||
+      userRole == "Director General" ||
+      userRole == "Assistant Director" ||
+      userRole == "Minister"
+    ) {
+      allNotifications = await userService.getAllNotifications();
+    } else if (userRole == "Farmer") {
+      allNotifications = await userService.getNotificationsToFarmers();
+      console.log("Nuw farmer");
+    } else if (userRole == "Fisherman") {
+      allNotifications = await userService.getNotificationsToFishermens();
+    } else if (userRole == "Exporter") {
+      allNotifications = await userService.getNotificationsToExporters();
+    } else if (userRole == "Processor") {
+      allNotifications = await userService.getNotificationsToProcessors();
+    } else if (userRole == "District Aquaculturist") {
+      allNotifications =
+        await userService.getNotificationsToDistrictAquaculturist();
+    }
 
     if (allNotifications) {
       res.status(200).json({ status: true, data: allNotifications });

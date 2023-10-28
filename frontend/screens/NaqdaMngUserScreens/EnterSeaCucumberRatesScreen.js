@@ -65,7 +65,6 @@ export default function EnterSeaCucumberRatesScreen() {
     };
     const insertUrl = `${BASE_URL}/farmMngUsers/enterSeacucumberRates`;
 
-    // Make a PUT or POST request to update the data
     axios
       .post(insertUrl, insertData)
       .then((response) => {
@@ -178,6 +177,7 @@ export default function EnterSeaCucumberRatesScreen() {
                   value="District Aquaculturist"
                 />
                 <Picker.Item label="Exporter" value="Exporter" />
+                <Picker.Item label="Processor" value="Processor" />
                 <Picker.Item label="All" value="All" />
               </Picker>
             </View>

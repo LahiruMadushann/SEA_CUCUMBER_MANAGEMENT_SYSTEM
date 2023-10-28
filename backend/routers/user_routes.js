@@ -4,7 +4,7 @@ const knowledgeCenterController = require("../controller/knowledgeCenter_control
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
 
-router.get("/user/getAllNotifications", userController.getAllNotifications);
+router.post("/user/getAllNotifications", userController.getAllNotifications);
 
 router.post(
   "/user/getSingleNotification",

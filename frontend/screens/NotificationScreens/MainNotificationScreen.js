@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { useAuth } from "../../auth/AuthContext";
+
 import {
   View,
   Text,
@@ -23,6 +27,19 @@ export default function MainNotificationScreen() {
   LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
 
+  const { state } = useAuth();
+
+  // Access the token
+  const token = state.token;
+
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const { _id: db_id, role: db_role } = decodedToken;
+
+  console.log(db_role);
+
   const [allNotificationData, setAllNotificationData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
 
@@ -30,8 +47,9 @@ export default function MainNotificationScreen() {
     setIsLoading(true);
     async function fetchAllNotificationData() {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/user/getAllNotifications`
+        const response = await axios.post(
+          `${BASE_URL}/user/getAllNotifications`,
+          { userRole: db_role }
         );
         setAllNotificationData(response.data.data);
         setIsLoading(false);
