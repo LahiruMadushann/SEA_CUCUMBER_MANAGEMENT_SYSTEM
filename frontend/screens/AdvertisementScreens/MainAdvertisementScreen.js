@@ -47,13 +47,15 @@ export default function MainAdvertisementScreen() {
 
   const formatTime = (rawDateTime) => {
     const dateTime = new Date(rawDateTime);
-    const hours = dateTime.getUTCHours();
-    const minutes = dateTime.getUTCMinutes();
-    const seconds = dateTime.getUTCSeconds();
+    const options = {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
 
-    return `${hours}:${String(minutes).padStart(2, "0")}:${String(
-      seconds
-    ).padStart(2, "0")}`;
+    return dateTime.toLocaleString(undefined, options);
   };
 
   return (
@@ -121,7 +123,7 @@ export default function MainAdvertisementScreen() {
                     }
                     className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
                   >
-                    <View className="w-[140px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
+                    <View className="w-[200px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                       <Image
                         source={require("../../assets/notification/calender.png")}
                         className="w-[13px] h-[15px] ml-[10vw]"

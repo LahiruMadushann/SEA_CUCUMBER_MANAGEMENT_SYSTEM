@@ -64,8 +64,7 @@ export default function CreateAdsScreen() {
             "Advertisement",
             "Advertisement has be created Successfully."
           );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("Ad Creation Failed", response.data.message);
         }
