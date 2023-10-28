@@ -15,27 +15,37 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function MainAdvertisementScreen() {
   const navigation = useNavigation();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [allAdvertisementData, setAllAdvertisementData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllAdvertisementData() {
       try {
         const response = await axios.get(
           `${BASE_URL}/user/getAllAdvertisements`
         );
         setAllAdvertisementData(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Notifications:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllAdvertisementData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);

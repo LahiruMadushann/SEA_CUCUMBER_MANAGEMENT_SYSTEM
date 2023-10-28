@@ -38,6 +38,7 @@ exports.enterNews = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       const date = new Date().toISOString();
+      let postedById = data._id;
 
       const successEnteredNews =
         await farmMngUserService.enterNewsRulesRegulations(
@@ -47,7 +48,8 @@ exports.enterNews = async (req, res, next) => {
           date,
           role,
           postedBy,
-          postedTo
+          postedTo,
+          postedById
         );
 
       if (successEnteredNews) {
@@ -80,6 +82,7 @@ exports.enterSeacucumberRates = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       let type = "SeacucumberRates";
+      let postedById = data._id;
 
       const date = new Date().toISOString();
 
@@ -93,7 +96,8 @@ exports.enterSeacucumberRates = async (req, res, next) => {
           date,
           role,
           postedBy,
-          postedTo
+          postedTo,
+          postedById
         );
 
       if (successEnteredSeacucumberRates) {
@@ -111,6 +115,30 @@ exports.enterSeacucumberRates = async (req, res, next) => {
   } catch (error) {
     next(error);
     res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+//DELETE NEWS
+exports.deleteNews = async (req, res, next) => {
+  try {
+    const { news_Id } = req.body;
+
+    let deleteNews = await farmMngUserService.deleteNews(news_Id);
+
+    if (deleteNews) {
+      res.status(200).json({
+        success: true,
+        message: "Successfully deleted Advertisement",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error in deleting advertisement",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
   }
 };
 

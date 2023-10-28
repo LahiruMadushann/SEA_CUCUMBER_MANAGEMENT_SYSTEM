@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { useAuth } from "../../auth/AuthContext";
+
 import {
   View,
   Text,
@@ -24,6 +27,18 @@ export default function SingleNotificationScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute();
+
+  const { state } = useAuth();
+
+  // Access the token
+  const token = state.token;
+
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const { _id: db_id } = decodedToken;
+
   const notificationId = route.params?.notificationId || "";
 
   console.log(notificationId);
@@ -60,6 +75,7 @@ export default function SingleNotificationScreen() {
     date: db_date,
     role: db_role,
     postedBy: db_postedBy,
+    postedById: db_postedById,
   } = singleNotificationData.length > 0 ? singleNotificationData[0] : {};
 
   console.log(singleNotificationData);
@@ -83,6 +99,51 @@ export default function SingleNotificationScreen() {
     };
 
     return dateTime.toLocaleString(undefined, options);
+  };
+
+  const handleDelete = async () => {
+    // Clear the token by dispatching the CLEAR_TOKEN action
+
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete your News, you won't be able to recover it.",
+      [
+        {
+          text: "Delete News",
+          onPress: () => {
+            const newsData = {
+              news_Id: notificationId,
+            };
+            const backendUrl = `${BASE_URL}/farmMngUsers/deleteNews`;
+
+            axios
+              .post(backendUrl, newsData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Advertisement Deleted", response.data.message);
+                  navigation.navigate("MainNotificationScreen");
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Error Deleting Advertisement:", error);
+                Alert.alert(
+                  "Error",
+                  "An error occurred while deleting the Advertisement."
+                );
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
   };
 
   return (
@@ -117,7 +178,7 @@ export default function SingleNotificationScreen() {
           </View>
           <View className="mt-[20vh] mx-auto">
             {/* Loop through allFarmData and display farm details */}
-            <TouchableOpacity className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2">
+            <View className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2">
               <View className="w-[230px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                 <Image
                   source={require("../../assets/notification/calender.png")}
@@ -156,7 +217,20 @@ export default function SingleNotificationScreen() {
                   </Text>
                 </View>
               )}
-            </TouchableOpacity>
+
+              {db_postedById === db_id && (
+                <View className="flex mt-[2vh] mb-[2vh]">
+                  <TouchableOpacity
+                    className="bg-[#C61A1A] rounded-[15px] w-[auto] mx-auto justify-center py-[5px] px-[10px]"
+                    onPress={handleDelete}
+                  >
+                    <Text className="text-[#fff] text-[14px] font-bold text-center">
+                      Delete News
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

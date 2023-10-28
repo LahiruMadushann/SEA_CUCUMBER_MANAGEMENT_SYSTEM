@@ -72,7 +72,7 @@ export default function EnterSeaCucumberRatesScreen() {
         if (response.data.success) {
           Alert.alert("Sea cucumber Rates", response.data.message);
 
-          // navigation.navigate("UserProfileMainScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("SeaCucumber rates enter Failed", response.data.message);
         }

@@ -10,14 +10,14 @@ export default function FooterBar() {
   const hasToken = state.token;
 
   return (
-    <View className="mt-[1vh] mb-[2vh]">
+    <View className="mb-[2vh]">
       <View className="border-b-[0.55px] border-b-gray-500 mb-[3vh] w-[100vw] " />
       <View className="flex-row mx-auto">
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
+          <TouchableOpacity onPress={() => navigation.navigate("MainBoard")}>
             <Image
-              source={require("../assets/footer_bar/phone.png")}
-              className=" w-[30px] h-[24.99px] mr-[10vw]"
+              source={require("../assets/footer_bar/home-grey.png")}
+              className=" w-[24.99817px] h-[25.00244px]  mr-[10vw]"
             />
           </TouchableOpacity>
         </View>
@@ -28,7 +28,7 @@ export default function FooterBar() {
               onPress={() => navigation.navigate("UserProfileMainScreen")}
             >
               <Image
-                source={require("../assets/footer_bar/profile.png")}
+                source={require("../assets/footer_bar/profile-grey.png")}
                 className=" w-[21.875px] h-[25px] mr-[10vw]"
               />
             </TouchableOpacity>
@@ -41,7 +41,7 @@ export default function FooterBar() {
               onPress={() => navigation.navigate("MainNotificationScreen")}
             >
               <Image
-                source={require("../assets/footer_bar/notification.png")}
+                source={require("../assets/footer_bar/notification-grey.png")}
                 className=" w-[21.87507px] h-[25px] mr-[10vw]"
               />
             </TouchableOpacity>
@@ -53,7 +53,7 @@ export default function FooterBar() {
               onPress={() => navigation.navigate("MainAdvertisementScreen")}
             >
               <Image
-                source={require("../assets/footer_bar/ads.png")}
+                source={require("../assets/footer_bar/ads-grey.png")}
                 className=" w-[21.87507px] h-[25px] mr-[10vw]"
               />
             </TouchableOpacity>
@@ -61,19 +61,21 @@ export default function FooterBar() {
         )}
         {!hasToken && (
           <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Knowledge")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Knowledge_species")}
+            >
               <Image
-                source={require("../assets/footer_bar/search.png")}
+                source={require("../assets/footer_bar/knowledge-grey.png")}
                 className=" w-[24.99817px] h-[25.00244px] mr-[10vw]"
               />
             </TouchableOpacity>
           </View>
         )}
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate("MainBoard")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
             <Image
-              source={require("../assets/footer_bar/home.png")}
-              className=" w-[30px] h-[23.32893px] ml-[2vw]"
+              source={require("../assets/footer_bar/contact-grey.png")}
+              className=" w-[30px] h-[24.99px]"
             />
           </TouchableOpacity>
         </View>

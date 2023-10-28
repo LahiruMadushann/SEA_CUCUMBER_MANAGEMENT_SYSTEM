@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { useAuth } from "../../auth/AuthContext";
 
 import { Picker } from "@react-native-picker/picker";
 
@@ -21,6 +23,16 @@ import FooterBar from "../../components/FooterBar";
 
 export default function CreateAdsScreen() {
   const navigation = useNavigation();
+
+  const { state } = useAuth();
+  // Access the token
+  const token = state.token;
+
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const { _id: db_id } = decodedToken;
 
   const route = useRoute(); // Get the route object
   // Access the farmId parameter from route.params
@@ -52,6 +64,7 @@ export default function CreateAdsScreen() {
       contactNo: contactNo,
       address: address,
       email: email,
+      postedById: db_id,
     };
     const createAdUrl = `${BASE_URL}/districtAquaCulturist/createAdvertisement`;
 

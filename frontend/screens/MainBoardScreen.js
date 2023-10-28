@@ -42,7 +42,7 @@ export default function MainBoardScreen() {
               <Image
                 source={require("../assets/main_board/main_image.jpg")}
                 className="w-[auto] top-[-15vh] h-[auto] center rounded-b-full"
-                style={{ opacity: 0.3 }}
+                style={{ opacity: 0.5 }}
               />
             </View>
           </View>

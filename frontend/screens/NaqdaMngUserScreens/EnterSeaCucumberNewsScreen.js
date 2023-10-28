@@ -64,7 +64,7 @@ export default function EnterSeaCucumberNewsScreen() {
         if (response.data.success) {
           Alert.alert("Sea cucumber News", response.data.message);
 
-          // navigation.navigate("UserProfileMainScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("SeaCucumber News enter Failed", response.data.message);
         }

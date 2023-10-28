@@ -95,7 +95,7 @@ export default function ArticlesCategoryScreen() {
                     category: articles,
                   })
                 }
-                className="w-[80vw] h-[auto] rounded-[30px] my-auto bg-[#E0F4F1] shadow-lg shadow-gray-700 mb-4"
+                className="w-[80vw] h-[auto] rounded-[15px] my-auto bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-4"
               >
                 <View key={articles}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mx-auto mb-3  mt-3 flex-row ">

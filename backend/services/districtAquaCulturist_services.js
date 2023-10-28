@@ -117,22 +117,33 @@ class districtAquaCulturistService {
     contactNo,
     address,
     email,
-    createdAt
+    createdAt,
+    postedById
   ) {
     try {
       const createAdvertisement = new advertisementModel({
         type,
+        postedById,
         title,
         description,
         contactNo,
         address,
         email,
         createdAt,
+        postedById,
       });
       return await createAdvertisement.save();
     } catch (error) {
       throw error;
     }
+  }
+
+  //DELETE ADVERTISEMENT FOR VACANCIES AND PROMOTIONS
+  static async deleteAdvertisement(ad_Id) {
+    const deleteAdvertisement = await advertisementModel.findByIdAndDelete(
+      ad_Id
+    );
+    return deleteAdvertisement;
   }
 }
 

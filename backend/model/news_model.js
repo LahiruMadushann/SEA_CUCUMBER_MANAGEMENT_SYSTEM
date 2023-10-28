@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const userModel = require("../model/user_model");
 
 const newsSchema = new Schema({
   title: {
@@ -43,6 +44,11 @@ const newsSchema = new Schema({
   //POSTED TO FISHERIES / AQUACULTURE / ALL
   postedTo: {
     type: String,
+  },
+
+  postedById: {
+    type: Schema.Types.ObjectId,
+    ref: userModel.modelName,
   },
 });
 
