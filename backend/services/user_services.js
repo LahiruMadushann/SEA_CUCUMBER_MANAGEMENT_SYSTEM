@@ -84,6 +84,8 @@ class userService {
     return updateProPic;
   }
 
+  /* ------------------------------ NOTIFICATION REALTED CODE --------------------------------- */
+
   //GET ALL NOTIFICATIONS
   static async getAllNotifications() {
     const allNotifications = await newsModel
@@ -93,11 +95,58 @@ class userService {
     return allNotifications;
   }
 
+  // GET NOTIFICATIONS POSTED TO FARMERS
+  static async getNotificationsToFarmers() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Farmer", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO EXPORTERS
+  static async getNotificationsToExporters() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Exporter", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO FISHERMENS
+  static async getNotificationsToFishermens() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Fishermen", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO PROCESSORS
+  static async getNotificationsToProcessors() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Processor", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO DISTRICT AQUACULTURIST
+  static async getNotificationsToDistrictAquaculturist() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["District Aquaculturist", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
   //GET SINGLE NOTIFICATION
   static async getSingleNotification(notificationId) {
     const singleNotification = await newsModel.find({ _id: notificationId });
     return singleNotification;
   }
+
+  /* ------------------------------ ADVERTISEMENTS REALTED CODE --------------------------------- */
 
   //GET ALL ADVERTISEMENTS
   static async getAllAdvertisements() {

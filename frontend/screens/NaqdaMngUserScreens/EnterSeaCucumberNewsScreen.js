@@ -165,6 +165,7 @@ export default function EnterSeaCucumberNewsScreen() {
                   value="District Aquaculturist"
                 />
                 <Picker.Item label="Exporter" value="Exporter" />
+                <Picker.Item label="Processor" value="Processor" />
                 <Picker.Item label="All" value="All" />
               </Picker>
             </View>
