@@ -23,6 +23,8 @@ router.post(
   farmMngUsersController.enterSeacucumberRates
 );
 
+router.post("/farmMngUsers/deleteNews", farmMngUsersController.deleteNews);
+
 router.post(
   "/farmMngUsers/farmRegistration",
   farmImagesMiddleware.single("picture"),

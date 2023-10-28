@@ -174,7 +174,7 @@ export default function UserProfileMainScreen() {
                 </TouchableOpacity>
               </View>
 
-              <View className="mt-[4vw] ml-[5vw]">
+              <View className="mt-[4vh] ml-[5vw]">
                 <View className="flex m-[auto] ">
                   <Text className="text-[3.5vw] text-[#FFFFFF] ">
                     User Profile ({db_role})

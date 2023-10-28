@@ -15,27 +15,37 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function MainAdvertisementScreen() {
   const navigation = useNavigation();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [allAdvertisementData, setAllAdvertisementData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllAdvertisementData() {
       try {
         const response = await axios.get(
           `${BASE_URL}/user/getAllAdvertisements`
         );
         setAllAdvertisementData(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Notifications:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllAdvertisementData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
@@ -47,13 +57,15 @@ export default function MainAdvertisementScreen() {
 
   const formatTime = (rawDateTime) => {
     const dateTime = new Date(rawDateTime);
-    const hours = dateTime.getUTCHours();
-    const minutes = dateTime.getUTCMinutes();
-    const seconds = dateTime.getUTCSeconds();
+    const options = {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
 
-    return `${hours}:${String(minutes).padStart(2, "0")}:${String(
-      seconds
-    ).padStart(2, "0")}`;
+    return dateTime.toLocaleString(undefined, options);
   };
 
   return (
@@ -121,7 +133,7 @@ export default function MainAdvertisementScreen() {
                     }
                     className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
                   >
-                    <View className="w-[140px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
+                    <View className="w-[200px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                       <Image
                         source={require("../../assets/notification/calender.png")}
                         className="w-[13px] h-[15px] ml-[10vw]"

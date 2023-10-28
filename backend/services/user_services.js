@@ -86,7 +86,10 @@ class userService {
 
   //GET ALL NOTIFICATIONS
   static async getAllNotifications() {
-    const allNotifications = await newsModel.find();
+    const allNotifications = await newsModel
+      .find()
+      .sort({ date: -1 })
+      .limit(10);
     return allNotifications;
   }
 
@@ -98,7 +101,10 @@ class userService {
 
   //GET ALL ADVERTISEMENTS
   static async getAllAdvertisements() {
-    const allAdvertisements = await advertiementModel.find();
+    const allAdvertisements = await advertiementModel
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(10);
     return allAdvertisements;
   }
 
