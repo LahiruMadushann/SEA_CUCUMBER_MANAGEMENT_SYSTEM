@@ -103,6 +103,7 @@ exports.updateUser = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       firstName,
       lastName,
       contactNo,
@@ -121,6 +122,7 @@ exports.updateUser = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       contactNo,
       address,
       town,
@@ -128,8 +130,15 @@ exports.updateUser = async (req, res, next) => {
       country,
       updatedAt
     );
+
+    let updatedToken = await userService.getUpdatedToken(userId);
+
     if (updateUserDetails) {
-      res.status(200).json({ success: true, message: "Updated Successfully" });
+      res.status(200).json({
+        success: true,
+        message: "Updated Successfully",
+        data: updatedToken,
+      });
     } else {
       res.status(400).json({ success: false, message: "Update Unsuccessful" });
     }
@@ -139,7 +148,7 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
-//UPDATE USER Profile Picture CONTROLLER
+//UPDATE USER Profile Picture
 exports.updateProfilePic = async (req, res, next) => {
   try {
     const { userId } = req.body;
@@ -154,19 +163,25 @@ exports.updateProfilePic = async (req, res, next) => {
       userId,
       profilepic
     );
+
+    let updatedToken = await userService.getUpdatedToken(userId);
+
+    console.log("Updated Token: ", updatedToken);
+
     if (updateProfilepic) {
       res.status(200).json({
         success: true,
-        message: "Profile Piicture Updated Successfully",
+        message: "Profile Picture Updated Successfully",
+        data: updatedToken,
       });
     } else {
       res.status(400).json({
         success: false,
-        message: "Profile Piicture Update Unsuccessful",
+        message: "Profile Picture Update Unsuccessful",
       });
     }
   } catch (error) {
-    console.log(error, "err---->");
+    console.log("err---->", error);
     next(error);
   }
 };

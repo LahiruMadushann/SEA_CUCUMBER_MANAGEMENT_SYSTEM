@@ -107,7 +107,7 @@ export default function MainFarmScreen() {
     picture: db_picture,
   } = farmData;
 
-  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/farm-pics";
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/farm-pics`;
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
 
   console.log(profilePicUrl);

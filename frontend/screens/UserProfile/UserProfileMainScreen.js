@@ -5,7 +5,6 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import { LogBox } from "react-native";
-
 import {
   View,
   Text,
@@ -34,6 +33,8 @@ export default function UserProfileMainScreen() {
   const { state, dispatch } = useAuth();
   // Access the token
   const token = state.token;
+
+  console.log(token);
 
   // Decode the token
   const decodedToken = jwtDecode(token);
@@ -64,7 +65,7 @@ export default function UserProfileMainScreen() {
 
   // console.log(decodedToken);
 
-  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/profile-pics`;
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
 
   const handleDelete = async () => {

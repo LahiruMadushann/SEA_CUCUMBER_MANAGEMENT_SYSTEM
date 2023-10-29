@@ -5,6 +5,8 @@ const faqModel = require("../model/faq_model");
 const advertiementModel = require("../model/farm/advertisement_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
 
+const loginService = require("./login_services");
+
 const bcrypt = require("bcrypt");
 
 class userService {
@@ -47,6 +49,7 @@ class userService {
     age,
     gender,
     email,
+    nicNo,
     contactNo,
     address,
     town,
@@ -60,6 +63,7 @@ class userService {
         age: age,
         gender: gender,
         email: email,
+        nicNo: nicNo,
         firstName: firstName,
         lastName: lastName,
         contactNo: contactNo,
@@ -82,6 +86,138 @@ class userService {
       }
     );
     return updateProPic;
+  }
+
+  //GET PROFILE PICTURE
+  static async getProfilePicture(userId) {
+    const profilePic = await userModel.findOne(
+      { _id: userId },
+      { profilepic: 1 }
+    );
+    return profilePic;
+  }
+
+  /* ------------------------------GENERATE UPDATED TOKEN ON USERID --------------------------------- */
+  static async getUpdatedToken(userId) {
+    let token;
+
+    const data = await userModel.findById({ _id: userId });
+
+    if (data) {
+      // Creating Token
+      let tokenData;
+
+      if (data.role == "Admin") {
+        console.log(data.username);
+        tokenData = {
+          _id: data._id,
+          role: data.role,
+          username: data.username,
+          firstName: data.firstName,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          contactNo: data.contactNo,
+          address: data.address,
+        };
+      } else if (
+        data.role == "Chairman" ||
+        data.role == "Director General" ||
+        data.role == "Assistant Director" ||
+        data.role == "District Aquaculturist" ||
+        data.role == "Minister"
+      ) {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      } else if (data.role == "Farmer") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          farmId: data.farmId,
+          farmName: data.farmName,
+          accountStatus: data.accountStatus,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      } else if (data.role == "Fisherman") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          accountType: data.accountType,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          accountStatus: data.accountStatus,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      } else if (data.role == "Exporter" || data.role == "Processor") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      }
+      console.log(tokenData);
+
+      token = loginService.generateToken(tokenData, "secret", "1d");
+      console.log(token);
+    }
+    return token;
   }
 
   /* ------------------------------ NOTIFICATION REALTED CODE --------------------------------- */
