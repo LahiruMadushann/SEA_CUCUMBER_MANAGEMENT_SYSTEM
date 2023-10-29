@@ -4,6 +4,10 @@ const knowledgeCenterController = require("../controller/knowledgeCenter_control
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
 
+router.put("/user/updateProfilePic",imageMiddleware.single("profilepic"), userController.updateProfilePic);
+
+
+
 router.post("/user/getAllNotifications", userController.getAllNotifications);
 
 router.post(

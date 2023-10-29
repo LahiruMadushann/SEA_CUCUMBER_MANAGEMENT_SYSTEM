@@ -71,6 +71,7 @@ exports.registerFishProcesser = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    console.log("Error: ",error.message)
   }
 };
 

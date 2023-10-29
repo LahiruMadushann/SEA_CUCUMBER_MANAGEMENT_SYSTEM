@@ -6,7 +6,7 @@ const farmImagesMiddleware = require("../middleware/farmImages_middleware");
 
 router.put("/farmMngUsers/update", userController.updateUser);
 
-router.put(
+router.post(
   "/farmMngUsers/updateProfilePic",
   imageMiddleware.single("profilepic"),
   userController.updateProfilePic

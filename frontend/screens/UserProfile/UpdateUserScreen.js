@@ -25,7 +25,7 @@ import BASE_URL from "../../apiConfig/config";
 export default function UpdateUserScreen() {
   const navigation = useNavigation();
 
-  const { state } = useAuth();
+  const { state, dispatch } = useAuth();
   // Access the token
   const token = state.token;
   // Decode the token
@@ -36,6 +36,7 @@ export default function UpdateUserScreen() {
     age: db_age,
     gender: db_gender,
     email: db_email,
+    nicNo: db_nic,
     firstName: db_firstName,
     lastName: db_lastName,
     contactNo: db_contactNo,
@@ -43,6 +44,7 @@ export default function UpdateUserScreen() {
     town: db_town,
     province: db_province,
     country: db_country,
+
     // farmId: db_farmId,
     // farmName: db_farmName,
     // accountStatus: db_accountStatus,
@@ -53,6 +55,7 @@ export default function UpdateUserScreen() {
   const [age, setAge] = useState(db_age);
   const [gender, setGender] = useState(db_gender);
   const [email, setEmail] = useState(db_email);
+  const [nicNo, setNicNo] = useState(db_nic);
   const [contactNo, setContactNo] = useState(db_contactNo);
   const [address, setAddress] = useState(db_address);
   const [town, setTown] = useState(db_town);
@@ -66,6 +69,7 @@ export default function UpdateUserScreen() {
       age: age,
       gender: gender,
       email: email,
+      nicNo: nicNo,
       firstName: firstName,
       lastName: lastName,
       contactNo: contactNo,
@@ -87,8 +91,15 @@ export default function UpdateUserScreen() {
             "User Details",
             "Your details has been updated successfully."
           );
+
+          let updatedtoken = response.data.data;
+
+          // Updating the Token
+          dispatch({ type: "SET_TOKEN", payload: updatedtoken });
+
+          console.log("UpdatedToken: ", updatedtoken);
           // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }
@@ -169,6 +180,13 @@ export default function UpdateUserScreen() {
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Email"
+                required
+              />
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={nicNo}
+                onChangeText={setNicNo}
+                placeholder="NIC"
                 required
               />
               <TextInput
