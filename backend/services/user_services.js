@@ -348,6 +348,34 @@ class userService {
     const allFaqDetails = await faqModel.find();
     return allFaqDetails;
   }
+
+  /* ------------------------------ REGISTRATION VALIDATION --------------------------------- */
+
+  static async validateReg(username, email, contactNo, nicNo) {
+    try {
+      let msg;
+
+      if (await userModel.findOne({ username })) {
+        msg = "Username already exists";
+      }
+      // else if (await userModel.findOne({ email })) {
+      //   msg = "Email already exists";
+      // }
+      else if (await userModel.findOne({ contactNo })) {
+        msg = "Contact number already exists";
+      } else if (await userModel.findOne({ nicNo })) {
+        msg = "NIC No already exists";
+      } else {
+        msg = null;
+      }
+
+      console.log(msg);
+
+      return msg;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = userService;

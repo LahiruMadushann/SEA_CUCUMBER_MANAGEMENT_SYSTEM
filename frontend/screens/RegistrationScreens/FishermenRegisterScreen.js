@@ -80,9 +80,17 @@ export default function FishermanRegisterScreen() {
       fisheriesRegNo == "" ||
       age == ""
     ) {
-      Alert.alert("Empty Field", "Please fill all the fields");
+      return Alert.alert("Empty Field", "Please fill all the fields");
     } else if (password != confirmPassword) {
-      Alert.alert("Password Mismatch", "Please Enter Matching Passwords");
+      return Alert.alert(
+        "Password Mismatch",
+        "Please Enter Matching Passwords"
+      );
+    } else if (phoneNumber.length != 10) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a valid 10-digit Contact No"
+      );
     }
 
     const formData = new FormData();
@@ -119,16 +127,20 @@ export default function FishermanRegisterScreen() {
         },
       });
 
-      // Handle backend response if needed
-      console.log("Backend response:", response.data);
+      if (response.data.status == true) {
+        // Handle backend response if needed
+        //console.log("Backend response:", response.data);
+        Alert.alert(
+          "Registration Successful",
+          "Please Log in to access your account"
+        );
+        navigation.navigate("Login");
+      }
 
-      Alert.alert(
-        "Registration Successful",
-        "Please Log in to access your account"
-      );
-
-      // Navigate to appropriate screen after successful registration
-      navigation.navigate("Login");
+      if (response.data.status == false) {
+        console.log("Backend response:", response.data);
+        return Alert.alert("Registration Unsuccessful", response.data.message);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }
