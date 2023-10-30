@@ -45,6 +45,10 @@ export default function ContactUsScreen() {
       .then((response) => {
         if (response.data.success) {
           Alert.alert("Success", response.data.message);
+          setName("");
+          setEmail("");
+          setContactNo("");
+          setComment("");
         } else {
           Alert.alert("Unsuccessful", response.data.message);
         }

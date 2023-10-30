@@ -107,6 +107,11 @@ export default function FarmerRegisterScreen() {
         "Password Mismatch",
         "Please Enter Matching Passwords"
       );
+    } else if (phoneNumber.length != 10) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a valid 10-digit Contact No"
+      );
     }
 
     const formData = new FormData();
@@ -141,15 +146,18 @@ export default function FarmerRegisterScreen() {
         },
       });
 
-      // Handle backend response if needed
-      console.log("Backend response:", response.data);
-      Alert.alert(
-        "Registration Successful",
-        "Please Log in to access your account"
-      );
+      if (response.data.success == true) {
+        Alert.alert(
+          "Registration Successful",
+          "Please Log in to access your account"
+        );
+        navigation.navigate("Login");
+      }
 
-      // Navigate to appropriate screen after successful registration
-      navigation.navigate("Login");
+      if (response.data.success == false) {
+        console.log("Backend response:", response.data);
+        return Alert.alert("Registration Unsuccessful", response.data.message);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }

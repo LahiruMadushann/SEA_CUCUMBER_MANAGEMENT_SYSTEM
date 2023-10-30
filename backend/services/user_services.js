@@ -190,6 +190,11 @@ class userService {
           accountStatus: data.accountStatus,
           profilepic: data.profilepic,
           createdAt: data.createdAt,
+          fisheriesArea: data.fisheriesArea,
+          divingLicenseNo: data.divingLicenseNo,
+          fisheriesRegNo: data.fisheriesRegNo,
+          boatRegNo: data.boatRegNo,
+          idCard: data.idCard,
         };
       } else if (data.role == "Exporter" || data.role == "Processor") {
         tokenData = {
@@ -342,6 +347,34 @@ class userService {
   static async getAllFaqDetails() {
     const allFaqDetails = await faqModel.find();
     return allFaqDetails;
+  }
+
+  /* ------------------------------ REGISTRATION VALIDATION --------------------------------- */
+
+  static async validateReg(username, email, contactNo, nicNo) {
+    try {
+      let msg;
+
+      if (await userModel.findOne({ username })) {
+        msg = "Username already exists";
+      }
+      // else if (await userModel.findOne({ email })) {
+      //   msg = "Email already exists";
+      // }
+      else if (await userModel.findOne({ contactNo })) {
+        msg = "Contact number already exists";
+      } else if (await userModel.findOne({ nicNo })) {
+        msg = "NIC No already exists";
+      } else {
+        msg = null;
+      }
+
+      console.log(msg);
+
+      return msg;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

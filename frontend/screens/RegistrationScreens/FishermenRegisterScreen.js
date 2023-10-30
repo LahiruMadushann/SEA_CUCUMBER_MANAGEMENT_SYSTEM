@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+import { LogBox } from "react-native";
 import {
   View,
   Text,
@@ -20,7 +21,9 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function FishermanRegisterScreen() {
+  LogBox.ignoreAllLogs();
   const navigation = useNavigation();
+
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -77,9 +80,17 @@ export default function FishermanRegisterScreen() {
       fisheriesRegNo == "" ||
       age == ""
     ) {
-      Alert.alert("Empty Field", "Please fill all the fields");
+      return Alert.alert("Empty Field", "Please fill all the fields");
     } else if (password != confirmPassword) {
-      Alert.alert("Password Mismatch", "Please Enter Matching Passwords");
+      return Alert.alert(
+        "Password Mismatch",
+        "Please Enter Matching Passwords"
+      );
+    } else if (phoneNumber.length != 10) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a valid 10-digit Contact No"
+      );
     }
 
     const formData = new FormData();
@@ -116,16 +127,18 @@ export default function FishermanRegisterScreen() {
         },
       });
 
-      // Handle backend response if needed
-      console.log("Backend response:", response.data);
+      if (response.data.success == true) {
+        Alert.alert(
+          "Registration Successful",
+          "Please Log in to access your account"
+        );
+        navigation.navigate("Login");
+      }
 
-      Alert.alert(
-        "Registration Successful",
-        "Please Log in to access your account"
-      );
-
-      // Navigate to appropriate screen after successful registration
-      navigation.navigate("Login");
+      if (response.data.success == false) {
+        console.log("Backend response:", response.data);
+        return Alert.alert("Registration Unsuccessful", response.data.message);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }
