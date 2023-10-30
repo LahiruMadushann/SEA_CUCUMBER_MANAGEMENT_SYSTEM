@@ -25,7 +25,12 @@ class fishermanService {
     accountStatus,
     accountType,
     profilepic,
-    createdAt
+    createdAt,
+    fisheriesArea,
+    divingLicenseNo,
+    fisheriesRegNo,
+    boatRegNo,
+    idCard
   ) {
     try {
       const createFisherman = new userModel({
@@ -47,6 +52,11 @@ class fishermanService {
         accountType,
         profilepic,
         createdAt,
+        fisheriesArea,
+        divingLicenseNo,
+        fisheriesRegNo,
+        boatRegNo,
+        idCard,
       });
 
       return await createFisherman.save();

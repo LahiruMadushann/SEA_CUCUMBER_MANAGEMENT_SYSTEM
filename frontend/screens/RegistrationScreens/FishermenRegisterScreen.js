@@ -37,6 +37,10 @@ export default function FishermanRegisterScreen() {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [accountType, setAccountType] = useState("");
+  const [fisheriesArea, setFisheriesArea] = useState("");
+  const [divingLicenseNo, setDivingLicenseNo] = useState("");
+  const [fisheriesRegNo, setFisheriesRegNo] = useState("");
+  const [boatRegNo, setBoatRegNo] = useState("");
 
   const [image, setImage] = useState(null); // Use state for selected image
 
@@ -69,6 +73,8 @@ export default function FishermanRegisterScreen() {
       phoneNumber == "" ||
       gender == "" ||
       accountType == "" ||
+      fisheriesArea == "" ||
+      fisheriesRegNo == "" ||
       age == ""
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
@@ -91,6 +97,10 @@ export default function FishermanRegisterScreen() {
     formData.append("country", country);
     formData.append("contactNo", phoneNumber);
     formData.append("accountType", accountType);
+    formData.append("fisheriesArea", fisheriesArea);
+    formData.append("divingLicenseNo", divingLicenseNo);
+    formData.append("fisheriesRegNo", fisheriesRegNo);
+    formData.append("boatRegNo", boatRegNo);
     formData.append("profilepic", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
@@ -209,6 +219,50 @@ export default function FishermanRegisterScreen() {
                 <Picker.Item label="Individual" value="individual" />
                 <Picker.Item label="Group" value="group" />
               </Picker>
+            </View>
+
+            <Text className="text-lg font-bold mb-4 mt-5">Fishing Details</Text>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={fisheriesArea}
+                onChangeText={setFisheriesArea}
+                placeholder="Fisheries Area / Location"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700 ml-[4vw] w-64 mb-3 "
+                value={divingLicenseNo}
+                onChangeText={setDivingLicenseNo}
+                placeholder="Diving license number"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={fisheriesRegNo}
+                onChangeText={setFisheriesRegNo}
+                placeholder="Fisheries Registration Number"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700 w-64 mb-3 ml-[4vw]"
+                value={boatRegNo}
+                onChangeText={setBoatRegNo}
+                placeholder="Boat registration number"
+                required
+              />
             </View>
 
             <Text className="text-lg font-bold mb-4 mt-5">
