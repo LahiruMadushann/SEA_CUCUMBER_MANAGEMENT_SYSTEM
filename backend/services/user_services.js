@@ -190,6 +190,11 @@ class userService {
           accountStatus: data.accountStatus,
           profilepic: data.profilepic,
           createdAt: data.createdAt,
+          fisheriesArea: data.fisheriesArea,
+          divingLicenseNo: data.divingLicenseNo,
+          fisheriesRegNo: data.fisheriesRegNo,
+          boatRegNo: data.boatRegNo,
+          idCard: data.idCard,
         };
       } else if (data.role == "Exporter" || data.role == "Processor") {
         tokenData = {
