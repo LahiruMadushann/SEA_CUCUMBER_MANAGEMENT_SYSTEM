@@ -86,9 +86,22 @@ const userSchema = new Schema({
   updatedAt: {
     type: Date,
   },
-  otp: {
+  fisheriesArea: {
     type: String,
   },
+  divingLicenseNo: {
+    type: String,
+  },
+  fisheriesRegNo: {
+    type: String,
+  },
+  boatRegNo: {
+    type: String,
+  },
+  idCard: {
+    type: String,
+  },
+
   tokens: [{ type: Object }],
 });
 

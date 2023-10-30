@@ -20,6 +20,10 @@ exports.registerFisherman = async (req, res, next) => {
       province,
       country,
       accountType,
+      fisheriesArea,
+      divingLicenseNo,
+      fisheriesRegNo,
+      boatRegNo,
     } = req.body;
 
     if (req.file === undefined) {
@@ -28,6 +32,11 @@ exports.registerFisherman = async (req, res, next) => {
 
     const profilepic = req.file.filename;
     const createdAt = new Date().toISOString();
+
+    const min = 100000000;
+    const max = 999999999;
+
+    let idCard = Math.floor(Math.random() * (max - min + 1)) + min;
 
     const successResFarmer = await fishermanService.registerFisherman(
       username,
@@ -47,7 +56,12 @@ exports.registerFisherman = async (req, res, next) => {
       "Inactive",
       accountType,
       profilepic,
-      createdAt
+      createdAt,
+      fisheriesArea,
+      divingLicenseNo,
+      fisheriesRegNo,
+      boatRegNo,
+      idCard
     );
 
     if (successResFarmer) {
