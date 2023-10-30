@@ -1,5 +1,6 @@
 const fishProcesserService = require("../services/fishProcesser_services");
 const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 //REGISTER FISH PROCESSER ACCOUNT CONTROLLER
 exports.registerFishProcesser = async (req, res, next) => {
@@ -21,7 +22,19 @@ exports.registerFishProcesser = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const profilepic = req.file.filename;
@@ -71,7 +84,7 @@ exports.registerFishProcesser = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    console.log("Error: ",error.message)
+    console.log("Error: ", error.message);
   }
 };
 

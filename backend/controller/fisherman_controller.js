@@ -1,7 +1,6 @@
 const fishermanService = require("../services/fisherman_services");
 const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
-const loginService = require("../services/login_services");
 const userService = require("../services/user_services");
 
 //REGISTER FISHERMAN DETAILS CONTROLLER
@@ -29,7 +28,7 @@ exports.registerFisherman = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, message: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
     }
 
     let checkUser = await userService.validateReg(
@@ -41,7 +40,7 @@ exports.registerFisherman = async (req, res, next) => {
 
     console.log(checkUser);
     if (checkUser) {
-      return res.json({ status: false, message: checkUser });
+      return res.json({ success: false, message: checkUser });
     }
 
     const profilepic = req.file.filename;
@@ -81,7 +80,7 @@ exports.registerFisherman = async (req, res, next) => {
     if (successResFarmer) {
       res
         .status(200)
-        .json({ status: true, message: "Registration Successfully" });
+        .json({ success: true, message: "Registration Successfully" });
 
       let recipient = email;
       let subject = "Account Created for " + username;
@@ -97,7 +96,7 @@ exports.registerFisherman = async (req, res, next) => {
     } else {
       res
         .status(400)
-        .json({ status: false, message: "Registration Unsuccessful" });
+        .json({ success: false, message: "Registration Unsuccessful" });
     }
   } catch (error) {
     next(error);

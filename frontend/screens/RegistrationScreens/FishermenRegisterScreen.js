@@ -127,9 +127,7 @@ export default function FishermanRegisterScreen() {
         },
       });
 
-      if (response.data.status == true) {
-        // Handle backend response if needed
-        //console.log("Backend response:", response.data);
+      if (response.data.success == true) {
         Alert.alert(
           "Registration Successful",
           "Please Log in to access your account"
@@ -137,7 +135,7 @@ export default function FishermanRegisterScreen() {
         navigation.navigate("Login");
       }
 
-      if (response.data.status == false) {
+      if (response.data.success == false) {
         console.log("Backend response:", response.data);
         return Alert.alert("Registration Unsuccessful", response.data.message);
       }
