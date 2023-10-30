@@ -1,6 +1,7 @@
 const adminService = require("../services/admin_services");
 const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 exports.register = async (req, res, next) => {
   try {
@@ -74,7 +75,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const createdAt = new Date().toISOString();
