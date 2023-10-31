@@ -115,7 +115,8 @@ class aquaFramMngUsersService {
     gpsCoordinatesFour,
     farmInternal,
     establishmentDate,
-    date,
+    contactNo,
+    createdAt,
     picture
   ) {
     try {
@@ -131,7 +132,8 @@ class aquaFramMngUsersService {
         gpsCoordinatesFour,
         farmInternal,
         establishmentDate,
-        date,
+        contactNo,
+        createdAt,
         picture,
       });
 

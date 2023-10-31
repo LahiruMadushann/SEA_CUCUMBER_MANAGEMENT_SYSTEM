@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  Linking,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FarmPopupScreen from "../../components/FarmPopupScreen";
@@ -37,11 +38,18 @@ export default function MainFarmScreen() {
   console.log(db_role);
 
   let haveFarmAccess;
+  let haveCallAccess;
 
-  if (db_role == "Exporter") {
+  if (db_role == "Exporter" || db_role == "Assistant Director") {
     haveFarmAccess = false;
   } else {
     haveFarmAccess = true;
+  }
+
+  if (db_role == "Exporter") {
+    haveCallAccess = true;
+  } else {
+    haveCallAccess = false;
   }
 
   const [farmData, setFarmData] = useState([]);
@@ -104,6 +112,7 @@ export default function MainFarmScreen() {
     gpsCoordinatesFour: db_gpsCoordinatesFour,
     farmInternal: db_farmInternal,
     establishmentDate: db_establishmentDate,
+    contactNo: db_contactNo,
     picture: db_picture,
   } = farmData;
 
@@ -345,7 +354,16 @@ export default function MainFarmScreen() {
 
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    licenseNo
+                    Contact No
+                  </Text>
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {db_contactNo}
+                  </Text>
+                </View>
+
+                <View className="ml-[16vw] mt-[1.8vh]">
+                  <Text className="text-[13px] font-bold text-[#000000A6]">
+                    license No
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_licenseNo}
@@ -485,6 +503,18 @@ export default function MainFarmScreen() {
               </View>
             )}
           </View>
+          {haveCallAccess && (
+            <View className="mt-[2vh] mb-[4vh]">
+              <TouchableOpacity
+                className="bg-[#5A73F4] rounded-[2px] shadow-lg shadow-gray-700 w-[25vw] mx-auto justify-center py-[5px] px-[10px]"
+                onPress={() => Linking.openURL("tel:" + db_contactNo)}
+              >
+                <Text className="text-[#fff] text-[18px] font-bold text-center">
+                  Call Now
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
           <FooterBar />

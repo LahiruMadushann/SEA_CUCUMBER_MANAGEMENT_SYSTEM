@@ -24,6 +24,7 @@ export default function FarmRegisterScreen() {
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [name, setName] = useState("");
+  const [contactNo, setContactNo] = useState("");
   const [licenseNo, setLicenseNo] = useState("");
   const [validity, setValidity] = useState("");
   const [location, setLocation] = useState("");
@@ -53,6 +54,7 @@ export default function FarmRegisterScreen() {
   const handleRegistration = async () => {
     if (
       name == "" ||
+      contactNo == "" ||
       licenseNo == "" ||
       validity == "" ||
       location == "" ||
@@ -70,6 +72,7 @@ export default function FarmRegisterScreen() {
 
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("contactNo", contactNo);
     formData.append("licenseNo", licenseNo);
     formData.append("validity", validity);
     formData.append("location", location);
@@ -155,10 +158,20 @@ export default function FarmRegisterScreen() {
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={contactNo}
+                onChangeText={setContactNo}
+                placeholder="Contact No"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                 value={licenseNo}
                 onChangeText={setLicenseNo}
                 placeholder="License No"
-                secureTextEntry
                 required
               />
             </View>

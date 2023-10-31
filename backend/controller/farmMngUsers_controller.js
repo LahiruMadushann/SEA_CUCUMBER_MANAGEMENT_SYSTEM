@@ -156,6 +156,7 @@ exports.registerFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
+      contactNo,
     } = req.body;
 
     if (req.file === undefined) {
@@ -164,7 +165,7 @@ exports.registerFarm = async (req, res, next) => {
 
     const picture = req.file.filename;
 
-    const date = new Date().toISOString();
+    const createdAt = new Date().toISOString();
 
     const successResFarm = await farmMngUserService.registerFarm(
       name,
@@ -178,7 +179,8 @@ exports.registerFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
-      date,
+      contactNo,
+      createdAt,
       picture
     );
     if (successResFarm) {
