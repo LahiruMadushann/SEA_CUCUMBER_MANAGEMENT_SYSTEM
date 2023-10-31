@@ -64,7 +64,7 @@ export default function EnterSeaCucumberNewsScreen() {
         if (response.data.success) {
           Alert.alert("Sea cucumber News", response.data.message);
 
-          // navigation.navigate("UserProfileMainScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("SeaCucumber News enter Failed", response.data.message);
         }
@@ -165,6 +165,7 @@ export default function EnterSeaCucumberNewsScreen() {
                   value="District Aquaculturist"
                 />
                 <Picker.Item label="Exporter" value="Exporter" />
+                <Picker.Item label="Processor" value="Processor" />
                 <Picker.Item label="All" value="All" />
               </Picker>
             </View>

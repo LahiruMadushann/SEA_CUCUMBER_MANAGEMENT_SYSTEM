@@ -25,21 +25,14 @@ class fishermanService {
     accountStatus,
     accountType,
     profilepic,
-    createdAt
+    createdAt,
+    fisheriesArea,
+    divingLicenseNo,
+    fisheriesRegNo,
+    boatRegNo,
+    idCard
   ) {
     try {
-      let recipient = email;
-      let subject = "Account Created for " + username;
-      let text =
-        "Hi," +
-        firstName +
-        " " +
-        lastName +
-        "\n" +
-        "Your Fisherman Account has be successfully created";
-
-      emailService.sendEmail(recipient, subject, text);
-
       const createFisherman = new userModel({
         username,
         password,
@@ -59,6 +52,11 @@ class fishermanService {
         accountType,
         profilepic,
         createdAt,
+        fisheriesArea,
+        divingLicenseNo,
+        fisheriesRegNo,
+        boatRegNo,
+        idCard,
       });
 
       return await createFisherman.save();
@@ -70,24 +68,35 @@ class fishermanService {
   static async enterFishingDetails(
     userId,
     speciesType,
-    weight,
     numOfSpecies,
-    location,
-    gearType,
+    fishingArea,
+    buyer,
+    buyingPrice,
     date,
     fishingImage
   ) {
+    console.log(userId);
+    console.log(speciesType);
+    console.log(numOfSpecies);
+    console.log(fishingArea);
+    console.log(buyer);
+    console.log(buyingPrice);
+    console.log(date);
+    console.log(fishingImage);
+
     try {
       const fishingDetails = new fishingModel({
         fishermanId: userId,
         speciesType,
-        weight,
         numOfSpecies,
-        location,
-        gearType,
+        fishingArea,
+        buyer,
+        buyingPrice,
         date,
         fishingImage,
       });
+
+      console.log(fishingDetails);
 
       return await fishingDetails.save();
     } catch (err) {

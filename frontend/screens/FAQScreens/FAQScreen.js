@@ -14,26 +14,36 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function FAQScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [allFAQDetails, setAllFAQDetails] = useState([]);
   const [selectedFAQ, setSelectedFAQ] = useState(null);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllFAQDetails() {
       try {
         const response = await axios.get(`${BASE_URL}/user/getAllFAQDetails`);
         setAllFAQDetails(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Species data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllFAQDetails();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   //console.log(allFAQDetails);
 

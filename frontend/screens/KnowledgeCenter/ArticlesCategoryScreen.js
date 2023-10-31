@@ -15,26 +15,37 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function ArticlesCategoryScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [allArticlesCategories, setAllArticlesCategories] = useState([]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchArticlesCategories() {
       try {
         const response = await axios.get(
           `${BASE_URL}/user/getAllArticlesCategories`
         );
-        setAllArticlesCategories(response.data.data); // Update state with fetched data
+        setAllArticlesCategories(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Species data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchArticlesCategories();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   //console.log(allArticlesCategories);
 
@@ -84,7 +95,7 @@ export default function ArticlesCategoryScreen() {
                     category: articles,
                   })
                 }
-                className="w-[80vw] h-[auto] rounded-[30px] my-auto bg-[#E0F4F1] shadow-lg shadow-gray-700 mb-4"
+                className="w-[80vw] h-[auto] rounded-[15px] my-auto bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-4"
               >
                 <View key={articles}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mx-auto mb-3  mt-3 flex-row ">

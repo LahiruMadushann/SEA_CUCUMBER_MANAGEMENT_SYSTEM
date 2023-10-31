@@ -1,5 +1,7 @@
 const farmerService = require("../services/farmer_services");
 const bcrypt = require("bcrypt");
+const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 //REGISTER FARMER DETAILS CONTROLLER
 exports.registerFarmer = async (req, res, next) => {
@@ -24,7 +26,19 @@ exports.registerFarmer = async (req, res, next) => {
     
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const profilepic = req.file.filename;
@@ -56,6 +70,18 @@ exports.registerFarmer = async (req, res, next) => {
       res
         .status(200)
         .json({ success: true, message: "Registration Successfully" });
+
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your Farmer Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res
         .status(400)

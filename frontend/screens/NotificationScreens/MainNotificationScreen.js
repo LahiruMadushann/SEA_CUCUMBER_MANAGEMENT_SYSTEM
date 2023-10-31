@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { useAuth } from "../../auth/AuthContext";
+
 import {
   View,
   Text,
@@ -15,27 +19,52 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
+import { LogBox } from "react-native";
+import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function MainNotificationScreen() {
   const navigation = useNavigation();
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { state } = useAuth();
+
+  // Access the token
+  const token = state.token;
+
+  // Decode the token
+  const decodedToken = jwtDecode(token);
+
+  // Access payload data from the decoded token
+  const { _id: db_id, role: db_role } = decodedToken;
+
+  console.log(db_role);
 
   const [allNotificationData, setAllNotificationData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllNotificationData() {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/user/getAllNotifications`
+        const response = await axios.post(
+          `${BASE_URL}/user/getAllNotifications`,
+          { userRole: db_role }
         );
-        setAllNotificationData(response.data.data); // Update state with fetched data
+        setAllNotificationData(response.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Notifications:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllNotificationData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
@@ -47,13 +76,15 @@ export default function MainNotificationScreen() {
 
   const formatTime = (rawDateTime) => {
     const dateTime = new Date(rawDateTime);
-    const hours = dateTime.getUTCHours();
-    const minutes = dateTime.getUTCMinutes();
-    const seconds = dateTime.getUTCSeconds();
+    const options = {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
 
-    return `${hours}:${String(minutes).padStart(2, "0")}:${String(
-      seconds
-    ).padStart(2, "0")}`;
+    return dateTime.toLocaleString(undefined, options);
   };
 
   return (
@@ -122,7 +153,7 @@ export default function MainNotificationScreen() {
                     }
                     className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
                   >
-                    <View className="w-[140px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
+                    <View className="w-[200px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                       <Image
                         source={require("../../assets/notification/calender.png")}
                         className="w-[13px] h-[15px] ml-[10vw]"

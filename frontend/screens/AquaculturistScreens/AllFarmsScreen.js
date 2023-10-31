@@ -12,31 +12,43 @@ import {
   ScrollView,
   StyleSheet,
   Button,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import PopupScreen from "../../components/PopupScreen";
 import FooterBar from "../../components/FooterBar";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function AllFarmsScreen() {
   const navigation = useNavigation();
 
   const [allFarmData, setAllFarmData] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     async function fetchAllFarmData() {
       try {
         const response = await axios.get(
           `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
         );
         setAllFarmData(response.data.data); // Update state with fetched data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching farm data:", error);
+        setIsLoading(false);
       }
     }
 
     fetchAllFarmData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   console.log(allFarmData);
 
@@ -97,10 +109,10 @@ export default function AllFarmsScreen() {
 
                   <View className="flex mt-[1vw] ml-[10vw]">
                     <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                      Total Stock : {farm.licenseNo}
+                      Total Stock : {farm.stock}
                     </Text>
                     <Text className=" text-[15px] flex-auto mt-[1vw]">
-                      Location : {farm.address}
+                      Location : {farm.location}
                     </Text>
                   </View>
                 </View>

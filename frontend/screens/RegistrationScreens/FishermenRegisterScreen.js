@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+import { LogBox } from "react-native";
 import {
   View,
   Text,
@@ -20,7 +21,9 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function FishermanRegisterScreen() {
+  LogBox.ignoreAllLogs();
   const navigation = useNavigation();
+
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -37,6 +40,10 @@ export default function FishermanRegisterScreen() {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [accountType, setAccountType] = useState("");
+  const [fisheriesArea, setFisheriesArea] = useState("");
+  const [divingLicenseNo, setDivingLicenseNo] = useState("");
+  const [fisheriesRegNo, setFisheriesRegNo] = useState("");
+  const [boatRegNo, setBoatRegNo] = useState("");
 
   const [image, setImage] = useState(null); // Use state for selected image
 
@@ -69,11 +76,21 @@ export default function FishermanRegisterScreen() {
       phoneNumber == "" ||
       gender == "" ||
       accountType == "" ||
+      fisheriesArea == "" ||
+      fisheriesRegNo == "" ||
       age == ""
     ) {
-      Alert.alert("Empty Field", "Please fill all the fields");
+      return Alert.alert("Empty Field", "Please fill all the fields");
     } else if (password != confirmPassword) {
-      Alert.alert("Password Mismatch", "Please Enter Matching Passwords");
+      return Alert.alert(
+        "Password Mismatch",
+        "Please Enter Matching Passwords"
+      );
+    } else if (phoneNumber.length != 10) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a valid 10-digit Contact No"
+      );
     }
 
     const formData = new FormData();
@@ -91,6 +108,10 @@ export default function FishermanRegisterScreen() {
     formData.append("country", country);
     formData.append("contactNo", phoneNumber);
     formData.append("accountType", accountType);
+    formData.append("fisheriesArea", fisheriesArea);
+    formData.append("divingLicenseNo", divingLicenseNo);
+    formData.append("fisheriesRegNo", fisheriesRegNo);
+    formData.append("boatRegNo", boatRegNo);
     formData.append("profilepic", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
@@ -106,16 +127,18 @@ export default function FishermanRegisterScreen() {
         },
       });
 
-      // Handle backend response if needed
-      console.log("Backend response:", response.data);
+      if (response.data.success == true) {
+        Alert.alert(
+          "Registration Successful",
+          "Please Log in to access your account"
+        );
+        navigation.navigate("Login");
+      }
 
-      Alert.alert(
-        "Registration Successful",
-        "Please Log in to access your account"
-      );
-
-      // Navigate to appropriate screen after successful registration
-      navigation.navigate("Login");
+      if (response.data.success == false) {
+        console.log("Backend response:", response.data);
+        return Alert.alert("Registration Unsuccessful", response.data.message);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -209,6 +232,50 @@ export default function FishermanRegisterScreen() {
                 <Picker.Item label="Individual" value="individual" />
                 <Picker.Item label="Group" value="group" />
               </Picker>
+            </View>
+
+            <Text className="text-lg font-bold mb-4 mt-5">Fishing Details</Text>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={fisheriesArea}
+                onChangeText={setFisheriesArea}
+                placeholder="Fisheries Area / Location"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700 ml-[4vw] w-64 mb-3 "
+                value={divingLicenseNo}
+                onChangeText={setDivingLicenseNo}
+                placeholder="Diving license number"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={fisheriesRegNo}
+                onChangeText={setFisheriesRegNo}
+                placeholder="Fisheries Registration Number"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700 w-64 mb-3 ml-[4vw]"
+                value={boatRegNo}
+                onChangeText={setBoatRegNo}
+                placeholder="Boat registration number"
+                required
+              />
             </View>
 
             <Text className="text-lg font-bold mb-4 mt-5">

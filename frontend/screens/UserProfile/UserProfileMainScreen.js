@@ -5,7 +5,6 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import { LogBox } from "react-native";
-
 import {
   View,
   Text,
@@ -35,6 +34,8 @@ export default function UserProfileMainScreen() {
   // Access the token
   const token = state.token;
 
+  console.log(token);
+
   // Decode the token
   const decodedToken = jwtDecode(token);
 
@@ -60,11 +61,16 @@ export default function UserProfileMainScreen() {
     accountType: accountType,
     profilepic: db_profilepic,
     createdAt: db_createdAt,
+    fisheriesArea: fisheriesArea,
+    divingLicenseNo: divingLicenseNo,
+    fisheriesRegNo: fisheriesRegNo,
+    boatRegNo: boatRegNo,
+    idCard: idCard,
   } = decodedToken;
 
-  // console.log(decodedToken);
+  console.log(accountType);
 
-  const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/profile-pics`;
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
 
   const handleDelete = async () => {
@@ -174,7 +180,7 @@ export default function UserProfileMainScreen() {
                 </TouchableOpacity>
               </View>
 
-              <View className="mt-[4vw] ml-[5vw]">
+              <View className="mt-[4vh] ml-[5vw]">
                 <View className="flex m-[auto] ">
                   <Text className="text-[3.5vw] text-[#FFFFFF] ">
                     User Profile ({db_role})
@@ -213,14 +219,12 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[66vw] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/name.png")}
-                    className=" w-[16px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/user.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -233,38 +237,38 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/email.png")}
-                    className=" w-[17px] h-[15px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/accountType.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
               <Text className="text-[4vw] font-bold  ">Account Type</Text>
-              {accountType === "individual" ? (
+              {accountType === "Individual" ? (
                 <Text className="text-[3.5vw] font-light">
                   Individual Account
                 </Text>
-              ) : accountType === "group" ? (
+              ) : accountType === "Group" ? (
                 <Text className="text-[3.5vw] font-light">Group Account</Text>
+              ) : accountType == null ? (
+                <Text className="text-[3.5vw] font-light">
+                  {db_role} Account
+                </Text>
               ) : null}
             </View>
           </View>
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/email.png")}
-                    className=" w-[17px] h-[15px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/email.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -275,14 +279,12 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/job.png")}
-                    className=" w-[16px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/role.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -293,14 +295,12 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/job.png")}
-                    className=" w-[16px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/nic.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -311,14 +311,12 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/gender.png")}
-                    className=" w-[16px] h-[19px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/gender.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -329,14 +327,12 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/birthday.png")}
-                    className=" w-[16px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/birthday.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
@@ -349,36 +345,32 @@ export default function UserProfileMainScreen() {
 
           <View className="flex-row mt-[3vh] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/phone.png")}
-                    className=" w-[12px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/phone.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
               <Text className="text-[4vw] font-bold  ">Telephone No</Text>
-              <Text className="text-[3.5vw] font-light">+94765259905</Text>
+              <Text className="text-[3.5vw] font-light">{db_contactNo}</Text>
             </View>
           </View>
 
-          <View className="flex-row mt-[10vw] ml-[18vw]">
+          <View className="flex-row mt-[8vw] ml-[18vw]">
             <View className=" ">
-              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <View className="flex m-[auto] ">
-                  <Image
-                    source={require("../../assets/user/address.png")}
-                    className=" w-[16px] h-[18px] "
-                  />
-                </View>
-              </TouchableOpacity>
+              <View className="flex m-[auto] ">
+                <Image
+                  source={require("../../assets/user/address.png")}
+                  className=" w-[30px] h-[30px] "
+                />
+              </View>
             </View>
 
             <View className="flex ml-[6vw] mt-[-1vw]">
-              <Text className="text-[4vw] font-bold  ">Address</Text>
+              <Text className="text-[4vw] font-bold">Address</Text>
               <Text className="text-[3.5vw] font-light">
                 {db_address}, {db_town},{"\n"}
                 {db_province},{"\n"}
@@ -386,6 +378,111 @@ export default function UserProfileMainScreen() {
               </Text>
             </View>
           </View>
+
+          {db_role == "Fisherman" ? (
+            <View className="mt-[5vh]">
+              <Text className="text-[5vw] color-[#5A73F4] font-bold mx-[auto]">
+                Fisheries Details
+              </Text>
+
+              <View className="flex-row mt-[3vh] ml-[15vw]">
+                <View className=" ">
+                  <View className="flex m-[auto] ">
+                    <Image
+                      source={require("../../assets/user/bullet.png")}
+                      className=" w-[30px] h-[30px] "
+                    />
+                  </View>
+                </View>
+
+                <View className="flex ml-[2vw] mt-[-1vw] ">
+                  <Text className="text-[4vw] font-bold  ">Id Card</Text>
+                  <Text className="text-[3.5vw] font-light">{idCard}</Text>
+                </View>
+              </View>
+
+              <View className="flex-row mt-[3vh] ml-[15vw]">
+                <View className=" ">
+                  <View className="flex m-[auto] ">
+                    <Image
+                      source={require("../../assets/user/bullet.png")}
+                      className=" w-[30px] h-[30px] "
+                    />
+                  </View>
+                </View>
+
+                <View className="flex ml-[2vw] mt-[-1vw] ">
+                  <Text className="text-[4vw] font-bold  ">
+                    Diving License No
+                  </Text>
+                  <Text className="text-[3.5vw] font-light">
+                    {divingLicenseNo}
+                  </Text>
+                </View>
+              </View>
+
+              {fisheriesRegNo && (
+                <View className="flex-row mt-[3vh] ml-[15vw]">
+                  <View className=" ">
+                    <View className="flex m-[auto] ">
+                      <Image
+                        source={require("../../assets/user/bullet.png")}
+                        className=" w-[30px] h-[30px] "
+                      />
+                    </View>
+                  </View>
+
+                  <View className="flex ml-[2vw] mt-[-1vw] ">
+                    <Text className="text-[4vw] font-bold  ">
+                      Fishing Registration No
+                    </Text>
+                    <Text className="text-[3.5vw] font-light">
+                      {fisheriesRegNo}
+                    </Text>
+                  </View>
+                </View>
+              )}
+
+              {boatRegNo && (
+                <View className="flex-row mt-[3vh] ml-[15vw]">
+                  <View className=" ">
+                    <View className="flex m-[auto] ">
+                      <Image
+                        source={require("../../assets/user/bullet.png")}
+                        className=" w-[30px] h-[30px] "
+                      />
+                    </View>
+                  </View>
+
+                  <View className="flex ml-[2vw] mt-[-1vw] ">
+                    <Text className="text-[4vw] font-bold  ">
+                      Boat Registration No
+                    </Text>
+                    <Text className="text-[3.5vw] font-light">{boatRegNo}</Text>
+                  </View>
+                </View>
+              )}
+
+              <View className="flex-row mt-[3vh] ml-[15vw]">
+                <View className=" ">
+                  <View className="flex m-[auto] ">
+                    <Image
+                      source={require("../../assets/user/bullet.png")}
+                      className=" w-[30px] h-[30px] "
+                    />
+                  </View>
+                </View>
+
+                <View className="flex ml-[2vw] mt-[-1vw] ">
+                  <Text className="text-[4vw] font-bold  ">Fisheries Area</Text>
+                  <Text className="text-[3.5vw] font-light">
+                    {fisheriesArea}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          ) : null}
+
           <View className="flex ml-[6vw]  mt-[5vh] mb-[4vh]">
             <TouchableOpacity
               className="bg-[#C61A1A] rounded-[15px] w-[40vw] mx-auto justify-center py-[5px] px-[10px]"

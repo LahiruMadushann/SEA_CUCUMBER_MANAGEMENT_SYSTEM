@@ -32,8 +32,8 @@ router.get(
   exporterController.getFishProcessorsDetails
 );
 
-router.get(
-  "/exporter/getIndividualFishProcessorDetails",
+router.post(
+  "/exporter/getIndividualProcessorDetails",
   exporterController.getIndividualFishProcessorsDetails
 );
 

@@ -42,7 +42,8 @@ class aquaFramMngUsersService {
     date,
     role,
     postedBy,
-    postedTo
+    postedTo,
+    postedById
   ) {
     try {
       const enterNews = new newsModel({
@@ -53,6 +54,7 @@ class aquaFramMngUsersService {
         role,
         postedBy,
         postedTo,
+        postedById,
       });
 
       return await enterNews.save();
@@ -71,7 +73,8 @@ class aquaFramMngUsersService {
     date,
     role,
     postedBy,
-    postedTo
+    postedTo,
+    postedById
   ) {
     try {
       const enterSeaCucumberRates = new newsModel({
@@ -84,12 +87,19 @@ class aquaFramMngUsersService {
         role,
         postedBy,
         postedTo,
+        postedById,
       });
 
       return await enterSeaCucumberRates.save();
     } catch (err) {
       throw err;
     }
+  }
+
+  //DELETE NEWS
+  static async deleteNews(news_Id) {
+    const deleteNews = await newsModel.findByIdAndDelete(news_Id);
+    return deleteNews;
   }
 
   //REGISTER FARMS TO THE SYSTEM
@@ -105,7 +115,8 @@ class aquaFramMngUsersService {
     gpsCoordinatesFour,
     farmInternal,
     establishmentDate,
-    date,
+    contactNo,
+    createdAt,
     picture
   ) {
     try {
@@ -121,7 +132,8 @@ class aquaFramMngUsersService {
         gpsCoordinatesFour,
         farmInternal,
         establishmentDate,
-        date,
+        contactNo,
+        createdAt,
         picture,
       });
 

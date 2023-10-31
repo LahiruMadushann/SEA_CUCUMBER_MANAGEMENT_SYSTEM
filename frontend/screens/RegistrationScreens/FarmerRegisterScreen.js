@@ -20,7 +20,11 @@ import FooterBar from "../../components/FooterBar";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
+import LoadingIndicator from "../LoadingIndicatorScreen";
+
 export default function FarmerRegisterScreen() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -44,6 +48,7 @@ export default function FarmerRegisterScreen() {
   const [image, setImage] = useState(null); // Use state for selected image
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchFarmNames() {
       try {
         const response = await axios.get(
@@ -52,13 +57,19 @@ export default function FarmerRegisterScreen() {
 
         const farmNamesData = response.data.data; // Access the data property
         setFarmNames(farmNamesData); // Store farm names with IDs
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching farm names:", error);
+        setIsLoading(false);
       }
     }
 
     fetchFarmNames();
   }, []);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -96,6 +107,11 @@ export default function FarmerRegisterScreen() {
         "Password Mismatch",
         "Please Enter Matching Passwords"
       );
+    } else if (phoneNumber.length != 10) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a valid 10-digit Contact No"
+      );
     }
 
     const formData = new FormData();
@@ -130,15 +146,18 @@ export default function FarmerRegisterScreen() {
         },
       });
 
-      // Handle backend response if needed
-      console.log("Backend response:", response.data);
-      Alert.alert(
-        "Registration Successful",
-        "Please Log in to access your account"
-      );
+      if (response.data.success == true) {
+        Alert.alert(
+          "Registration Successful",
+          "Please Log in to access your account"
+        );
+        navigation.navigate("Login");
+      }
 
-      // Navigate to appropriate screen after successful registration
-      navigation.navigate("Login");
+      if (response.data.success == false) {
+        console.log("Backend response:", response.data);
+        return Alert.alert("Registration Unsuccessful", response.data.message);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }

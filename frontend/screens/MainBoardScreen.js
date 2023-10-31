@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 import MainBoardPopupScreen from "../components/MainBoardPopupScreen";
+import BASE_URL from "../apiConfig/config";
 
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
@@ -20,8 +21,9 @@ export default function MainBoardScreen() {
 
     // Access payload data from the decoded token
     const { profilepic: db_profilepic } = decodedToken;
+    console.log("Profile pic: ", db_profilepic);
 
-    const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/profile-pics";
+    const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/profile-pics`;
     profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
   }
 
@@ -42,7 +44,7 @@ export default function MainBoardScreen() {
               <Image
                 source={require("../assets/main_board/main_image.jpg")}
                 className="w-[auto] top-[-15vh] h-[auto] center rounded-b-full"
-                style={{ opacity: 0.3 }}
+                style={{ opacity: 0.5 }}
               />
             </View>
           </View>

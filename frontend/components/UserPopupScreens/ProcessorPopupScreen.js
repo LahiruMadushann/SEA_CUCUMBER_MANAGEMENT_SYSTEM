@@ -43,7 +43,18 @@ export default function ProcessorPopupScreen() {
             onPress={() => navigation.navigate("EnterProcessedDataScreen")}
           >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">Processing data</Text>
+              <Text className="mx-[1vw] text-center">
+                Enter Processed {"\n"}Sea cucumber
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ViewProcessedRecordsScreen")}
+          >
+            <View style={styles.tab}>
+              <Text className="mx-[1vw] text-center">
+                Processed {"\n"}Records
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

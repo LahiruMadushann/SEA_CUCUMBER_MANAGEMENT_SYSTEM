@@ -52,6 +52,7 @@ export default function UpdateFarmScreen() {
     gpsCoordinatesFour: "",
     farmInternal: "",
     establishmentDate: "",
+    contactNo: "",
   });
 
   const handleUpdate = () => {
@@ -68,6 +69,7 @@ export default function UpdateFarmScreen() {
       gpsCoordinatesFour: farmData.gpsCoordinatesFour,
       farmInternal: farmData.farmInternal,
       establishmentDate: farmData.establishmentDate,
+      contactNo: farmData.contactNo,
     };
 
     const updateUrl = `${BASE_URL}/districtAquaCulturist/updateFarmDetails`;
@@ -81,8 +83,8 @@ export default function UpdateFarmScreen() {
             "Farm Details",
             "Farm details has been updated successfully."
           );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
+
+          navigation.navigate("MainFarmScreen");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }
@@ -136,6 +138,18 @@ export default function UpdateFarmScreen() {
                   setFarmData((prevState) => ({ ...prevState, name: value }))
                 }
                 placeholder="Farm Name"
+                required
+              />
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={farmData.contactNo}
+                onChangeText={(value) =>
+                  setFarmData((prevState) => ({
+                    ...prevState,
+                    contactNo: value,
+                  }))
+                }
+                placeholder="Contact No"
                 required
               />
               <TextInput

@@ -1,4 +1,6 @@
 const fishProcesserService = require("../services/fishProcesser_services");
+const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 //REGISTER FISH PROCESSER ACCOUNT CONTROLLER
 exports.registerFishProcesser = async (req, res, next) => {
@@ -20,7 +22,19 @@ exports.registerFishProcesser = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const profilepic = req.file.filename;
@@ -51,6 +65,18 @@ exports.registerFishProcesser = async (req, res, next) => {
       res
         .status(200)
         .json({ success: true, message: "Registration Successfully" });
+
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your Processor Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res
         .status(400)
@@ -58,6 +84,7 @@ exports.registerFishProcesser = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    console.log("Error: ", error.message);
   }
 };
 
@@ -117,6 +144,33 @@ exports.getProcessedSeacucumberDetails = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error.message, "err---->");
+    next(error);
+  }
+};
+
+//GETTING SINGLE PROCESSED SEA CUCUMBER DETAILS
+exports.getSingleProcessedSeacucumberDetails = async (req, res, next) => {
+  try {
+    const { recordId } = req.body;
+
+    let pscDetails = await fishProcesserService.getProcessedRecordDetails(
+      recordId
+    );
+
+    if (pscDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Processed Sea cucumber details",
+        data: pscDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No data found",
+      });
+    }
+  } catch (error) {
+    console.log("err---->", error.message);
     next(error);
   }
 };

@@ -1,6 +1,8 @@
 const userModel = require("../model/user_model");
 const adminService = require("../services/admin_services");
 const bcrypt = require("bcrypt");
+const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 exports.register = async (req, res, next) => {
   try {
@@ -74,7 +76,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
     } = req.body;
 
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const createdAt = new Date().toISOString();
@@ -105,6 +119,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         success: true,
         message: "User account has been created successfully",
       });
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your " +
+        role +
+        " Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res.status(400).json({
         success: false,

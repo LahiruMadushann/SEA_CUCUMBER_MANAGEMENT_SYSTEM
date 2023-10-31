@@ -57,14 +57,14 @@ export default function KnowledgeCenterMainScreen() {
           <View className="mt-[80vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("Knowledge_species")}
-              className="w-[74vw] h-[auto] rounded-[30px] bg-[#DAF7F2] shadow-lg shadow-gray-700 "
+              className="w-[74vw] h-[auto] rounded-[15px] bg-[#FFFFFF] shadow-lg shadow-gray-700"
             >
               <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
                 <Image
                   source={require("../../assets/knowledge_center/seaCucumber.png")}
                   className="w-[20vw] h-[75px] rounded-[10px] rounded-full"
                 />
-                <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto">
+                <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto ">
                   Sea cucumber Species
                 </Text>
               </View>
@@ -91,7 +91,7 @@ export default function KnowledgeCenterMainScreen() {
           <View className="mt-[10vw] mx-auto flex-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("ArticlesCategoryScreen")}
-              className="w-[74vw] h-[auto] rounded-[30px] bg-[#DAF7F2] shadow-lg shadow-gray-700 "
+              className="w-[74vw] h-[auto] rounded-[15px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
             >
               <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
                 <Image

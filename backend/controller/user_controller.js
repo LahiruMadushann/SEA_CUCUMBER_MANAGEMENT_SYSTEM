@@ -103,6 +103,7 @@ exports.updateUser = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       firstName,
       lastName,
       contactNo,
@@ -121,6 +122,7 @@ exports.updateUser = async (req, res, next) => {
       age,
       gender,
       email,
+      nicNo,
       contactNo,
       address,
       town,
@@ -128,8 +130,15 @@ exports.updateUser = async (req, res, next) => {
       country,
       updatedAt
     );
+
+    let updatedToken = await userService.getUpdatedToken(userId);
+
     if (updateUserDetails) {
-      res.status(200).json({ success: true, message: "Updated Successfully" });
+      res.status(200).json({
+        success: true,
+        message: "Updated Successfully",
+        data: updatedToken,
+      });
     } else {
       res.status(400).json({ success: false, message: "Update Unsuccessful" });
     }
@@ -139,7 +148,7 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
-//UPDATE USER Profile Picture CONTROLLER
+//UPDATE USER Profile Picture
 exports.updateProfilePic = async (req, res, next) => {
   try {
     const { userId } = req.body;
@@ -154,19 +163,25 @@ exports.updateProfilePic = async (req, res, next) => {
       userId,
       profilepic
     );
+
+    let updatedToken = await userService.getUpdatedToken(userId);
+
+    console.log("Updated Token: ", updatedToken);
+
     if (updateProfilepic) {
       res.status(200).json({
         success: true,
-        message: "Profile Piicture Updated Successfully",
+        message: "Profile Picture Updated Successfully",
+        data: updatedToken,
       });
     } else {
       res.status(400).json({
         success: false,
-        message: "Profile Piicture Update Unsuccessful",
+        message: "Profile Picture Update Unsuccessful",
       });
     }
   } catch (error) {
-    console.log(error, "err---->");
+    console.log("err---->", error);
     next(error);
   }
 };
@@ -196,7 +211,32 @@ exports.getSingleNotification = async (req, res, next) => {
 //GET ALL NOTIFICATION DETAILS
 exports.getAllNotifications = async (req, res, next) => {
   try {
-    let allNotifications = await userService.getAllNotifications();
+    const { userRole } = req.body;
+    console.log(userRole);
+
+    let allNotifications;
+
+    if (
+      userRole == "Admin" ||
+      userRole == "Chairman" ||
+      userRole == "Director General" ||
+      userRole == "Assistant Director" ||
+      userRole == "Minister"
+    ) {
+      allNotifications = await userService.getAllNotifications();
+    } else if (userRole == "Farmer") {
+      allNotifications = await userService.getNotificationsToFarmers();
+      console.log("Nuw farmer");
+    } else if (userRole == "Fisherman") {
+      allNotifications = await userService.getNotificationsToFishermens();
+    } else if (userRole == "Exporter") {
+      allNotifications = await userService.getNotificationsToExporters();
+    } else if (userRole == "Processor") {
+      allNotifications = await userService.getNotificationsToProcessors();
+    } else if (userRole == "District Aquaculturist") {
+      allNotifications =
+        await userService.getNotificationsToDistrictAquaculturist();
+    }
 
     if (allNotifications) {
       res.status(200).json({ status: true, data: allNotifications });

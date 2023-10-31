@@ -1,5 +1,6 @@
 const farmMngUserService = require("../services/farmMngUsers_services");
 const bcrypt = require("bcrypt");
+const emailService = require("../services/email_services");
 
 exports.updatefarmMngUsers = async (req, res, next) => {
   try {
@@ -37,6 +38,7 @@ exports.enterNews = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       const date = new Date().toISOString();
+      let postedById = data._id;
 
       const successEnteredNews =
         await farmMngUserService.enterNewsRulesRegulations(
@@ -46,7 +48,8 @@ exports.enterNews = async (req, res, next) => {
           date,
           role,
           postedBy,
-          postedTo
+          postedTo,
+          postedById
         );
 
       if (successEnteredNews) {
@@ -79,6 +82,7 @@ exports.enterSeacucumberRates = async (req, res, next) => {
       let postedBy = data.firstName;
       let role = data.role;
       let type = "SeacucumberRates";
+      let postedById = data._id;
 
       const date = new Date().toISOString();
 
@@ -92,7 +96,8 @@ exports.enterSeacucumberRates = async (req, res, next) => {
           date,
           role,
           postedBy,
-          postedTo
+          postedTo,
+          postedById
         );
 
       if (successEnteredSeacucumberRates) {
@@ -113,6 +118,30 @@ exports.enterSeacucumberRates = async (req, res, next) => {
   }
 };
 
+//DELETE NEWS
+exports.deleteNews = async (req, res, next) => {
+  try {
+    const { news_Id } = req.body;
+
+    let deleteNews = await farmMngUserService.deleteNews(news_Id);
+
+    if (deleteNews) {
+      res.status(200).json({
+        success: true,
+        message: "Successfully deleted Advertisement",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error in deleting advertisement",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 exports.registerFarm = async (req, res, next) => {
   try {
     const {
@@ -127,6 +156,7 @@ exports.registerFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
+      contactNo,
     } = req.body;
 
     if (req.file === undefined) {
@@ -135,7 +165,7 @@ exports.registerFarm = async (req, res, next) => {
 
     const picture = req.file.filename;
 
-    const date = new Date().toISOString();
+    const createdAt = new Date().toISOString();
 
     const successResFarm = await farmMngUserService.registerFarm(
       name,
@@ -149,7 +179,8 @@ exports.registerFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
-      date,
+      contactNo,
+      createdAt,
       picture
     );
     if (successResFarm) {

@@ -68,6 +68,7 @@ exports.updateFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
+      contactNo,
     } = req.body;
     let updateFarmDetails =
       await districtAquaCulturistService.updateFarmDetails(
@@ -82,7 +83,8 @@ exports.updateFarm = async (req, res, next) => {
         gpsCoordinatesThree,
         gpsCoordinatesFour,
         farmInternal,
-        establishmentDate
+        establishmentDate,
+        contactNo,
       );
 
     if (updateFarmDetails) {
@@ -257,7 +259,8 @@ exports.getIndividualFarmingDetails = async (req, res, next) => {
 //CREATE ADVERTISEMENT FOR VACANCIES OR PROMOTIONS
 exports.createAdvertisement = async (req, res, next) => {
   try {
-    const { type, title, description, contactNo, address, email } = req.body;
+    const { type, title, description, contactNo, address, email, postedById } =
+      req.body;
 
     const createdAt = new Date().toISOString();
 
@@ -269,7 +272,8 @@ exports.createAdvertisement = async (req, res, next) => {
         contactNo,
         address,
         email,
-        createdAt
+        createdAt,
+        postedById
       );
 
     if (createAdvertisement) {
@@ -281,6 +285,31 @@ exports.createAdvertisement = async (req, res, next) => {
       res.status(400).json({
         success: false,
         message: "Error in creating advertisement",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DELETE ADVERTISEMENT FOR VACANCIES OR PROMOTIONS
+exports.deleteAdvertisement = async (req, res, next) => {
+  try {
+    const { ad_Id } = req.body;
+
+    let deleteAdvertisement =
+      await districtAquaCulturistService.deleteAdvertisement(ad_Id);
+
+    if (deleteAdvertisement) {
+      res.status(200).json({
+        success: true,
+        message: "Successfully deleted Advertisement",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Error in deleting advertisement",
       });
     }
   } catch (error) {

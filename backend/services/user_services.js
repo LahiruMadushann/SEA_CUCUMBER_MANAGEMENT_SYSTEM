@@ -5,6 +5,8 @@ const faqModel = require("../model/faq_model");
 const advertiementModel = require("../model/farm/advertisement_model");
 const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_model");
 
+const loginService = require("./login_services");
+
 const bcrypt = require("bcrypt");
 
 class userService {
@@ -47,6 +49,7 @@ class userService {
     age,
     gender,
     email,
+    nicNo,
     contactNo,
     address,
     town,
@@ -60,6 +63,7 @@ class userService {
         age: age,
         gender: gender,
         email: email,
+        nicNo: nicNo,
         firstName: firstName,
         lastName: lastName,
         contactNo: contactNo,
@@ -84,10 +88,197 @@ class userService {
     return updateProPic;
   }
 
+  //GET PROFILE PICTURE
+  static async getProfilePicture(userId) {
+    const profilePic = await userModel.findOne(
+      { _id: userId },
+      { profilepic: 1 }
+    );
+    return profilePic;
+  }
+
+  /* ------------------------------GENERATE UPDATED TOKEN ON USERID --------------------------------- */
+  static async getUpdatedToken(userId) {
+    let token;
+
+    const data = await userModel.findById({ _id: userId });
+
+    if (data) {
+      // Creating Token
+      let tokenData;
+
+      if (data.role == "Admin") {
+        console.log(data.username);
+        tokenData = {
+          _id: data._id,
+          role: data.role,
+          username: data.username,
+          firstName: data.firstName,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          contactNo: data.contactNo,
+          address: data.address,
+        };
+      } else if (
+        data.role == "Chairman" ||
+        data.role == "Director General" ||
+        data.role == "Assistant Director" ||
+        data.role == "District Aquaculturist" ||
+        data.role == "Minister"
+      ) {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      } else if (data.role == "Farmer") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          farmId: data.farmId,
+          farmName: data.farmName,
+          accountStatus: data.accountStatus,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      } else if (data.role == "Fisherman") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          accountType: data.accountType,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          accountStatus: data.accountStatus,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+          fisheriesArea: data.fisheriesArea,
+          divingLicenseNo: data.divingLicenseNo,
+          fisheriesRegNo: data.fisheriesRegNo,
+          boatRegNo: data.boatRegNo,
+          idCard: data.idCard,
+        };
+      } else if (data.role == "Exporter" || data.role == "Processor") {
+        tokenData = {
+          _id: data._id,
+          username: data.username,
+          role: data.role,
+          subrole: data.subrole,
+          age: data.age,
+          gender: data.gender,
+          email: data.email,
+          nicNo: data.nicNo,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          contactNo: data.contactNo,
+          address: data.address,
+          town: data.town,
+          province: data.province,
+          country: data.country,
+          profilepic: data.profilepic,
+          createdAt: data.createdAt,
+        };
+      }
+      console.log(tokenData);
+
+      token = loginService.generateToken(tokenData, "secret", "1d");
+      console.log(token);
+    }
+    return token;
+  }
+
+  /* ------------------------------ NOTIFICATION REALTED CODE --------------------------------- */
+
   //GET ALL NOTIFICATIONS
   static async getAllNotifications() {
-    const allNotifications = await newsModel.find();
+    const allNotifications = await newsModel
+      .find()
+      .sort({ date: -1 })
+      .limit(10);
     return allNotifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO FARMERS
+  static async getNotificationsToFarmers() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Farmer", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO EXPORTERS
+  static async getNotificationsToExporters() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Exporter", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO FISHERMENS
+  static async getNotificationsToFishermens() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Fishermen", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO PROCESSORS
+  static async getNotificationsToProcessors() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["Processor", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
+  }
+
+  // GET NOTIFICATIONS POSTED TO DISTRICT AQUACULTURIST
+  static async getNotificationsToDistrictAquaculturist() {
+    const notifications = await newsModel
+      .find({ postedTo: { $in: ["District Aquaculturist", "All"] } })
+      .sort({ date: -1 })
+      .limit(10);
+    return notifications;
   }
 
   //GET SINGLE NOTIFICATION
@@ -96,9 +287,14 @@ class userService {
     return singleNotification;
   }
 
+  /* ------------------------------ ADVERTISEMENTS REALTED CODE --------------------------------- */
+
   //GET ALL ADVERTISEMENTS
   static async getAllAdvertisements() {
-    const allAdvertisements = await advertiementModel.find();
+    const allAdvertisements = await advertiementModel
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(10);
     return allAdvertisements;
   }
 
@@ -151,6 +347,34 @@ class userService {
   static async getAllFaqDetails() {
     const allFaqDetails = await faqModel.find();
     return allFaqDetails;
+  }
+
+  /* ------------------------------ REGISTRATION VALIDATION --------------------------------- */
+
+  static async validateReg(username, email, contactNo, nicNo) {
+    try {
+      let msg;
+
+      if (await userModel.findOne({ username })) {
+        msg = "Username already exists";
+      }
+      // else if (await userModel.findOne({ email })) {
+      //   msg = "Email already exists";
+      // }
+      else if (await userModel.findOne({ contactNo })) {
+        msg = "Contact number already exists";
+      } else if (await userModel.findOne({ nicNo })) {
+        msg = "NIC No already exists";
+      } else {
+        msg = null;
+      }
+
+      console.log(msg);
+
+      return msg;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

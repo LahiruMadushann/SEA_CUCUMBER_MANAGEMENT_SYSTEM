@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const userModel = require("../user_model");
 
 const { Schema } = mongoose;
 
@@ -30,6 +31,10 @@ const advertisementSchema = new Schema({
   },
   createdAt: {
     type: Date,
+  },
+  postedById: {
+    type: Schema.Types.ObjectId,
+    ref: userModel.modelName,
   },
 });
 

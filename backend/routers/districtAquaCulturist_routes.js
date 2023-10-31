@@ -47,6 +47,11 @@ router.post(
   districtAquaCulturistController.createAdvertisement
 );
 
+router.post(
+  "/districtAquaCulturist/deleteAdvertisement",
+  districtAquaCulturistController.deleteAdvertisement
+);
+
 router.delete("/districtAquaCulturist/delete", userController.deleteUser);
 
 router.post(

@@ -1,4 +1,6 @@
 const exporterService = require("../services/exporter_services");
+const emailService = require("../services/email_services");
+const userService = require("../services/user_services");
 
 //REGISTER EXPORTER DETAILS CONTROLLER
 exports.registerExporter = async (req, res, next) => {
@@ -23,6 +25,18 @@ exports.registerExporter = async (req, res, next) => {
       return res
         .status(400)
         .json({ success: false, message: "you must select a file" });
+    }
+
+    let checkUser = await userService.validateReg(
+      username,
+      email,
+      contactNo,
+      nicNo
+    );
+
+    console.log(checkUser);
+    if (checkUser) {
+      return res.json({ success: false, message: checkUser });
     }
 
     const profilepic = req.file.filename;
@@ -52,6 +66,17 @@ exports.registerExporter = async (req, res, next) => {
       res
         .status(200)
         .json({ success: true, message: "Registration Successfully" });
+      let recipient = email;
+      let subject = "Account Created for " + username;
+      let text =
+        "Hi, " +
+        firstName +
+        " " +
+        lastName +
+        "\n\n" +
+        "Great news! Your Processor Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+
+      emailService.sendEmail(recipient, subject, text);
     } else {
       res
         .status(400)
@@ -59,6 +84,7 @@ exports.registerExporter = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    console.log(error.message);
   }
 };
 
@@ -89,6 +115,7 @@ exports.updateExporter = async (req, res, next) => {
 exports.getAquaFarmDetails = async (req, res, next) => {
   try {
     let aquaAllFarmDetails = await exporterService.getAllAquaFarms();
+    console.log(aquaAllFarmDetails);
 
     if (aquaAllFarmDetails) {
       res.status(200).json({
