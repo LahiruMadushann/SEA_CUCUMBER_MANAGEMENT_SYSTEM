@@ -115,6 +115,7 @@ exports.updateExporter = async (req, res, next) => {
 exports.getAquaFarmDetails = async (req, res, next) => {
   try {
     let aquaAllFarmDetails = await exporterService.getAllAquaFarms();
+    console.log(aquaAllFarmDetails);
 
     if (aquaAllFarmDetails) {
       res.status(200).json({

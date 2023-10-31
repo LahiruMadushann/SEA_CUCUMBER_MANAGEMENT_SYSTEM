@@ -49,6 +49,11 @@ const aquaFarmSchema = new Schema({
     type: String,
     required: true,
   },
+  contactNo: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   picture: {
     type: String,
   },

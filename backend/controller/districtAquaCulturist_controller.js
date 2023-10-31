@@ -63,6 +63,7 @@ exports.updateFarm = async (req, res, next) => {
       gpsCoordinatesFour,
       farmInternal,
       establishmentDate,
+      contactNo,
     } = req.body;
     let updateFarmDetails =
       await districtAquaCulturistService.updateFarmDetails(
@@ -77,7 +78,8 @@ exports.updateFarm = async (req, res, next) => {
         gpsCoordinatesThree,
         gpsCoordinatesFour,
         farmInternal,
-        establishmentDate
+        establishmentDate,
+        contactNo,
       );
 
     if (updateFarmDetails) {

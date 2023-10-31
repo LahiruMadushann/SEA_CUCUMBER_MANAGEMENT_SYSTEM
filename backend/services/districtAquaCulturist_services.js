@@ -47,7 +47,8 @@ class districtAquaCulturistService {
     gpsCoordinatesThree,
     gpsCoordinatesFour,
     farmInternal,
-    establishmentDate
+    establishmentDate,
+    contactNo
   ) {
     const updateFarmDetails = await aqFarmModel.findByIdAndUpdate(
       { _id: farmId },
@@ -63,15 +64,42 @@ class districtAquaCulturistService {
         gpsCoordinatesFour: gpsCoordinatesFour,
         farmInternal: farmInternal,
         establishmentDate: establishmentDate,
+        contactNo: contactNo,
       }
     );
     return updateFarmDetails;
   }
 
+  // //GETTING ALL AQUACULTURE FARM DETAILS
+  // static async getAllAquaFarms() {
+  //   const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
+  //   return allAquaFarmDetails;
+  // }
+
   //GETTING ALL AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
-    const allAquaFarmDetails = await aqFarmModel.find();
-    return allAquaFarmDetails;
+    const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
+
+    // Fetch stock details for each farm
+    const farmsWithStockDetails = await Promise.all(
+      allAquaFarmDetails.map(async (farm) => {
+        const aquaFarmingDetails = await aqFarmingDetailsModel
+          .find({ farmId: farm._id })
+          .sort({ date: -1 })
+          .limit(1);
+
+        const stock =
+          aquaFarmingDetails.length > 0 ? aquaFarmingDetails[0].stock : null;
+
+        return {
+          ...farm.toObject(),
+          stock,
+        };
+      })
+    );
+    console.log(farmsWithStockDetails);
+
+    return farmsWithStockDetails;
   }
 
   //GETTING INDIVIDUAL AQUACULTURE FARM DETAIL

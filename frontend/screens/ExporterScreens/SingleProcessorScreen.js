@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Linking,
 } from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -181,6 +182,17 @@ export default function SingleProcessorScreen() {
                 className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
               />
             </View> */}
+
+            <View className="mt-[2vh]">
+              <TouchableOpacity
+                className="bg-[#5A73F4] rounded-[2px] shadow-lg shadow-gray-700 w-[25vw] mx-auto justify-center py-[5px] px-[10px]"
+                onPress={() => Linking.openURL("tel:" + db_contactNo)}
+              >
+                <Text className="text-[#fff] text-[18px] font-bold text-center">
+                  Call Now
+                </Text>
+              </TouchableOpacity>
+            </View>
 
             <View className="mt-[-32vh]" style={styles.listTab}>
               {listTab.map((e) => (

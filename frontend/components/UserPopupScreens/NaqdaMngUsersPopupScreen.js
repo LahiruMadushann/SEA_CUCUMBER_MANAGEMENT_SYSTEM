@@ -9,6 +9,18 @@ export default function NaqdaMngUsersPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { role: db_role } = decodedToken;
+
+  let haveAccessFarm;
+
+  if (db_role == "Assistant Director") {
+    haveAccessFarm = true;
+  } else {
+    haveAccessFarm = false;
+  }
 
   // Logout Functionalities
   const { dispatch } = useAuth();
@@ -33,13 +45,24 @@ export default function NaqdaMngUsersPopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw]">
-          <TouchableOpacity
-            onPress={() => navigation.navigate("FarmRegisterScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Reg Farms </Text>
-            </View>
-          </TouchableOpacity>
+          {haveAccessFarm && (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FarmRegisterScreen")}
+            >
+              <View style={styles.tab}>
+                <Text className="mx-[1vw]">Reg Farms </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          {haveAccessFarm && (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AllFarmsScreen")}
+            >
+              <View style={styles.tab}>
+                <Text className="mx-[1vw]">All Farms </Text>
+              </View>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             onPress={() => navigation.navigate("EnterSeaCucumberNewsScreen")}
           >
