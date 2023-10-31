@@ -36,6 +36,9 @@ const aquaFarmingDetailsSchema = new Schema({
   date: {
     type: Date,
   },
+  month: {
+    type: String,
+  },
 });
 
 const aquaFarmingDetailsModel = mongoose.model(

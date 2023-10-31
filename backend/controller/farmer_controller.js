@@ -21,6 +21,7 @@ exports.registerFarmer = async (req, res, next) => {
       farmName,
       farmId,
     } = req.body;
+    
 
     if (req.file === undefined) {
       return res.json({ status: false, success: "you must select a file" });

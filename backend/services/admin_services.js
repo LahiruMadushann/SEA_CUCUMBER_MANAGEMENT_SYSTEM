@@ -181,6 +181,15 @@ class AdminService {
     });
     return FarmerDetails;
   }
+  //Getting All Fishermen Details
+  static async getAllFishermens() {
+    const FishermensDetails = await UserModel.find({
+      role: {
+        $in: ["Fisherman"],
+      },
+    });
+    return FishermensDetails;
+  }
 
   /* -------------- FOR EXPORTER MANAGEMENT ------------------ */
 
@@ -200,7 +209,7 @@ class AdminService {
   static async getFishProcessors() {
     const fishProcessorsDetails = await UserModel.find({
       role: {
-        $in: ["FishProcessor"],
+        $in: ["Processor"],
       },
     });
     return fishProcessorsDetails;

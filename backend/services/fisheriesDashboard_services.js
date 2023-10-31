@@ -17,6 +17,9 @@ class FisheriesDashboardService {
     return allFishingDetailsWithFishermens;
   }
 
+
+  
+
   // GET SPECIES TYPE DISTRIBUTION DATA
   static async getSpeciesTypeDistribution() {
     const speciesTypeDistribution = await FishingModel.aggregate([

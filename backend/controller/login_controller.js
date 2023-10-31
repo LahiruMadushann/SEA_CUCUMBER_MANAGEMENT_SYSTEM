@@ -18,7 +18,7 @@ exports.login = async (req, res, next) => {
       loginService
         .checkuser(username)
         .then((data) => {
-          console.log(data);
+          
           if (data) {
             //User exists
             let hashPassword = data.password;
@@ -31,17 +31,21 @@ exports.login = async (req, res, next) => {
                   let tokenData;
 
                   if (data.role == "Admin") {
-                    console.log(data.username);
+                    // console.log(data.username);
                     tokenData = {
                       _id: data._id,
-                      role: data.role,
                       username: data.username,
+                      role: data.role,
                       firstName: data.firstName,
                       age: data.age,
                       gender: data.gender,
                       email: data.email,
                       contactNo: data.contactNo,
+                      province: data.province,
+                      country: data.country,
                       address: data.address,
+                      town: data.town,
+                      profilepic:data.profilepic
                     };
                   } else if (
                     data.role == "Chairman" ||

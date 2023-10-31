@@ -17,6 +17,11 @@ router.get(
   districtAquaCulturistController.getAllAquaFarmDetails
 );
 
+router.get(
+  "/districtAquaCulturist/getAllAquaFarmingDetails",
+  districtAquaCulturistController.getAllAquaFarmingDetails
+);
+
 router.post(
   "/districtAquaCulturist/getAquaFarmDetails",
   districtAquaCulturistController.getIndividualAquaFarmDetail

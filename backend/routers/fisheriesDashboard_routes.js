@@ -13,6 +13,13 @@ router.get(
   fisheriesDashboardController.getAllFishingDetailsWithFishermens
 );
 
+// GET ALL FISHING DETAILS 
+router.get(
+  "/fisheriesdashboard/getAllFishingDetails",
+  fisheriesDashboardController.getAllFishingDetails
+);
+
+
 // GET SPECIES TYPE DISTRIBUTION DATA
 router.get(
   "/fisheriesdashboard/getSpeciesTypeDistribution",
