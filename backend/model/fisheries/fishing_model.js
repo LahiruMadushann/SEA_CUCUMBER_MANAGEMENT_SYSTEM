@@ -9,17 +9,17 @@ const fishingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: userModel.modelName,
   },
-  location: {
+  fishingArea: {
     type: String,
   },
   numOfSpecies: {
     type: Number,
   },
-  weight: {
-    type: Number,
-  },
-  gearType: {
+  buyer: {
     type: String,
+  },
+  buyingPrice: {
+    type: Number,
   },
   speciesType: {
     type: String,
