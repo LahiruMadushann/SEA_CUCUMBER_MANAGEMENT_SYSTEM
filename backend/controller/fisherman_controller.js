@@ -110,15 +110,16 @@ exports.enterFishingDetails = async (req, res, next) => {
     const {
       userId,
       speciesType,
-      weight,
       numOfSpecies,
-      location,
-      gearType,
-      date,
+      fishingArea,
+      buyer,
+      buyingPrice,
     } = req.body;
 
+    const date = new Date().toISOString();
+
     if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+      return res.json({ success: false, message: "you must select a file" });
     }
 
     const fishingImage = req.file.filename;
@@ -126,13 +127,14 @@ exports.enterFishingDetails = async (req, res, next) => {
     const enteringFishingDetails = await fishermanService.enterFishingDetails(
       userId,
       speciesType,
-      weight,
       numOfSpecies,
-      location,
-      gearType,
+      fishingArea,
+      buyer,
+      buyingPrice,
       date,
       fishingImage
     );
+    console.log("Hi ---- ", enteringFishingDetails);
 
     if (enteringFishingDetails) {
       res.status(200).json({

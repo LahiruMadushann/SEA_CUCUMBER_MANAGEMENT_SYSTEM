@@ -31,10 +31,10 @@ export default function EnterFishingDetailsScreen() {
   const { _id: db_id } = decodedToken;
 
   const [speciesType, setSpeciesType] = useState("");
-  const [weight, setWeight] = useState("");
   const [numOfSpecies, setNumOfSpecies] = useState("");
-  const [location, setLocation] = useState("");
-  const [gearType, setGearType] = useState("");
+  const [fishingArea, setFishingArea] = useState("");
+  const [buyer, setBuyer] = useState("");
+  const [buyingPrice, setbuyingPrice] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState(null);
 
@@ -54,34 +54,35 @@ export default function EnterFishingDetailsScreen() {
   const handleUpdate = async () => {
     if (
       speciesType == "" ||
-      weight == "" ||
       numOfSpecies == "" ||
-      location == "" ||
-      gearType == ""
+      fishingArea == "" ||
+      buyer == "" ||
+      buyingPrice == ""
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
     }
 
     const formData = new FormData();
+    formData.append("userId", db_id);
     formData.append("speciesType", speciesType);
-    formData.append("weight", weight);
     formData.append("numOfSpecies", numOfSpecies);
-    formData.append("location", location);
-    formData.append("gearType", gearType);
-    formData.append("date", date);
+    formData.append("fishingArea", fishingArea);
+    formData.append("buyer", buyer);
+    formData.append("buyingPrice", buyingPrice);
+    // formData.append("date", date);
     formData.append("fishingImage", {
       uri: image,
-      type: "image/jpeg", // Change to the appropriate MIME type if needed
-      name: "profile.jpg", // Change to the desired file name
+      type: "image/jpeg",
+      name: "profile.jpg",
     });
 
     const insertData = {
       userId: db_id,
       speciesType: speciesType,
-      weight: weight,
       numOfSpecies: numOfSpecies,
-      location: location,
-      date: date,
+      fishingArea: fishingArea,
+      buyer: buyer,
+      buyingPrice: buyingPrice,
     };
     const insertUrl = `${BASE_URL}/fisherman/enterFishingDetails`;
 
@@ -91,14 +92,22 @@ export default function EnterFishingDetailsScreen() {
           "Content-Type": "multipart/form-data",
         },
       });
-
       console.log("Backend response:", response.data);
 
-      Alert.alert("Success", "Catch details entered Successfully");
+      if (response.data.success) {
+        console.log("Backend response:", response.data);
 
-      navigation.navigate("UserProfileMainScreen");
+        Alert.alert("Success", "Catch details entered Successfully");
+
+        navigation.navigate("UserProfileMainScreen");
+      } else {
+        Alert.alert(
+          "Unsuccessful",
+          "Catch details were not saved successfully"
+        );
+      }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", error.message);
     }
   };
 
@@ -143,45 +152,37 @@ export default function EnterFishingDetailsScreen() {
 
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={weight}
-                onChangeText={setWeight}
-                placeholder="Weight in Kg"
+                value={numOfSpecies}
+                onChangeText={setNumOfSpecies}
+                placeholder="Number of Species"
                 keyboardType="numeric"
                 required
               />
 
-              <TextInput
+              {/* <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={numOfSpecies}
-                onChangeText={setNumOfSpecies}
+                value={fishingArea}
+                onChangeText={setFishingArea}
                 placeholder="Number of species"
                 keyboardType="numeric"
                 required
-              />
+              /> */}
 
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={gearType}
-                onChangeText={setGearType}
-                placeholder="Gear Type"
-                required
-              />
-
-              <TextInput
+              {/* <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={date}
                 onChangeText={setDate}
                 placeholder="Date (2023-05-28)"
                 required
-              />
+              /> */}
 
               <View style={styles.fieldContainer}>
                 <Picker
                   style={styles.picker}
-                  selectedValue={location}
-                  onValueChange={(itemValue) => setLocation(itemValue)}
+                  selectedValue={fishingArea}
+                  onValueChange={(itemValue) => setFishingArea(itemValue)}
                 >
-                  <Picker.Item label="Location" value="" />
+                  <Picker.Item label="Fishing area" value="" />
                   <Picker.Item label="Uddappuwa" value="Uddappuwa" />
                   <Picker.Item label="Sinnapaduwa" value="Sinnapaduwa" />
                   <Picker.Item label="Kandakuliya" value="Kandakuliya" />
@@ -206,6 +207,27 @@ export default function EnterFishingDetailsScreen() {
                   <Picker.Item label="Komariya" value="Komariya" />
                 </Picker>
               </View>
+
+              <View style={styles.fieldContainer}>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={buyer}
+                  onValueChange={(itemValue) => setBuyer(itemValue)}
+                >
+                  <Picker.Item label="Buyer" value="" />
+                  <Picker.Item label="Processor" value="Processor" />
+                  <Picker.Item label="Farmer" value="Farmer" />
+                </Picker>
+              </View>
+
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={buyingPrice}
+                onChangeText={setbuyingPrice}
+                placeholder="Buyering Price"
+                keyboardType="numeric"
+                required
+              />
 
               <View style={styles.pickImageContainer}>
                 <TouchableOpacity

@@ -68,24 +68,35 @@ class fishermanService {
   static async enterFishingDetails(
     userId,
     speciesType,
-    weight,
     numOfSpecies,
-    location,
-    gearType,
+    fishingArea,
+    buyer,
+    buyingPrice,
     date,
     fishingImage
   ) {
+    console.log(userId);
+    console.log(speciesType);
+    console.log(numOfSpecies);
+    console.log(fishingArea);
+    console.log(buyer);
+    console.log(buyingPrice);
+    console.log(date);
+    console.log(fishingImage);
+
     try {
       const fishingDetails = new fishingModel({
         fishermanId: userId,
         speciesType,
-        weight,
         numOfSpecies,
-        location,
-        gearType,
+        fishingArea,
+        buyer,
+        buyingPrice,
         date,
         fishingImage,
       });
+
+      console.log(fishingDetails);
 
       return await fishingDetails.save();
     } catch (err) {
