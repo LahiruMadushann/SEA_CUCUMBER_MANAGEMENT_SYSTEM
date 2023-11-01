@@ -7,7 +7,7 @@ import { useGetSalesQuery } from "state/api";
 const FarmersData = () => {
   const { data } = useGetSalesQuery();
   const theme = useTheme();
-
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const [formattedData] = useMemo(() => {
     if (!data) return [];
 

@@ -48,4 +48,7 @@ router.get(
 
 router.get("/user/getAllFAQDetails", userController.getAllFAQDetails);
 
+//get all users
+router.get("/user/getAllUsers", userController.getAllUserDetails);
+
 module.exports = router;

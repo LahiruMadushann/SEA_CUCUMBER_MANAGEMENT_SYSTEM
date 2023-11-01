@@ -42,6 +42,7 @@ const UserProfileEdit = () => {
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { setUser } = useContext(UserContext);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const defaultTheme = createTheme();
 
@@ -119,7 +120,7 @@ const UserProfileEdit = () => {
             formData.append('image', selectedImage);
 
 
-            const response = await axios.put(`http://localhost:5001/general/user/image/${user._id}`, formData, {
+            const response = await axios.put(`${baseUrl}/general/user/image/${user._id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

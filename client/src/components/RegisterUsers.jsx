@@ -41,6 +41,7 @@ const RegisterUsers = () => {
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const defaultTheme = createTheme();
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
@@ -64,7 +65,7 @@ const RegisterUsers = () => {
 
             // const response = await axios.post("http://localhost:5001/general/add", formData);
 
-            const response = await axios.post("http://localhost:5001/general/add", formData, {
+            const response = await axios.post(`${baseUrl}/general/add`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

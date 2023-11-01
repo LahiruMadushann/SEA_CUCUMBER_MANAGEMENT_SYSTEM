@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, Button, useTheme, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { useGetAllUsersQuery } from "state/api";
 import Header from "components/Header";
@@ -9,36 +9,59 @@ import Swal from "sweetalert2";
 const ActivateUsers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]); // Initialize data state
-  const { data: allData, isLoading } = useGetAllUsersQuery();
   const [selectedRole, setSelectedRole] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [detail, setDetail] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  React.useEffect(() => {
-    if (allData) {
-      setData(allData);
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
+
+      setDetail(response.data);
+      setData(detail.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+      
+ 
+    });
+
+  }, [detail]);
+
+
+  const filterData = async () => {
+    try {
+      let filteredData = data;
+      if (selectedRole) {
+        filteredData = data.filter(
+          (user) =>
+            user.role === selectedRole &&
+            user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      } else {
+        filteredData = data.filter((user) =>
+          user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredData(filteredData);
+    } catch (error) {
+      console.error("Error filtering data:", error);
     }
-  }, [allData]);
-
-  const handleUpdateRow = (rowId) => {
-    // You can navigate to the update user page or open a modal here
-    // For example:
-    // history.push(`/update-user/${rowId}`);
-    // or
-    // setEditingUserId(rowId); // To manage the state of the user being edited
   };
 
-  const filteredData = selectedRole
-    ? data.filter(
-        (user) =>
-          user.role === selectedRole &&
-          user.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : data.filter((user) => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+   // Call filterData whenever dataNew, selectedRole, or searchQuery changes
+   useEffect(() => {
+    filterData();
+  }, [data, selectedRole, searchQuery]);
 
 
     const handleStatusChange = async (rowId, action) => {
-        const confirmationText = action === "activate" ? "Activate" : "Deactivate";
+        const confirmationText = action === "Active" ? "Active" : "Inactive";
         const { isConfirmed } = await Swal.fire({
           title: `Are you sure?`,
           text: `Are you sure you want to ${confirmationText} this user?`,
@@ -56,7 +79,7 @@ const ActivateUsers = () => {
         try {
           // Make an API call to update the user's status
           console.log(`${confirmationText}ing user with ID:`, rowId);
-          await axios.put(`http://localhost:5001/general/updateStatus/${rowId}`, { action });
+          await axios.put(`${baseUrl}/general/updateStatus/${rowId}`, { action });
           
           // Refresh the data after update (optional)
           refetchData();
@@ -67,10 +90,10 @@ const ActivateUsers = () => {
         }
       };
       
-  console.log("data", data);
+
   const refetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/general/allUsers");
+      const response = await axios.get(`${baseUrl}/user/getAllUsers`);
       setData(response.data); // Update the data state with the new data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -85,7 +108,7 @@ const ActivateUsers = () => {
       flex: 1,
     },
     {
-      field: "name",
+      field: "username",
       headerName: "Name",
       flex: 0.5,
     },
@@ -103,7 +126,7 @@ const ActivateUsers = () => {
     //   },
     // },
     {
-      field: "state",
+      field: "accountStatus",          //gg
       headerName: "State",
       flex: 0.4,
     },
@@ -145,7 +168,7 @@ const ActivateUsers = () => {
           variant="outlined"
           color="secondary"
           sx={{fontWeight:"bold",backgroundColor:"#198754"}}
-          onClick={() => handleStatusChange(params.row._id, "activate")}
+          onClick={() => handleStatusChange(params.row._id, "Active")}
         >
           Activate
         </Button>
@@ -162,7 +185,7 @@ const ActivateUsers = () => {
             variant="outlined"
             color="secondary"
             sx={{fontWeight:"bold",backgroundColor:"#ff0e0e"}}
-            onClick={() => handleStatusChange(params.row._id, "deactivate")} 
+            onClick={() => handleStatusChange(params.row._id, "Inactive")} 
           >
             Deactivate
           </Button>
@@ -184,11 +207,15 @@ const ActivateUsers = () => {
             label="Select User Role"
           >
             <MenuItem value=""><em>All Roles</em></MenuItem>
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="exporter">Exporter</MenuItem>
-            <MenuItem value="fishermen">Fishermen</MenuItem>
-            <MenuItem value="farmer">Farmer</MenuItem>
+            <MenuItem value="Minister">Minister</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+            <MenuItem value="Director General">Director General</MenuItem>
+            <MenuItem value="Assistant Director">Assistant Director</MenuItem>
+            <MenuItem value="District Aquaculturist">District Aquaculturist</MenuItem>
+            <MenuItem value="Farmer">Farmer</MenuItem>
+            <MenuItem value="Fisherman">Fisherman</MenuItem>
+            <MenuItem value="Exporter">Exporter</MenuItem>
+            <MenuItem value="Processor">Processor</MenuItem>
           </Select>
         </FormControl>
         <TextField

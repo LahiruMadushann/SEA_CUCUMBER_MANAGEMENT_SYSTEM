@@ -17,6 +17,7 @@ const knowledgeCenterModel = require("../model/knowledgeCenter/knowledgeCenter_m
 const ArticleModel = require("../model/knowledgeCenter/articles_model");
 const FarmModel = require("../model/farm/aqFarm_model");
 const faqModel = require("../model/faq_model");
+const userModel = require("../model/user_model");
 
 class AdminService {
   //REGISTER ADMIN ACCOUNTS
@@ -271,6 +272,31 @@ class AdminService {
     } catch (err) {
       throw err;
     }
+  }
+
+  //delete users
+  static async deleteUserAccount(userId) {
+    const deleteAccount = await userModel.findByIdAndDelete(userId);
+
+    if (deleteAccount) {
+      const profilePicPath = path.join(
+        __dirname,
+        "..",
+        "backend",
+        "uploads",
+        deleteAccount.profilepic
+      );
+      console.log(profilePicPath);
+      
+      // Check if the file exists before attempting to delete
+      if (fs.existsSync(profilePicPath)) {
+        fs.unlinkSync(profilePicPath);
+        console.log("Profile picture deleted successfully.");
+      } else {
+        console.log("Profile picture file not found.");
+      }
+    }
+    return deleteAccount;
   }
 
   //ENTER FAQ DETAILS
