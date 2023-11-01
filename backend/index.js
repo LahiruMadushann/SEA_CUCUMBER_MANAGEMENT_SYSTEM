@@ -7,7 +7,7 @@ const userModel = require("./model/user_model");
 // const aqFarmingDetailsModel = require("./model/farm/aqFarmingDetails_model");
 
 connection();
-const port = 3000;
+const port = 5000;
 
 // app.get("/", (req, res) => {
 //   res.send("Hello World!!!!");
