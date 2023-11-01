@@ -137,6 +137,11 @@ class districtAquaCulturistService {
 
     return farmsWithStockDetails;
   }
+  //GETTING ALL AQUACULTURE FARMing DETAILS
+  static async getAllAquaFarming() {
+    const allAquaFarmingDetails = await aqFarmingDetailsModel.find();
+    return allAquaFarmingDetails;
+  }
 
   //GETTING INDIVIDUAL AQUACULTURE FARM DETAIL
   static async getAquaFarmDetails(farmId) {

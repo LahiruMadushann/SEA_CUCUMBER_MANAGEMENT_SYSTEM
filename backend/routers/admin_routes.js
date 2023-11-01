@@ -69,10 +69,7 @@ router.delete("/admin/deleteFishProcessor", userController.deleteUser);
 
 /* ---------------- CONTROLLING  FISHERMEN------------------ */
 
-// router.get(
-//   "/admin/getAllFisherman",
-//   adminController.getAqAllFarmManagementUsers
-// );
+router.get("/admin/getAllFisherman", adminController.getAllFishermens);
 
 // router.delete(
 //   "/admin/deleteFishman",
@@ -92,5 +89,6 @@ router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
-
+//Get All User details
+router.get("/user/:id", adminController.getUser);
 module.exports = router;

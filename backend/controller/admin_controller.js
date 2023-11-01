@@ -1,3 +1,4 @@
+const userModel = require("../model/user_model");
 const adminService = require("../services/admin_services");
 const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
@@ -241,6 +242,25 @@ exports.getAllFarmers = async (req, res, next) => {
   }
 };
 
+exports.getAllFishermens = async (req, res, next) => {
+  try {
+    let fishermensDetails = await adminService.getAllFishermens();
+
+    if (fishermensDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Fishermens details",
+        data: fishermensDetails,
+      });
+    } else {
+      res.status(400).json({ success: false, message: "No fishermens data found" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 /* -------------------- EXPORTER DETAILS - ADMIN CONTROLLERS ------------------- */
 
 exports.getAllExporters = async (req, res, next) => {
@@ -284,6 +304,19 @@ exports.getAllFishProcessors = async (req, res, next) => {
   } catch (error) {
     console.log(error, "err---->");
     next(error);
+  }
+};
+
+//Get User detail
+exports.getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // console.log("Userge new id ",await userModel.findById(id))
+    // // const user = await User.findById(id);
+    res.json(await userModel.findById(id));
+    // res.status(200).json(user);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -418,3 +451,5 @@ exports.enterFAQDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+

@@ -16,6 +16,10 @@ exports.insertFarmingDetails = async (req, res, next) => {
     } = req.body;
 
     const date = new Date().toISOString();
+    const date1 = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    const month = monthNames[date1.getMonth()]; // get current month name
 
     let farmingData = await districtAquaCulturistService.insertFarmingDetails(
       farmId,
@@ -27,7 +31,8 @@ exports.insertFarmingDetails = async (req, res, next) => {
       size,
       survival,
       diseases,
-      date
+      date,
+      month
     );
 
     if (farmingData) {
@@ -134,6 +139,30 @@ exports.getAllAquaFarmDetails = async (req, res, next) => {
         success: true,
         message: "Found All aqua Farm details",
         data: allAquaFarmDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farm details found ",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GETTING ALL AQUA Farming DETAILS
+exports.getAllAquaFarmingDetails = async (req, res, next) => {
+  try {
+    let allAquaFarmingDetails =
+      await districtAquaCulturistService.getAllAquaFarming();
+
+    if (allAquaFarmingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found All aqua Farm details",
+        data: allAquaFarmingDetails,
       });
     } else {
       res.status(400).json({
