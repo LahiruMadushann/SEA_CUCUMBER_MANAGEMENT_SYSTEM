@@ -389,3 +389,20 @@ exports.getAllFAQDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+//Get All User Detail
+exports.getAllUserDetails = async (req, res, next) => {
+  try {
+    let allUsers = await userService.getAllUsers();
+
+    if (allUsers) {
+      res.status(200).json({ status: true, data: allUsers });
+    } else {
+      res.status(404).json({ status: false, message: "There are no Users" });
+    }
+  } catch (error) {
+    console.log(error, error.message);
+    res.status(404).json({ status: false, message: error.message });
+    next(error);
+  }
+};

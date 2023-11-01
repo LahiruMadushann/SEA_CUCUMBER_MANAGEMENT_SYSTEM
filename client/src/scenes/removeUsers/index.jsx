@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, Button, useTheme, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { useGetAllUsersQuery } from "state/api";
 import Header from "components/Header";
@@ -8,17 +8,42 @@ import Swal from "sweetalert2";
 
 const RemoveUsers = () => {
   const theme = useTheme();
-  const [data, setData] = useState([]); // Initialize data state
-  const { data: allData, isLoading } = useGetAllUsersQuery();
+  // const [data, setData] = useState([]); // Initialize data state
+  // const { data: allData, isLoading } = useGetAllUsersQuery();
   const [selectedRole, setSelectedRole] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [detail, setDetail] = useState(null);
+  const [dataNew,setDataNew] = useState();
+  const [dataObNew,setDataObNew] = useState([]);
+  const [loading, setLoading] = useState(true); // Added loading state
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
+  useEffect(() => {
 
-  React.useEffect(() => {
-    if (allData) {
-      setData(allData);
-    }
-  }, [allData]);
+  
+    axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
+
+      setDetail(response.data);
+      setDataNew(detail.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+      setDataObNew(dataNew)
+ 
+    });
+
+  }, [detail]);
+  console.log("Remove data",dataNew)
+  const objectData=[dataNew]
+
+  console.log("Remove data object",dataObNew)
+
+  // React.useEffect(() => {
+  //   if (allData) {
+  //     setData(allData);
+  //   }
+  // }, [allData]);
 
   const handleUpdateRow = (rowId) => {
     // You can navigate to the update user page or open a modal here
@@ -27,14 +52,32 @@ const RemoveUsers = () => {
     // or
     // setEditingUserId(rowId); // To manage the state of the user being edited
   };
-
-  const filteredData = selectedRole
-    ? data.filter(
-        (user) =>
-          user.role === selectedRole &&
-          user.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : data.filter((user) => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+ 
+  const filterData = async () => {
+    try {
+      let filteredData = dataNew;
+      if (selectedRole) {
+        filteredData = dataNew.filter(
+          (user) =>
+            user.role === selectedRole &&
+            user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      } else {
+        filteredData = dataNew.filter((user) =>
+          user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredData(filteredData);
+    } catch (error) {
+      console.error("Error filtering data:", error);
+    }
+  };
+  
+  // Call filterData whenever dataNew, selectedRole, or searchQuery changes
+  useEffect(() => {
+    filterData();
+  }, [dataNew, selectedRole, searchQuery]);
+  
 
 
   const handleDeleteRow = async (rowId) => {
@@ -55,7 +98,7 @@ const RemoveUsers = () => {
       try {
         // Make an API call to delete the row using the rowId
         console.log("Deleting row with ID:", rowId);
-        await axios.delete(`http://localhost:5001/general/deleteFarmer/${rowId}`);
+        await axios.delete(`${baseUrl}/admin/deleteUser/${rowId}`);
 
         // Refresh the data after deletion (optional)
         refetchData();
@@ -67,11 +110,11 @@ const RemoveUsers = () => {
     
   };
 
-  console.log("data", data);
   const refetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/client/customers");
-      setData(response.data); // Update the data state with the new data
+      const response = await axios.get(`${baseUrl}/user/getAllUsers`);
+      setDetail(response.data);
+      setDataNew(detail.data) // Update the data state with the new data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -85,7 +128,7 @@ const RemoveUsers = () => {
       flex: 1,
     },
     {
-      field: "name",
+      field: "username",
       headerName: "Name",
       flex: 0.5,
     },
@@ -95,7 +138,7 @@ const RemoveUsers = () => {
       flex: 1,
     },
     {
-      field: "phoneNumber",
+      field: "contactNo",
       headerName: "Phone Number",
       flex: 0.5,
       renderCell: (params) => {
@@ -107,11 +150,11 @@ const RemoveUsers = () => {
       headerName: "Country",
       flex: 0.4,
     },
-    {
-      field: "occupation",
-      headerName: "Occupation",
-      flex: 1,
-    },
+    // {
+    //   field: "occupation",
+    //   headerName: "Occupation",
+    //   flex: 1,
+    // },
     {
       field: "role",
       headerName: "Role",
@@ -217,7 +260,7 @@ const RemoveUsers = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !dataNew}
           getRowId={(row) => row._id}
           rows={filteredData || []}
           columns={columns}

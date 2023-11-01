@@ -1,11 +1,12 @@
-import React,{useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
 import axios from "axios";
 
 const BreakdownChart = ({ isDashboard = false }) => {
-  const { data, isLoading } = useGetSalesQuery();
+  // const { data, isLoading } = useGetSalesQuery();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   //fisheriesdashboard/getAllFishingDetailsWithFishermens
   const theme = useTheme();
@@ -13,46 +14,60 @@ const BreakdownChart = ({ isDashboard = false }) => {
   const [detail, setDetail] = useState(null);
   const [dataNew, setDataNew] = useState(null)
   // const [data,setData] = useState();
-  
+
   const [loading, setLoading] = useState(true); // Added loading state
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
 
-  
-    axios.get(`http://localhost:5001/fisheriesdashboard/getAllFishingDetails`).then(response => {
+
+    axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
 
       setDetail(response.data);
       setDataNew(detail.data)
-      
-      // setData(detail.data)
-    
-      // setData(detail.data)
-     // Set loading to false when the response is received
-      // setIsLoading(false);
 
-     
+      // setData(detail.data)
+
+      // setData(detail.data)
+      // Set loading to false when the response is received
+      setIsLoading(false);
+
+
     });
 
   }, [detail]);
-console.log("Pie Chart Data",dataNew)
+  // console.log("Pie Chart Data",dataNew)
 
-  if (!data || isLoading) return "Loading...";
+  if (!dataNew || isLoading) return "Loading...";
 
   const colors = [
     theme.palette.secondary[500],
     theme.palette.secondary[300],
-    theme.palette.secondary[300],
+    theme.palette.primary[300],
     theme.palette.secondary[500],
   ];
-  const formattedData = Object.entries(dataNew).map(
-    ([category, sales], i) => ({
-      id: category,
-      label: category,
-      value: sales,
-      color: colors[i],
-    })
-  );
+
+  const speciesObject = dataNew.map((item) => ({
+
+    numOfSpecies: item.numOfSpecies,
+    speciesType: item.speciesType,
+  }));
+
+  function sumNumOfSpecies(arr) {
+    let sum = 0;
+    for(let i = 0; i < arr.length; i++) {
+        sum += arr[i].numOfSpecies;
+    }
+    return sum;
+}
+  console.log("Species Obbject", speciesObject)
+  const formattedData = speciesObject.map((item, i) => ({
+    id: item.speciesType,
+    label: item.speciesType,
+    value: item.numOfSpecies,
+    color: colors[i],
+  }));
+  console.log("Species", formattedData)
 
   return (
     <Box
@@ -88,7 +103,7 @@ console.log("Pie Chart Data",dataNew)
           },
           legends: {
             text: {
-              fill: theme.palette.secondary[200],
+              fill: theme.palette.secondary[800],
             },
           },
           tooltip: {
@@ -97,7 +112,7 @@ console.log("Pie Chart Data",dataNew)
             },
           },
         }}
-        colors={{ datum: "data.color" }}
+        // colors={{ datum: "data.color" }} //pie chart color
         margin={
           isDashboard
             ? { top: 40, right: 80, bottom: 100, left: 50 }
@@ -118,7 +133,7 @@ console.log("Pie Chart Data",dataNew)
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{
           from: "color",
-          modifiers: [["darker", 2]],
+          modifiers: [["darker", 4]],
         }}
         legends={[
           {
@@ -139,7 +154,7 @@ console.log("Pie Chart Data",dataNew)
               {
                 on: "hover",
                 style: {
-                  itemTextColor: theme.palette.primary[500],
+                  itemTextColor: theme.palette.secondary[100],
                 },
               },
             ],
@@ -150,7 +165,7 @@ console.log("Pie Chart Data",dataNew)
         position="absolute"
         top="50%"
         left="50%"
-        color={theme.palette.secondary[400]}
+        color={theme.palette.secondary[100]}
         textAlign="center"
         pointerEvents="none"
         sx={{
@@ -160,7 +175,7 @@ console.log("Pie Chart Data",dataNew)
         }}
       >
         <Typography variant="h6">
-          {!isDashboard && "Total:"} ${data.yearlySalesTotal}
+          {!isDashboard && "Total:"} {sumNumOfSpecies(speciesObject)}
         </Typography>
       </Box>
     </Box>

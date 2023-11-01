@@ -419,6 +419,25 @@ exports.enterArticleDetails = async (req, res, next) => {
     next(error);
   }
 };
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Use id to get the userId
+    let deleteUserAccount = await adminService.deleteUserAccount(id);
+
+    if (deleteUserAccount) {
+      res.status(200).json({
+        success: true,
+        message: "Your account was deleted Successfully",
+      });
+    } else {
+      res.status(400).json({ success: false, message: "Delete Account Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
 
 //ENTER FAQ DETAILS
 exports.enterFAQDetails = async (req, res, next) => {
