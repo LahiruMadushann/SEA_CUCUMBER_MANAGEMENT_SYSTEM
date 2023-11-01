@@ -58,7 +58,7 @@ export default function MainBoardScreen() {
                   <View className="flex m-[auto] ">
                     <Image
                       source={{ uri: profilePicUrl }}
-                      className=" w-[30px] h-[30px] rounded-full"
+                      className=" w-[35px] h-[35px] rounded-full"
                     />
                   </View>
                 </TouchableOpacity>
@@ -138,32 +138,6 @@ export default function MainBoardScreen() {
                 </Text>
               </View>
             </TouchableOpacity>
-
-            {/* {!hasToken && (
-              <View className="mt-[5vw] mx-auto">
-                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                  <View className="w-[73vw] h-[8vh]  ">
-                    <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                      Login
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            )}
-
-            {!hasToken && (
-              <View className="mt-[1vw] mx-auto">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Register")}
-                >
-                  <View className="w-[73vw] h-[8vh]  ">
-                    <Text className="bg-[#5A73F3] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                      Register
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            )} */}
           </View>
         </ScrollView>
         <View>

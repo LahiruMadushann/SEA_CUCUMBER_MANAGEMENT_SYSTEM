@@ -1,6 +1,9 @@
 const aqFarmingDetailsModel = require("../model/farm/aqFarmingDetails_model");
 const aqFarmModel = require("../model/farm/aqFarm_model");
 const advertisementModel = require("../model/farm/advertisement_model");
+//FILE SYSTEM
+const fs = require("fs");
+const path = require("path");
 
 class districtAquaCulturistService {
   static async insertFarmingDetails(
@@ -70,6 +73,34 @@ class districtAquaCulturistService {
     return updateFarmDetails;
   }
 
+  //DELETE FARM DETAILS
+  static async deleteIndividualFarmDetails(farmId) {
+    const deleteFarmDetails = await aqFarmModel.findByIdAndDelete({
+      _id: farmId,
+    });
+    console.log(farmId);
+
+    if (deleteFarmDetails) {
+      const farmPicPath = path.join(
+        __dirname,
+        "..",
+        "Images",
+        "farmImages",
+        deleteFarmDetails.picture
+      );
+      console.log(farmPicPath);
+      // Check if the file exists before attempting to delete
+      if (fs.existsSync(farmPicPath)) {
+        fs.unlinkSync(farmPicPath);
+        console.log("Farm picture deleted successfully.");
+      } else {
+        console.log("Farm picture file not found.");
+      }
+    }
+
+    return deleteFarmDetails;
+  }
+
   // //GETTING ALL AQUACULTURE FARM DETAILS
   // static async getAllAquaFarms() {
   //   const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
@@ -90,14 +121,19 @@ class districtAquaCulturistService {
 
         const stock =
           aquaFarmingDetails.length > 0 ? aquaFarmingDetails[0].stock : null;
+        const stockingDates =
+          aquaFarmingDetails.length > 0
+            ? aquaFarmingDetails[0].stockingDates
+            : null;
 
         return {
           ...farm.toObject(),
           stock,
+          stockingDates,
         };
       })
     );
-    console.log(farmsWithStockDetails);
+    // console.log(farmsWithStockDetails);
 
     return farmsWithStockDetails;
   }

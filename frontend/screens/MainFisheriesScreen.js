@@ -37,6 +37,16 @@ export default function MainFisheriesScreen() {
                     </View>
                   </TouchableOpacity>
                 </View>
+                <View className="ml-[70vw]">
+                  <TouchableOpacity
+                  //onPress={()}
+                  >
+                    <Image
+                      source={require("../assets/info.png")}
+                      className=" w-[25px] h-[25px] ml-[0vw]"
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">

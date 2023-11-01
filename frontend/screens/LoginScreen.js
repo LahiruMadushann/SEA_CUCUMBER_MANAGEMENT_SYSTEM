@@ -5,6 +5,8 @@ import jwtDecode from "jwt-decode";
 import BASE_URL from "../apiConfig/config";
 import { LogBox } from "react-native";
 
+import LoadingIndicator from "./LoadingIndicatorScreen";
+
 import {
   View,
   Text,
@@ -20,12 +22,14 @@ import FooterBar from "../components/FooterBar";
 
 export default function LoginScreen() {
   LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { dispatch } = useAuth();
 
   const handleLogin = () => {
+    setIsLoading(true);
     const backendUrl = `${BASE_URL}/login`;
 
     const userData = {
@@ -48,6 +52,7 @@ export default function LoginScreen() {
 
           // navigating to another screen
           navigation.navigate("MainBoard");
+          setIsLoading(false);
         } else {
           // Show an alert for unsuccessful login
           Alert.alert(
@@ -60,6 +65,7 @@ export default function LoginScreen() {
             ],
             { cancelable: true }
           );
+           setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -70,6 +76,10 @@ export default function LoginScreen() {
         );
       });
   };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <SafeAreaView
