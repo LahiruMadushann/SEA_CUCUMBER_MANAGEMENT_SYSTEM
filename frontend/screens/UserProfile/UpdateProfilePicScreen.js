@@ -46,7 +46,7 @@ export default function UpdateProfilePicScreen() {
     }
   };
 
-  console.log("Image:", image);
+  // console.log("Image:", image);
 
   const handleProfilePicUpdate = async () => {
     if (image == "") {

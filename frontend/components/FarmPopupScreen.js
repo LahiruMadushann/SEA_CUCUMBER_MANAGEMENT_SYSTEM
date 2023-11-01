@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
+import { Alert } from "react-native";
+import BASE_URL from "../apiConfig/config";
+import axios from "axios";
 
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +14,52 @@ export default function FarmPopupScreen({ farmId, farmName }) {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+
+  const handleDelete = async () => {
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete the farm, you won't be able to recover it.",
+      [
+        {
+          text: "Delete Farm",
+          onPress: () => {
+            const userData = {
+              farmId: farmId,
+            };
+            console.log("FarmID: ", farmId);
+            const backendUrl = `${BASE_URL}/districtAquaCulturist/deleteFarmDetails`;
+
+            axios
+              .post(backendUrl, userData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Farm Deleted", response.data.message);
+
+                  navigation.navigate("UserProfileMainScreen");
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Error Deleting Farm:", error);
+                Alert.alert(
+                  "Error",
+                  "An error occurred while deleting the farm."
+                );
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
   return (
     <View className=" " style={{ zIndex: 999 }}>
       <TouchableOpacity onPress={toggleMenu}>
@@ -52,6 +101,11 @@ export default function FarmPopupScreen({ farmId, farmName }) {
           >
             <View style={styles.tab}>
               <Text className="mx-[1vw]">View Records</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDelete}>
+            <View style={styles.tab}>
+              <Text className="mx-[1vw]">Delete Farm</Text>
             </View>
           </TouchableOpacity>
         </View>
