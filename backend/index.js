@@ -20,7 +20,7 @@ app.get("/profile", (req, res) => {
     .then((user) => {
       if (user) {
         res.json(user);
-        console.log("Data hrid blnn", user);
+        console.log("To check data validation", user);
       } else {
         res.status(404).json({ error: "User not found" });
       }

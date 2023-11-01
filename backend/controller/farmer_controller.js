@@ -59,7 +59,6 @@ exports.registerFarmer = async (req, res, next) => {
       town,
       province,
       country,
-      "Inactive",
       farmName,
       farmId,
       profilepic,

@@ -115,6 +115,7 @@ class AdminService {
         address,
         town,
         province,
+        accountStatus: "Active",
         country,
         profilepic,
         createdAt,

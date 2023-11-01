@@ -66,7 +66,6 @@ exports.registerFisherman = async (req, res, next) => {
       town,
       province,
       country,
-      "Inactive",
       accountType,
       profilepic,
       createdAt,

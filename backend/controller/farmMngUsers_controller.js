@@ -159,6 +159,12 @@ exports.registerFarm = async (req, res, next) => {
       contactNo,
     } = req.body;
 
+    console.log(req.body);
+
+    // const establishmentDate = new Date(req.body.establishmentDate);
+
+    console.log(establishmentDate);
+
     if (req.file === undefined) {
       return res.json({ status: false, success: "you must select a file" });
     }
@@ -194,6 +200,6 @@ exports.registerFarm = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    res.status(400).json({ success: false, message: error.message });
+    console.log("Error ----> ", error.message);
   }
 };

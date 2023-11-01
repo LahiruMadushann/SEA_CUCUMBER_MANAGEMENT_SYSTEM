@@ -21,7 +21,6 @@ class farmerService {
     town,
     province,
     country,
-    accountStatus,
     farmName,
     farmId,
     profilepic,
@@ -43,7 +42,7 @@ class farmerService {
         town,
         province,
         country,
-        accountStatus,
+        accountStatus: "Active",
         farmName,
         farmId,
         profilepic,
@@ -78,8 +77,6 @@ class farmerService {
     return updateFarmerDetails;
   }
 
-  
-
   static async getAllAquaFarmNames() {
     const allAquaFarmDetails = await aqFarmModel.find().select("farmName");
     const aquaFarmNames = allAquaFarmDetails.map((farm) => farm.farmName);
@@ -98,7 +95,6 @@ class farmerService {
     return farmDetails;
   }
 
-  
   //GETTING FARM RELATED NEWS DETAILS
   static async getAquaFarmsNews() {
     const aquaFarmNews = await newsModel.find().sort({ _id: -1 });

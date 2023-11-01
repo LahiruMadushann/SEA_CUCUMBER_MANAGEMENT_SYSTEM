@@ -46,7 +46,7 @@ const aquaFarmSchema = new Schema({
     required: true,
   },
   establishmentDate: {
-    type: String,
+    type: Date,
     required: true,
   },
   contactNo: {

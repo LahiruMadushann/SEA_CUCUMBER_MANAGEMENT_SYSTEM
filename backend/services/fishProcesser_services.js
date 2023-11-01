@@ -37,6 +37,7 @@ class fishProcesserService {
         town,
         province,
         country,
+        accountStatus:"Active",
         profilepic,
         createdAt,
       });
