@@ -62,12 +62,12 @@ function App() {
               <Route path="/enterknowledgecenterdata" element={<KnowledgeCenterData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/managementAquacultureUsers" element={<ManagementAquacultureUsers />} />
+              <Route path="/managementaquacultureusers" element={<ManagementAquacultureUsers />} />
               <Route path="/aquacultureFarms" element={<AquacultureFarms />} />
               <Route path="aquacultureFarmers" element={<AquacultureFarmers/>} />
               <Route path="fisheriesManagementUsers" element={<FisheriesManagementUsers/>} />
               <Route path="fishermens" element={<Fishermens/>} />
-              <Route path="fishProcessors" element={<FishProcessors/>} />
+              <Route path="processors" element={<FishProcessors/>} />
               <Route path="aquacultureManagement" element={<AquacultureManagement/>} />
               <Route path="farmsData" element={<FarmsData/>} />
               <Route path="farmersData" element={<FarmersData/>} />

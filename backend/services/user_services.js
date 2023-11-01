@@ -16,6 +16,12 @@ class userService {
     return deleteAccount;
   }
 
+  //get all users
+  static async getAllUsers() {
+    const allUsers = await userModel.find();
+    return allUsers;
+  }
+
   //CHANGE USER PASSWORD
   static async changePassword(userId, newpassword) {
     try {

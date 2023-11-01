@@ -70,6 +70,10 @@ const navItems = [
     text: "Aquaculture Farmers",
     icon: <KayakingOutlinedIcon />,
   },
+  {
+    text: "Farms Data",
+    icon: <WaterDamageOutlinedIcon />,
+  },
 
 
 
@@ -87,10 +91,7 @@ const navItems = [
     text: "Fishermens",
     icon: <KayakingOutlinedIcon />,
   },
-  {
-    text: "Fish Processors",
-    icon: <SlowMotionVideoOutlinedIcon />,
-  },
+ 
 
 
 
@@ -98,12 +99,16 @@ const navItems = [
 
   //---------------
   {
-    text: "Section",
+    text: "Exporters and Processors",
     icon: null,
   },
   {
     text: "Exporters",
     icon: <ConnectingAirportsOutlinedIcon />,
+  },
+  {
+    text: "Processors",
+    icon: <SlowMotionVideoOutlinedIcon />,
   },
 
   //---------------
@@ -116,10 +121,7 @@ const navItems = [
     text: "Aquaculture Management",
     icon: <ManageAccountsOutlinedIcon />,
   },
-  {
-    text: "Farms Data",
-    icon: <WaterDamageOutlinedIcon />,
-  },
+  
   {
     text: "Farmers Data",
     icon: <KayakingOutlinedIcon />,
