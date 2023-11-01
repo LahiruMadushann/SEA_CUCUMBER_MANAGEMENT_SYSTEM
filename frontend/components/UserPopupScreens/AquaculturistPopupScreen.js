@@ -10,6 +10,11 @@ export default function AquaculturistPopupScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const { state } = useAuth();
 
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { accountStatus: db_accountStatus } = decodedToken;
+
   // Logout Functionalities
   const { dispatch } = useAuth();
 
@@ -33,20 +38,25 @@ export default function AquaculturistPopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AllFarmsScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">All Farms </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CreateAdsScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Create Ads </Text>
-            </View>
-          </TouchableOpacity>
+          {db_accountStatus == "Active" ? (
+            <>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AllFarmsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">All Farms </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("CreateAdsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Create Ads </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : null}
+
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >
