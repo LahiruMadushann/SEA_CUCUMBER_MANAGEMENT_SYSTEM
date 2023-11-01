@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, Button, useTheme, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { useGetAllUsersQuery } from "state/api";
 import Header from "components/Header";
@@ -9,32 +9,55 @@ import Swal from "sweetalert2";
 const ActivateUsers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]); // Initialize data state
-  const { data: allData, isLoading } = useGetAllUsersQuery();
   const [selectedRole, setSelectedRole] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [detail, setDetail] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  React.useEffect(() => {
-    if (allData) {
-      setData(allData);
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
+
+      setDetail(response.data);
+      setData(detail.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+      
+ 
+    });
+
+  }, [detail]);
+
+
+  const filterData = async () => {
+    try {
+      let filteredData = data;
+      if (selectedRole) {
+        filteredData = data.filter(
+          (user) =>
+            user.role === selectedRole &&
+            user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      } else {
+        filteredData = data.filter((user) =>
+          user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredData(filteredData);
+    } catch (error) {
+      console.error("Error filtering data:", error);
     }
-  }, [allData]);
-
-  const handleUpdateRow = (rowId) => {
-    // You can navigate to the update user page or open a modal here
-    // For example:
-    // history.push(`/update-user/${rowId}`);
-    // or
-    // setEditingUserId(rowId); // To manage the state of the user being edited
   };
 
-  const filteredData = selectedRole
-    ? data.filter(
-        (user) =>
-          user.role === selectedRole &&
-          user.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : data.filter((user) => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+   // Call filterData whenever dataNew, selectedRole, or searchQuery changes
+   useEffect(() => {
+    filterData();
+  }, [data, selectedRole, searchQuery]);
 
 
     const handleStatusChange = async (rowId, action) => {
@@ -56,7 +79,7 @@ const ActivateUsers = () => {
         try {
           // Make an API call to update the user's status
           console.log(`${confirmationText}ing user with ID:`, rowId);
-          await axios.put(`http://localhost:5001/general/updateStatus/${rowId}`, { action });
+          await axios.put(`${baseUrl}/general/updateStatus/${rowId}`, { action });
           
           // Refresh the data after update (optional)
           refetchData();
@@ -67,7 +90,7 @@ const ActivateUsers = () => {
         }
       };
       
-  console.log("data", data);
+
   const refetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5001/general/allUsers");
@@ -85,7 +108,7 @@ const ActivateUsers = () => {
       flex: 1,
     },
     {
-      field: "name",
+      field: "username",
       headerName: "Name",
       flex: 0.5,
     },
@@ -103,7 +126,7 @@ const ActivateUsers = () => {
     //   },
     // },
     {
-      field: "state",
+      field: "state",          //gg
       headerName: "State",
       flex: 0.4,
     },
