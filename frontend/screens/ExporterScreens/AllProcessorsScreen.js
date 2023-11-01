@@ -44,7 +44,7 @@ export default function AllProcessorsScreen() {
   if (isLoading) {
     return <LoadingIndicator />;
   }
-  
+
   console.log(allProcessorsData);
 
   return (
@@ -74,15 +74,15 @@ export default function AllProcessorsScreen() {
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
                 Processors
               </Text>
-              <View className="mt-[4vh] mx-auto">
+              {/* <View className="mt-[4vh] mx-auto">
                 <Image
                   source={require("../../assets/farms/allfarms.png")}
                   className=" w-[100px] h-[100px]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
                 />
-              </View>
+              </View> */}
             </View>
           </View>
-          <View className="mt-[45vh] mx-auto">
+          <View className="mt-[25vh] mx-auto">
             {/* Loop through allFarmData and display farm details */}
             {allProcessorsData.map((processor) => (
               <TouchableOpacity
@@ -95,7 +95,7 @@ export default function AllProcessorsScreen() {
               >
                 <View key={processor._id}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                    <Text className="text-[18px] font-bold text-[#0000FF]">
+                    <Text className="text-[18px] font-bold text-[#5A73F4]">
                       {processor.firstName} {processor.lastName}
                     </Text>
                   </View>

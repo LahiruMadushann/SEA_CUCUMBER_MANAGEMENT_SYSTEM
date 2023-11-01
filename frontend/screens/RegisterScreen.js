@@ -99,7 +99,7 @@ export default function RegisterScreen() {
                 </View>
                 <View className="flex ">
                   <Image
-                    source={require("../assets/main_board/knowledge.png")}
+                    source={require("../assets/register/scuba.png")}
                     className="w-[73px] h-[55px] ml-[39px] mt-[4px]"
                   />
                   <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-58px] ml-[83px]">

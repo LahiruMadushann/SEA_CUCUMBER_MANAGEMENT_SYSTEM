@@ -79,7 +79,7 @@ exports.updateFarm = async (req, res, next) => {
         gpsCoordinatesFour,
         farmInternal,
         establishmentDate,
-        contactNo,
+        contactNo
       );
 
     if (updateFarmDetails) {
@@ -94,6 +94,31 @@ exports.updateFarm = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DELETE FARM DETAILS CONTROLLER
+exports.deleteFarm = async (req, res, next) => {
+  try {
+    const { farmId } = req.body;
+    console.log("farmID: ", farmId);
+    console.log("Request Body: ", req.body);
+    let deleteFarmDetails =
+      await districtAquaCulturistService.deleteIndividualFarmDetails(farmId);
+
+    if (deleteFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Farm was deleted Successfully",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Farm Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log("err---->", error.message);
     next(error);
   }
 };

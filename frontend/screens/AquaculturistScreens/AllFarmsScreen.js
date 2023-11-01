@@ -79,15 +79,15 @@ export default function AllFarmsScreen() {
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
                 All Aquaculture Farms
               </Text>
-              <View className="mt-[4vh] mx-auto">
+              {/* <View className="mt-[4vh] mx-auto" style={{ opacity: 0.5 }}>
                 <Image
-                  source={require("../../assets/farms/allfarms.png")}
-                  className=" w-[100px] h-[100px]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
+                  source={require("../../assets/farms/farms.png")}
+                  className=" w-[90vw] h-[15vh]  mt-[0.5vh] ml-[0.5vw] rounded-[10px] "
                 />
-              </View>
+              </View> */}
             </View>
           </View>
-          <View className="mt-[45vh] mx-auto">
+          <View className="mt-[25vh] mx-auto ">
             {/* Loop through allFarmData and display farm details */}
             {allFarmData.map((farm) => (
               <TouchableOpacity
@@ -98,21 +98,31 @@ export default function AllFarmsScreen() {
                     directedFarm: "allFarmsPage",
                   })
                 }
-                className="w-[82vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                className="w-[82vw] h-[auto] pb-[2vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
               >
                 <View key={farm._id}>
                   <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                    <Text className="text-[18px] font-bold text-[#0000FF]">
+                    <Text className="text-[18px] font-bold text-[#5A73F4]">
                       {farm.name}
                     </Text>
                   </View>
 
                   <View className="flex mt-[1vw] ml-[10vw]">
-                    <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                      Total Stock : {farm.stock}
-                    </Text>
                     <Text className=" text-[15px] flex-auto mt-[1vw]">
                       Location : {farm.location}
+                    </Text>
+                    {farm.stock && (
+                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                        Total Stock : {farm.stock}
+                      </Text>
+                    )}
+                    {!farm.stock && (
+                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                        No Stock available
+                      </Text>
+                    )}
+                    <Text className=" text-[15px] flex-auto mt-[1vw]">
+                      Stock date : {farm.stockingDates}
                     </Text>
                   </View>
                 </View>

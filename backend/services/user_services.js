@@ -9,10 +9,32 @@ const loginService = require("./login_services");
 
 const bcrypt = require("bcrypt");
 
+//FILE SYSTEM
+const fs = require("fs");
+const path = require("path");
+
 class userService {
   //DELETE USER ACCOUNT
   static async deleteUserAccount(userId) {
     const deleteAccount = await userModel.findByIdAndDelete(userId);
+
+    if (deleteAccount) {
+      const profilePicPath = path.join(
+        __dirname,
+        "..",
+        "Images",
+        "profilePics",
+        deleteAccount.profilepic
+      );
+      console.log(profilePicPath);
+      // Check if the file exists before attempting to delete
+      if (fs.existsSync(profilePicPath)) {
+        fs.unlinkSync(profilePicPath);
+        console.log("Profile picture deleted successfully.");
+      } else {
+        console.log("Profile picture file not found.");
+      }
+    }
     return deleteAccount;
   }
 
@@ -79,12 +101,33 @@ class userService {
 
   //UPDATE PROFILE PIC
   static async updateProfilePic(userId, profilepic) {
+    const userdetails = await this.getUserDetails(userId);
+    console.log(userdetails);
+
+    if (userdetails) {
+      const profilePicPath = path.join(
+        __dirname,
+        "..",
+        "Images",
+        "profilePics",
+        userdetails.profilepic
+      );
+      // Check if the file exists before attempting to delete
+      if (fs.existsSync(profilePicPath)) {
+        fs.unlinkSync(profilePicPath);
+        console.log("Profile picture deleted successfully.");
+      } else {
+        console.log("Profile picture file not found.");
+      }
+    }
+
     const updateProPic = await userModel.findByIdAndUpdate(
       { _id: userId },
       {
         profilepic: profilepic,
       }
     );
+    console.log(updateProPic);
     return updateProPic;
   }
 
