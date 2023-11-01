@@ -61,7 +61,7 @@ const ActivateUsers = () => {
 
 
     const handleStatusChange = async (rowId, action) => {
-        const confirmationText = action === "activate" ? "Activate" : "Deactivate";
+        const confirmationText = action === "Active" ? "Active" : "Inactive";
         const { isConfirmed } = await Swal.fire({
           title: `Are you sure?`,
           text: `Are you sure you want to ${confirmationText} this user?`,
@@ -93,7 +93,7 @@ const ActivateUsers = () => {
 
   const refetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/general/allUsers");
+      const response = await axios.get(`${baseUrl}/user/getAllUsers`);
       setData(response.data); // Update the data state with the new data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -126,7 +126,7 @@ const ActivateUsers = () => {
     //   },
     // },
     {
-      field: "state",          //gg
+      field: "accountStatus",          //gg
       headerName: "State",
       flex: 0.4,
     },
@@ -168,7 +168,7 @@ const ActivateUsers = () => {
           variant="outlined"
           color="secondary"
           sx={{fontWeight:"bold",backgroundColor:"#198754"}}
-          onClick={() => handleStatusChange(params.row._id, "activate")}
+          onClick={() => handleStatusChange(params.row._id, "Active")}
         >
           Activate
         </Button>
@@ -185,7 +185,7 @@ const ActivateUsers = () => {
             variant="outlined"
             color="secondary"
             sx={{fontWeight:"bold",backgroundColor:"#ff0e0e"}}
-            onClick={() => handleStatusChange(params.row._id, "deactivate")} 
+            onClick={() => handleStatusChange(params.row._id, "Inactive")} 
           >
             Deactivate
           </Button>
@@ -207,11 +207,15 @@ const ActivateUsers = () => {
             label="Select User Role"
           >
             <MenuItem value=""><em>All Roles</em></MenuItem>
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="exporter">Exporter</MenuItem>
-            <MenuItem value="fishermen">Fishermen</MenuItem>
-            <MenuItem value="farmer">Farmer</MenuItem>
+            <MenuItem value="Minister">Minister</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+            <MenuItem value="Director General">Director General</MenuItem>
+            <MenuItem value="Assistant Director">Assistant Director</MenuItem>
+            <MenuItem value="District Aquaculturist">District Aquaculturist</MenuItem>
+            <MenuItem value="Farmer">Farmer</MenuItem>
+            <MenuItem value="Fisherman">Fisherman</MenuItem>
+            <MenuItem value="Exporter">Exporter</MenuItem>
+            <MenuItem value="Processor">Processor</MenuItem>
           </Select>
         </FormControl>
         <TextField
