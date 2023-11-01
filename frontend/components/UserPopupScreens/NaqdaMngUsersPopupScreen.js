@@ -12,7 +12,7 @@ export default function NaqdaMngUsersPopupScreen() {
   const token = state.token;
   const decodedToken = jwtDecode(token);
 
-  const { role: db_role } = decodedToken;
+  const { role: db_role, accountStatus: db_accountStatus } = decodedToken;
 
   let haveAccessFarm;
 
@@ -45,39 +45,47 @@ export default function NaqdaMngUsersPopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw]">
-          {haveAccessFarm && (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("FarmRegisterScreen")}
-            >
-              <View style={styles.tab}>
-                <Text className="mx-[1vw]">Reg Farms </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          {haveAccessFarm && (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AllFarmsScreen")}
-            >
-              <View style={styles.tab}>
-                <Text className="mx-[1vw]">All Farms </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("EnterSeaCucumberNewsScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Enter News</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("EnterSeaCucumberRatesScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Enter Rates </Text>
-            </View>
-          </TouchableOpacity>
+          {db_accountStatus == "Active" && haveAccessFarm ? (
+            <>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("FarmRegisterScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Reg Farms </Text>
+                </View>
+              </TouchableOpacity>
 
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AllFarmsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">All Farms </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : null}
+          {db_accountStatus == "Active" ? (
+            <>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("EnterSeaCucumberNewsScreen")
+                }
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Enter News</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("EnterSeaCucumberRatesScreen")
+                }
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Enter Rates </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : null}
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >

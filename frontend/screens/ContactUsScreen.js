@@ -162,7 +162,7 @@ export default function ContactUsScreen() {
                 </View>
                 <View>
                   <Text className="text-[11px] ml-[4vw]">
-                    cst19034@std.uwu.ac.lk
+                    seacucumbermanager@gmail.com
                   </Text>
                 </View>
               </View>
