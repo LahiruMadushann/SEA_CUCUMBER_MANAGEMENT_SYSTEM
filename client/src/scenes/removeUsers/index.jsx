@@ -18,11 +18,12 @@ const RemoveUsers = () => {
   const [loading, setLoading] = useState(true); // Added loading state
   const [isLoading, setIsLoading] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
 
   
-    axios.get(`http://localhost:5001/user/getAllUsers`).then(response => {
+    axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
 
       setDetail(response.data);
       setDataNew(detail.data)
@@ -97,7 +98,7 @@ const RemoveUsers = () => {
       try {
         // Make an API call to delete the row using the rowId
         console.log("Deleting row with ID:", rowId);
-        await axios.delete(`http://localhost:5001/general/deleteFarmer/${rowId}`);
+        await axios.delete(`${baseUrl}/admin/deleteUser/${rowId}`);
 
         // Refresh the data after deletion (optional)
         refetchData();
@@ -111,8 +112,9 @@ const RemoveUsers = () => {
 
   const refetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/client/customers");
-      // setData(response.data); // Update the data state with the new data
+      const response = await axios.get(`${baseUrl}/user/getAllUsers`);
+      setDetail(response.data);
+      setDataNew(detail.data) // Update the data state with the new data
     } catch (error) {
       console.error("Error fetching data:", error);
     }

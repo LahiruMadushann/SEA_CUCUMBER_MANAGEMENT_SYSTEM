@@ -20,7 +20,7 @@ app.get("/profile", (req, res) => {
     .then((user) => {
       if (user) {
         res.json(user);
-        console.log("Data hrid blnn", user);
+      
       } else {
         res.status(404).json({ error: "User not found" });
       }
@@ -29,5 +29,5 @@ app.get("/profile", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server Listening on Port http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

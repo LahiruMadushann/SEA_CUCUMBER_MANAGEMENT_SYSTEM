@@ -11,11 +11,12 @@ const Fishermens = () => {
   const [dataNew,setDataNew] = useState();
   const [loading, setLoading] = useState(true); // Added loading state
   const [isLoading, setIsLoading] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
 
   
-    axios.get(`http://localhost:5001/admin/getAllFisherman`).then(response => {
+    axios.get(`${baseUrl}/admin/getAllFisherman`).then(response => {
 
       setDetail(response.data);
       setDataNew(detail.data)

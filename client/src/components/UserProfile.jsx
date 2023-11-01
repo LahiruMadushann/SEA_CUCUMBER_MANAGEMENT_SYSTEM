@@ -38,12 +38,8 @@ const UserProfile = () => {
     const [detail, setDetail] = useState(null);
     const [loading, setLoading] = useState(true); // Added loading state
     // const [user, setUser] = useState(null); // Use state to manage user data
-  
-  
-    console.log("Chuti puiya", userId)
-  
-  
-    // console.log("Hutto aluth id eks", userId)
+    const baseUrl = process.env.local.REACT_APP_BASE_URL;
+   
     const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
     useEffect(() => {
   
@@ -54,7 +50,7 @@ const UserProfile = () => {
         }
         return <div>Loading...</div>;
       }
-      axios.get(`http://localhost:5001/user/${userId}`).then(response => {
+      axios.get(`${baseUrl}/user/${userId}`).then(response => {
   
         setDetail(response.data);
   

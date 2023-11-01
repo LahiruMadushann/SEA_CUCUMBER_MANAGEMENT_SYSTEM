@@ -91,4 +91,6 @@ router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
 //Get All User details
 router.get("/user/:id", adminController.getUser);
+
+router.delete("/admin/deleteUser/:id",adminController.deleteUser)
 module.exports = router;

@@ -7,7 +7,7 @@ import { UserContext } from "../../../UserContext";
 
 const AquacultureManagement = () => {
   const { data } = useGetSalesQuery();
-  // const { data } = useContext(UserContext);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const theme = useTheme();
 
   const [formattedData] = useMemo(() => {

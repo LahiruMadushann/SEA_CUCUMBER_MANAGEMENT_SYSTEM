@@ -31,6 +31,7 @@ import {
 import { UserContext } from "../UserContext";
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const { user } = useContext(UserContext);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   // const username = user.username;
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       }
       return <div>Loading...</div>;
     }
-    axios.get(`http://localhost:5001/user/${userId}`).then(response => {
+    axios.get(`${baseUrl}/user/${userId}`).then(response => {
 
       setDetail(response.data);
 

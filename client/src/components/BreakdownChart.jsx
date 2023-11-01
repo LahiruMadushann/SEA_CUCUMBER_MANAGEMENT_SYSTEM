@@ -6,6 +6,7 @@ import axios from "axios";
 
 const BreakdownChart = ({ isDashboard = false }) => {
   // const { data, isLoading } = useGetSalesQuery();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   //fisheriesdashboard/getAllFishingDetailsWithFishermens
   const theme = useTheme();
@@ -20,7 +21,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
   useEffect(() => {
 
 
-    axios.get(`http://localhost:5001/fisheriesdashboard/getAllFishingDetails`).then(response => {
+    axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
 
       setDetail(response.data);
       setDataNew(detail.data)

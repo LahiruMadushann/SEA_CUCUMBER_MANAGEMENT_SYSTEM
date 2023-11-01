@@ -258,6 +258,7 @@ const Sidebar = ({
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   
   
   const userId = useSelector((state) => state.global.userId);
@@ -283,7 +284,7 @@ const Sidebar = ({
       // }
       return;
     }
-    axios.get(`http://localhost:5001/user/${userId}`).then(response => {
+    axios.get(`${baseUrl}user/${userId}`).then(response => {
 
       setDetail(response.data);
 

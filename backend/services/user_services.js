@@ -27,6 +27,7 @@ class userService {
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
+      
       // Check if the file exists before attempting to delete
       if (fs.existsSync(profilePicPath)) {
         fs.unlinkSync(profilePicPath);

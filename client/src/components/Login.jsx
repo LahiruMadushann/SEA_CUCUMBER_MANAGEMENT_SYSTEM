@@ -36,10 +36,11 @@ const Login = ({ user }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = useContext(UserContext);
   const defaultTheme = createTheme();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   async function handleLoginSubmit(e) {
     e.preventDefault();
-  const backendUrl = 'http://localhost:5001/login';
+  const backendUrl = `${baseUrl}/login`;
   const userData = {
     username: name,
     password: password,
