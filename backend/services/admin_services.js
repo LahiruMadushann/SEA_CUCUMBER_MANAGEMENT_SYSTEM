@@ -163,11 +163,14 @@ class AdminService {
   /* -------------- FOR FARMER MANAGEMENT ------------------ */
 
   //Approve Farmer Account
-  static async approveFarmerAc(userId) {
+  static async approveFarmerAc(userId,state) {
     const updateAccountStatus = await UserModel.findByIdAndUpdate(
       { _id: userId },
+    
+      
       {
-        accountStatus: "Active",
+        // accountStatus: "Active",
+        accountStatus : state === "Active" ? "Active" : "Inactive"
       }
     );
     return updateAccountStatus;

@@ -93,4 +93,5 @@ router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
 router.get("/user/:id", adminController.getUser);
 
 router.delete("/admin/deleteUser/:id",adminController.deleteUser)
+router.put("/admin/updateUser/:id/:state",adminController.approveFarmerAccount)
 module.exports = router;

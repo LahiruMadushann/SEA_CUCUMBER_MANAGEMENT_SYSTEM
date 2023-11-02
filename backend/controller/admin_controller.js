@@ -207,8 +207,9 @@ exports.deleteAqFarm = async (req, res, next) => {
 
 exports.approveFarmerAccount = async (req, res, next) => {
   try {
-    const { userId } = req.body;
-    let approveAccount = await adminService.approveFarmerAc(userId);
+    const { id,state } = req.params;
+    // const { userId } = req.body;
+    let approveAccount = await adminService.approveFarmerAc(id,state);
 
     if (approveAccount) {
       res.status(200).json({ success: true, message: "Approved" });
@@ -431,6 +432,25 @@ exports.deleteUser = async (req, res, next) => {
       });
     } else {
       res.status(400).json({ success: false, message: "Delete Account Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params; // Use id to get the userId
+    let updateUserAccount = await adminService.deleteUserAccount(id);
+
+    if (updateUserAccount) {
+      res.status(200).json({
+        success: true,
+        message: "Your account was updated Successfully",
+      });
+    } else {
+      res.status(400).json({ success: false, message: "Update Account Unsuccessfully" });
     }
   } catch (error) {
     console.log(error, "err---->");
