@@ -189,16 +189,16 @@ export default function UserProfileMainScreen() {
                     {db_username}
                   </Text>
                   <View className="mt-[3vw]">
-                    {db_accountStatus === "Inactive" ? (
+                    {db_accountStatus == "Inactive" ? (
                       <Image
                         source={require("../../assets/user/inactive.png")}
-                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        style={{ width: 15, height: 15 }}
                         className="rounded-full bg-[#FFFFFF]"
                       />
-                    ) : db_accountStatus === "Active" ? (
+                    ) : db_accountStatus == "Active" ? (
                       <Image
                         source={require("../../assets/user/active.png")}
-                        style={{ width: 15, height: 15 }} // Adjust width and height as needed
+                        style={{ width: 15, height: 15 }}
                         className="rounded-full bg-[#FFFFFF]"
                       />
                     ) : null}

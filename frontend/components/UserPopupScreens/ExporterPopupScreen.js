@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 import {
   View,
@@ -16,6 +17,15 @@ import { useNavigation } from "@react-navigation/native";
 export default function ExporterPopupScreen() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
+
+  const { state } = useAuth();
+
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { accountStatus: db_accountStatus } = decodedToken;
+
+  console.log(db_accountStatus);
 
   const { dispatch } = useAuth(); // Access the dispatch function from the context
 
@@ -40,20 +50,24 @@ export default function ExporterPopupScreen() {
       </TouchableOpacity>
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AllFarmsScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Farms </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AllProcessorsScreen")}
-          >
-            <View style={styles.tab}>
-              <Text className="mx-[1vw]">Processors</Text>
-            </View>
-          </TouchableOpacity>
+          {db_accountStatus == "Active" ? (
+            <>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AllFarmsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Farms </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AllProcessorsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">Processors</Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : null}
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}
           >

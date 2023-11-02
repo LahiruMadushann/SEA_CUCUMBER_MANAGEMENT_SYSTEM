@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import {
   View,
@@ -34,7 +35,19 @@ export default function FarmRegisterScreen() {
   const [gpsCoordinatesThree, setGpsCoordinatesThree] = useState("");
   const [gpsCoordinatesFour, setGpsCoordinatesFour] = useState("");
   const [farmInternal, setFarmInternal] = useState("");
-  const [establishmentDate, setEstablishmentDate] = useState("");
+  const [establishmentDate, setEstablishmentDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    setShowDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setEstablishmentDate(selectedDate);
+    }
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
 
   const [image, setImage] = useState(null); // Use state for selected image
 
@@ -69,6 +82,7 @@ export default function FarmRegisterScreen() {
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
     }
+    console.log(establishmentDate);
 
     const formData = new FormData();
     formData.append("name", name);
@@ -82,14 +96,14 @@ export default function FarmRegisterScreen() {
     formData.append("gpsCoordinatesThree", gpsCoordinatesThree);
     formData.append("gpsCoordinatesFour", gpsCoordinatesFour);
     formData.append("farmInternal", farmInternal);
-    formData.append("establishmentDate", establishmentDate);
+    formData.append("establishmentDate", establishmentDate.toISOString());
     formData.append("picture", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
       name: "profile.jpg", // Change to the desired file name
     });
 
-    console.log(formData);
+    console.log("FORM DATA: ", formData);
 
     const backendUrl = `${BASE_URL}/farmMngUsers/farmRegistration`; // Replace with your actual backend URL
     try {
@@ -103,7 +117,7 @@ export default function FarmRegisterScreen() {
 
       navigation.navigate("UserProfileMainScreen");
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", error.message);
     }
   };
 
@@ -264,13 +278,25 @@ export default function FarmRegisterScreen() {
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
-              <TextInput
+              {/* <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                 value={establishmentDate}
                 onChangeText={setEstablishmentDate}
                 placeholder="Establishment Date"
                 required
-              />
+              /> */}
+              <TouchableOpacity onPress={showDatepicker}>
+                <Text>{establishmentDate.toDateString()}</Text>
+              </TouchableOpacity>
+
+              {showDatePicker && (
+                <DateTimePicker
+                  value={establishmentDate}
+                  mode="date"
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
             </View>
 
             <View style={styles.pickImageContainer}>

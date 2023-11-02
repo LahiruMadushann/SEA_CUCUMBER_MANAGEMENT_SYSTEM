@@ -121,9 +121,11 @@ export default function AllFarmsScreen() {
                         No Stock available
                       </Text>
                     )}
-                    <Text className=" text-[15px] flex-auto mt-[1vw]">
-                      Stock date : {farm.stockingDates}
-                    </Text>
+                    {farm.stock && (
+                      <Text className=" text-[15px] flex-auto mt-[1vw]">
+                        Stock date : {farm.stockingDates}
+                      </Text>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>

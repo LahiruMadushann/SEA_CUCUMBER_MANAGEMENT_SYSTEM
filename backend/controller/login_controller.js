@@ -18,7 +18,6 @@ exports.login = async (req, res, next) => {
       loginService
         .checkuser(username)
         .then((data) => {
-          
           if (data) {
             //User exists
             let hashPassword = data.password;
@@ -45,7 +44,7 @@ exports.login = async (req, res, next) => {
                       country: data.country,
                       address: data.address,
                       town: data.town,
-                      profilepic:data.profilepic
+                      profilepic: data.profilepic,
                     };
                   } else if (
                     data.role == "Chairman" ||
@@ -63,6 +62,7 @@ exports.login = async (req, res, next) => {
                       gender: data.gender,
                       email: data.email,
                       nicNo: data.nicNo,
+                      accountStatus: data.accountStatus,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -83,6 +83,7 @@ exports.login = async (req, res, next) => {
                       gender: data.gender,
                       email: data.email,
                       nicNo: data.nicNo,
+                      accountStatus: data.accountStatus,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
@@ -92,7 +93,6 @@ exports.login = async (req, res, next) => {
                       country: data.country,
                       farmId: data.farmId,
                       farmName: data.farmName,
-                      accountStatus: data.accountStatus,
                       profilepic: data.profilepic,
                       createdAt: data.createdAt,
                     };
@@ -106,6 +106,7 @@ exports.login = async (req, res, next) => {
                       gender: data.gender,
                       email: data.email,
                       accountType: data.accountType,
+                      accountStatus: data.accountStatus,
                       nicNo: data.nicNo,
                       firstName: data.firstName,
                       lastName: data.lastName,
@@ -114,7 +115,6 @@ exports.login = async (req, res, next) => {
                       town: data.town,
                       province: data.province,
                       country: data.country,
-                      accountStatus: data.accountStatus,
                       profilepic: data.profilepic,
                       createdAt: data.createdAt,
                       fisheriesArea: data.fisheriesArea,
@@ -136,6 +136,7 @@ exports.login = async (req, res, next) => {
                       gender: data.gender,
                       email: data.email,
                       nicNo: data.nicNo,
+                      accountStatus: data.accountStatus,
                       firstName: data.firstName,
                       lastName: data.lastName,
                       contactNo: data.contactNo,
