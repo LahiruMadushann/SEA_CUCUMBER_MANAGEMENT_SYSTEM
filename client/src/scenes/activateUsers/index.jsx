@@ -23,18 +23,17 @@ const ActivateUsers = () => {
   
     axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
 
-      setDetail(response.data);
-      setData(detail.data)
+      // setDetail(response.data);
+      setData(response.data.data)
      // Set loading to false when the response is received
       setIsLoading(false);
       
  
     });
 
-  }, [data]);
+  }, []);
 
-
-  const filterData = async () => {
+  const filterData = isLoading === "true" ? "Loading" : async () => {
     try {
       let filteredData = data;
       if (selectedRole) {
@@ -53,6 +52,26 @@ const ActivateUsers = () => {
       console.error("Error filtering data:", error);
     }
   };
+;
+  // const filterData = async () => {
+  //   try {
+  //     let filteredData = data;
+  //     if (selectedRole) {
+  //       filteredData = data.filter(
+  //         (user) =>
+  //           user.role === selectedRole &&
+  //           user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  //       );
+  //     } else {
+  //       filteredData = data.filter((user) =>
+  //         user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  //       );
+  //     }
+  //     setFilteredData(filteredData);
+  //   } catch (error) {
+  //     console.error("Error filtering data:", error);
+  //   }
+  // };
 
    // Call filterData whenever dataNew, selectedRole, or searchQuery changes
    useEffect(() => {
@@ -82,7 +101,7 @@ const ActivateUsers = () => {
           await axios.put(`${baseUrl}/admin/updateUser/${rowId}/${confirmationText}`);
           
           // Refresh the data after update (optional)
-          // refetchData();
+          refetchData();
       
           console.log(`${confirmationText}d user with ID: ${rowId}`);
         } catch (error) {
@@ -91,15 +110,15 @@ const ActivateUsers = () => {
       };
       
 
-  // const refetchData = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/user/getAllUsers`);
-  //     // setDetail(response.data);
-  //     // setData(detail.data) // Update the data state with the new data
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+  const refetchData = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/user/getAllUsers`);
+      setData(response.data.data)
+      // setData(detail.data) // Update the data state with the new data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
 
   const columns = [
