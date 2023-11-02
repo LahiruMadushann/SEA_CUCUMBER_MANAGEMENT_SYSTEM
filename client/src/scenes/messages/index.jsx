@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Box,
   Button,
@@ -22,8 +22,7 @@ import Swal from "sweetalert2";
 
 const Message = () => {
   const theme = useTheme();
-  const [data, setData] = useState([]);
-  const { data: allData, isLoading } = useGetAllUsersQuery();
+
   const [selectedRole, setSelectedRole] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState(""); // New state for the message content
@@ -31,21 +30,59 @@ const Message = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectUserRole, setSelectUserRole] = useState(null);
   const [msg, setMsg] = useState("");
+  const [data, setData] = useState([]); // Initialize data state
 
 
-  React.useEffect(() => {
-    if (allData) {
-      setData(allData);
+  const [detail, setDetail] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/user/getAllUsers`).then(response => {
+
+      // setDetail(response.data);
+      setData(response.data.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+      
+ 
+    });
+
+  }, []);
+
+
+  // React.useEffect(() => {
+  //   if (allData) {
+  //     setData(allData);
+  //   }
+  // }, [allData]);
+
+  const filterData = isLoading === "true" ? "Loading" : async () => {
+    try {
+      let filteredData = data;
+      if (selectedRole) {
+        filteredData = data.filter(
+          (user) =>
+            user.role === selectedRole &&
+            user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      } else {
+        filteredData = data.filter((user) =>
+          user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredData(filteredData);
+    } catch (error) {
+      console.error("Error filtering data:", error);
     }
-  }, [allData]);
-
-  const filteredData = selectedRole
-    ? data.filter(
-      (user) =>
-        user.role === selectedRole &&
-        user.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    : data.filter((user) => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  };
+  useEffect(() => {
+    filterData();
+  }, [data, selectedRole, searchQuery]);
 
  
 
@@ -126,7 +163,7 @@ const Message = () => {
       flex: 1,
     },
     {
-      field: "name",
+      field: "username",
       headerName: "Name",
       flex: 0.5,
     },
@@ -136,7 +173,7 @@ const Message = () => {
       flex: 1,
     },
     {
-      field: "phoneNumber",
+      field: "contactNo",
       headerName: "Phone Number",
       flex: 0.5,
       renderCell: (params) => {
@@ -148,11 +185,11 @@ const Message = () => {
       headerName: "Country",
       flex: 0.4,
     },
-    {
-      field: "occupation",
-      headerName: "Occupation",
-      flex: 1,
-    },
+    // {
+    //   field: "occupation",
+    //   headerName: "Occupation",
+    //   flex: 1,
+    // },
     {
       field: "role",
       headerName: "Role",
@@ -195,11 +232,15 @@ const Message = () => {
             label="Select User Role"
           >
             <MenuItem value=""><em>All Roles</em></MenuItem>
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="exporter">Exporter</MenuItem>
-            <MenuItem value="fishermen">Fishermen</MenuItem>
-            <MenuItem value="farmer">Farmer</MenuItem>
+            <MenuItem value="Minister">Minister</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+            <MenuItem value="Director General">Director General</MenuItem>
+            <MenuItem value="Assistant Director">Assistant Director</MenuItem>
+            <MenuItem value="District Aquaculturist">District Aquaculturist</MenuItem>
+            <MenuItem value="Farmer">Farmer</MenuItem>
+            <MenuItem value="Fisherman">Fisherman</MenuItem>
+            <MenuItem value="Exporter">Exporter</MenuItem>
+            <MenuItem value="Processor">Processor</MenuItem>
           </Select>
         </FormControl>
         <TextField

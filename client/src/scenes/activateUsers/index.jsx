@@ -52,7 +52,6 @@ const ActivateUsers = () => {
       console.error("Error filtering data:", error);
     }
   };
-;
   // const filterData = async () => {
   //   try {
   //     let filteredData = data;
