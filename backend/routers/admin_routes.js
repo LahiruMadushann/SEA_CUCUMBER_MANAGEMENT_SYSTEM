@@ -92,6 +92,7 @@ router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
 //Get All User details
 router.get("/user/:id", adminController.getUser);
 
-router.delete("/admin/deleteUser/:id",adminController.deleteUser)
+router.delete("/admin/deleteUser/:id",adminController.deleteUser);
+router.post("/admin/enterNews", adminController.addNews);
 router.put("/admin/updateUser/:id/:state",adminController.approveFarmerAccount)
 module.exports = router;

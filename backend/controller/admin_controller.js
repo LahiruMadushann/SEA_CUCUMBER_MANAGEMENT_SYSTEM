@@ -3,6 +3,8 @@ const adminService = require("../services/admin_services");
 const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
 const userService = require("../services/user_services");
+const newsModel = require("../model/news_model");
+const news = require("../model/newsNew");
 
 exports.register = async (req, res, next) => {
   try {
@@ -207,9 +209,9 @@ exports.deleteAqFarm = async (req, res, next) => {
 
 exports.approveFarmerAccount = async (req, res, next) => {
   try {
-    const { id,state } = req.params;
+    const { id, state } = req.params;
     // const { userId } = req.body;
-    let approveAccount = await adminService.approveFarmerAc(id,state);
+    let approveAccount = await adminService.approveFarmerAc(id, state);
 
     if (approveAccount) {
       res.status(200).json({ success: true, message: "Approved" });
@@ -457,6 +459,35 @@ exports.updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+//enter news
+exports.addNews = async (req, res) => {
+  try {
+
+   
+    console.log("Received message data:", req.body);
+    const { userId, role, message, title, description, type, postedBy, postedTo } = req.body;
+    console.log("Received role:", role); // Log the role
+
+    const newMessage = new newsModel({
+      userId,
+      role,
+      message,
+      title,
+      description,
+      type,
+      postedBy,
+      postedTo
+    });
+
+    const savedMessage = await newMessage.save();
+    res.status(201).json(savedMessage);
+
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(400).json({ message: error.message });
+  }
+}
 
 
 //ENTER FAQ DETAILS
