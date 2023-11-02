@@ -60,14 +60,14 @@ const BreakdownChart = ({ isDashboard = false }) => {
     }
     return sum;
 }
-  console.log("Species Obbject", speciesObject)
+  
   const formattedData = speciesObject.map((item, i) => ({
     id: item.speciesType,
     label: item.speciesType,
     value: item.numOfSpecies,
     color: colors[i],
   }));
-  console.log("Species", formattedData)
+
 
   return (
     <Box

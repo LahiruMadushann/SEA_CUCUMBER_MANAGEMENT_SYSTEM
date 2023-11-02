@@ -266,7 +266,7 @@ const Sidebar = ({
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true); // Added loading state
   // const [user, setUser] = useState(null); // Use state to manage user data
-
+console.log("user ge al",userId)
 
   useEffect(() => {
     const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
@@ -278,11 +278,11 @@ const Sidebar = ({
   useEffect(() => {
 
     if (!userId) {
-      // if (loading) {
-      //   // Render a loading indicator while waiting for the response
-      //   return <div>Loading...</div>;
-      // }
-      return;
+      if (loading) {
+        // Render a loading indicator while waiting for the response
+        return <div>Loading...</div>;
+      }
+      return <div>Loading...</div>;
     }
     axios.get(`${baseUrl}user/${userId}`).then(response => {
 
@@ -394,16 +394,19 @@ const Sidebar = ({
 
 
   });
+  // useEffect(() => {
+  //   filteredNavItems();
+  // }, [user]);
 
 
 
-
+  console.log('aluth data',detail)
 
 
   // useEffect(() => {
   //   setActive(pathname.substring(1));
   // }, [pathname]);
- if(user){
+
   return (
     <Box component="nav">
       {isSidebarOpen && (
@@ -498,9 +501,9 @@ const Sidebar = ({
 
           <Box position="absolute" bottom="-98rem" paddingBottom="25px">
             <Divider />
-
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              {user ? (
+         
+            {/* <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
+              
                 <Box
                   component="img"
                   alt="profile"
@@ -514,11 +517,8 @@ const Sidebar = ({
                   borderRadius="50%"
                   sx={{ objectFit: "cover" }}
                 />
-              ) : (
-                // Render a placeholder or loading state here
-                <div>Loading...</div>
-              )}
-              {user ? (
+              
+          
                 <Box textAlign="left">
                   <Typography
                     fontWeight="bold"
@@ -534,168 +534,22 @@ const Sidebar = ({
                     {user.occupation}
                   </Typography>
                 </Box>
-              ) : (
-                <div>Loading...</div>
-              )}
+              
               <SettingsOutlined
                 sx={{
                   color: theme.palette.secondary[300],
                   fontSize: "25px ",
                 }}
               />
+              
             </FlexBetween>
+             */}
           </Box>
         </Drawer>
       )}
     </Box>
   );
- }else{
-  return (
-    <Box component="nav">
-      {isSidebarOpen && (
-        <Drawer
-          open={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          variant="persistent"
-          anchor="left"
-          sx={{
-            width: drawerWidth,
-            "& .MuiDrawer-paper": {
-              color: theme.palette.secondary[200],
-              backgroundColor: theme.palette.background.alt,
-              boxSixing: "border-box",
-              borderWidth: isNonMobile ? 0 : "2px",
-              width: drawerWidth,
-            },
-          }}
-        >
-          <Box width="100%">
-            <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.secondary.main}>
-                <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    SEACUCUMBER
-                  </Typography>
-                </Box>
-                {!isNonMobile && (
-                  <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                    <ChevronLeft />
-                  </IconButton>
-                )}
-              </FlexBetween>
-            </Box>
-            <List>
-              {
 
-                filteredNavItems.map(({ text, icon }) => {
-                  // let newText = text.replace(/ /g, '');
-                  // console.log(newText)
-                  if (!icon) {
-                    return (
-                      <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
-
-                        {text}
-                      </Typography>
-                    );
-                  }
-                  const lcText = text.toLowerCase();
-                  const lcTextNew = lcText.replace(/ /g, '');
-                 
-
-                  return (
-                    <ListItem key={text} disablePadding>
-                      <ListItemButton
-                        onClick={() => {
-                          navigate(`/${lcTextNew}`);
-                          setActive(lcText);
-                        }}
-                        sx={{
-                          backgroundColor:
-                            active === lcText
-                              ? theme.palette.secondary[100]
-                              : "transparent",
-                          color:
-                            active === lcText
-                              ? theme.palette.secondary[600]
-                              : theme.palette.secondary[100],
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{
-                            ml: "2rem",
-                            color:
-                              active === lcText
-                                ? theme.palette.secondary[600]
-                                : theme.palette.secondary[200],
-                          }}
-                        >
-                          {icon}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                        {active === lcText && (
-                          <ChevronRightOutlined sx={{ ml: "4vw" }} />
-                        )}
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-            </List>
-          </Box>
-
-          <Box position="absolute" bottom="-98rem" paddingBottom="25px">
-            <Divider />
-
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              {detail ? (
-                <Box
-                  component="img"
-                  alt="profile"
-                  src={detail.profilepic
-                    ? require(`../../../backend/uploads/${detail.profilepic}`)
-                    : `../../../backend/uploads/profile new.jpg`
-                     // Provide a placeholder image path
-                  }
-                  height="40px"
-                  width="40px"
-                  borderRadius="50%"
-                  sx={{ objectFit: "cover" }}
-                />
-              ) : (
-                // Render a placeholder or loading state here
-                <div>Loading...</div>
-              )}
-              {detail ? (
-                <Box textAlign="left">
-                  <Typography
-                    fontWeight="bold"
-                    fontSize="0.9rem"
-                    sx={{ color: theme.palette.secondary[100] }}
-                  >
-                    {detail.username}
-                  </Typography>
-                  <Typography
-                    fontSize="0.8rem"
-                    sx={{ color: theme.palette.secondary[200] }}
-                  >
-                    {detail.occupation}
-                  </Typography>
-                </Box>
-              ) : (
-                <div>Loading...</div>
-              )}
-              <SettingsOutlined
-                sx={{
-                  color: theme.palette.secondary[300],
-                  fontSize: "25px ",
-                }}
-              />
-            </FlexBetween>
-          </Box>
-        </Drawer>
-      )}
-    </Box>
-  );
- }
 
   
 };
