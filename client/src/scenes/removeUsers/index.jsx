@@ -193,7 +193,7 @@ const RemoveUsers = () => {
         <Button
           variant="outlined"
           color="secondary"
-          sx={{fontWeight:"bold"}}
+          sx={{fontWeight:"bold",backgroundColor:"#ff0e0e"}}
           onClick={() => handleDeleteRow(params.row._id)}
         >
           Delete
@@ -216,11 +216,15 @@ const RemoveUsers = () => {
             label="Select User Role"
           >
             <MenuItem value=""><em>All Roles</em></MenuItem>
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="exporter">Exporter</MenuItem>
-            <MenuItem value="fishermen">Fishermen</MenuItem>
-            <MenuItem value="farmer">Farmer</MenuItem>
+            <MenuItem value="Minister">Minister</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+            <MenuItem value="Director General">Director General</MenuItem>
+            <MenuItem value="Assistant Director">Assistant Director</MenuItem>
+            <MenuItem value="District Aquaculturist">District Aquaculturist</MenuItem>
+            <MenuItem value="Farmer">Farmer</MenuItem>
+            <MenuItem value="Fisherman">Fisherman</MenuItem>
+            <MenuItem value="Exporter">Exporter</MenuItem>
+            <MenuItem value="Processor">Processor</MenuItem>
           </Select>
         </FormControl>
         <TextField

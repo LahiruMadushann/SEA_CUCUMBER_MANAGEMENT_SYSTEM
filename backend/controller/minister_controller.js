@@ -23,6 +23,9 @@ const ministerService = require("../services/minister_services");
 //   }
 // };
 
+
+
+
 //ENTER NEWS / RULES AND REGULATIONS
 exports.enterNews = async (req, res, next) => {
   try {
