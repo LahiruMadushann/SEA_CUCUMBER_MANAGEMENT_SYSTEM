@@ -48,7 +48,9 @@ export default function MainAquaFarmScreen() {
                   <View className="ml-[70vw]">
                     <TouchableOpacity
                       onPress={() =>
-                        navigation.navigate("AquaFarmingFAQScreen")
+                        navigation.navigate("FisheriesFarmingFAQScreen", {
+                          category: "aquafarming",
+                        })
                       }
                     >
                       <Image
@@ -61,7 +63,7 @@ export default function MainAquaFarmScreen() {
               </View>
 
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Welcome {"\n"} Aqua Farm Section
+                Welcome{"\n"} Aqua Farm Section
               </Text>
             </View>
           </View>

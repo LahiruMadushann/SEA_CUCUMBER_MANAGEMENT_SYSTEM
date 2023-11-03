@@ -170,10 +170,10 @@ class AdminService {
     const updateAccountStatus = await UserModel.findByIdAndUpdate(
       { _id: userId },
 
-
       {
         // accountStatus: "Active",
         accountStatus: state === "Active" ? "Active" : "Inactive"
+
       }
     );
     return updateAccountStatus;
@@ -305,13 +305,23 @@ class AdminService {
   }
 
   //ENTER FAQ DETAILS
-  static async enterFAQDetails(question, answer, link, category, createdAt) {
+  static async enterFAQDetails(
+    question,
+    answer,
+    link,
+    category,
+    visibleToAll,
+    questionAskedByID,
+    createdAt
+  ) {
     try {
       const enterFAQDetails = new faqModel({
         question,
         answer,
         link,
         category,
+        visibleToAll,
+        questionAskedByID,
         createdAt,
       });
 
