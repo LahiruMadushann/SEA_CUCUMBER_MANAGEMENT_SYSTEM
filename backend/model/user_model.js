@@ -63,7 +63,7 @@ const userSchema = new Schema({
   },
   nicNo: {
     type: String,
-    required: true,
+    required: false,
   },
   farmName: {
     type: String,

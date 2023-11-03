@@ -415,8 +415,7 @@ class userService {
       // }
       else if (await userModel.findOne({ contactNo })) {
         msg = "Contact number already exists";
-      } else if (await userModel.findOne({ nicNo })) {
-        msg = "NIC No already exists";
+      
       } else {
         msg = null;
       }

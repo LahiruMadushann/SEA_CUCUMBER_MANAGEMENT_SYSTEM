@@ -4,7 +4,9 @@ const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
 const userService = require("../services/user_services");
 const newsModel = require("../model/news_model");
+
 //const news = require("../model/newsNew");
+
 
 exports.register = async (req, res, next) => {
   try {
@@ -62,61 +64,63 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
   try {
     const {
       username,
-      password,
-      role,
-      subrole,
-      age,
-      gender,
-      email,
       firstName,
       lastName,
-      contactNo,
-      address,
+      email,
+      password,
+      age,
+      gender,
       town,
-      province,
       country,
+      province,
+      address,
+      contactNo,
+      role
+
+
+
     } = req.body;
 
     if (req.file === undefined) {
       return res.json({ success: false, message: "you must select a file" });
     }
-
+  
     let checkUser = await userService.validateReg(
       username,
       email,
       contactNo,
-      nicNo
     );
-
+    console.log("Database User",username)
     console.log(checkUser);
     if (checkUser) {
+      
       return res.json({ success: false, message: checkUser });
     }
 
     const createdAt = new Date().toISOString();
     const profilepic = req.file.filename;
-
+    console.log("Database User",profilepic)
     const aquaFarmMngUsers =
       await adminService.registerAqFarmMangementLevelUsers(
         username,
-        password,
-        role,
-        subrole,
-        age,
-        gender,
-        email,
         firstName,
         lastName,
-        contactNo,
-        address,
+        email,
+        password,
+        age,
+        gender,
         town,
-        province,
         country,
+        province,
+        address,
+        contactNo,
+        role,
         profilepic,
         createdAt
       );
 
     if (aquaFarmMngUsers) {
+      console.log("Database User New",profilepic)
       res.status(201).json({
         success: true,
         message: "User account has been created successfully",
@@ -469,6 +473,7 @@ exports.updateUser = async (req, res, next) => {
 //enter news
 exports.addNews = async (req, res) => {
   try {
+
     console.log("Received message data:", req.body);
     const {
       userId,
