@@ -38,18 +38,18 @@ const UserProfile = () => {
     const [detail, setDetail] = useState(null);
     const [loading, setLoading] = useState(true); // Added loading state
     // const [user, setUser] = useState(null); // Use state to manage user data
-    const baseUrl = process.env.local.REACT_APP_BASE_URL;
+    const baseUrl = process.env.REACT_APP_BASE_URL;
    
     const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
     useEffect(() => {
   
-      if (!userId) {
-        if (loading) {
-          // Render a loading indicator while waiting for the response
-          return <div>Loading...</div>;
+        if (!userId) {
+            if (loading) {
+                // Render a loading indicator while waiting for the response
+                return <div>Loading...</div>;
+            }
+            return <div>Loading...</div>;
         }
-        return <div>Loading...</div>;
-      }
       axios.get(`${baseUrl}/user/${userId}`).then(response => {
   
         setDetail(response.data);
@@ -70,13 +70,13 @@ const UserProfile = () => {
 
     
     const { pathname } = useLocation();
-    const [userName, setUserName] = useState(user.username);
-    const [email, setEmail] = useState(user.email);
-    const [password, setPassword] = useState(user.password);
-    const [city, setCity] = useState(user.town);
-    const [country, setCountry] = useState(user.country);
-    const [occupation, setOccupation] = useState(user.occupation);
-    const [phoneNumber, setPhoneNumber] = useState(user.contactNo);
+    const [userName, setUserName] = useState(detail ? detail.username : '');
+    const [email, setEmail] = useState(detail ? detail.email : '');
+    const [password, setPassword] = useState(detail ? detail.password : '');
+    const [city, setCity] = useState(detail ? detail.town : '');
+    const [country, setCountry] = useState(detail ? detail.country : '');
+    const [occupation, setOccupation] = useState(detail ? detail.occupation : '');
+    const [phoneNumber, setPhoneNumber] = useState(detail ? detail.contactNo : '');
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { setUser } = useContext(UserContext);
