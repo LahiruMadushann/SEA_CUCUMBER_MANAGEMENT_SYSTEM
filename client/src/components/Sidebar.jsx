@@ -54,6 +54,56 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   //---------------
+
+  {
+    text: "Management",
+    icon: null,
+  },
+  // {
+  //   text: "Admin",
+  //   icon: <AdminPanelSettingsOutlined />,
+  // },
+  // {
+  //   text: "Performance",
+  //   icon: <TrendingUpOutlined />,
+  // },
+
+  {
+    text: "Remove Users",
+    icon: <PersonRemoveOutlinedIcon />,
+  },
+  ,
+
+  {
+    text: "Activate Users",
+    icon: <GroupAddOutlinedIcon />,
+  },
+  {
+    text: "Messages",
+    icon: <ContactMailOutlinedIcon />,
+  },
+  {
+    text: "Contact Us",
+    icon: <ContactPhoneOutlinedIcon />,
+  },
+  //---------------
+  //---------------
+  {
+    text: "Other Actions",
+    icon: null,
+  },
+  {
+    text: "Register Management Users",
+    icon: <ShoppingCartOutlined />,
+  },
+  {
+    text: "Enter Knowledge Center Data",
+    icon: <Groups2Outlined />,
+  },
+  {
+    text: "Farmers",
+    icon: <ReceiptLongOutlined />,
+  },
   {
     text: "Aquaculture Farms Section",
     icon: null,
@@ -191,59 +241,8 @@ const navItems = [
     text: "Breakdown",
     icon: <PieChartOutlined />,
   },
-  //---------------
-  {
-    text: "Other Actions",
-    icon: null,
-  },
-  {
-    text: "Register Management Users",
-    icon: <ShoppingCartOutlined />,
-  },
-  {
-    text: "Enter Knowledge Center Data",
-    icon: <Groups2Outlined />,
-  },
-  {
-    text: "Farmers",
-    icon: <ReceiptLongOutlined />,
-  },
-
-
-
-  //---------------
-
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
-
-  {
-    text: "Remove Users",
-    icon: <PersonRemoveOutlinedIcon />,
-  },
-  ,
-
-  {
-    text: "Activate Users",
-    icon: <GroupAddOutlinedIcon />,
-  },
-  {
-    text: "Messages",
-    icon: <ContactMailOutlinedIcon />,
-  },
-  {
-    text: "Contact Us",
-    icon: <ContactPhoneOutlinedIcon />,
-  },
+ 
+  
 ];
 
 const Sidebar = ({

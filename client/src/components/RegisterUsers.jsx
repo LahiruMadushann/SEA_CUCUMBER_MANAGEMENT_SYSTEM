@@ -28,44 +28,56 @@ import FormControl from '@mui/material/FormControl';
 const RegisterUsers = () => {
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext);
-    const [image, setImage] = useState(null);
+   
+    const [profilepic, setProfilepic] = useState(null)
     const { pathname } = useLocation();
     const [userName, setUserName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [city, setCity] = useState("");
+    const [address, setAddress] = useState("")
+    const [town, setTown] = useState("");
+    
     const [country, setCountry] = useState("");
     const [occupation, setOccupation] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [role, setRole] = useState("");
-    const [redirect, setRedirect] = useState(false);
+    const [province, setProvince] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const defaultTheme = createTheme();
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+        setProfilepic(e.target.files[0]);
     };
 
     async function handleLoginSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
 
-        formData.append("name", userName);
+        formData.append("username", userName);
+        formData.append("firstName", firstName);
+        formData.append("lastName", lastName);
         formData.append("email", email);
         formData.append("password", password);
-        formData.append("city", city);
+        formData.append("age", age);
+        formData.append("gender",gender)
+        formData.append("town", town);
         formData.append("country", country);
-        formData.append("occupation", occupation);
-        formData.append("phoneNumber", phoneNumber);
+        formData.append("province", province);
+        formData.append("address", address);
+        formData.append("contactNo", phoneNumber);
         formData.append("role", role);
-        formData.append("image", image);
+        formData.append("profilepic", profilepic);
 
         try {
 
             // const response = await axios.post("http://localhost:5001/general/add", formData);
 
-            const response = await axios.post(`${baseUrl}/general/add`, formData, {
+            const response = await axios.post(`${baseUrl}/admin/createAqUser`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -173,11 +185,29 @@ const RegisterUsers = () => {
                             <TextField
                                 margin="normal"
 
-                                name="name"
-                                label="Name"
+                                name="username"
+                                label="Userame"
                                 fullWidth
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
+                            />
+                            <TextField
+                                margin="normal"
+
+                                name="firstName"
+                                label="First Name"
+                                fullWidth
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                            <TextField
+                                margin="normal"
+
+                                name="lastName"
+                                label="Last Name"
+                                fullWidth
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
                             />
                             <TextField
                                 margin="normal"
@@ -202,42 +232,67 @@ const RegisterUsers = () => {
                             />
                             <TextField
                                 margin="normal"
-                                name="city"
+                                name="age"
+                                label="Age"
+                                fullWidth
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                            />
+                            <TextField
+                                margin="normal"
+                                name="gender"
+                                label="Gender"
+                                fullWidth
+                                value={gender}
+                                onChange={(e) => setGender(e.target.value)}
+                            />
+                            <TextField
+                                margin="normal"
+                                name="town"
                                 label="City"
                                 fullWidth
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                                value={town}
+                                onChange={(e) => setTown(e.target.value)}
                             />
 
                             <TextField
                                 margin="normal"
                                 name="country"
-                                label="Country"
-                                fullWidth
+                                label="Country"                                            
+                                fullWidth                                                           
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
                             />
                             <TextField
                                 margin="normal"
-                                name="occupation"
-                                label="Occupation"
+                                name="province"
+                                label="Province"
                                 fullWidth
-                                value={occupation}
-                                onChange={(e) => setOccupation(e.target.value)}
+                                value={province}
+                                onChange={(e) => setProvince(e.target.value)}
                             />
                             <TextField
                                 margin="normal"
-                                name="phone"
+                                name="address"
+                                label="Address"
+                                fullWidth
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                            <TextField
+                                margin="normal"
+                                name="contactNo"
                                 label="Phone Number"
                                 fullWidth
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                             />
+                          
 
                             <FormControl fullWidth>
-                                <InputLabel id="role-label">Role</InputLabel>
+                                <InputLabel id="role">Role</InputLabel>
                                 <Select
-                                    labelId="role-label"
+                                    labelId="role"
                                     value={role}
                                     onChange={(e) => setRole(e.target.value)}
                                 >

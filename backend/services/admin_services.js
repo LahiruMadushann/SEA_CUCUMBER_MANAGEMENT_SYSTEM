@@ -85,45 +85,47 @@ class AdminService {
   //Registering Aquaculture Management users
   static async registerAqFarmMangementLevelUsers(
     username,
-    password,
-    role,
-    subrole,
-    age,
-    gender,
-    email,
     firstName,
     lastName,
-    contactNo,
-    address,
+    email,
+    password,
+    age,
+    gender,
     town,
-    province,
     country,
+    province,
+    address,
+    contactNo,
+    role,
     profilepic,
     createdAt
   ) {
+  
     try {
       const createAqManagementUsers = new UserModel({
         username,
-        password,
-        role,
-        subrole,
-        age,
-        gender,
-        email,
         firstName,
         lastName,
-        contactNo,
-        address,
+        email,
+        password,
+        age,
+        gender,
         town,
-        province,
-        accountStatus: "Active",
         country,
+        province,
+        address,
+        contactNo,
+        role,
+        accountStatus: "Active",
         profilepic,
         createdAt,
       });
-
+      console.log("service user",createdAt)
+      
       return await createAqManagementUsers.save();
+      
     } catch (err) {
+      console.log("service user",err)
       throw err;
     }
   }
@@ -164,14 +166,14 @@ class AdminService {
   /* -------------- FOR FARMER MANAGEMENT ------------------ */
 
   //Approve Farmer Account
-  static async approveFarmerAc(userId,state) {
+  static async approveFarmerAc(userId, state) {
     const updateAccountStatus = await UserModel.findByIdAndUpdate(
       { _id: userId },
-    
-      
+
+
       {
         // accountStatus: "Active",
-        accountStatus : state === "Active" ? "Active" : "Inactive"
+        accountStatus: state === "Active" ? "Active" : "Inactive"
       }
     );
     return updateAccountStatus;
@@ -290,7 +292,7 @@ class AdminService {
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
-      
+
       // Check if the file exists before attempting to delete
       if (fs.existsSync(profilePicPath)) {
         fs.unlinkSync(profilePicPath);
