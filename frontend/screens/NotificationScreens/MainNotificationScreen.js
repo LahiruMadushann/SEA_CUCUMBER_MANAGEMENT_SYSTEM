@@ -38,7 +38,7 @@ export default function MainNotificationScreen() {
   // Access payload data from the decoded token
   const { _id: db_id, role: db_role } = decodedToken;
 
-  console.log(db_role);
+  // console.log(db_role);
 
   const [allNotificationData, setAllNotificationData] = useState([]);
   const [filterType, setFilterType] = useState("All"); // Default filter is "All"
@@ -110,6 +110,18 @@ export default function MainNotificationScreen() {
                         className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
                       />
                     </View>
+                  </TouchableOpacity>
+                </View>
+                <View className="ml-[70vw]">
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("PrivateNotificationScreen")
+                    }
+                  >
+                    <Image
+                      source={require("../../assets/info.png")}
+                      className=" w-[25px] h-[25px] ml-[0vw]"
+                    />
                   </TouchableOpacity>
                 </View>
               </View>

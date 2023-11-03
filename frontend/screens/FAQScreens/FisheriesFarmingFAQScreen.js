@@ -18,22 +18,49 @@ import FooterBar from "../../components/FooterBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function FisheriesFAQScreen() {
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
+
+export default function FisheriesFarmingFAQScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
+
+  const route = useRoute();
+  // Access the farmId parameter from route.params
+  const param_category = route.params?.category || "";
+
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const { _id: db_id } = decodedToken;
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [allFAQDetails, setAllFAQDetails] = useState([]);
   const [selectedFAQ, setSelectedFAQ] = useState(null);
+
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isMyQuestionsModalVisible, setMyQuestionsModalVisible] =
+    useState(false);
+
+  const [shouldRefresh, setShouldRefresh] = useState(true);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
+  const toggleModalViewMyQuestions = () => {
+    setMyQuestionsModalVisible(!isMyQuestionsModalVisible);
+    setShouldRefresh(true);
+  };
+
+  const toggleModalclose = () => {
+    setMyQuestionsModalVisible(!isMyQuestionsModalVisible);
+  };
+
   const [question, setQuestion] = useState("");
-  const category = "fisheries";
+  const category = param_category;
 
   useEffect(() => {
     setIsLoading(true);
@@ -47,9 +74,9 @@ export default function FisheriesFAQScreen() {
         setIsLoading(false);
       }
     }
-
     fetchAllFAQDetails();
-  }, []);
+    setShouldRefresh(false);
+  }, [shouldRefresh]);
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -65,6 +92,8 @@ export default function FisheriesFAQScreen() {
     const insertData = {
       question: question,
       category: category,
+      visibleToAll: false,
+      questionAskedByID: db_id,
     };
 
     const insertUrl = `${BASE_URL}/admin/enterFaqdetails`;
@@ -112,22 +141,38 @@ export default function FisheriesFAQScreen() {
             </View>
 
             <View className="mt-[6vh]">
-              <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
-                Fisheries Related FAQs
-              </Text>
+              {category === "fisheries" ? (
+                <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
+                  Fisheries Related FAQs
+                </Text>
+              ) : category === "aquafarming" ? (
+                <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
+                  Aqua Farming Related FAQs
+                </Text>
+              ) : null}
             </View>
           </View>
 
           <View className="mt-[25vh] mx-auto">
-            <TouchableOpacity onPress={toggleModal}>
-              <View className="w-[auto] h-[auto] pb-1 pt-1 pr-5 pl-5 mt-[2vh] mr-[5vw] ml-[5vw] bg-[#FFFFFF] mb-[5vh] rounded-full">
-                <Text className="text-[14px] text-center font-bold text-[#5A73F4]">
-                  Post your Questions here
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <View className="flex-row">
+              <TouchableOpacity onPress={toggleModal}>
+                <View className="w-[auto] h-[auto] pb-1 pt-1 pr-5 pl-5 mt-[2vh] mr-[1vw] bg-[#FFFFFF] mb-[5vh] rounded-full">
+                  <Text className="text-[14px] text-center font-bold text-[#5A73F4]">
+                    Post your Questions here
+                  </Text>
+                </View>
+              </TouchableOpacity>
 
-            {/* The Modal */}
+              <TouchableOpacity onPress={toggleModalViewMyQuestions}>
+                <View className="w-[auto] h-[auto] pb-1 pt-1 pr-5 pl-5 mt-[2vh] ml-[1vw] bg-[#FFFFFF] mb-[5vh] rounded-full">
+                  <Text className="text-[14px] text-center font-bold text-[#5A73F4]">
+                    My Questions
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            {/* The Modal For posting questions */}
             <Modal
               animationType="slide"
               transparent={true}
@@ -138,7 +183,7 @@ export default function FisheriesFAQScreen() {
                 className="flex my-auto mx-auto p-5 rounded-[10px] shadow-lg shadow-gray-900"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
               >
-                {/* Your popup content goes here */}
+                {/* popup content */}
 
                 <TextInput
                   className="text-[15dpx] border-b border-[#00000040]  text-[#000000] text-gray-800 p-1 w-[84vw] h-[auto]  mb-3"
@@ -166,9 +211,59 @@ export default function FisheriesFAQScreen() {
               </View>
             </Modal>
 
+            {/* The Modal For viewing your questions*/}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isMyQuestionsModalVisible}
+              onRequestClose={toggleModalViewMyQuestions}
+            >
+              <View
+                className="flex h-[auto] my-auto mx-auto p-5 rounded-[10px] shadow-lg shadow-gray-900"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
+              >
+                {allFAQDetails.map((faq) =>
+                  faq.category === category &&
+                  faq.questionAskedByID === db_id ? (
+                    <TouchableOpacity
+                      onPress={() => setSelectedFAQ(faq)}
+                      className="w-[auto] h-[auto] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                    >
+                      <View key={faq._id}>
+                        <View className="w-[auto] h-[auto] mr-[5vw] ml-[5vw] mt-[2vw] mb-[2vw] flex-row ">
+                          <Text className="text-[14px] font-bold text-[#000000]">
+                            {faq.question}?{" "}
+                            {!faq.answer && (
+                              <Text style={{ color: "red" }}>Not Answered</Text>
+                            )}
+                          </Text>
+                        </View>
+
+                        {selectedFAQ === faq && faq.answer && (
+                          <View className="flex mt-[1vw] ml-[5vw] mr-[5vw]">
+                            <Text className="text-[12px] text-justify flex mt-[0vw] mb-[4vw]">
+                              {faq.answer}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  ) : null
+                )}
+
+                <View className="flex-row mb-4 mt-4 h-auto justify-end">
+                  <Button
+                    title="Close"
+                    onPress={toggleModalclose}
+                    className="flex rounded-[5px] w-[auto] h-[auto] p-1 bg-grey-500"
+                  />
+                </View>
+              </View>
+            </Modal>
+
             {/* Loop through all FAQ and display Questions and answers details */}
             {allFAQDetails.map((faq) =>
-              faq.category === "fisheries" && faq.answer ? (
+              faq.category === category && faq.visibleToAll ? (
                 <TouchableOpacity
                   onPress={() => setSelectedFAQ(faq)}
                   className="w-[82vw] h-[auto] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"

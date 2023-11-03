@@ -46,7 +46,11 @@ export default function MainFisheriesScreen() {
                 {hasToken && (
                   <View className="ml-[70vw]">
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("FisheriesFAQScreen")}
+                      onPress={() =>
+                        navigation.navigate("FisheriesFarmingFAQScreen", {
+                          category: "fisheries",
+                        })
+                      }
                     >
                       <Image
                         source={require("../assets/info.png")}

@@ -226,7 +226,6 @@ exports.getAllNotifications = async (req, res, next) => {
       allNotifications = await userService.getAllNotifications();
     } else if (userRole == "Farmer") {
       allNotifications = await userService.getNotificationsToFarmers();
-      console.log("Nuw farmer");
     } else if (userRole == "Fisherman") {
       allNotifications = await userService.getNotificationsToFishermens();
     } else if (userRole == "Exporter") {
