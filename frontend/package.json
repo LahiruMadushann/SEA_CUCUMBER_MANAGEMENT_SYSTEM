@@ -45,6 +45,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-screens-swiper": "^1.2.6",
     "react-native-svg": "13.4.0",
+    "react-native-tts": "^4.1.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.18.10",
     "react-native-webview": "^11.26.0",

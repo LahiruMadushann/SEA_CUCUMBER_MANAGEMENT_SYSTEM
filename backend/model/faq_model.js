@@ -11,6 +11,7 @@ const faqSchema = new Schema({
   link: {
     type: String,
   },
+  //fisheries,aquafarming,general
   category: {
     type: String,
   },

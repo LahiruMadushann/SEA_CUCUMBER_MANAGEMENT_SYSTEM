@@ -7,10 +7,17 @@ import React from "react";
 import MainBoardScreen from "./screens/MainBoardScreen";
 
 import LoginScreen from "./screens/LoginScreen";
-import FAQScreen from "./screens/FAQScreens/FAQScreen";
+
 import GetEmailScreen from "./screens/GetEmailScreen";
 
 import RegisterScreen from "./screens/RegisterScreen";
+
+{
+  /*FAQ SCREENS */
+}
+import FAQScreen from "./screens/FAQScreens/FAQScreen";
+import FisheriesFAQScreen from "./screens/FAQScreens/FisheriesFAQScreen";
+import AquaFarmingFAQScreen from "./screens/FAQScreens/AquaFarmingFAQScreen";
 
 import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
 import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
@@ -126,6 +133,14 @@ export default function Navigation() {
         <Stack.Screen name="Contact" component={ContactUsScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="FAQScreen" component={FAQScreen} />
+        <Stack.Screen
+          name="FisheriesFAQScreen"
+          component={FisheriesFAQScreen}
+        />
+        <Stack.Screen
+          name="AquaFarmingFAQScreen"
+          component={AquaFarmingFAQScreen}
+        />
 
         {/*USER PROFILE SCREENS*/}
         <Stack.Screen
