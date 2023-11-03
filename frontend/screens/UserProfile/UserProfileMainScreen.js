@@ -485,7 +485,7 @@ export default function UserProfileMainScreen() {
 
           <View className="flex ml-[6vw]  mt-[5vh] mb-[4vh]">
             <TouchableOpacity
-              className="bg-[#C61A1A] rounded-[15px] w-[40vw] mx-auto justify-center py-[5px] px-[10px]"
+              className="bg-[#D23434] rounded-[5px] w-[40vw] mx-auto justify-center py-[5px] px-[10px] shadow-sm shadow-gray-700"
               onPress={handleDelete}
             >
               <Text className="text-[#fff] text-[18px] font-bold text-center">

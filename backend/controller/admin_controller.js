@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
 const userService = require("../services/user_services");
 const newsModel = require("../model/news_model");
-const news = require("../model/newsNew");
+//const news = require("../model/newsNew");
 
 exports.register = async (req, res, next) => {
   try {
@@ -256,7 +256,9 @@ exports.getAllFishermens = async (req, res, next) => {
         data: fishermensDetails,
       });
     } else {
-      res.status(400).json({ success: false, message: "No fishermens data found" });
+      res
+        .status(400)
+        .json({ success: false, message: "No fishermens data found" });
     }
   } catch (error) {
     console.log(error, "err---->");
@@ -433,7 +435,9 @@ exports.deleteUser = async (req, res, next) => {
         message: "Your account was deleted Successfully",
       });
     } else {
-      res.status(400).json({ success: false, message: "Delete Account Unsuccessfully" });
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Account Unsuccessfully" });
     }
   } catch (error) {
     console.log(error, "err---->");
@@ -452,7 +456,9 @@ exports.updateUser = async (req, res, next) => {
         message: "Your account was updated Successfully",
       });
     } else {
-      res.status(400).json({ success: false, message: "Update Account Unsuccessfully" });
+      res
+        .status(400)
+        .json({ success: false, message: "Update Account Unsuccessfully" });
     }
   } catch (error) {
     console.log(error, "err---->");
@@ -463,10 +469,17 @@ exports.updateUser = async (req, res, next) => {
 //enter news
 exports.addNews = async (req, res) => {
   try {
-
-   
     console.log("Received message data:", req.body);
-    const { userId, role, message, title, description, type, postedBy, postedTo } = req.body;
+    const {
+      userId,
+      role,
+      message,
+      title,
+      description,
+      type,
+      postedBy,
+      postedTo,
+    } = req.body;
     console.log("Received role:", role); // Log the role
 
     const newMessage = new newsModel({
@@ -477,23 +490,28 @@ exports.addNews = async (req, res) => {
       description,
       type,
       postedBy,
-      postedTo
+      postedTo,
     });
 
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
-
   } catch (error) {
     console.error("Error saving message:", error);
     res.status(400).json({ message: error.message });
   }
-}
-
+};
 
 //ENTER FAQ DETAILS
 exports.enterFAQDetails = async (req, res, next) => {
   try {
-    const { question, answer, link, category } = req.body;
+    const {
+      question,
+      answer,
+      link,
+      category,
+      visibleToAll,
+      questionAskedByID,
+    } = req.body;
 
     const createdAt = new Date().toISOString();
 
@@ -502,6 +520,8 @@ exports.enterFAQDetails = async (req, res, next) => {
       answer,
       link,
       category,
+      visibleToAll,
+      questionAskedByID,
       createdAt
     );
 
@@ -521,5 +541,3 @@ exports.enterFAQDetails = async (req, res, next) => {
     next(error);
   }
 };
-
-

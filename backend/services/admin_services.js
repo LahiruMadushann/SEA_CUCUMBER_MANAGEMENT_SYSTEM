@@ -164,14 +164,13 @@ class AdminService {
   /* -------------- FOR FARMER MANAGEMENT ------------------ */
 
   //Approve Farmer Account
-  static async approveFarmerAc(userId,state) {
+  static async approveFarmerAc(userId, state) {
     const updateAccountStatus = await UserModel.findByIdAndUpdate(
       { _id: userId },
-    
-      
+
       {
         // accountStatus: "Active",
-        accountStatus : state === "Active" ? "Active" : "Inactive"
+        accountStatus: state === "Active" ? "Active" : "Inactive",
       }
     );
     return updateAccountStatus;
@@ -290,7 +289,7 @@ class AdminService {
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
-      
+
       // Check if the file exists before attempting to delete
       if (fs.existsSync(profilePicPath)) {
         fs.unlinkSync(profilePicPath);
@@ -303,13 +302,23 @@ class AdminService {
   }
 
   //ENTER FAQ DETAILS
-  static async enterFAQDetails(question, answer, link, category, createdAt) {
+  static async enterFAQDetails(
+    question,
+    answer,
+    link,
+    category,
+    visibleToAll,
+    questionAskedByID,
+    createdAt
+  ) {
     try {
       const enterFAQDetails = new faqModel({
         question,
         answer,
         link,
         category,
+        visibleToAll,
+        questionAskedByID,
         createdAt,
       });
 

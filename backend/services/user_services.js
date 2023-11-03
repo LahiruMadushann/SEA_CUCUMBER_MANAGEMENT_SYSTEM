@@ -27,7 +27,7 @@ class userService {
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
-      
+
       // Check if the file exists before attempting to delete
       if (fs.existsSync(profilePicPath)) {
         fs.unlinkSync(profilePicPath);
@@ -158,7 +158,7 @@ class userService {
       let tokenData;
 
       if (data.role == "Admin") {
-        console.log(data.username);
+        // console.log(data.username);
         tokenData = {
           _id: data._id,
           role: data.role,
@@ -397,7 +397,7 @@ class userService {
 
   //GET ALL FAQ DETAILS
   static async getAllFaqDetails() {
-    const allFaqDetails = await faqModel.find();
+    const allFaqDetails = await faqModel.find().sort({ createdAt: -1 });
     return allFaqDetails;
   }
 

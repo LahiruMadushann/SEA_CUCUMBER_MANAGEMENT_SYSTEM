@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const userModel = require("../model/user_model");
 
 const faqSchema = new Schema({
   question: {
@@ -14,6 +15,13 @@ const faqSchema = new Schema({
   //fisheries,aquafarming,general
   category: {
     type: String,
+  },
+  visibleToAll: {
+    type: Boolean,
+  },
+  questionAskedByID: {
+    type: Schema.Types.ObjectId,
+    ref: userModel.modelName,
   },
   createdAt: {
     type: Date,
