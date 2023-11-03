@@ -238,14 +238,20 @@ const RegisterUsers = () => {
                                 value={age}
                                 onChange={(e) => setAge(e.target.value)}
                             />
-                            <TextField
-                                margin="normal"
-                                name="gender"
-                                label="Gender"
-                                fullWidth
-                                value={gender}
-                                onChange={(e) => setGender(e.target.value)}
-                            />
+                            
+                            <FormControl fullWidth>
+                                <InputLabel id="gender">Gender</InputLabel>
+                                <Select
+                                    labelId="gender"
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}
+                                >
+                                    <MenuItem value={"Male"}>Male</MenuItem>
+                                    <MenuItem value={"Female"}>Female</MenuItem>
+                                    <MenuItem value={"Other"}>Other</MenuItem>
+
+                                </Select>
+                            </FormControl>
                             <TextField
                                 margin="normal"
                                 name="town"
@@ -296,10 +302,17 @@ const RegisterUsers = () => {
                                     value={role}
                                     onChange={(e) => setRole(e.target.value)}
                                 >
-                                    <MenuItem value={"admin"}>Admin</MenuItem>
-                                    <MenuItem value={"exporter"}>Exporter</MenuItem>
-                                    <MenuItem value={"farmer"}>Farmer</MenuItem>
-                                    <MenuItem value={"fishermen"}>Fishermen</MenuItem>
+                                    <MenuItem value={"Admin"}>Admin</MenuItem>
+                                    <MenuItem value={"Exporter"}>Exporter</MenuItem>
+                                    <MenuItem value={"Farmer"}>Farmer</MenuItem>
+                                    <MenuItem value={"Fishermen"}>Fishermen</MenuItem>
+                                    <MenuItem value={"Chairman"}>Chairman</MenuItem>
+                                    <MenuItem value={"Director General"}>Director General</MenuItem>
+                                    <MenuItem value={"Assistant Director"}>Assistant Director</MenuItem>
+                                    <MenuItem value={"District Aquaculturist"}>District Aquaculturist</MenuItem>
+                                    <MenuItem value={"Minister"}>Minister</MenuItem>
+                                    <MenuItem value={"Processor"}>Processor</MenuItem>
+
 
                                 </Select>
                             </FormControl>
