@@ -14,8 +14,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
+import { useAuth } from "../auth/AuthContext";
+import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+
 export default function MainAquaFarmScreen() {
   const navigation = useNavigation();
+  const { state } = useAuth();
+  const hasToken = state.token;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -39,10 +44,24 @@ export default function MainAquaFarmScreen() {
                     </View>
                   </TouchableOpacity>
                 </View>
+                {hasToken && (
+                  <View className="ml-[70vw]">
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("AquaFarmingFAQScreen")
+                      }
+                    >
+                      <Image
+                        source={require("../assets/info.png")}
+                        className=" w-[25px] h-[25px] ml-[0vw]"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
 
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Welcome to {"\n"} Aqua Farm Section
+                Welcome {"\n"} Aqua Farm Section
               </Text>
             </View>
           </View>
