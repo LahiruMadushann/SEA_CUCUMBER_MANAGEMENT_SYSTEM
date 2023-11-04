@@ -400,6 +400,11 @@ class userService {
     const allFaqDetails = await faqModel.find().sort({ createdAt: -1 });
     return allFaqDetails;
   }
+  //GET ALL Contact Us DETAILS
+  static async getContactUs() {
+    const contactUs = await contactUsModel.find().sort({ createdAt: -1 });
+    return contactUs;
+  }
 
   /* ------------------------------ REGISTRATION VALIDATION --------------------------------- */
 

@@ -51,4 +51,7 @@ router.get("/user/getAllFAQDetails", userController.getAllFAQDetails);
 //get all users
 router.get("/user/getAllUsers", userController.getAllUserDetails);
 
+//get all messages
+router.get("/user/getContactUs", userController.getContactUs);
+
 module.exports = router;
