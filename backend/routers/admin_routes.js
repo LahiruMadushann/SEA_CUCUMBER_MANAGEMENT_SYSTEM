@@ -89,11 +89,16 @@ router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
+router.delete("/admin/deleteFaqdetails", adminController.deleteFAQDetails);
+router.put("/admin/updateFaqdetails", adminController.updateFAQs);
 
 //Get All User details
 router.get("/user/:id", adminController.getUser);
 
-router.delete("/admin/deleteUser/:id",adminController.deleteUser);
+router.delete("/admin/deleteUser/:id", adminController.deleteUser);
 router.post("/admin/enterNews", adminController.addNews);
-router.put("/admin/updateUser/:id/:state",adminController.approveFarmerAccount)
+router.put(
+  "/admin/updateUser/:id/:state",
+  adminController.approveFarmerAccount
+);
 module.exports = router;
