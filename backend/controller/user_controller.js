@@ -389,6 +389,21 @@ exports.getAllFAQDetails = async (req, res, next) => {
   }
 };
 
+exports.getContactUs = async (req, res, next) => {
+  try {
+    let contactUs = await userService.getContactUs();
+
+    if (contactUs) {
+      res.status(200).json({ status: true, data: contactUs });
+    } else {
+      res.status(404).json({ status: false, message: "There are no Data" });
+    }
+  } catch (error) {
+    console.log(error, error.message);
+    next(error);
+  }
+};
+
 //Get All User Detail
 exports.getAllUserDetails = async (req, res, next) => {
   try {
