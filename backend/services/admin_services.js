@@ -100,7 +100,6 @@ class AdminService {
     profilepic,
     createdAt
   ) {
-  
     try {
       const createAqManagementUsers = new UserModel({
         username,
@@ -120,12 +119,11 @@ class AdminService {
         profilepic,
         createdAt,
       });
-      console.log("service user",createdAt)
-      
+      console.log("service user", createdAt);
+
       return await createAqManagementUsers.save();
-      
     } catch (err) {
-      console.log("service user",err)
+      console.log("service user", err);
       throw err;
     }
   }
@@ -138,7 +136,7 @@ class AdminService {
           "Minister",
           "Chairman",
           "Director General",
-          "Assitant Director",
+          "Assistant Director",
           "District Aquaculturist",
         ],
       },
@@ -172,8 +170,7 @@ class AdminService {
 
       {
         // accountStatus: "Active",
-        accountStatus: state === "Active" ? "Active" : "Inactive"
-
+        accountStatus: state === "Active" ? "Active" : "Inactive",
       }
     );
     return updateAccountStatus;
@@ -238,7 +235,6 @@ class AdminService {
     createdAt
   ) {
     try {
-      
       const enterSpeciesDetails = new knowledgeCenterModel({
         speciesType,
         scientificName,
@@ -251,11 +247,10 @@ class AdminService {
         seaCucumberImages,
         createdAt,
       });
-      
+
       return await enterSpeciesDetails.save();
-      
     } catch (err) {
-      console.log("Type data",err)
+      console.log("Type data", err);
       throw err;
     }
   }

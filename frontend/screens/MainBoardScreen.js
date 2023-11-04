@@ -37,13 +37,13 @@ export default function MainBoardScreen() {
           {/* <StatusBar barStyle="dark-content" /> */}
 
           <View
-            className="absolute w-[213vw] h-[75vh] left-[-57vw] top-[-15vh] bg-[#0013C0] rounded-b-full"
+            className="absolute w-[auto] h-[60vh] left-[-27vw] top-[0vh] bg-[#0013C0] rounded-b-full"
             style={{ zIndex: -1 }}
           >
-            <View className="flex-1 justify-center items-center mt-[90vw] ">
+            <View className="flex-1 justify-center items-center">
               <Image
                 source={require("../assets/main_board/main_image.jpg")}
-                className="w-[auto] top-[-15vh] h-[auto] center rounded-b-full"
+                className="w-[auto] h-[60vh] center rounded-b-full"
                 style={{ opacity: 0.5 }}
               />
             </View>

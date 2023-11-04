@@ -62,12 +62,14 @@ export default function FarmPopupScreen({ farmId, farmName }) {
 
   return (
     <View className=" " style={{ zIndex: 999 }}>
-      <TouchableOpacity onPress={toggleMenu}>
-        <Image
-          source={require("../assets/options.png")}
-          className=" w-[24.21875px] h-[28px] ml-[70vw]"
-        />
-      </TouchableOpacity>
+      <View className="ml-[80vw]">
+        <TouchableOpacity onPress={toggleMenu}>
+          <Image
+            source={require("../assets/options.png")}
+            className=" w-[24.21875px] h-[28px]"
+          />
+        </TouchableOpacity>
+      </View>
       {menuVisible && (
         <View style={styles.menu} className="ml-[40vw] ">
           <TouchableOpacity
