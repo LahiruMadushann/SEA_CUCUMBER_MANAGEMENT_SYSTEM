@@ -85,6 +85,11 @@ router.post(
   adminController.enterSeacucumberDetails
 );
 
+router.put(
+  "/admin/updateSpeciesDetails",
+  adminController.updateSeacucumberDetails
+);
+
 router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/

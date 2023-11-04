@@ -219,9 +219,9 @@ class AdminService {
     return fishProcessorsDetails;
   }
 
-  /*----------------------------------------------------------------------*/
-  //OPERATIONS RELATED TO KNOWLEDGE CENTER
+  /*--------------------------------- OPERATIONS RELATED TO KNOWLEDGE CENTER  -------------------------------------*/
 
+  //ENTER SEACUCUMBER DETAILS
   static async enterIndividualSeacucumberDetails(
     speciesType,
     scientificName,
@@ -251,6 +251,55 @@ class AdminService {
       return await enterSpeciesDetails.save();
     } catch (err) {
       console.log("Type data", err);
+      throw err;
+    }
+  }
+
+  //UPDATE SEACUCUMBER DETAILS
+  static async updateSeacucumberDetails(
+    speciesId,
+    speciesType,
+    scientificName,
+    description,
+    habitats,
+    feeding,
+    reproduction,
+    lifecycle,
+    fishingMethods
+  ) {
+    try {
+      const updateSpeciesDetails = new knowledgeCenterModel.findByIdAndUpdate(
+        {
+          _id: speciesId,
+        },
+        {
+          speciesType,
+          scientificName,
+          description,
+          habitats,
+          feeding,
+          reproduction,
+          lifecycle,
+          fishingMethods,
+        }
+      );
+
+      return updateSpeciesDetails;
+    } catch (err) {
+      console.log("Type data", err);
+      throw err;
+    }
+  }
+
+  //DELETE SEACUCUMBER DETAILS
+  static async deleteSeacucumberDetails(speciesId) {
+    try {
+      const deleteSCDetails = new knowledgeCenterModel.findByIdAndDelete({
+        _id: speciesId,
+      });
+
+      return deleteSCDetails;
+    } catch (err) {
       throw err;
     }
   }
@@ -334,7 +383,7 @@ class AdminService {
   //DELETE FAQ DETAILS
   static async deleteFAQDetails(faqId) {
     try {
-      const deleteFAQ = new faqModel({
+      const deleteFAQ = new faqModel.findByIdAndDelete({
         _id: faqId,
       });
 
