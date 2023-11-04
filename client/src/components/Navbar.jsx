@@ -159,7 +159,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <Box
                   component="img"
                   alt="profile"
-                  src={require(`../../../backend/uploads/${user.profilepic}`)}
+                  src={require(`../../../backend/Images/profilePics/${user.profilepic}`)}
                   height="32px"
                   width="32px"
                   borderRadius="50%"
@@ -232,7 +232,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <Box
                   component="img"
                   alt="profile"
-                  src={require(`../../../backend/uploads/${detail.profilepic}`)}
+                  src={require(`../../../backend/Images/profilePics/${detail.profilepic}`)}
                   height="32px"
                   width="32px"
                   borderRadius="50%"

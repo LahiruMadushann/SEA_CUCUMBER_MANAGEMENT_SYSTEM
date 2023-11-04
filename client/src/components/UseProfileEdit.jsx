@@ -300,7 +300,7 @@ const UserProfileEdit = () => {
 
                         <img
 
-                            src={require(`../../../backend/uploads/${user.profilepic}`)} // Use user's imagePath if available
+                            src={require(`../../../backend/Images/profilePics/${user.profilepic}`)} // Use user's imagePath if available
                             alt="Profile"
                             style={{
                                 marginLeft: '11vw',
@@ -318,7 +318,7 @@ const UserProfileEdit = () => {
                     ) : pageLoaded ? (
                         <img
 
-                            src={require(`../../../backend/uploads/${detail.profilepic}`)} // Use user's imagePath if available
+                            src={require(`../../../backend/Images/profilePics/${detail.profilepic}`)} // Use user's imagePath if available
                             alt="Profile"
                             style={{
                                 marginLeft: '11vw',
