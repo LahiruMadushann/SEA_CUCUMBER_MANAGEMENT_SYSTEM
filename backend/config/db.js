@@ -1,18 +1,11 @@
 // MONGODB ATLAS CONNECTION
+require("dotenv").config();
 
 const mongoose = require("mongoose");
 
-// const connectionParams = {
-//   useNewUrlParser: true,
-//   useCreateIndex: true,
-//   useUnifiedTopology: true,
-// };
-
 const connection = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://jeevake:Jeevake@cluster0.sbjmf6j.mongodb.net/seacucumberdb?retryWrites=true&w=majority"
-    );
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("MongoDb Connected");
   } catch (error) {
     console.log("MongoDb connection error");

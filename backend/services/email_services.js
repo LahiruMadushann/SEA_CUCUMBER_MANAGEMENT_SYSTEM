@@ -1,11 +1,12 @@
 var nodemailer = require("nodemailer");
+require("dotenv").config();
 
 //SENDING AN CONFORMATION EMAIL
 var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "seacucumbermanager@gmail.com",
-    pass: "hcyxghjdncvaoxaq",
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
