@@ -22,13 +22,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import Swal from "sweetalert2";
 
 
 
 const RegisterUsers = () => {
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext);
-   
+
     const [profilepic, setProfilepic] = useState(null)
     const { pathname } = useLocation();
     const [userName, setUserName] = useState("");
@@ -40,7 +41,7 @@ const RegisterUsers = () => {
     const [password, setPassword] = useState("");
     const [address, setAddress] = useState("")
     const [town, setTown] = useState("");
-    
+
     const [country, setCountry] = useState("");
     const [occupation, setOccupation] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -64,7 +65,7 @@ const RegisterUsers = () => {
         formData.append("email", email);
         formData.append("password", password);
         formData.append("age", age);
-        formData.append("gender",gender)
+        formData.append("gender", gender)
         formData.append("town", town);
         formData.append("country", country);
         formData.append("province", province);
@@ -88,46 +89,63 @@ const RegisterUsers = () => {
                 console.log("User added successfully:", response.data);
                 const addedUser = response.data;
                 console.log("New user added:", addedUser);
-                alert("Profile added successfully!");
-                navigate("/");
+
+                //-----------------
+                const { isConfirmed } = await Swal.fire({
+                    title: "Successfull",
+                    text: "Registred Successful!",
+                    icon: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3644C5",
+                    confirmButtonText: "Ok!",
+                });
+
+                if (!isConfirmed) {
+                    return;
+                }
+                try {
+                    navigate('/dashboard');
+                } catch (error) {
+                    console.error("Error Registering ");
+                }
+                //---------------
+                
             } else {
-                alert("Profile add failed. Please try again.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Error',
+                    text: 'Registration add failed. Please try again.',
+                  });
+                
             }
         } catch (error) {
             console.error("Error adding profile:", error);
             alert("An error occurred while adding the profile. Please try again later.");
         }
+    }
+    async function back(e) {
+        e.preventDefault();
 
+        const { isConfirmed } = await Swal.fire({
+            title: "Are you sure?",
+            text: "Are you want go back to the dashboard?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3644C5",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No"
+        });
 
-
-
-        // try {
-        //     const addUser = {
-        // name: userName,
-        // email: email,
-        // password: password,
-        // city: city,
-        // country: country,
-        // occupation: occupation,
-        // phoneNumber: phoneNumber,
-        // role: role,
-        //     };
-
-        //     // Update the base URL to match your backend server
-        //     const response = await axios.post(`http://localhost:5001/general/user`, addUser);
-
-        //     if (response.status === 200) {
-        //         // Profile update successful
-        //         alert("Profile updated successfully!");
-        //         // You might want to update the user context or any other necessary state
-        //     } else {
-        //         alert("Profile update failed. Please try again.");
-        //     }
-        // } catch (error) {
-        //     console.error("Error updating profile:", error);
-        //     alert("An error occurred while updating the profile. Please try again later.");
-        // }
-
+        if (!isConfirmed) {
+            return;
+        }
+        try {
+            navigate('/dashboard');
+        } catch (error) {
+            console.error("Error Going Back");
+        }
 
     }
 
@@ -238,7 +256,7 @@ const RegisterUsers = () => {
                                 value={age}
                                 onChange={(e) => setAge(e.target.value)}
                             />
-                            
+
                             <FormControl fullWidth>
                                 <InputLabel id="gender">Gender</InputLabel>
                                 <Select
@@ -264,8 +282,8 @@ const RegisterUsers = () => {
                             <TextField
                                 margin="normal"
                                 name="country"
-                                label="Country"                                            
-                                fullWidth                                                           
+                                label="Country"
+                                fullWidth
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
                             />
@@ -293,7 +311,7 @@ const RegisterUsers = () => {
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                             />
-                          
+
 
                             <FormControl fullWidth>
                                 <InputLabel id="role">Role</InputLabel>
@@ -325,18 +343,28 @@ const RegisterUsers = () => {
                                 onChange={handleImageChange}
                             />
 
+                            <Box sx={{ mt: 5 }}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ px: 5, marginRight: 1, fontWeight: "bold", height: '60px', width: '245px', border: '2px solid #3644C5', borderRadius: '28px', backgroundColor: 'white', color: '#3644C5' }}
+                                >
+                                    Register
+                                </Button>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ px: 5, marginLeft: 1, fontWeight: "bold", height: '60px', width: '245px', border: '2px solid #3644C5', borderRadius: '28px', backgroundColor: 'white', color: '#3644C5' }}
+                                    onClick={back}
+                                >
 
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
-                            >
-                                Save
-                            </Button>
-
-
+                                    Back
+                                </Button>
+                            </Box>
                         </Box>
+
                     </Box>
                 </Grid>
             </Grid>

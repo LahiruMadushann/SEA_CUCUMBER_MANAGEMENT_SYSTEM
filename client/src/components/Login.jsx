@@ -96,54 +96,6 @@ const Login = ({ user }) => {
     });
 
 
-
-    //-----------------------------------------------
-    
-    // e.preventDefault();
-    // const backendUrl = 'http://localhost:5001/login';
-    // const userData = {
-    //   username: name,
-    //   password: password,
-    // };
-    // axios
-    //   .post(backendUrl, userData)
-    //   .then((response) => {
-    //     if (response.data.success) {
-    //       const token = response.data.token;
-    //       console.log("Token:", token);
-
-    //       const decodedToken = jwtDecode(token);
-    //       console.log("Decoded Token:", decodedToken);
-
-    //       // Set the token in the context
-
-    //       dispatch({ type: "SET_TOKEN", payload: token });
-
-    //       // navigating to another screen
-    //       navigate('/dashboard');
-    //       // <Navigate to={"/dashboard"}/>
-         
-    //     } else {
-    //       // Show an alert for unsuccessful login
-    //       // Alert.alert(
-    //       //   "Login Error",
-    //       //   "Unsuccessful login. Please check your credentials.",
-    //       //   [
-    //       //     {
-    //       //       text: "OK",
-    //       //     },
-    //       //   ],
-    //       //   { cancelable: true }
-    //       // );
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Login error:", error);
-    //     // Alert.alert(
-    //     //   "Login Error",
-    //     //   "Unsuccessful login. Please check your credentials."
-    //     // );
-    //   });
   }
 
   return (
