@@ -7,7 +7,6 @@ const newsModel = require("../model/news_model");
 
 //const news = require("../model/newsNew");
 
-
 exports.register = async (req, res, next) => {
   try {
     const {
@@ -75,31 +74,23 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       province,
       address,
       contactNo,
-      role
-
-
-
+      role,
     } = req.body;
 
     if (req.file === undefined) {
       return res.json({ success: false, message: "you must select a file" });
     }
-  
-    let checkUser = await userService.validateReg(
-      username,
-      email,
-      contactNo,
-    );
-    console.log("Database User",username)
+
+    let checkUser = await userService.validateReg(username, email, contactNo);
+    console.log("Database User", username);
     console.log(checkUser);
     if (checkUser) {
-      
       return res.json({ success: false, message: checkUser });
     }
 
     const createdAt = new Date().toISOString();
     const profilepic = req.file.filename;
-    console.log("Database User",profilepic)
+    console.log("Database User", profilepic);
     const aquaFarmMngUsers =
       await adminService.registerAqFarmMangementLevelUsers(
         username,
@@ -120,7 +111,7 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       );
 
     if (aquaFarmMngUsers) {
-      console.log("Database User New",profilepic)
+      console.log("Database User New", profilepic);
       res.status(201).json({
         success: true,
         message: "User account has been created successfully",
@@ -345,7 +336,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
       lifecycle,
       fishingMethods,
     } = req.body;
-  
+
     // let seacucumberImages;
 
     // if(req.files){
@@ -359,7 +350,6 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
     // }
 
     if (req.file === undefined) {
-      
       return res
         .status(400)
         .json({ success: false, message: "you must select a file" });
@@ -367,7 +357,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
 
     const seaCucumberImages = req.file.filename;
     const createdAt = new Date().toISOString();
-   
+
     const enterSpeciesDetails =
       await adminService.enterIndividualSeacucumberDetails(
         speciesType,
@@ -381,7 +371,6 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
         seaCucumberImages,
         createdAt
       );
-      
 
     if (enterSpeciesDetails) {
       res.status(200).json({
@@ -475,7 +464,6 @@ exports.updateUser = async (req, res, next) => {
 //enter news
 exports.addNews = async (req, res) => {
   try {
-
     console.log("Received message data:", req.body);
     const {
       userId,
