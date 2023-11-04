@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useGetAdminsQuery } from "state/api";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../UserContext";
@@ -29,20 +30,51 @@ const UserProfileEdit = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { user } = useContext(UserContext);
+    const userId = useSelector((state) => state.global.userId);
+
+    const [detail, setDetail] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [pageLoaded, setPageLoaded] = useState(false);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
+    useEffect(() => {
+
+        if (!userId) {
+            if (loading) {
+                // Render a loading indicator while waiting for the response
+                return <div>Loading...</div>;
+            }
+            return <div>Loading...</div>;
+        }
+        axios.get(`${baseUrl}/user/${userId}`).then(response => {
+
+            setDetail(response.data);
+
+            setLoading(false); // Set loading to false when the response is received
+            setPageLoaded(true);
+            console.log("sucesss")
+
+            // setUser(detail);
+
+            console.log("Response ek  Navbar pgo", response.data)
+            
+        });
+
+    }, [userId]);
 
     const { pathname } = useLocation();
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [occupation, setOccupation] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [userName, setUserName] = useState(detail ? detail.username : '');
+    const [email, setEmail] = useState(detail ? detail.email : '');
+    const [password, setPassword] = useState(detail ? detail.password : '');
+    const [city, setCity] = useState(detail ? detail.town : '');
+    const [country, setCountry] = useState(detail ? detail.country : '');
+    const [occupation, setOccupation] = useState(detail ? 'role' : '');
+    const [phoneNumber, setPhoneNumber] = useState(detail ? detail.contactNo : '');
     const [image, setImage] = useState(null);
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { setUser } = useContext(UserContext);
-    const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
     const defaultTheme = createTheme();
 
@@ -57,40 +89,22 @@ const UserProfileEdit = () => {
             cancelButtonColor: "#3644C5",
             confirmButtonText: "Yes, cancel it!",
             cancelButtonText: "No"
-          });
-      
-          if (!isConfirmed) {
+        });
+
+        if (!isConfirmed) {
             return;
-          }
-            try {
-                navigate('/userProfile');
-            } catch (error) {
-              console.error("Error Going Back");
-            }
-         
+        }
+        try {
+            navigate('/userProfile');
+        } catch (error) {
+            console.error("Error Going Back");
+        }
+
     }
 
 
 
-    useEffect(() => {
-        const userDataFromCookies = {
-            name: Cookies.get("name") || user.username || "",
-            email: Cookies.get("email") || user.email || "",
-            password: Cookies.get("password") || user.password || "",
-            city: Cookies.get("city") || user.town || "",
-            country: Cookies.get("country") || user.country || "",
-            occupation: Cookies.get("occupation") || user.role || "",
-            phoneNumber: Cookies.get("phoneNumber") || user.contactNo || "",
-        };
-
-        setUserName(userDataFromCookies.name);
-        setEmail(userDataFromCookies.email);
-        setPassword(userDataFromCookies.password);
-        setCity(userDataFromCookies.city);
-        setCountry(userDataFromCookies.country);
-        setOccupation(userDataFromCookies.occupation);
-        setPhoneNumber(userDataFromCookies.phoneNumber);
-    }, [user]);
+  
 
 
 
@@ -120,7 +134,7 @@ const UserProfileEdit = () => {
             formData.append('image', selectedImage);
 
 
-            const response = await axios.put(`${baseUrl}/general/user/image/${user._id}`, formData, {
+            const response = await axios.put(`${baseUrl}/admin/updateProfilePic`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -139,12 +153,12 @@ const UserProfileEdit = () => {
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3644C5",
                     confirmButtonText: "Ok!",
-                    
-                  });
-              
-                  if (!isConfirmed) {
+
+                });
+
+                if (!isConfirmed) {
                     return;
-                  }
+                }
 
                 // Reload the page
                 window.location.reload();
@@ -162,13 +176,13 @@ const UserProfileEdit = () => {
         e.preventDefault();
         try {
             const updatedUserData = {
-                name: userName,
+                username: userName,
                 email: email,
                 password: password,
                 city: city,
-                country: country,
-                occupation: occupation,
-                phoneNumber: phoneNumber,
+                town: country,
+                role: occupation,
+                contactNo: phoneNumber,
             };
 
             Object.keys(updatedUserData).forEach((key) => {
@@ -176,7 +190,7 @@ const UserProfileEdit = () => {
             });
 
             // Update the base URL to match your backend server
-            const response = await axios.put(`http://localhost:5001/general/user/${user._id}`, updatedUserData);
+            const response = await axios.put(`${baseUrl}/general/user/${user._id}`, updatedUserData);
 
             if (response.status === 200) {
                 // Profile update successful
@@ -188,13 +202,13 @@ const UserProfileEdit = () => {
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3644C5",
                     confirmButtonText: "Ok!",
-                    
-                  });
-              
-                  if (!isConfirmed) {
+
+                });
+
+                if (!isConfirmed) {
                     return;
-                  }
-                
+                }
+
             } else {
                 const { isConfirmed } = await Swal.fire({
                     title: "Fail",
@@ -204,13 +218,13 @@ const UserProfileEdit = () => {
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3644C5",
                     confirmButtonText: "Ok!",
-                    
-                  });
-              
-                  if (!isConfirmed) {
+
+                });
+
+                if (!isConfirmed) {
                     return;
-                  }
-                
+                }
+
             }
         } catch (error) {
             const { isConfirmed } = await Swal.fire({
@@ -221,12 +235,12 @@ const UserProfileEdit = () => {
                 confirmButtonColor: "#d33",
                 cancelButtonColor: "#3644C5",
                 confirmButtonText: "Ok!",
-                
-              });
-          
-              if (!isConfirmed) {
+
+            });
+
+            if (!isConfirmed) {
                 return;
-              }
+            }
         }
 
 
@@ -282,9 +296,11 @@ const UserProfileEdit = () => {
                     //     borderRadius: '50px', // Add border radius to the image container
                     //     overflow: 'hidden', // Hide any overflow content
                     // }}
-                    >{user.profilepic && (
+                    >{user && user.username ? (
+
                         <img
-                            src={require(`../../../backend/uploads/${user.profilepic}`)}
+
+                            src={require(`../../../backend/uploads/${user.profilepic}`)} // Use user's imagePath if available
                             alt="Profile"
                             style={{
                                 marginLeft: '11vw',
@@ -298,7 +314,28 @@ const UserProfileEdit = () => {
                                 position: 'relative'
 
                             }}
-                        />)}
+                        />
+                    ) : pageLoaded ? (
+                        <img
+
+                            src={require(`../../../backend/uploads/${detail.profilepic}`)} // Use user's imagePath if available
+                            alt="Profile"
+                            style={{
+                                marginLeft: '11vw',
+                                width: '438px',
+                                marginTop: '-22vh',
+                                height: '438px',
+                                objectFit: 'cover',
+                                borderRadius: '100%',
+                                top: '-23vh',
+                                left: '177px',
+                                position: 'relative'
+
+                            }}
+                        />
+                    ) : (
+                        <div>Loading...</div>
+                    )}
                         <Button
                             type="button"
                             fullWidth
@@ -306,7 +343,7 @@ const UserProfileEdit = () => {
                             sx={{ mt: -60, marginLeft: '5vw', fontWeight: "bold", height: '60px', width: '60px', border: '2px solid #fff', borderRadius: '100%', backgroundColor: '#909CFF', color: '#3644C5' }}
                             onClick={() => document.getElementById('fileInput').click()}
                         >
-                            <CameraAltIcon sx={{ color: "#fff" }}/>
+                            <CameraAltIcon sx={{ color: "#fff" }} />
                         </Button>
 
 
@@ -318,7 +355,7 @@ const UserProfileEdit = () => {
                     <Box
                         sx={{
                             my: 8,
-                            
+
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -331,12 +368,12 @@ const UserProfileEdit = () => {
                         >
                             User Profile Edit
                         </Typography>
-                       
-                        
 
-                        <Box component="form" noValidate onSubmit={handleLoginSubmit} sx={{ mt: -2, marginRight: '-25vw',width:'36vw' }}>
 
-                            {user.username && (
+
+                        <Box component="form" noValidate onSubmit={handleLoginSubmit} sx={{ mt: -2, marginRight: '-25vw', width: '36vw' }}>
+
+                            {user && user.username ? (
                                 <TextField
                                     margin="normal"
 
@@ -345,8 +382,24 @@ const UserProfileEdit = () => {
                                     fullWidth
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
-                                />)}
-                            {user.profilepic && (
+                                />
+
+                            ) : pageLoaded ? (
+                                <TextField
+                                    margin="normal"
+
+                                    name="name"
+                                    label="Name"
+                                    fullWidth
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                />
+                            ) : (
+                                <div>Loading ....</div>
+                            )}
+
+
+                            {user && user.username ? (
                                 <TextField
                                     margin="normal"
 
@@ -356,57 +409,70 @@ const UserProfileEdit = () => {
                                     value={email}
                                     inputProps={{ autoComplete: "off" }}
                                     onChange={(e) => setEmail(e.target.value)}
-                                />)}
-                            {user.profilepic && (
+                                />
+                            ) : pageLoaded ? (
                                 <TextField
                                     margin="normal"
 
-                                    name="password"
-                                    label="Password"
+                                    name="email"
+                                    label="Email"
                                     fullWidth
-                                    type="password"
-                                    value={password}
+                                    value={email}
                                     inputProps={{ autoComplete: "off" }}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />)}
-                            {user.profilepic && (
-                                <TextField
-                                    margin="normal"
-                                    name="city"
-                                    label="City"
-                                    fullWidth
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                />)}
-                            {user.profilepic && (
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            ) : (
+                                <div>Loading ....</div>
+                            )}
+                            <TextField
+                                margin="normal"
 
-                                <TextField
-                                    margin="normal"
-                                    name="country"
-                                    label="Country"
-                                    fullWidth
-                                    value={country}
-                                    onChange={(e) => setCountry(e.target.value)}
-                                />)}
+                                name="password"
+                                label="Password"
+                                fullWidth
+                                type="password"
+                                value={password}
+                                inputProps={{ autoComplete: "off" }}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
 
-                            {user.profilepic && (
-                                <TextField
-                                    margin="normal"
-                                    name="occupation"
-                                    label="Occupation"
-                                    fullWidth
-                                    value={occupation}
-                                    onChange={(e) => setOccupation(e.target.value)}
-                                />)}
-                            {user.profilepic && (
-                                <TextField
-                                    margin="normal"
-                                    name="phone"
-                                    label="Phone Number"
-                                    fullWidth
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />)}
+                            <TextField
+                                margin="normal"
+                                name="city"
+                                label="City"
+                                fullWidth
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            />
+
+
+                            <TextField
+                                margin="normal"
+                                name="country"
+                                label="Country"
+                                fullWidth
+                                value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                            />
+
+
+                            <TextField
+                                margin="normal"
+                                name="occupation"
+                                label="Occupation"
+                                fullWidth
+                                value={occupation}
+                                onChange={(e) => setOccupation(e.target.value)}
+                            />
+
+                            <TextField
+                                margin="normal"
+                                name="phone"
+                                label="Phone Number"
+                                fullWidth
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
 
                             {/* <TextField
                                 margin="normal"
