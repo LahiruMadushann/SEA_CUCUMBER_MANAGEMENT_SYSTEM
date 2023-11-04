@@ -232,7 +232,7 @@ const Dashboard = () => {
           borderRadius="0.55rem"
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-            Sales By Category
+          Species Detail
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography
@@ -240,8 +240,8 @@ const Dashboard = () => {
             fontSize="0.8rem"
             sx={{ color: theme.palette.secondary[200] }}
           >
-            Breakdown of real states and information via category for revenue
-            made for this year and total sales.
+            Breakdown of real species type and number of species via category for revenue
+            made for this year and species detail.
           </Typography>
         </Box>
       </Box>
