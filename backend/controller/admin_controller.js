@@ -345,7 +345,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
       lifecycle,
       fishingMethods,
     } = req.body;
-
+  
     // let seacucumberImages;
 
     // if(req.files){
@@ -359,6 +359,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
     // }
 
     if (req.file === undefined) {
+      
       return res
         .status(400)
         .json({ success: false, message: "you must select a file" });
@@ -366,7 +367,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
 
     const seaCucumberImages = req.file.filename;
     const createdAt = new Date().toISOString();
-
+   
     const enterSpeciesDetails =
       await adminService.enterIndividualSeacucumberDetails(
         speciesType,
@@ -380,6 +381,7 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
         seaCucumberImages,
         createdAt
       );
+      
 
     if (enterSpeciesDetails) {
       res.status(200).json({

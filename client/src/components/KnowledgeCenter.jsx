@@ -26,7 +26,7 @@ const KnowledgeCenter = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const { setUser } = useContext(UserContext);
-    const [image, setImage] = useState(null);
+    const [seaCucumberImages, setSeaCucumberImages] = useState(null);
     const [speciesType, setSpeciesType] = useState("");
     const [scientificName, setScientificName] = useState("");
     const [description, setDescription] = useState("");
@@ -39,9 +39,10 @@ const KnowledgeCenter = () => {
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const defaultTheme = createTheme();
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+        setSeaCucumberImages(e.target.files[0]);
     };
     async function back(e) {
         e.preventDefault();
@@ -79,20 +80,21 @@ const KnowledgeCenter = () => {
         formData.append("reproduction", reproduction);
         formData.append("lifecycle", lifecycle);
         formData.append("fishingmethods",fishingmethods);
-        formData.append("image", image);
+        formData.append("seaCucumberImages", seaCucumberImages);
 
         try {
 
             // const response = await axios.post("http://localhost:5001/general/add", formData);
+            console.log("Klin type",speciesType)
 
-            const response = await axios.post("http://localhost:5001/general/addKnowledge", formData, {
+            const response = await axios.post(`${baseUrl}/admin/enterSpeciesDetails`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
+            console.log("Psuwa type",speciesType)
 
-
-            if (response.status === 201) {
+            if (response.status === 200) {
 
             //--------------------------
             const { isConfirmed } = await Swal.fire({
@@ -116,9 +118,15 @@ const KnowledgeCenter = () => {
                 }
             //--------------------------
 
-
-
-
+            setSeaCucumberImages(null);
+            setSpeciesType("")
+            setScientificName("")
+            setDescription("")
+            setHabitats("")
+            setFeeding("")
+            setReproduction("")
+            setLifecycle("")
+            setFishingmethods("")
                 
                 // alert("Knowledge added successfully!");
                 navigate("/enterknowledgecenterdata");

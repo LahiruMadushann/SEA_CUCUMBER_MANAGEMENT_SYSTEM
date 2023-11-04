@@ -238,6 +238,7 @@ class AdminService {
     createdAt
   ) {
     try {
+      
       const enterSpeciesDetails = new knowledgeCenterModel({
         speciesType,
         scientificName,
@@ -250,9 +251,11 @@ class AdminService {
         seaCucumberImages,
         createdAt,
       });
-
+      
       return await enterSpeciesDetails.save();
+      
     } catch (err) {
+      console.log("Type data",err)
       throw err;
     }
   }
