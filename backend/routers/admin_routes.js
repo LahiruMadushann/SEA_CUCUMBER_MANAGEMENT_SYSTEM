@@ -85,7 +85,22 @@ router.post(
   adminController.enterSeacucumberDetails
 );
 
+router.put(
+  "/admin/updateSpeciesDetails",
+  adminController.updateSeacucumberDetails
+);
+
+router.delete(
+  "/admin/deleteSpeciesDetails",
+  adminController.deleteSeaCucumberDetails
+);
+
 router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
+router.put("/admin/updateArticleDetails", adminController.updateArticleDetails);
+router.delete(
+  "/admin/deleteArticleDetails",
+  adminController.deleteArticleDetails
+);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
