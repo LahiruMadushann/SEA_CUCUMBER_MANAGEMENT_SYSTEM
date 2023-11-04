@@ -496,6 +496,8 @@ exports.addNews = async (req, res) => {
   }
 };
 
+/*--------------------------- FAQ FUNCTIONS -----------------------------*/
+
 //ENTER FAQ DETAILS
 exports.enterFAQDetails = async (req, res, next) => {
   try {
@@ -529,6 +531,60 @@ exports.enterFAQDetails = async (req, res, next) => {
       res.status(400).json({
         success: false,
         success: "Error during saving FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//DELETE FAQ DETAILS
+exports.deleteFAQDetails = async (req, res, next) => {
+  try {
+    const { faqId } = req.body;
+
+    const deleteFAQDetails = await adminService.deleteFAQDetails(faqId);
+
+    if (deleteFAQDetails) {
+      res.status(200).json({
+        success: true,
+        message: "FAQ Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//Update FQAs
+exports.updateFAQs = async (req, res, next) => {
+  try {
+    const { faqId, question, answer, category, visibleToAll } = req.body;
+
+    const updatedFAQ = await adminService.updateFAQs(
+      faqId,
+      question,
+      answer,
+      category,
+      visibleToAll
+    );
+
+    if (updatedFAQ) {
+      res.status(200).json({
+        success: true,
+        message: "FAQ Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting FAQ details",
       });
     }
   } catch (error) {

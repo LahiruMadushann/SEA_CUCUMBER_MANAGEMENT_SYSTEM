@@ -285,8 +285,8 @@ class AdminService {
       const profilePicPath = path.join(
         __dirname,
         "..",
-        "backend",
-        "uploads",
+        "Images",
+        "profilePics",
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
@@ -301,6 +301,8 @@ class AdminService {
     }
     return deleteAccount;
   }
+
+  /*--------------------------- FAQ FUNCTIONS -----------------------------*/
 
   //ENTER FAQ DETAILS
   static async enterFAQDetails(
@@ -324,6 +326,40 @@ class AdminService {
       });
 
       return await enterFAQDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //DELETE FAQ DETAILS
+  static async deleteFAQDetails(faqId) {
+    try {
+      const deleteFAQ = new faqModel({
+        _id: faqId,
+      });
+
+      return deleteFAQ;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //Update FQAs
+  static async updateFAQs(faqId, question, answer, category, visibleToAll) {
+    try {
+      const setFAQAnswers = new faqModel.findByIdAndUpdate(
+        {
+          _id: faqId,
+        },
+        {
+          question: question,
+          answer: answer,
+          category: category,
+          visibleToAll: visibleToAll,
+        }
+      );
+
+      return setFAQAnswers;
     } catch (err) {
       throw err;
     }
