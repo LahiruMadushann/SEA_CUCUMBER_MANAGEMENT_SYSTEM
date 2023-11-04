@@ -404,6 +404,46 @@ exports.getContactUs = async (req, res, next) => {
   }
 };
 
+//update contactUs
+exports.updateContactUs = async (req, res, next) => {
+  try {
+    const { id, state } = req.params;
+    const { email,username,msg } = req.body;
+    // const { userId } = req.body;
+    let uContactUs = await userService.updateContactUs(id, state);
+
+    if (uContactUs) {
+      res.status(200).json({ success: true, message: "Message Sent" });
+      //-------------
+
+     
+       
+        let recipient = email;
+        let subject = "Quection Answer for " + username;
+        let text =
+          "Hi, " +
+          username +
+          "\n\n" +
+          "Your quection answer is " +
+          msg +
+          " Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+  
+        emailService.sendEmail(recipient, subject, text);
+
+      //----------
+
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Error in Updating Contact Us" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+
 //Get All User Detail
 exports.getAllUserDetails = async (req, res, next) => {
   try {

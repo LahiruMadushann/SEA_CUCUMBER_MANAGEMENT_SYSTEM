@@ -406,6 +406,20 @@ class userService {
     return contactUs;
   }
 
+  //Update Contact Us detail
+   //Approve Farmer Account
+   static async updateContactUs(userId, state) {
+    const updateAccountStatus = await contactUsModel.findByIdAndUpdate(
+      { _id: userId },
+
+      {
+        // accountStatus: "Active",
+        accountStatus: state === "New" ? "New" : "Old",
+      }
+    );
+    return updateAccountStatus;
+  }
+
   /* ------------------------------ REGISTRATION VALIDATION --------------------------------- */
 
   static async validateReg(username, email, contactNo, nicNo) {

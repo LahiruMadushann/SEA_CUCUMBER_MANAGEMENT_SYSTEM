@@ -34,6 +34,7 @@ const ContactUs = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectUserRole, setSelectUserRole] = useState(null);
   const [msg, setMsg] = useState("");
+  const status = "Old";
   const [data, setData] = useState([]); // Initialize data state
 
 
@@ -140,7 +141,7 @@ const ContactUs = () => {
   const handleMessageSubmit = async () => {
     try {
       if (msg === "none") {
-        const response = await axios.post("http://localhost:5000/admin/enterNews", {
+        const response = await axios.post(`${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`, {
           userId: selectedUserId,
           role: selectUserRole,
           message: message,
@@ -152,7 +153,7 @@ const ContactUs = () => {
         });
         console.log("Message saved:", response.data);
       } else if (msg === "all") {
-        const response = await axios.post("http://localhost:5000/admin/enterNews", {
+        const response = await axios.post(`${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`, {
           userId: "", // Leave userId empty to indicate sending to all users
           role: selectedRole, // Include the selectedRole for all users
           message: message,
