@@ -457,6 +457,7 @@ exports.deleteSeaCucumberDetails = async (req, res, next) => {
   }
 };
 
+//ENTER ARTICLE DETAILS
 exports.enterArticleDetails = async (req, res, next) => {
   try {
     const { category, heading, content, link } = req.body;
@@ -480,6 +481,62 @@ exports.enterArticleDetails = async (req, res, next) => {
       res.status(400).json({
         success: false,
         success: "Error during saving article details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//UPDATE ARTICLE DETAILS
+exports.updateArticleDetails = async (req, res, next) => {
+  try {
+    const { articleId, category, heading, content, link } = req.body;
+
+    const updatedArticleDetails = await adminService.updateArticleDetails(
+      articleId,
+      category,
+      heading,
+      content,
+      link
+    );
+
+    if (updatedArticleDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Article Details updated Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during updating Article details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//DELETE ARTICLE DETAILS
+exports.deleteArticleDetails = async (req, res, next) => {
+  try {
+    const { articleId } = req.body;
+
+    const deletedArticelDetails = await adminService.deleteArticleDetails(
+      articleId
+    );
+
+    if (deletedArticelDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Article Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting Article details",
       });
     }
   } catch (error) {

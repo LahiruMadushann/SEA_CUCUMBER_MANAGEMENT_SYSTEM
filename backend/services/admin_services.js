@@ -304,6 +304,7 @@ class AdminService {
     }
   }
 
+  //ENTER ARTICLE DETAILS
   static async enterArticleDetails(
     category,
     heading,
@@ -321,6 +322,47 @@ class AdminService {
       });
 
       return await enterSpeciesDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //UPDATE ARTICLE DETAILS
+  static async updateArticleDetails(
+    articleId,
+    category,
+    heading,
+    content,
+    link
+  ) {
+    try {
+      const updatedArticleDetails = new ArticleModel.findByIdAndUpdate(
+        {
+          _id: articleId,
+        },
+        {
+          category,
+          heading,
+          content,
+          link,
+        }
+      );
+
+      return updatedArticleDetails;
+    } catch (err) {
+      console.log("Type data", err);
+      throw err;
+    }
+  }
+
+  //DELETE ARTICLE DETAILS
+  static async deleteArticleDetails(articleId) {
+    try {
+      const deletedArticleDetails = new ArticleModel.findByIdAndDelete({
+        _id: articleId,
+      });
+
+      return deletedArticleDetails;
     } catch (err) {
       throw err;
     }

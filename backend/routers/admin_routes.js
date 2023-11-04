@@ -90,7 +90,17 @@ router.put(
   adminController.updateSeacucumberDetails
 );
 
+router.delete(
+  "/admin/deleteSpeciesDetails",
+  adminController.deleteSeaCucumberDetails
+);
+
 router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
+router.put("/admin/updateArticleDetails", adminController.updateArticleDetails);
+router.delete(
+  "/admin/deleteArticleDetails",
+  adminController.deleteArticleDetails
+);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
