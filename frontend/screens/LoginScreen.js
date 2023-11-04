@@ -65,7 +65,7 @@ export default function LoginScreen() {
             ],
             { cancelable: true }
           );
-           setIsLoading(false);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -114,7 +114,11 @@ export default function LoginScreen() {
             </View>
           </View>
 
-          <View className="mt-[70vw] form space-y-2 mx-auto ">
+          <View className="mt-[70vw] form space-y-2 mx-auto flex-row items-center">
+            <Image
+              source={require("../assets/login/username.png")}
+              className="w-[auto] h-[auto] center"
+            />
             <TextInput
               className="p-4 border-b text-[18px] text-gray-700 w-64 mb-3"
               value={username}
@@ -124,7 +128,13 @@ export default function LoginScreen() {
               autoCorrect={false}
               required
             />
+          </View>
 
+          <View className="form space-y-2 mx-auto flex-row items-center">
+            <Image
+              source={require("../assets/login/password.png")}
+              className="w-[auto] h-[auto] center"
+            />
             <TextInput
               className="p-4 border-b text-[18px] text-gray-700 w-64 mb-3"
               value={password}
