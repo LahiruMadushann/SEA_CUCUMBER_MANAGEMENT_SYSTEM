@@ -38,6 +38,8 @@ router.get(
   "/user/getAllArticlesData",
   knowledgeCenterController.getAllArticlesData
 );
+//Update Article
+router.put("/user/updateArticlesData/:id",userController.updateArticles)
 
 router.get(
   "/user/getAllArticlesCategories",

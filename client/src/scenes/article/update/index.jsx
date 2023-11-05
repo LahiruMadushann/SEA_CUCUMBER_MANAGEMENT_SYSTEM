@@ -120,15 +120,35 @@ const UpdateArticle = () => {
     const handleMessageSubmit = async () => {
         try {
 
-            const response = await axios.post(`${baseUrl}/user/getAllArticlesData`, {
+            await axios.put(`${baseUrl}/user/updateArticlesData/${selectedUserId}`, {
                 userId: selectedUserId,
                 category: category,
                 heading: heading,
                 content: content, 
                 link: link, 
 
-            });
-            console.log("Message saved:", response.data);
+            }).then((response)=>{ 
+        
+                if (response.data.success){
+                  Swal.fire({
+                    title: "Successfull",
+                    text: "Article Update Successfull!",
+                    icon: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3644C5",
+                    confirmButtonText: "Ok!",
+                    
+                  });
+                }else{
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Fail',
+                    text: 'Article Update Fail. Please Try Again Later.',
+                  });
+                }
+              });;
+           
 
 
             // Close the message dialog

@@ -1,4 +1,5 @@
 const emailService = require("../services/email_services");
+const knowledgeCenterService = require("../services/knowledgeCenter_services");
 const userService = require("../services/user_services");
 
 const bcrypt = require("bcrypt");
@@ -410,8 +411,8 @@ exports.updateContactUs = async (req, res, next) => {
   try {
     const { id, state } = req.params;
     const { commentId, comment, email, reply, message } = req.body;
-
-    console.log("Comment eka", message);
+ console.log("hello hello")
+  
     // const { userId } = req.body;
     let uContactUs = await userService.updateContactUs(id, state);
 
@@ -430,6 +431,28 @@ exports.updateContactUs = async (req, res, next) => {
       res
         .status(400)
         .json({ success: false, message: "Error in Updating Contact Us" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//update contactUs
+exports.updateArticles = async (req, res, next) => {
+  try {
+    const { id} = req.params;
+    const { category, heading, content, link} = req.body;
+
+    let articleUpdate = await knowledgeCenterService.updateArticles(id, category,heading,content,link);
+
+    if (articleUpdate) {
+      res.status(200).json({ success: true, message: "Article Update" });
+    
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Error in Updating Article" });
     }
   } catch (error) {
     console.log(error, "err---->");
