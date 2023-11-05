@@ -41,6 +41,7 @@ import ActivateUsers from "scenes/activateUsers";
 import KnowledgeCenterData from "scenes/knowledgeCenter";
 import Message from "scenes/messages";
 import ContactUs from "scenes/contactUs";
+import UpdateArticle from "scenes/article/update";
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
               <Route path="/activateUsers" element={<ActivateUsers />} />
               <Route path="/messages" element={<Message />} />
               <Route path="/contactUs" element={<ContactUs />} />
+              <Route path="/viewandupdate" element={<UpdateArticle />} />
               
             </Route>
           </Routes>

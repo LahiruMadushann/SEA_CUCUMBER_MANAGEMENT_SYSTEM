@@ -44,6 +44,9 @@ import { useGetUserQuery } from "state/api";
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
@@ -86,6 +89,20 @@ const navItems = [
     text: "Contact Us",
     icon: <ContactPhoneOutlinedIcon />,
   },
+  {
+    text: "Article Section",
+    icon: null,
+  },
+  {
+    text: "Add Article",
+    icon: <AutoStoriesOutlinedIcon />,
+  },
+  {
+    text: "View and Update",
+    icon: <ImportContactsOutlinedIcon />,
+    
+  },
+  
   //---------------
   //---------------
   {
@@ -98,12 +115,16 @@ const navItems = [
   },
   {
     text: "Enter Knowledge Center Data",
-    icon: <Groups2Outlined />,
+    icon: <SchoolOutlinedIcon />,
   },
   {
     text: "Farmers",
     icon: <ReceiptLongOutlined />,
   },
+  //-----------------------------
+  
+   
+  //-----------------------------
   {
     text: "Aquaculture Farms Section",
     icon: null,
