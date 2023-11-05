@@ -55,6 +55,6 @@ router.get("/user/getAllUsers", userController.getAllUserDetails);
 router.get("/user/getContactUs", userController.getContactUs);
 
 //update contactUs Messages
-router.put("/user/updateContactUs/:id/:status",userController.updateContactUs)
+router.put("/user/updateContactUs/:id/:state",userController.updateContactUs)
 
 module.exports = router;

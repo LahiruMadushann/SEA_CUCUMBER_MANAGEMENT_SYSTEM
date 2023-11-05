@@ -404,19 +404,18 @@ class userService {
 
   //GET ALL Contact Us DETAILS
   static async getContactUs() {
-    const contactUs = await contactUsModel.find().sort({ createdAt: -1 });
+    const contactUs = await contactUsModel.find({ replyed: false }).sort({ createdAt: -1 });
     return contactUs;
   }
-
   //Update Contact Us detail
-   //Approve Farmer Account
-   static async updateContactUs(userId, state) {
+  //Approve Farmer Account
+  static async updateContactUs(userId, state) {
     const updateAccountStatus = await contactUsModel.findByIdAndUpdate(
       { _id: userId },
 
       {
         // accountStatus: "Active",
-        accountStatus: state === "New" ? "New" : "Old",
+        replyed: state === "true" ? true : false,
       }
     );
     return updateAccountStatus;

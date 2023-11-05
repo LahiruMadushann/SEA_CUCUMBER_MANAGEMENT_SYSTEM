@@ -1,3 +1,4 @@
+const emailService = require("../services/email_services");
 const userService = require("../services/user_services");
 
 const bcrypt = require("bcrypt");
@@ -408,7 +409,9 @@ exports.getContactUs = async (req, res, next) => {
 exports.updateContactUs = async (req, res, next) => {
   try {
     const { id, state } = req.params;
-    const { email,username,msg } = req.body;
+    const { commentId, comment, email, reply, message } = req.body;
+
+    console.log("Comment eka",message)
     // const { userId } = req.body;
     let uContactUs = await userService.updateContactUs(id, state);
 
@@ -418,16 +421,11 @@ exports.updateContactUs = async (req, res, next) => {
 
      
        
-        let recipient = email;
-        let subject = "Quection Answer for " + username;
-        let text =
-          "Hi, " +
-          username +
-          "\n\n" +
-          "Your quection answer is " +
-          msg +
-          " Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
-  
+      let recipient = email;
+      let subject = "Reply for yor comment on the Seacucumber Manager App";
+      let text = "Hi, " + message;
+      "\n\n" + "Your comment: " + comment;
+    
         emailService.sendEmail(recipient, subject, text);
 
       //----------
