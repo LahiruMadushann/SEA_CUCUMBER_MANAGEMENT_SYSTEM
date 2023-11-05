@@ -320,9 +320,7 @@ exports.getUser = async (req, res) => {
   }
 };
 
-//DISTRICT AQUACULTURIST DETAILS - ADMIN CONTROLLERS
-
-//OPERATIONS RELATED TO KNOWLEDGE CENTER
+/*---------------------------------OPERATIONS RELATED TO KNOWLEDGE CENTER------------------------------------------------*/
 
 exports.enterSeacucumberDetails = async (req, res, next) => {
   try {
@@ -389,6 +387,77 @@ exports.enterSeacucumberDetails = async (req, res, next) => {
   }
 };
 
+//UPDATE SEACUCUMBER DETAILS
+exports.updateSeacucumberDetails = async (req, res, next) => {
+  try {
+    const {
+      speciesId,
+      speciesType,
+      scientificName,
+      description,
+      habitats,
+      feeding,
+      reproduction,
+      lifecycle,
+      fishingMethods,
+    } = req.body;
+
+    const updatedSpeciesDetails = await adminService.updateSeacucumberDetails(
+      speciesId,
+      speciesType,
+      scientificName,
+      description,
+      habitats,
+      feeding,
+      reproduction,
+      lifecycle,
+      fishingMethods
+    );
+
+    if (updatedSpeciesDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Species Details updated Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during updating species details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//DELETE SEACUCUMBER DETAILS
+exports.deleteSeaCucumberDetails = async (req, res, next) => {
+  try {
+    const { speciesId } = req.body;
+
+    const deleteSCDetails = await adminService.deleteSeacucumberDetails(
+      speciesId
+    );
+
+    if (deleteSCDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Species Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting Species details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//ENTER ARTICLE DETAILS
 exports.enterArticleDetails = async (req, res, next) => {
   try {
     const { category, heading, content, link } = req.body;
@@ -419,6 +488,63 @@ exports.enterArticleDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+//UPDATE ARTICLE DETAILS
+exports.updateArticleDetails = async (req, res, next) => {
+  try {
+    const { articleId, category, heading, content, link } = req.body;
+
+    const updatedArticleDetails = await adminService.updateArticleDetails(
+      articleId,
+      category,
+      heading,
+      content,
+      link
+    );
+
+    if (updatedArticleDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Article Details updated Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during updating Article details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//DELETE ARTICLE DETAILS
+exports.deleteArticleDetails = async (req, res, next) => {
+  try {
+    const { articleId } = req.body;
+
+    const deletedArticelDetails = await adminService.deleteArticleDetails(
+      articleId
+    );
+
+    if (deletedArticelDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Article Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting Article details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
 exports.deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params; // Use id to get the userId
@@ -496,6 +622,8 @@ exports.addNews = async (req, res) => {
   }
 };
 
+/*--------------------------- FAQ FUNCTIONS -----------------------------*/
+
 //ENTER FAQ DETAILS
 exports.enterFAQDetails = async (req, res, next) => {
   try {
@@ -529,6 +657,60 @@ exports.enterFAQDetails = async (req, res, next) => {
       res.status(400).json({
         success: false,
         success: "Error during saving FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//DELETE FAQ DETAILS
+exports.deleteFAQDetails = async (req, res, next) => {
+  try {
+    const { faqId } = req.body;
+
+    const deleteFAQDetails = await adminService.deleteFAQDetails(faqId);
+
+    if (deleteFAQDetails) {
+      res.status(200).json({
+        success: true,
+        message: "FAQ Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+//Update FQAs
+exports.updateFAQs = async (req, res, next) => {
+  try {
+    const { faqId, question, answer, category, visibleToAll } = req.body;
+
+    const updatedFAQ = await adminService.updateFAQs(
+      faqId,
+      question,
+      answer,
+      category,
+      visibleToAll
+    );
+
+    if (updatedFAQ) {
+      res.status(200).json({
+        success: true,
+        message: "FAQ Details deleted Sucessfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during deleting FAQ details",
       });
     }
   } catch (error) {

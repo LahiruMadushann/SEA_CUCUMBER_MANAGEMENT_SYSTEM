@@ -219,9 +219,9 @@ class AdminService {
     return fishProcessorsDetails;
   }
 
-  /*----------------------------------------------------------------------*/
-  //OPERATIONS RELATED TO KNOWLEDGE CENTER
+  /*--------------------------------- OPERATIONS RELATED TO KNOWLEDGE CENTER  -------------------------------------*/
 
+  //ENTER SEACUCUMBER DETAILS
   static async enterIndividualSeacucumberDetails(
     speciesType,
     scientificName,
@@ -255,6 +255,56 @@ class AdminService {
     }
   }
 
+  //UPDATE SEACUCUMBER DETAILS
+  static async updateSeacucumberDetails(
+    speciesId,
+    speciesType,
+    scientificName,
+    description,
+    habitats,
+    feeding,
+    reproduction,
+    lifecycle,
+    fishingMethods
+  ) {
+    try {
+      const updateSpeciesDetails = new knowledgeCenterModel.findByIdAndUpdate(
+        {
+          _id: speciesId,
+        },
+        {
+          speciesType,
+          scientificName,
+          description,
+          habitats,
+          feeding,
+          reproduction,
+          lifecycle,
+          fishingMethods,
+        }
+      );
+
+      return updateSpeciesDetails;
+    } catch (err) {
+      console.log("Type data", err);
+      throw err;
+    }
+  }
+
+  //DELETE SEACUCUMBER DETAILS
+  static async deleteSeacucumberDetails(speciesId) {
+    try {
+      const deleteSCDetails = new knowledgeCenterModel.findByIdAndDelete({
+        _id: speciesId,
+      });
+
+      return deleteSCDetails;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //ENTER ARTICLE DETAILS
   static async enterArticleDetails(
     category,
     heading,
@@ -277,6 +327,47 @@ class AdminService {
     }
   }
 
+  //UPDATE ARTICLE DETAILS
+  static async updateArticleDetails(
+    articleId,
+    category,
+    heading,
+    content,
+    link
+  ) {
+    try {
+      const updatedArticleDetails = new ArticleModel.findByIdAndUpdate(
+        {
+          _id: articleId,
+        },
+        {
+          category,
+          heading,
+          content,
+          link,
+        }
+      );
+
+      return updatedArticleDetails;
+    } catch (err) {
+      console.log("Type data", err);
+      throw err;
+    }
+  }
+
+  //DELETE ARTICLE DETAILS
+  static async deleteArticleDetails(articleId) {
+    try {
+      const deletedArticleDetails = new ArticleModel.findByIdAndDelete({
+        _id: articleId,
+      });
+
+      return deletedArticleDetails;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   //delete users
   static async deleteUserAccount(userId) {
     const deleteAccount = await userModel.findByIdAndDelete(userId);
@@ -285,8 +376,8 @@ class AdminService {
       const profilePicPath = path.join(
         __dirname,
         "..",
-        "backend",
-        "uploads",
+        "Images",
+        "profilePics",
         deleteAccount.profilepic
       );
       console.log(profilePicPath);
@@ -301,6 +392,8 @@ class AdminService {
     }
     return deleteAccount;
   }
+
+  /*--------------------------- FAQ FUNCTIONS -----------------------------*/
 
   //ENTER FAQ DETAILS
   static async enterFAQDetails(
@@ -324,6 +417,40 @@ class AdminService {
       });
 
       return await enterFAQDetails.save();
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //DELETE FAQ DETAILS
+  static async deleteFAQDetails(faqId) {
+    try {
+      const deleteFAQ = new faqModel.findByIdAndDelete({
+        _id: faqId,
+      });
+
+      return deleteFAQ;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  //Update FQAs
+  static async updateFAQs(faqId, question, answer, category, visibleToAll) {
+    try {
+      const setFAQAnswers = new faqModel.findByIdAndUpdate(
+        {
+          _id: faqId,
+        },
+        {
+          question: question,
+          answer: answer,
+          category: category,
+          visibleToAll: visibleToAll,
+        }
+      );
+
+      return setFAQAnswers;
     } catch (err) {
       throw err;
     }
