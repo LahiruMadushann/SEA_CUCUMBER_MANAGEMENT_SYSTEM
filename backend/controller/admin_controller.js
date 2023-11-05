@@ -738,7 +738,7 @@ exports.replyComment = async (req, res, next) => {
       });
       let recipient = email;
       let subject = "Reply for yor comment on the Seacucumber Manager App";
-      let text = "Hi, " + name;
+      let text = "Hi, " + name+
       "\n\n" + reply + "\n\n" + "Your comment: " + comment;
 
       emailService.sendEmail(recipient, subject, text);
