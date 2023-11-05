@@ -20,6 +20,14 @@ const contactUsSchema = new Schema({
     type: String,
   },
 
+  replyed: {
+    type: Boolean,
+  },
+
+  reply: {
+    type: String,
+  },
+
   commentDate: {
     type: Date,
     required: true,
