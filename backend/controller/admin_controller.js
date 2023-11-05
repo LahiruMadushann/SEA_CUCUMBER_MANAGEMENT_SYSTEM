@@ -320,7 +320,7 @@ exports.getUser = async (req, res) => {
   }
 };
 
-/*---------------------------------OPERATIONS RELATED TO KNOWLEDGE CENTER------------------------------------------------*/
+/*--------------------------------- OPERATIONS RELATED TO KNOWLEDGE CENTER------------------------------------------------*/
 
 exports.enterSeacucumberDetails = async (req, res, next) => {
   try {
@@ -711,6 +711,41 @@ exports.updateFAQs = async (req, res, next) => {
       res.status(400).json({
         success: false,
         success: "Error during deleting FAQ details",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+    next(error);
+  }
+};
+
+/* -------------------------------------- REPLY FOR CONTACT US COMMENTS ---------------------------------------------- */
+//REPLY TO CONTACT US COMMENTS
+
+exports.replyComment = async (req, res, next) => {
+  try {
+    const { commentId, comment, email, reply } = req.body;
+
+    const updateCommentReply = await adminService.replyComment(
+      commentId,
+      reply
+    );
+
+    if (updateCommentReply) {
+      res.status(200).json({
+        success: true,
+        message: "Reply for the comment send successfully",
+      });
+      let recipient = email;
+      let subject = "Reply for yor comment on the Seacucumber Manager App";
+      let text = "Hi, " + reply;
+      "\n\n" + "Your comment: " + comment;
+
+      emailService.sendEmail(recipient, subject, text);
+    } else {
+      res.status(400).json({
+        success: false,
+        success: "Error during sending reply for the comment",
       });
     }
   } catch (error) {
