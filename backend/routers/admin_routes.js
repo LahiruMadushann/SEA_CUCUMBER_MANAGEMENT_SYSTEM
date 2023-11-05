@@ -107,6 +107,9 @@ router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
 router.delete("/admin/deleteFaqdetails", adminController.deleteFAQDetails);
 router.put("/admin/updateFaqdetails", adminController.updateFAQs);
 
+/*-- REPLY CONTACT US --*/
+router.put("/admin/replyContactUsComment", adminController.replyComment);
+
 //Get All User details
 router.get("/user/:id", adminController.getUser);
 

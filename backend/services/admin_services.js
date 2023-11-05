@@ -18,6 +18,7 @@ const ArticleModel = require("../model/knowledgeCenter/articles_model");
 const FarmModel = require("../model/farm/aqFarm_model");
 const faqModel = require("../model/faq_model");
 const userModel = require("../model/user_model");
+const contactUsModel = require("../model/contactUs_model");
 
 class AdminService {
   //REGISTER ADMIN ACCOUNTS
@@ -438,7 +439,7 @@ class AdminService {
   //Update FQAs
   static async updateFAQs(faqId, question, answer, category, visibleToAll) {
     try {
-      const setFAQAnswers = new faqModel.findByIdAndUpdate(
+      const setFAQAnswers = new contactUsModel.findByIdAndUpdate(
         {
           _id: faqId,
         },
@@ -451,6 +452,26 @@ class AdminService {
       );
 
       return setFAQAnswers;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /* -------------------------------------- REPLY FOR CONTACT US COMMENTS ---------------------------------------------- */
+  //REPLY TO CONTACT US COMMENTS
+  static async replyComment(commentId, reply) {
+    try {
+      const replyed = new faqModel.findByIdAndUpdate(
+        {
+          _id: commentId,
+        },
+        {
+          reply,
+          replyed: true,
+        }
+      );
+
+      return replyed;
     } catch (err) {
       throw err;
     }

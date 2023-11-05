@@ -373,6 +373,7 @@ class userService {
         contactNo,
         comment,
         commentDate,
+        replyed: false,
       });
 
       return await enterContactUsInfo.save();
@@ -400,7 +401,7 @@ class userService {
     const allFaqDetails = await faqModel.find().sort({ createdAt: -1 });
     return allFaqDetails;
   }
-  
+
   //GET ALL Contact Us DETAILS
   static async getContactUs() {
     const contactUs = await contactUsModel.find().sort({ createdAt: -1 });
@@ -421,7 +422,6 @@ class userService {
       // }
       else if (await userModel.findOne({ contactNo })) {
         msg = "Contact number already exists";
-      
       } else {
         msg = null;
       }
