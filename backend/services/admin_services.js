@@ -269,7 +269,7 @@ class AdminService {
     fishingMethods
   ) {
     try {
-      const updateSpeciesDetails = new knowledgeCenterModel.findByIdAndUpdate(
+      const updateSpeciesDetails = await knowledgeCenterModel.findByIdAndUpdate(
         {
           _id: speciesId,
         },
@@ -295,7 +295,7 @@ class AdminService {
   //DELETE SEACUCUMBER DETAILS
   static async deleteSeacucumberDetails(speciesId) {
     try {
-      const deleteSCDetails = new knowledgeCenterModel.findByIdAndDelete({
+      const deleteSCDetails = await knowledgeCenterModel.findByIdAndDelete({
         _id: speciesId,
       });
 
@@ -337,7 +337,7 @@ class AdminService {
     link
   ) {
     try {
-      const updatedArticleDetails = new ArticleModel.findByIdAndUpdate(
+      const updatedArticleDetails = await ArticleModel.findByIdAndUpdate(
         {
           _id: articleId,
         },
@@ -359,7 +359,7 @@ class AdminService {
   //DELETE ARTICLE DETAILS
   static async deleteArticleDetails(articleId) {
     try {
-      const deletedArticleDetails = new ArticleModel.findByIdAndDelete({
+      const deletedArticleDetails = await ArticleModel.findByIdAndDelete({
         _id: articleId,
       });
 
@@ -426,7 +426,7 @@ class AdminService {
   //DELETE FAQ DETAILS
   static async deleteFAQDetails(faqId) {
     try {
-      const deleteFAQ = new faqModel.findByIdAndDelete({
+      const deleteFAQ = await faqModel.findByIdAndDelete({
         _id: faqId,
       });
 
@@ -439,7 +439,7 @@ class AdminService {
   //Update FQAs
   static async updateFAQs(faqId, question, answer, category, visibleToAll) {
     try {
-      const setFAQAnswers = new contactUsModel.findByIdAndUpdate(
+      const setFAQAnswers = await contactUsModel.findByIdAndUpdate(
         {
           _id: faqId,
         },
@@ -461,7 +461,7 @@ class AdminService {
   //REPLY TO CONTACT US COMMENTS
   static async replyComment(commentId, reply) {
     try {
-      const replyed = new faqModel.findByIdAndUpdate(
+      const replyed = await contactUsModel.findByIdAndUpdate(
         {
           _id: commentId,
         },
