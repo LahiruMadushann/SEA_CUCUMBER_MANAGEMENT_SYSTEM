@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+import { LogBox } from "react-native";
 import {
   View,
   Text,
@@ -20,6 +21,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function ProcessorRegisterScreen() {
+  LogBox.ignoreAllLogs();
   const navigation = useNavigation();
   const [agree, setAgree] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -36,6 +38,8 @@ export default function ProcessorRegisterScreen() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [regNo, setRegNo] = useState("");
 
   const [image, setImage] = useState(null); // Use state for selected image
 
@@ -67,7 +71,9 @@ export default function ProcessorRegisterScreen() {
       country == "" ||
       phoneNumber == "" ||
       gender == "" ||
-      age == ""
+      age == "" ||
+      companyName == "" ||
+      regNo == ""
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
     } else if (password != confirmPassword) {
@@ -93,6 +99,8 @@ export default function ProcessorRegisterScreen() {
     formData.append("province", province);
     formData.append("country", country);
     formData.append("contactNo", phoneNumber);
+    formData.append("companyName", companyName);
+    formData.append("processorRegNo", regNo);
     formData.append("profilepic", {
       uri: image,
       type: "image/jpeg", // Change to the appropriate MIME type if needed
@@ -199,10 +207,32 @@ export default function ProcessorRegisterScreen() {
                 required
               />
             </View>
+            <Text className="text-lg font-bold mb-4 mt-5">Company Details</Text>
 
-            <Text className="text-lg font-bold mb-4 mt-5">
-              Personal Details
-            </Text>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={companyName}
+                onChangeText={setCompanyName}
+                placeholder="Company Name"
+                required
+              />
+            </View>
+
+            <View style={styles.fieldContainer}>
+              <Text style={styles.requiredLabel}>*</Text>
+
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={regNo}
+                onChangeText={setRegNo}
+                placeholder="Registration No"
+                required
+              />
+            </View>
+
+            <Text className="text-lg font-bold mb-4 mt-5">Owner Details</Text>
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>

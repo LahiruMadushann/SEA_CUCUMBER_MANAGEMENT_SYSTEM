@@ -102,6 +102,12 @@ const userSchema = new Schema({
   idCard: {
     type: String,
   },
+  companyName: {
+    type: String,
+  },
+  processorRegNo: {
+    type: String,
+  },
 
   tokens: [{ type: Object }],
 });

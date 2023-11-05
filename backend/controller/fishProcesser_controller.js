@@ -19,6 +19,8 @@ exports.registerFishProcesser = async (req, res, next) => {
       town,
       province,
       country,
+      companyName,
+      processorRegNo,
     } = req.body;
 
     if (req.file === undefined) {
@@ -57,6 +59,8 @@ exports.registerFishProcesser = async (req, res, next) => {
         town,
         province,
         country,
+        companyName,
+        processorRegNo,
         profilepic,
         createdAt
       );
