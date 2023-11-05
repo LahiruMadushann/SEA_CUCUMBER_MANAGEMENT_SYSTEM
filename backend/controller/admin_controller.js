@@ -724,7 +724,7 @@ exports.updateFAQs = async (req, res, next) => {
 
 exports.replyComment = async (req, res, next) => {
   try {
-    const { commentId, comment, email, reply } = req.body;
+    const { commentId, name, comment, email, reply } = req.body;
 
     const updateCommentReply = await adminService.replyComment(
       commentId,
@@ -738,8 +738,8 @@ exports.replyComment = async (req, res, next) => {
       });
       let recipient = email;
       let subject = "Reply for yor comment on the Seacucumber Manager App";
-      let text = "Hi, " + reply;
-      "\n\n" + "Your comment: " + comment;
+      let text = "Hi, " + name;
+      "\n\n" + reply + "\n\n" + "Your comment: " + comment;
 
       emailService.sendEmail(recipient, subject, text);
     } else {
