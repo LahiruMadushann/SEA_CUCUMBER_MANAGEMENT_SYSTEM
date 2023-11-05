@@ -18,6 +18,8 @@ class fishProcesserService {
     town,
     province,
     country,
+    companyName,
+    processorRegNo,
     profilepic,
     createdAt
   ) {
@@ -37,7 +39,9 @@ class fishProcesserService {
         town,
         province,
         country,
-        accountStatus:"Active",
+        companyName,
+        processorRegNo,
+        accountStatus: "Active",
         profilepic,
         createdAt,
       });

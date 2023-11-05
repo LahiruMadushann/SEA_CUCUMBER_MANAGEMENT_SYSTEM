@@ -70,7 +70,7 @@ export default function ProcessorPopupScreen() {
                     Processed {"\n"}Records
                   </Text>
                 </View>
-              </TouchableOpacity>{" "}
+              </TouchableOpacity>
             </>
           ) : null}
           <TouchableOpacity

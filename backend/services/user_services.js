@@ -267,6 +267,8 @@ class userService {
           country: data.country,
           profilepic: data.profilepic,
           createdAt: data.createdAt,
+          companyName: data.companyName,
+          processorRegNo: data.processorRegNo,
         };
       }
       console.log(tokenData);
@@ -398,7 +400,9 @@ class userService {
 
   //GET ALL Contact Us DETAILS
   static async getContactUs() {
-    const contactUs = await contactUsModel.find({ replyed: false }).sort({ createdAt: -1 });
+    const contactUs = await contactUsModel
+      .find({ replyed: false })
+      .sort({ createdAt: -1 });
     return contactUs;
   }
   //Update Contact Us detail
