@@ -359,20 +359,14 @@ class userService {
   }
 
   //ENTER CONTACT US INFORMATION
-  static async enterContactUsInfo(
-    name,
-    email,
-    contactNo,
-    comment,
-    commentDate
-  ) {
+  static async enterContactUsInfo(name, email, contactNo, comment, createdAt) {
     try {
       const enterContactUsInfo = new contactUsModel({
         name,
         email,
         contactNo,
         comment,
-        commentDate,
+        createdAt,
         replyed: false,
       });
 

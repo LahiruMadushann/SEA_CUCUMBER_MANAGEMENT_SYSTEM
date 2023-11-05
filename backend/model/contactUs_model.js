@@ -28,7 +28,7 @@ const contactUsSchema = new Schema({
     type: String,
   },
 
-  commentDate: {
+  createdAt: {
     type: Date,
     required: true,
   },

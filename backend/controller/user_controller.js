@@ -313,14 +313,14 @@ exports.contactUs = async (req, res, next) => {
   try {
     const { name, email, contactNo, comment } = req.body;
 
-    const commentDate = new Date().toISOString();
+    const createdAt = new Date().toISOString();
 
     let commentSend = await userService.enterContactUsInfo(
       name,
       email,
       contactNo,
       comment,
-      commentDate
+      createdAt
     );
     if (commentSend) {
       res.status(200).json({
