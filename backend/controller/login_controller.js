@@ -146,6 +146,8 @@ exports.login = async (req, res, next) => {
                       country: data.country,
                       profilepic: data.profilepic,
                       createdAt: data.createdAt,
+                      companyName: data.companyName,
+                      processorRegNo: data.processorRegNo,
                     };
                   }
 

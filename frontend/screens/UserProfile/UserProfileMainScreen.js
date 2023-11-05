@@ -66,6 +66,8 @@ export default function UserProfileMainScreen() {
     fisheriesRegNo: fisheriesRegNo,
     boatRegNo: boatRegNo,
     idCard: idCard,
+    companyName: companyName,
+    processorRegNo: processorRegNo,
   } = decodedToken;
 
   console.log(accountType);
@@ -379,6 +381,8 @@ export default function UserProfileMainScreen() {
             </View>
           </View>
 
+          {/* IF ROLE IS FISHERMEN DISPLAY THE BELOW CONTENT */}
+
           {db_role == "Fisherman" ? (
             <View className="mt-[5vh]">
               <Text className="text-[5vw] color-[#5A73F4] font-bold mx-[auto]">
@@ -477,6 +481,52 @@ export default function UserProfileMainScreen() {
                   <Text className="text-[4vw] font-bold  ">Fisheries Area</Text>
                   <Text className="text-[3.5vw] font-light">
                     {fisheriesArea}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          ) : null}
+
+          {/* IF ROLE IS PROCESSOR DISPLAY THE BELOW CONTENT */}
+
+          {db_role == "Processor" ? (
+            <View className="mt-[5vh]">
+              <Text className="text-[5vw] color-[#5A73F4] font-bold mx-[auto]">
+                Company Details
+              </Text>
+
+              <View className="flex-row mt-[3vh] ml-[15vw]">
+                <View className=" ">
+                  <View className="flex m-[auto] ">
+                    <Image
+                      source={require("../../assets/user/bullet.png")}
+                      className=" w-[30px] h-[30px] "
+                    />
+                  </View>
+                </View>
+
+                <View className="flex ml-[2vw] mt-[-1vw] ">
+                  <Text className="text-[4vw] font-bold  ">Company Name</Text>
+                  <Text className="text-[3.5vw] font-light">{companyName}</Text>
+                </View>
+              </View>
+
+              <View className="flex-row mt-[3vh] ml-[15vw]">
+                <View className=" ">
+                  <View className="flex m-[auto] ">
+                    <Image
+                      source={require("../../assets/user/bullet.png")}
+                      className=" w-[30px] h-[30px] "
+                    />
+                  </View>
+                </View>
+
+                <View className="flex ml-[2vw] mt-[-1vw] ">
+                  <Text className="text-[4vw] font-bold  ">
+                    Registration No
+                  </Text>
+                  <Text className="text-[3.5vw] font-light">
+                    {processorRegNo}
                   </Text>
                 </View>
               </View>

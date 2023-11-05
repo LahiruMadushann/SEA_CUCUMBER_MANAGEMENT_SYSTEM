@@ -411,7 +411,7 @@ exports.updateContactUs = async (req, res, next) => {
     const { id, state } = req.params;
     const { commentId, comment, email, reply, message } = req.body;
 
-    console.log("Comment eka",message)
+    console.log("Comment eka", message);
     // const { userId } = req.body;
     let uContactUs = await userService.updateContactUs(id, state);
 
@@ -419,17 +419,13 @@ exports.updateContactUs = async (req, res, next) => {
       res.status(200).json({ success: true, message: "Message Sent" });
       //-------------
 
-     
-       
       let recipient = email;
       let subject = "Reply for yor comment on the Seacucumber Manager App";
-      let text = "Hi, " + message;
-      "\n\n" + "Your comment: " + comment;
-    
-        emailService.sendEmail(recipient, subject, text);
+      let text = "Hi, " + message + "\n\n" + "Your comment: " + comment;
+
+      emailService.sendEmail(recipient, subject, text);
 
       //----------
-
     } else {
       res
         .status(400)
@@ -440,7 +436,6 @@ exports.updateContactUs = async (req, res, next) => {
     next(error);
   }
 };
-
 
 //Get All User Detail
 exports.getAllUserDetails = async (req, res, next) => {
