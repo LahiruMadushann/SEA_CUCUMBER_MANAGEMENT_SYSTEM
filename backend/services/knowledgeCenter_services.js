@@ -13,6 +13,23 @@ class knowledgeCenterService {
     return allArticlesCategories;
   }
 
+  static async updateArticles(userId, category,heading,content,link) {
+    
+    const updateArticles = await ArticleModel.findByIdAndUpdate(
+      { _id: userId },
+
+      {
+        // accountStatus: "Active",
+        category: category,
+        heading: heading,
+        content: content,
+        link: link,
+      }
+    );
+    
+    return updateArticles;
+  }
+
   // //GET SINGLE SEA CUCUMBER DETAILS
   // static async getSingleSpeciesDetails(speciesId) {
   //   const singleSpeciesDeatials = await knowledgeCenterModel.find({
