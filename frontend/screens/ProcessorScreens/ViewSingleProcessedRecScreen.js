@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { Alert } from "react-native";
 
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode";
@@ -14,6 +15,8 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Button,
+  Modal,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
@@ -34,11 +37,61 @@ export default function ViewSingleProcessedRecScreen() {
     role: db_role,
   } = decodedToken;
 
+  let backNav;
+  if (db_role == "Exporter") {
+    backNav = "SingleProcessorScreen";
+  } else if (db_role == "Processor") {
+    backNav = "ViewProcessedRecordsScreen";
+  }
+
+  console.log(backNav);
+
   const route = useRoute();
   // Access the recordId parameter from route.params
   const recordId = route.params?.recordId || "";
 
   const [singleProcessedDetails, setSingleProcessedDetails] = useState([]);
+
+  const handleDelete = async () => {
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete the record , you won't be able to recover it.",
+      [
+        {
+          text: "Delete Record",
+          onPress: () => {
+            const recordData = {
+              recordId: recordId,
+            };
+            const backendUrl = `${BASE_URL}/processer/deleteStockDetails`;
+
+            axios
+              .post(backendUrl, recordData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Record Deleted", response.data.message);
+
+                  navigation.navigate("ViewProcessedRecordsScreen");
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Server Error:", error);
+                Alert.alert("Error", "Server Error");
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -102,9 +155,7 @@ export default function ViewSingleProcessedRecScreen() {
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("ViewProcessedRecordsScreen")
-                    }
+                    onPress={() => navigation.navigate(backNav)}
                   >
                     <View className="flex m-[auto] ">
                       <Image
@@ -150,6 +201,16 @@ export default function ViewSingleProcessedRecScreen() {
               source={{ uri: stockImageUrl }}
               className=" w-[80vw] h-[30vh] rounded-[2px] bg-[#FFFFFF] shadow-lg shadow-gray-800"
             />
+          </View>
+          <View className="flex-row mb-[2vh] mr-[5vw] justify-end">
+            <TouchableOpacity
+              className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
+              onPress={handleDelete}
+            >
+              <Text className="text-[#fff] text-[15px] font-bold text-center">
+                Delete Record
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

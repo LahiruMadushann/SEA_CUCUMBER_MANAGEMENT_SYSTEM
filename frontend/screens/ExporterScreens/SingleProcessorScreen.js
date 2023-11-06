@@ -259,14 +259,70 @@ export default function SingleProcessorScreen() {
             {status === "Stock" && (
               <View className="flex-col py-[2.5vw]">
                 <View className="mt-[2vh]">
+                  <View className="flex-row mx-[auto] text-[#000] text-[12px] mb-[4vw]">
+                    <Image
+                      source={require("../../assets/processor/farmed.png")}
+                      style={{ width: 10, height: 10, marginRight: 5 }}
+                      className="flex my-[auto]"
+                    />
+                    <Text className="flex text-center text-[#000] text-[12px]">
+                      Farm collected
+                    </Text>
+
+                    <Image
+                      source={require("../../assets/processor/fished.png")}
+                      style={{ width: 10, height: 10, marginRight: 5 }}
+                      className="flex ml-[2vw] my-[auto]"
+                    />
+                    <Text className="flex text-center text-[#000] text-[12px]">
+                      Wild Collected
+                    </Text>
+                  </View>
                   {/* Table */}
                   <FlatList
                     data={[...processedDetails]}
                     renderItem={({ item }) => (
-                      <TableRow
-                        label={formatDate(item.date)}
-                        value={`${item.spiecesType} - ${item.weight}Kg`}
-                      />
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ViewSingleProcessedRecScreen", {
+                            recordId: item._id,
+                          })
+                        }
+                      >
+                        <TableRow
+                          label={formatDate(item.date)}
+                          value={
+                            <View
+                              style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
+                            >
+                              {item.collectedFrom === "farmed" ? (
+                                <Image
+                                  source={require("../../assets/processor/farmed.png")}
+                                  style={{
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 5,
+                                  }}
+                                />
+                              ) : item.collectedFrom === "fished" ? (
+                                <Image
+                                  source={require("../../assets/processor/fished.png")}
+                                  style={{
+                                    width: 10,
+                                    height: 10,
+                                    marginRight: 5,
+                                  }}
+                                />
+                              ) : null}
+
+                              <Text>{`${item.speciesType} - ${item.weight}Kg`}</Text>
+                            </View>
+                          }
+                        />
+                      </TouchableOpacity>
                     )}
                     keyExtractor={(item) => item._id}
                   />

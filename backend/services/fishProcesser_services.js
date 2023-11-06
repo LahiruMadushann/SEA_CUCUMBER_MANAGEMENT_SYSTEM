@@ -79,6 +79,34 @@ class fishProcesserService {
     }
   }
 
+  //UPDATE PROCESSED DETAILS
+  static async updateprocessedStockDetails(
+    processorId,
+    speciesType,
+    weight,
+    collectedFrom,
+    collectedLocation
+  ) {
+    const updateProcessedDetails = await processedDetailModel.findByIdAndUpdate(
+      { _id: processorId },
+      {
+        speciesType,
+        weight,
+        collectedFrom,
+        collectedLocation,
+      }
+    );
+    return updateProcessedDetails;
+  }
+
+  //DELETE PROCESSED DETAILS
+  static async deleteProcessedStockDetails(recordId) {
+    const deletedStockDetails = await processedDetailModel.findByIdAndDelete({
+      _id: recordId,
+    });
+    return deletedStockDetails;
+  }
+
   //GET INDIVIDUAL FISH PROCESSER DETAILS
   static async getFishProcesserDetails(userId) {
     const FishProcesserDetails = await userModel.findById({ _id: userId });
