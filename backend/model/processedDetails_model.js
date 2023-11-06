@@ -9,13 +9,19 @@ const processedDetailsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: userModel.modelName,
   },
-  spiecesType: {
+  speciesType: {
     type: String,
   },
   weight: {
     type: Number,
   },
-  receivedFrom: {
+  collectedFrom: {
+    type: String,
+  },
+  collectedLocation: {
+    type: String,
+  },
+  processorStockImages: {
     type: String,
   },
   date: {

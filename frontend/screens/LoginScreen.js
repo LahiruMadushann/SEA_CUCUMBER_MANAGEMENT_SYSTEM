@@ -70,10 +70,8 @@ export default function LoginScreen() {
       })
       .catch((error) => {
         console.error("Login error:", error);
-        Alert.alert(
-          "Login Error",
-          "Unsuccessful login. Please check your credentials."
-        );
+        Alert.alert("Login Error", "Server Error. Please try again later");
+        setIsLoading(false);
       });
   };
 
