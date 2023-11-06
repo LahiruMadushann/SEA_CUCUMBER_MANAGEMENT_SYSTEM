@@ -43,6 +43,7 @@ import Message from "scenes/messages";
 import ContactUs from "scenes/contactUs";
 import UpdateArticle from "scenes/article/update";
 import AddArticle from "scenes/article/addArticle";
+import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
 
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
               <Route path="/messages" element={<Message />} />
               <Route path="/contactUs" element={<ContactUs />} />
               <Route path="/updateanddelete" element={<UpdateArticle />} />
+              <Route path="/deleteandupdate" element={<UpdateKnowledgeCenter />} />
               
               
             </Route>

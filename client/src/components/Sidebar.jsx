@@ -47,6 +47,7 @@ import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
@@ -116,6 +117,10 @@ const navItems = [
   {
     text: "Enter Knowledge Center Data",
     icon: <SchoolOutlinedIcon />,
+  },
+  {
+    text: "Delete and Update",
+    icon: <RestoreFromTrashOutlinedIcon />,
   },
   {
     text: "Farmers",
