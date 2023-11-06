@@ -55,17 +55,21 @@ class fishProcesserService {
   //ENTER PROCESSED DETAILS
   static async enterProcessedDetails(
     processorId,
-    spiecesType,
+    speciesType,
     weight,
-    receivedFrom,
+    collectedFrom,
+    collectedLocation,
+    processorStockImages,
     date
   ) {
     try {
       const enterProcessedDetails = new processedDetailModel({
         processorId,
-        spiecesType,
+        speciesType,
         weight,
-        receivedFrom,
+        collectedFrom,
+        collectedLocation,
+        processorStockImages,
         date,
       });
 

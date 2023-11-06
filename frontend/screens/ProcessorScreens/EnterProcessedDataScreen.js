@@ -6,6 +6,8 @@ import { Picker } from "@react-native-picker/picker";
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode";
 
+import * as ImagePicker from "expo-image-picker";
+
 import {
   StyleSheet,
   Text,
@@ -33,39 +35,78 @@ export default function EnterProcessedDataScreen() {
   const { _id: db_id } = decodedToken;
 
   const [speciesType, setSpeciesType] = useState("");
-  const [recievedFrom, setRecievedFrom] = useState("");
+  const [collectedFrom, setCollectedFrom] = useState("");
+  const [collectedLocation, setCollectedLocation] = useState("");
   const [weight, setWeight] = useState("");
   const [date, setDate] = useState("");
+  const [image, setImage] = useState("");
 
-  const handleUpdate = () => {
-    const insertData = {
-      processorId: db_id,
-      spiecesType: speciesType,
-      weight: weight,
-      receivedFrom: recievedFrom,
-      date: date,
-    };
+  const selectImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.uri); // Update the image state with the selected image URI
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (
+      speciesType == "" ||
+      collectedFrom == "" ||
+      collectedLocation == "" ||
+      weight == "" ||
+      date == ""
+    ) {
+      Alert.alert("Empty Field", "Please fill all the fields");
+    }
+
+    const formData = new FormData();
+    formData.append("processorId", db_id);
+    formData.append("spiecesType", speciesType);
+    formData.append("weight", weight);
+    formData.append("collectedFrom", collectedFrom);
+    formData.append("collectedLocation", collectedLocation);
+    formData.append("date", date);
+    formData.append("processorStockImages", {
+      uri: image,
+      type: "image/jpeg",
+      name: "stockImage.jpg",
+    });
+
+    console.log(formData);
 
     const insertUrl = `${BASE_URL}/fishProcessers/enterProcessedDetails`;
 
-    axios
-      .post(insertUrl, insertData)
-      .then((response) => {
-        if (response.data.success) {
-          Alert.alert(
-            "Success",
-            "Successfully entered Sea cucumber processed details"
-          );
-
-          navigation.navigate("UserProfileMainScreen");
-        } else {
-          Alert.alert("Fail", response.data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error", error.message);
-        Alert.alert("Error", "Server Error");
+    try {
+      const response = await axios.post(insertUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+      console.log("Backend response:", response.data);
+
+      if (response.data.success) {
+        console.log("Backend response:", response.data);
+
+        Alert.alert(
+          "Success",
+          "Successfully entered Sea cucumber processed details"
+        );
+
+        // navigation.navigate("UserProfileMainScreen");
+      } else {
+        Alert.alert("Fail", response.data.message);
+      }
+    } catch (error) {
+      console.log("To Test");
+      console.error("Error", error.message);
+      Alert.alert("Error", "Server Error");
+    }
   };
 
   return (
@@ -109,18 +150,26 @@ export default function EnterProcessedDataScreen() {
               />
 
               <Picker
-                selectedValue={recievedFrom}
-                onValueChange={(itemValue) => setRecievedFrom(itemValue)}
+                selectedValue={collectedFrom}
+                onValueChange={(itemValue) => setCollectedFrom(itemValue)}
                 style={styles.picker}
               >
                 <Picker.Item
                   style={styles.pickerItem}
-                  label="Recieved From"
+                  label="Collected From"
                   value=""
                 />
                 <Picker.Item label="Fisheries" value="fisheries" />
                 <Picker.Item label="Farms" value="farms" />
               </Picker>
+
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={collectedLocation}
+                onChangeText={setCollectedLocation}
+                placeholder="Collected Location"
+                required
+              />
 
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
@@ -137,6 +186,22 @@ export default function EnterProcessedDataScreen() {
                 placeholder="Date (2023-11-05)"
                 required
               />
+
+              <View style={styles.pickImageContainer}>
+                <TouchableOpacity
+                  onPress={selectImage}
+                  style={styles.pickImageButton}
+                >
+                  <Text style={styles.pickImageText}>Select Stock Image</Text>
+                </TouchableOpacity>
+              </View>
+              {image && (
+                <Image
+                  className="mt-[3vh] mx-auto rounded-[15px]"
+                  source={{ uri: image }}
+                  style={{ width: 300, height: 200 }}
+                />
+              )}
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">
@@ -160,6 +225,40 @@ export default function EnterProcessedDataScreen() {
 }
 
 const styles = StyleSheet.create({
+  pickImageContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  pickImageButton: {
+    backgroundColor: "#007bff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  pickImageText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  fieldContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 52,
+  },
+
+  requiredLabel: {
+    color: "red",
+    marginBottom: 15,
+  },
+  textField: {
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderColor: "#00000040",
+    color: "gray",
+    width: 200,
+    paddingBottom: 3,
+  },
+
   picker: {
     width: 225,
     color: "gray",
