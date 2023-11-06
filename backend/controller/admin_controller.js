@@ -461,7 +461,7 @@ exports.deleteSeaCucumberDetails = async (req, res, next) => {
 exports.enterArticleDetails = async (req, res, next) => {
   try {
     const { category, heading, content, link } = req.body;
-
+console.log("Data  tika",category)
     const createdAt = new Date().toISOString();
 
     const enterArticleDetails = await adminService.enterArticleDetails(
