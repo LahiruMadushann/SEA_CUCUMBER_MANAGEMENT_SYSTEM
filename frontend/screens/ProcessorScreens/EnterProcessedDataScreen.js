@@ -208,14 +208,6 @@ export default function EnterProcessedDataScreen() {
                 required
               />
 
-              {/* <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={date}
-                onChangeText={setDate}
-                placeholder="Date (2023-11-05)"
-                required
-              /> */}
-
               <View style={styles.fieldContainer}>
                 <Text className=" text-[15px]">Select Date: </Text>
                 <TouchableOpacity onPress={showDatepicker}>

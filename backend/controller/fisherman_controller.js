@@ -103,6 +103,8 @@ exports.registerFisherman = async (req, res, next) => {
   }
 };
 
+/*--------------------------- FISHING DATA FUNCTIONS -------------------------- */
+
 //ENTER FISHING DETAILS
 exports.enterFishingDetails = async (req, res, next) => {
   try {
@@ -113,9 +115,10 @@ exports.enterFishingDetails = async (req, res, next) => {
       fishingArea,
       buyer,
       buyingPrice,
+      date,
     } = req.body;
 
-    const date = new Date().toISOString();
+    // const date = new Date().toISOString();
 
     if (req.file === undefined) {
       return res.json({ success: false, message: "you must select a file" });
@@ -147,6 +150,84 @@ exports.enterFishingDetails = async (req, res, next) => {
       });
     }
   } catch (error) {
+    next(error);
+  }
+};
+
+//DELETE FISHING DETAILS
+exports.deleteFishingDetails = async (req, res, next) => {
+  try {
+    const { fishingId } = req.body;
+    let deleteFishingDetails = await fishermanService.deleteFishingDetails(
+      fishingId
+    );
+
+    if (deleteFishingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Record deleted Successfully",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Record Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//GET ALL FISHING DETAILS OF A SINGLE FISHERMAN
+exports.getFishingDetailsByFisherman = async (req, res, next) => {
+  try {
+    const { fishermanId } = req.body;
+
+    let fishingDetails = await fishermanService.getFishermanFishingDetails(
+      fishermanId
+    );
+
+    if (fishingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Fishing Sea cucumber details",
+        data: fishingDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No data found",
+      });
+    }
+  } catch (error) {
+    console.log(error.message, "err---->");
+    next(error);
+  }
+};
+
+//GETTING SINGLE FISHING DETAIL
+exports.getSingleFishingDetails = async (req, res, next) => {
+  try {
+    const { fishingId } = req.body;
+
+    let singleFishingDetails = await fishermanService.getSingleFishingDetails(
+      fishingId
+    );
+
+    if (singleFishingDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found Processed Sea cucumber details",
+        data: singleFishingDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No data found",
+      });
+    }
+  } catch (error) {
+    console.log("err---->", error.message);
     next(error);
   }
 };

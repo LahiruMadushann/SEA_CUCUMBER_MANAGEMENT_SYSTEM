@@ -52,6 +52,8 @@ class fishProcesserService {
     }
   }
 
+  /* --------------------- PROCESSED STOCK DETAILS FUNCTIONS ------------------------------------- */
+
   //ENTER PROCESSED DETAILS
   static async enterProcessedDetails(
     processorId,
@@ -107,6 +109,20 @@ class fishProcesserService {
     return deletedStockDetails;
   }
 
+  //GETTING SINGLE PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
+  static async getProcessedRecordDetails(recordId) {
+    try {
+      const getRecordDetails = await processedDetailModel.find({
+        _id: recordId,
+      });
+      console.log("Details: ", getRecordDetails);
+      return getRecordDetails;
+    } catch (error) {
+      console.error("Error fetching details:", error.message);
+      throw error;
+    }
+  }
+
   //GET INDIVIDUAL FISH PROCESSER DETAILS
   static async getFishProcesserDetails(userId) {
     const FishProcesserDetails = await userModel.findById({ _id: userId });
@@ -123,20 +139,6 @@ class fishProcesserService {
         .sort({ date: -1 });
       console.log("Details: ", getPCDetails);
       return getPCDetails;
-    } catch (error) {
-      console.error("Error fetching details:", error.message);
-      throw error;
-    }
-  }
-
-  //GETTING SINGLE PROCESSED SEA CUCUMBER DETAILS FROM A INDIVIDUAL PROCESSOR
-  static async getProcessedRecordDetails(recordId) {
-    try {
-      const getRecordDetails = await processedDetailModel.find({
-        _id: recordId,
-      });
-      console.log("Details: ", getRecordDetails);
-      return getRecordDetails;
     } catch (error) {
       console.error("Error fetching details:", error.message);
       throw error;
