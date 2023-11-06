@@ -64,11 +64,16 @@ export default function ViewSingleProcessedRecScreen() {
   }
 
   const {
-    spiecesType: db_spiecesType,
+    speciesType: db_spiecesType,
     weight: db_weight,
-    receivedFrom: db_receivedFrom,
+    collectedFrom: db_collectedFrom,
+    collectedLocation: db_collectedLocation,
+    processorStockImages: db_processorStockImages,
     date: db_date,
   } = singleProcessedDetails.length > 0 ? singleProcessedDetails[0] : {};
+
+  const BASE_URL_FOR_STOCK_PICS = `${BASE_URL}/processorStock-pics`;
+  const stockImageUrl = `${BASE_URL_FOR_STOCK_PICS}/${db_processorStockImages}`;
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -126,14 +131,24 @@ export default function ViewSingleProcessedRecScreen() {
             {/* Table */}
             <FlatList
               data={[
-                { label: "spiecesType", value: `${db_spiecesType}` },
-                { label: "weight", value: `${db_weight}` },
-                { label: "receivedFrom", value: `${db_receivedFrom}` },
+                { label: "Spieces Type", value: `${db_spiecesType}` },
+                { label: "Weight", value: `${db_weight}` },
+                { label: "Collected From", value: `${db_collectedFrom}` },
+                {
+                  label: "Collected Location",
+                  value: `${db_collectedLocation}`,
+                },
               ]}
               renderItem={({ item }) => (
                 <TableRow label={item.label} value={item.value} />
               )}
               keyExtractor={(item) => item.label}
+            />
+          </View>
+          <View className="flex m-[auto]">
+            <Image
+              source={{ uri: stockImageUrl }}
+              className=" w-[80vw] h-[30vh] rounded-[2px] bg-[#FFFFFF] shadow-lg shadow-gray-800"
             />
           </View>
         </ScrollView>
@@ -156,11 +171,11 @@ const styles = StyleSheet.create({
     borderBottomColor: "#00000040",
   },
   tableLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: "gray",
   },
   tableValue: {
-    fontSize: 16,
+    fontSize: 14,
     color: "black",
   },
 });

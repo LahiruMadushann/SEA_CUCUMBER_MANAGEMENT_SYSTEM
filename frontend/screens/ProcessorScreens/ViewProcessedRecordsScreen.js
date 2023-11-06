@@ -117,6 +117,26 @@ export default function ViewProcessedRecordsScreen() {
           </View>
 
           <View className="mt-[36vh]">
+            <View className="flex-row mx-[auto] text-[#000] text-[12px] mb-[4vw]">
+              <Image
+                source={require("../../assets/processor/farmed.png")}
+                style={{ width: 10, height: 10, marginRight: 5 }}
+                className="flex my-[auto]"
+              />
+              <Text className="flex text-center text-[#000] text-[12px]">
+                Farm collected
+              </Text>
+
+              <Image
+                source={require("../../assets/processor/fished.png")}
+                style={{ width: 10, height: 10, marginRight: 5 }}
+                className="flex ml-[2vw] my-[auto]"
+              />
+              <Text className="flex text-center text-[#000] text-[12px]">
+                Wild Collected
+              </Text>
+            </View>
+
             {/* Table */}
             <FlatList
               data={[...allProcessedData]}
@@ -130,7 +150,25 @@ export default function ViewProcessedRecordsScreen() {
                 >
                   <TableRow
                     label={formatDate(item.date)}
-                    value={`${item.spiecesType} - ${item.weight}Kg`}
+                    value={
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        {item.collectedFrom === "farmed" ? (
+                          <Image
+                            source={require("../../assets/processor/farmed.png")}
+                            style={{ width: 10, height: 10, marginRight: 5 }}
+                          />
+                        ) : item.collectedFrom === "fished" ? (
+                          <Image
+                            source={require("../../assets/processor/fished.png")}
+                            style={{ width: 10, height: 10, marginRight: 5 }}
+                          />
+                        ) : null}
+
+                        <Text>{`${item.speciesType} - ${item.weight}Kg`}</Text>
+                      </View>
+                    }
                   />
                 </TouchableOpacity>
               )}
@@ -157,11 +195,11 @@ const styles = StyleSheet.create({
     borderBottomColor: "#00000040",
   },
   tableLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: "gray",
   },
   tableValue: {
-    fontSize: 16,
+    fontSize: 14,
     color: "black",
   },
 });

@@ -67,7 +67,7 @@ export default function EnterProcessedDataScreen() {
 
     const formData = new FormData();
     formData.append("processorId", db_id);
-    formData.append("spiecesType", speciesType);
+    formData.append("speciesType", speciesType);
     formData.append("weight", weight);
     formData.append("collectedFrom", collectedFrom);
     formData.append("collectedLocation", collectedLocation);
@@ -97,6 +97,13 @@ export default function EnterProcessedDataScreen() {
           "Success",
           "Successfully entered Sea cucumber processed details"
         );
+
+        setSpeciesType("");
+        setCollectedFrom("");
+        setCollectedLocation("");
+        setWeight("");
+        setDate("");
+        setImage("");
 
         // navigation.navigate("UserProfileMainScreen");
       } else {
@@ -159,8 +166,16 @@ export default function EnterProcessedDataScreen() {
                   label="Collected From"
                   value=""
                 />
-                <Picker.Item label="Fisheries" value="fisheries" />
-                <Picker.Item label="Farms" value="farms" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Fished"
+                  value="fished"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Farmed"
+                  value="farmed"
+                />
               </Picker>
 
               <TextInput

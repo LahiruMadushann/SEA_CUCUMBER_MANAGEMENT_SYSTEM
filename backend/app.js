@@ -65,4 +65,8 @@ app.use(
   express.static(path.join(__dirname, "Images/seaCucumberSpecies"))
 );
 
+app.use(
+  "/processorStock-pics",
+  express.static(path.join(__dirname, "Images/processorStockImages"))
+);
 module.exports = app;
