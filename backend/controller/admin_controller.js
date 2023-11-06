@@ -522,12 +522,14 @@ exports.updateArticleDetails = async (req, res, next) => {
 //DELETE ARTICLE DETAILS
 exports.deleteArticleDetails = async (req, res, next) => {
   try {
-    const { articleId } = req.body;
-
+    const { id } = req.params;
+ 
+  
     const deletedArticelDetails = await adminService.deleteArticleDetails(
-      articleId
+      id
+      
     );
-
+    console.log("User Id",id)
     if (deletedArticelDetails) {
       res.status(200).json({
         success: true,

@@ -98,7 +98,7 @@ const navItems = [
     icon: <AutoStoriesOutlinedIcon />,
   },
   {
-    text: "View and Update",
+    text: "Update and Delete",
     icon: <ImportContactsOutlinedIcon />,
     
   },

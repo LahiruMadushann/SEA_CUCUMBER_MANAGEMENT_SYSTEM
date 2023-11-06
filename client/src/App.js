@@ -91,7 +91,7 @@ function App() {
               <Route path="/activateUsers" element={<ActivateUsers />} />
               <Route path="/messages" element={<Message />} />
               <Route path="/contactUs" element={<ContactUs />} />
-              <Route path="/viewandupdate" element={<UpdateArticle />} />
+              <Route path="/updateanddelete" element={<UpdateArticle />} />
               
             </Route>
           </Routes>
