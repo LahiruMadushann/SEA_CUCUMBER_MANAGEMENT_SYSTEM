@@ -95,14 +95,31 @@ exports.registerFishProcesser = async (req, res, next) => {
 //ENTER PROCESSED SEA CUCUMBER DETAILS
 exports.enterSCProcessedDetails = async (req, res, next) => {
   try {
-    const { processorId, spiecesType, weight, receivedFrom, date } = req.body;
+    const {
+      processorId,
+      speciesType,
+      weight,
+      collectedFrom,
+      collectedLocation,
+      date,
+    } = req.body;
+    
+    console.log("asdsadasd");
+
+    if (req.file === undefined) {
+      return res.json({ success: false, message: "you must select a file" });
+    }
+
+    const processorStockImages = req.file.filename;
 
     const successEnterProcessedDetails =
       await fishProcesserService.enterProcessedDetails(
         processorId,
-        spiecesType,
+        speciesType,
         weight,
-        receivedFrom,
+        collectedFrom,
+        collectedLocation,
+        processorStockImages,
         date
       );
 

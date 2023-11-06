@@ -3,6 +3,7 @@ const fishProcesserController = require("../controller/fishProcesser_controller"
 const userController = require("../controller/user_controller");
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
+const processorStockMiddleware = require("../middleware/processedStockImages_middleware");
 
 router.post(
   "/fishProcessers/register",
@@ -24,6 +25,7 @@ router.post("/fishProcessers/changePassword", userController.changePassword);
 
 router.post(
   "/fishProcessers/enterProcessedDetails",
+  processorStockMiddleware.single("processorStockImages"),
   fishProcesserController.enterSCProcessedDetails
 );
 

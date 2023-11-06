@@ -76,14 +76,15 @@ export default function EnterFishingDetailsScreen() {
       name: "profile.jpg",
     });
 
-    const insertData = {
-      userId: db_id,
-      speciesType: speciesType,
-      numOfSpecies: numOfSpecies,
-      fishingArea: fishingArea,
-      buyer: buyer,
-      buyingPrice: buyingPrice,
-    };
+    // const insertData = {
+    //   userId: db_id,
+    //   speciesType: speciesType,
+    //   numOfSpecies: numOfSpecies,
+    //   fishingArea: fishingArea,
+    //   buyer: buyer,
+    //   buyingPrice: buyingPrice,
+    // };
+    
     const insertUrl = `${BASE_URL}/fisherman/enterFishingDetails`;
 
     try {
