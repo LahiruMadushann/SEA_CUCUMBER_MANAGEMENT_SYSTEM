@@ -434,10 +434,9 @@ exports.updateSeacucumberDetails = async (req, res, next) => {
 //DELETE SEACUCUMBER DETAILS
 exports.deleteSeaCucumberDetails = async (req, res, next) => {
   try {
-    const { speciesId } = req.body;
-
+    const { id } = req.params;
     const deleteSCDetails = await adminService.deleteSeacucumberDetails(
-      speciesId
+      id
     );
 
     if (deleteSCDetails) {

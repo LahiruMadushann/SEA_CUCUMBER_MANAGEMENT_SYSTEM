@@ -91,7 +91,7 @@ router.put(
 );
 
 router.delete(
-  "/admin/deleteSpeciesDetails",
+  "/admin/deleteSpeciesDetails/:id",
   adminController.deleteSeaCucumberDetails
 );
 

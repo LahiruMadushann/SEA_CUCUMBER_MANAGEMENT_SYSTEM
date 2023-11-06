@@ -197,7 +197,7 @@ const UpdateKnowledgeCenter = () => {
 
             console.log(`Deleted row with ID: ${rowId}`);
 
-            await axios.delete(`${baseUrl}/admin/deleteArticleDetails/${rowId}`);
+            await axios.delete(`${baseUrl}/admin/deleteSpeciesDetails/${rowId}`);
 
             // Refresh the data after deletion (optional)
             // refetchData();
@@ -489,7 +489,7 @@ const UpdateKnowledgeCenter = () => {
                         color="primary"
                         style={{
                             fontWeight:  'bold',
-                            color: 'white' ,
+                            color: 'white',
                         }}
                         // disabled={
                         //     !category || !heading || !content || !link
