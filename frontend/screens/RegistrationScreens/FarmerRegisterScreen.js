@@ -294,9 +294,21 @@ export default function FarmerRegisterScreen() {
                 selectedValue={gender}
                 onValueChange={(itemValue) => setGender(itemValue)}
               >
-                <Picker.Item label="Select Gender" value="" />
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Select Gender"
+                  value=""
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Male"
+                  value="male"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Female"
+                  value="female"
+                />
               </Picker>
             </View>
 
@@ -356,7 +368,7 @@ export default function FarmerRegisterScreen() {
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
               <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                className="border-b border-[#00000040] text-gray-700 w-64 mb-3 mx-auto"
                 value={phoneNumber}
                 onChangeText={setPhoneNumber}
                 placeholder="Telephone Number"
@@ -378,9 +390,14 @@ export default function FarmerRegisterScreen() {
                   setFarmId(selectedFarm._id); // Set selected farm ID
                 }}
               >
-                <Picker.Item label="Select Farm Name" value="" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Select Farm Name"
+                  value=""
+                />
                 {farmNames.map((farm, index) => (
                   <Picker.Item
+                    style={styles.pickerItem}
                     key={index}
                     label={farm.name}
                     value={farm.name}
@@ -442,7 +459,7 @@ const styles = StyleSheet.create({
 
   fieldContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
   },
 
   requiredLabel: {
@@ -459,7 +476,12 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 225,
+    width: 210,
     color: "gray",
+    marginLeft: 0,
+  },
+
+  pickerItem: {
+    fontSize: 15,
   },
 });

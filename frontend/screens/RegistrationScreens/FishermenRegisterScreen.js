@@ -228,9 +228,21 @@ export default function FishermanRegisterScreen() {
                 selectedValue={accountType}
                 onValueChange={(itemValue) => setAccountType(itemValue)}
               >
-                <Picker.Item label="Account Type" value="" />
-                <Picker.Item label="Individual" value="individual" />
-                <Picker.Item label="Group" value="group" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Account Type"
+                  value=""
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Individual"
+                  value="individual"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Group"
+                  value="group"
+                />
               </Picker>
             </View>
 
@@ -333,9 +345,21 @@ export default function FishermanRegisterScreen() {
                 selectedValue={gender}
                 onValueChange={(itemValue) => setGender(itemValue)}
               >
-                <Picker.Item label="Select Gender" value="" />
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Select Gender"
+                  value=""
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Male"
+                  value="male"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Female"
+                  value="female"
+                />
               </Picker>
             </View>
 
@@ -473,7 +497,11 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 200,
+    width: 180,
     color: "gray",
+  },
+
+  pickerItem: {
+    fontSize: 15,
   },
 });

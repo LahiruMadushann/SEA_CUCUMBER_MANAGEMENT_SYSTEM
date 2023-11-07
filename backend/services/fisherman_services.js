@@ -64,6 +64,7 @@ class fishermanService {
     }
   }
 
+  /*--------------------------- FISHING DATA FUNCTIONS -------------------------- */
   static async enterFishingDetails(
     userId,
     speciesType,
@@ -74,15 +75,6 @@ class fishermanService {
     date,
     fishingImage
   ) {
-    console.log(userId);
-    console.log(speciesType);
-    console.log(numOfSpecies);
-    console.log(fishingArea);
-    console.log(buyer);
-    console.log(buyingPrice);
-    console.log(date);
-    console.log(fishingImage);
-
     try {
       const fishingDetails = new fishingModel({
         fishermanId: userId,
@@ -100,6 +92,42 @@ class fishermanService {
       return await fishingDetails.save();
     } catch (err) {
       throw err;
+    }
+  }
+
+  //DELETE FISHING DETAILS
+  static async deleteFishingDetails(fishingId) {
+    const deletedFishingDetails = await fishingModel.findByIdAndDelete({
+      _id: fishingId,
+    });
+    return deletedFishingDetails;
+  }
+
+  //GET ALL FISHING DETAILS OF A SINGLE FISHERMAN
+  static async getFishermanFishingDetails(fishermanId) {
+    try {
+      const getFishingDetails = await fishingModel
+        .find({
+          fishermanId: fishermanId,
+        })
+        .sort({ date: -1 });
+      return getFishingDetails;
+    } catch (error) {
+      console.error("Error fetching details:", error.message);
+      throw error;
+    }
+  }
+
+  //GETTING SINGLE FISHING DETAIL
+  static async getSingleFishingDetails(fishingId) {
+    try {
+      const getsingleFishingDetails = await fishingModel.find({
+        _id: fishingId,
+      });
+      return getsingleFishingDetails;
+    } catch (error) {
+      console.error("Error fetching details:", error.message);
+      throw error;
     }
   }
 }

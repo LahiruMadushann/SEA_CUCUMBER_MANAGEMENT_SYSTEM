@@ -285,9 +285,21 @@ export default function ProcessorRegisterScreen() {
                 selectedValue={gender}
                 onValueChange={(itemValue) => setGender(itemValue)}
               >
-                <Picker.Item label="Select Gender" value="" />
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Select Gender"
+                  value=""
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Male"
+                  value="male"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Female"
+                  value="female"
+                />
               </Picker>
             </View>
 
@@ -425,7 +437,10 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 200,
+    width: 180,
     color: "gray",
+  },
+  pickerItem: {
+    fontSize: 15,
   },
 });

@@ -51,13 +51,26 @@ export default function FishermanPopupScreen() {
       {menuVisible && (
         <View style={styles.menu} className="ml-[50vw] ">
           {db_accountStatus == "Active" ? (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("EnterFishingDetailsScreen")}
-            >
-              <View style={styles.tab}>
-                <Text className="mx-[1vw]">New Catch</Text>
-              </View>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EnterFishingDetailsScreen")}
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw]">New Catch</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("ViewAllFishingRecordsScreen")
+                }
+              >
+                <View style={styles.tab}>
+                  <Text className="mx-[1vw] text-center">
+                    View Fishing Records
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
           ) : null}
           <TouchableOpacity
             onPress={() => navigation.navigate("UpdatePasswordScreen")}

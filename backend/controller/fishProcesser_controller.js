@@ -103,7 +103,7 @@ exports.enterSCProcessedDetails = async (req, res, next) => {
       collectedLocation,
       date,
     } = req.body;
-    
+
     console.log("asdsadasd");
 
     if (req.file === undefined) {
@@ -136,6 +136,63 @@ exports.enterSCProcessedDetails = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error);
+  }
+};
+
+//UPDATE PROCESSED STOCK
+exports.updateProcessedStock = async (req, res, next) => {
+  try {
+    const {
+      processorId,
+      speciesType,
+      weight,
+      collectedFrom,
+      collectedLocation,
+    } = req.body;
+
+    let updateStockDetails =
+      await fishProcesserService.updateprocessedStockDetails(
+        processorId,
+        speciesType,
+        weight,
+        collectedFrom,
+        collectedLocation
+      );
+
+    if (updateStockDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Update Successfully",
+      });
+    } else {
+      res.status(400).json({ success: false, message: "Update Unsuccessful" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DELETE PROCESSED DETAILS
+exports.deleteStockDetails = async (req, res, next) => {
+  try {
+    const { recordId } = req.body;
+    let deleteStockDetails =
+      await fishProcesserService.deleteProcessedStockDetails(recordId);
+
+    if (deleteStockDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Record deleted Successfully",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Record Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
     next(error);
   }
 };
