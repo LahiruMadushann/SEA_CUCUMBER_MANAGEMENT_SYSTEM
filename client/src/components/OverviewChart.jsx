@@ -76,7 +76,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "sales" ? totalStockLine : totalSurvivalLine}
+      data={view === "stock" ? totalStockLine : totalSurvivalLine}
    
       theme={{
         axis: {
@@ -137,7 +137,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? "" : "Month",
+        legend: "Month",
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -147,12 +147,11 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard
-          ? ""
-          : `Total ${view === "sales" ? "Revenue" : "Units"} for Year`,
+        legend: view === "stock" ? "Aqua Farming Stock" : "Aqua Farming Survival",
         legendOffset: -60,
         legendPosition: "middle",
       }}
+  
       enableGridX={false}
       enableGridY={false}
       pointSize={10}
