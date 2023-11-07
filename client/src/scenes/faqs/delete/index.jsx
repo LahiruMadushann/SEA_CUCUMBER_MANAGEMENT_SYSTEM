@@ -166,15 +166,15 @@ const handleDeleteRow = async (rowId) => {
 //   };
 
     const columns = [
-        {
-            field: "_id",
-            headerName: "ID",
-            flex: 0.6,
-        },
+        // {
+        //     field: "_id",
+        //     headerName: "ID",
+        //     flex: 0.6,
+        // },
         {
             field: "question",
             headerName: "Question",
-            flex: 0.5,
+            flex: 0.7,
         },
         {
             field: "answer",
