@@ -1,54 +1,83 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState,useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
+import axios from "axios";
 
 const OverviewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery();
+  const [detail, setDetail] = useState(null);
+  const [data,setData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const [totalSalesLine, totalUnitsLine] = useMemo(() => {
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
+
+      setDetail(response.data);
+      
+      setData(detail.data)
+    
+      // setData(detail.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+
+     
+    });
+
+  }, [detail]);
+
+  const [totalStockLine, totalSurvivalLine] = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
-    const totalSalesLine = {
-      id: "totalSales",
+    const  monthlyData = data;
+   
+    const totalStockLine = {
+      id: "stock",
       color: theme.palette.secondary.main,
       data: [],
     };
-    const totalUnitsLine = {
-      id: "totalUnits",
+    const totalSurvivalLine = {
+      id: "survival",
       color: theme.palette.secondary[600],
       data: [],
     };
 
     Object.values(monthlyData).reduce(
-      (acc, { month, totalSales, totalUnits }) => {
-        const curSales = acc.sales + totalSales;
-        const curUnits = acc.units + totalUnits;
-
-        totalSalesLine.data = [
-          ...totalSalesLine.data,
-          { x: month, y: curSales },
+      (acc, { month, stock, survival }) => {
+        const curStock = acc.sales + stock;
+        const curSurvival = acc.units + survival;
+        
+        totalStockLine.data = [
+          ...totalStockLine.data,
+          { x: month, y: curStock },
         ];
-        totalUnitsLine.data = [
-          ...totalUnitsLine.data,
-          { x: month, y: curUnits },
+        totalSurvivalLine.data = [
+          ...totalSurvivalLine.data,
+          { x: month, y: curSurvival },
         ];
 
-        return { sales: curSales, units: curUnits };
+        return { sales: curStock, units: curSurvival };
       },
       { sales: 0, units: 0 }
     );
 
-    return [[totalSalesLine], [totalUnitsLine]];
+    return [[totalStockLine], [totalSurvivalLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!data || isLoading) return "Loading...";
+  if (!data || isLoading){ 
+    return "Loading...";
+  }
+    
+
 
   return (
+   
     <ResponsiveLine
-      data={view === "sales" ? totalSalesLine : totalUnitsLine}
+      data={view === "stock" ? totalStockLine : totalSurvivalLine}
+   
       theme={{
         axis: {
           domain: {
@@ -98,14 +127,17 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       axisRight={null}
       axisBottom={{
         format: (v) => {
-          if (isDashboard) return v.slice(0, 3);
-          return v;
+          if (v) {
+            if (isDashboard) return v.slice(0, 3);
+            return v;
+          }
+         
         },
         orient: "bottom",
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? "" : "Month",
+        legend: "Month",
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -115,12 +147,11 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard
-          ? ""
-          : `Total ${view === "sales" ? "Revenue" : "Units"} for Year`,
+        legend: view === "stock" ? "Aqua Farming Stock" : "Aqua Farming Survival",
         legendOffset: -60,
         legendPosition: "middle",
       }}
+  
       enableGridX={false}
       enableGridY={false}
       pointSize={10}
@@ -161,6 +192,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       }
     />
   );
+  
 };
 
 export default OverviewChart;

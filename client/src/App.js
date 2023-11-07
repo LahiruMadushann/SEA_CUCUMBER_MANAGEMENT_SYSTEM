@@ -44,6 +44,8 @@ import ContactUs from "scenes/contactUs";
 import UpdateArticle from "scenes/article/update";
 import AddArticle from "scenes/article/addArticle";
 import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
+import EnterFAQSData from "scenes/faqs/add";
+import UpdateFAQ from "scenes/faqs/delete";
 
 
 function App() {
@@ -64,9 +66,10 @@ function App() {
               <Route path="registerManagementUsers" element={<RegisterManagementUsers/>} />
               <Route path="/enterknowledgecenterdata" element={<KnowledgeCenterData />} />
               <Route path="/addarticle" element={<AddArticle />} />
+              <Route path="/enterfaqsdata" element={<EnterFAQSData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/managementaquacultureusers" element={<ManagementAquacultureUsers />} />
+              <Route path="/managementusers" element={<ManagementAquacultureUsers />} />
               <Route path="/aquacultureFarms" element={<AquacultureFarms />} />
               <Route path="aquacultureFarmers" element={<AquacultureFarmers/>} />
               <Route path="fisheriesManagementUsers" element={<FisheriesManagementUsers/>} />
@@ -96,6 +99,7 @@ function App() {
               <Route path="/contactUs" element={<ContactUs />} />
               <Route path="/updateanddelete" element={<UpdateArticle />} />
               <Route path="/deleteandupdate" element={<UpdateKnowledgeCenter />} />
+              <Route path="/delete&update" element={<UpdateFAQ />} />
               
               
             </Route>

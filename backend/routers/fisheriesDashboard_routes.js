@@ -18,6 +18,10 @@ router.get(
   "/fisheriesdashboard/getAllFishingDetails",
   fisheriesDashboardController.getAllFishingDetails
 );
+// router.get(
+//   "/fisheriesdashboard/getAllFishAndFishingDetails",
+//   fisheriesDashboardController.getAllFishAndFishingDetails
+// );
 
 
 // GET SPECIES TYPE DISTRIBUTION DATA

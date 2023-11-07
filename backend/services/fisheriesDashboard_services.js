@@ -1,6 +1,7 @@
 /* FISHING SECTION DASHBOARD */
 
 const FishingModel = require("../model/fisheries/fishing_model");
+const userModel = require("../model/user_model");
 
 class FisheriesDashboardService {
   //GET ALL FISHING DETAILS
@@ -8,7 +9,29 @@ class FisheriesDashboardService {
     const allFishingDetails = await FishingModel.find();
     return allFishingDetails;
   }
+//Get Two table data 
+// static async getAllFishAndFishingDetails() {
+//   const allFishingDetails = await FishingModel.find().populate('fishermanId');
+//   const allOtherDetails = await userModel.find().populate('_id');
 
+//   const combinedDetails = [];
+
+//   allFishingDetails.forEach((fishingDetail) => {
+//     const otherDetail = allOtherDetails.find(
+//       (detail) => detail._id === fishingDetail.fishermanId
+//     );
+//     console.log("Other",...otherDetail)
+
+//     if (otherDetail) {
+//       combinedDetails.push({
+//         ...fishingDetail._doc,
+//         ...otherDetail._doc,
+//       });
+//     }
+//   });
+
+//   return combinedDetails;
+// }
   //GET ALL FISHING DETAILS ALONG WITH ALL THE FISHERMEN DETAILS ASSOCIATED WITH IT
   static async getAllFishingDetailsWithFishermens() {
     const allFishingDetailsWithFishermens = await FishingModel.find().populate(

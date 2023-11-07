@@ -102,7 +102,7 @@ router.delete(
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
-router.delete("/admin/deleteFaqdetails", adminController.deleteFAQDetails);
+router.delete("/admin/deleteFaqdetails/:id", adminController.deleteFAQDetails);
 router.put("/admin/updateFaqdetails", adminController.updateFAQs);
 
 /*-- REPLY CONTACT US --*/
@@ -113,6 +113,7 @@ router.get("/user/:id", adminController.getUser);
 
 router.delete("/admin/deleteUser/:id", adminController.deleteUser);
 router.post("/admin/enterNews", adminController.addNews);
+router.post("/admin/enterFaq", adminController.addFaq);
 router.put(
   "/admin/updateUser/:id/:state",
   adminController.approveFarmerAccount

@@ -18,6 +18,23 @@ exports.getAllFishingDetails = async (req, res, next) => {
   }
 };
 
+// exports.getAllFishAndFishingDetails = async (req, res, next) => {
+//   try {
+//     let fishingDetails = await fisheriesDashboardService.getAllFishAndFishingDetails();
+
+//     if (fishingDetails) {
+//       res.status(200).json({ status: true, data: fishingDetails });
+//     } else {
+//       res
+//         .status(404)
+//         .json({ status: false, message: "There are no Fishing details" });
+//     }
+//   } catch (error) {
+//     console.log(error, "err---->");
+//     next(error);
+//   }
+// };
+
 // GET ALL FISHING DETAILS ALONG WITH THE FISHERMAN DETAILS
 exports.getAllFishingDetailsWithFishermens = async (req, res, next) => {
   try {

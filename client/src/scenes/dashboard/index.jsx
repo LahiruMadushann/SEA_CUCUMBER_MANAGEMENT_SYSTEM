@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
+import axios from "axios";
 import {
   DownloadOutlined,
   Email,
@@ -27,8 +28,28 @@ import html2canvas from "html2canvas";
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardQuery();
-  console.log("Dashboard Data", data)
+  // const { data, isLoading } = useGetDashboardQuery();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
+
+      // setDetail(response.data);
+      setData(response.data.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+      
+      console.log("Dashboard Data", data)
+    });
+
+  }, [data]);
+
+
+
   const handleDownloadReports = () => {
     const element = document.getElementById("reports-container");
 
@@ -68,33 +89,37 @@ const Dashboard = () => {
   };
 
   const columns = [
+    // {
+    //   field: "_id",
+    //   headerName: "ID",
+    //   flex: 1,
+    // },
     {
-      field: "_id",
-      headerName: "ID",
+      field: "fishingArea",
+      headerName: "Fishing Area",
       flex: 1,
     },
     {
-      field: "userId",
-      headerName: "User ID",
+      field: "speciesType",
+      headerName: "Species Type",
       flex: 1,
     },
     {
-      field: "createdAt",
-      headerName: "CreatedAt",
+      field: "numOfSpecies",
+      headerName: "Num Of Species",
       flex: 1,
     },
     {
-      field: "products",
-      headerName: "# of Products",
-      flex: 0.5,
-      sortable: false,
-      renderCell: (params) => params.value.length,
+      field: "buyer",
+      headerName: "Buyer",
+      flex: 1,
+      
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "buyingPrice",
+      headerName: "Buying Price",
       flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+      
     },
   ];
 
@@ -145,7 +170,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Sales Today"
-          value={data && data.todayStats.totalSales}
+          // value={data && data.todayStats.totalSales}
           increase="+21%"
           description="Since last month"
           icon={
@@ -162,11 +187,11 @@ const Dashboard = () => {
           p="1rem"
           borderRadius="0.55rem"
         >
-          <OverviewChart view="sales" isDashboard={true} />
+          <OverviewChart view="stock" isDashboard={true} />
         </Box>
         <StatBox
           title="Monthly Sales"
-          value={data && data.thisMonthStats.totalSales}
+          // value={data && data.thisMonthStats.totalSales}
           increase="+5%"
           description="Since last month"
           icon={
@@ -220,7 +245,8 @@ const Dashboard = () => {
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row._id}
-            rows={(data && data.transactions) || []}
+            // rows={(data && data.transactions) || []}
+            rows={data || []}
             columns={columns}
           />
         </Box>
