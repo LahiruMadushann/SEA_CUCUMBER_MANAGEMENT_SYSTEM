@@ -157,7 +157,7 @@ const Dashboard = () => {
         }}
       >
         {/* ROW 1 */}
-        <StatBox
+        {/* <StatBox
           title="Total Customers"
           value={data && data.totalCustomers}
           increase="+14%"
@@ -178,10 +178,10 @@ const Dashboard = () => {
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
-        />
+        /> */}
         {/* Dashboard Chart */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={theme.palette.background.alt}
           p="1rem"
@@ -189,7 +189,16 @@ const Dashboard = () => {
         >
           <OverviewChart view="stock" isDashboard={true} />
         </Box>
-        <StatBox
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem"
+        >
+          <OverviewChart view="survival" isDashboard={true} />
+        </Box>
+        {/* <StatBox
           title="Monthly Sales"
           // value={data && data.thisMonthStats.totalSales}
           increase="+5%"
@@ -210,7 +219,7 @@ const Dashboard = () => {
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
-        />
+        /> */}
 
         {/* ROW 2 */}
         <Box
@@ -258,7 +267,7 @@ const Dashboard = () => {
           borderRadius="0.55rem"
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-          Species Detail
+          Fishing Species Detail
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography

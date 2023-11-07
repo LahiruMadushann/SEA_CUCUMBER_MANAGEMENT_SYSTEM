@@ -147,7 +147,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: view === "stock" ? "Aqua Farming Stock" : "Aqua Farming Survival",
+        legend: view === "stock" ? "Aqua Farming Stock" : "Aqua Farming Survival Stock",
         legendOffset: -60,
         legendPosition: "middle",
       }}
