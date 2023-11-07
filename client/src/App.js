@@ -44,6 +44,7 @@ import ContactUs from "scenes/contactUs";
 import UpdateArticle from "scenes/article/update";
 import AddArticle from "scenes/article/addArticle";
 import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
+import EnterFAQSData from "scenes/faqs/update";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
               <Route path="registerManagementUsers" element={<RegisterManagementUsers/>} />
               <Route path="/enterknowledgecenterdata" element={<KnowledgeCenterData />} />
               <Route path="/addarticle" element={<AddArticle />} />
+              <Route path="/enterfaqsdata" element={<EnterFAQSData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/managementusers" element={<ManagementAquacultureUsers />} />

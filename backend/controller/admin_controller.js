@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const emailService = require("../services/email_services");
 const userService = require("../services/user_services");
 const newsModel = require("../model/news_model");
+const faqModel = require("../model/faq_model");
 
 //const news = require("../model/newsNew");
 
@@ -622,6 +623,33 @@ exports.addNews = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+//add faq
+exports.addFaq = async (req, res) => {
+  try {
+ 
+    const {
+      question,
+      answer,
+    } = req.body;
+
+    console.log("ans",answer)
+    const createdAt = new Date().toISOString();
+
+    const newFAQ = new faqModel({
+      question,
+      answer,
+      createdAt
+      
+    });
+
+    const savedFAQ = await newFAQ.save();
+    res.status(201).json(savedFAQ);
+  } catch (error) {
+    console.error("Error saving FAQ:", error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
 
 /*--------------------------- FAQ FUNCTIONS -----------------------------*/
 
@@ -636,6 +664,7 @@ exports.enterFAQDetails = async (req, res, next) => {
       visibleToAll,
       questionAskedByID,
     } = req.body;
+   
 
     const createdAt = new Date().toISOString();
 
@@ -648,12 +677,13 @@ exports.enterFAQDetails = async (req, res, next) => {
       questionAskedByID,
       createdAt
     );
-
+   
     if (enterFAQDetails) {
       res.status(200).json({
         success: true,
         message: "FAQ Details entered Sucessfully",
       });
+    
     } else {
       res.status(400).json({
         success: false,

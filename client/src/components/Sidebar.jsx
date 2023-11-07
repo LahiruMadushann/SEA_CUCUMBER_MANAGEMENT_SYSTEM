@@ -49,6 +49,7 @@ import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
@@ -120,7 +121,19 @@ const navItems = [
     text: "Delete and Update",
     icon: <RestoreFromTrashOutlinedIcon />,
   },
-  
+  //---------------
+  {
+    text: "FAQS",
+    icon: null,
+  },
+  {
+    text: "Enter FAQS Data",
+    icon: <QuizOutlinedIcon />,
+  },
+  {
+    text: "Delete & Update",
+    icon: <RestoreFromTrashOutlinedIcon />,
+  },
   //-----------------------------
   {
     text: "Other Actions",

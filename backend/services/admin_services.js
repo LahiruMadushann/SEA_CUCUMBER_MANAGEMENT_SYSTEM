@@ -407,6 +407,7 @@ class AdminService {
     createdAt
   ) {
     try {
+      
       const enterFAQDetails = new faqModel({
         question,
         answer,
@@ -416,7 +417,7 @@ class AdminService {
         questionAskedByID,
         createdAt,
       });
-
+     
       return await enterFAQDetails.save();
     } catch (err) {
       throw err;

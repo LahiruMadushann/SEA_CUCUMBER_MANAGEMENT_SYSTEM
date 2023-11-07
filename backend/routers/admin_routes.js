@@ -113,6 +113,7 @@ router.get("/user/:id", adminController.getUser);
 
 router.delete("/admin/deleteUser/:id", adminController.deleteUser);
 router.post("/admin/enterNews", adminController.addNews);
+router.post("/admin/enterFaq", adminController.addFaq);
 router.put(
   "/admin/updateUser/:id/:state",
   adminController.approveFarmerAccount
