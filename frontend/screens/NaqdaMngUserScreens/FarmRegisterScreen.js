@@ -147,14 +147,14 @@ export default function FarmRegisterScreen() {
               </View>
             </View>
 
-            <View className="w-auto h-[48px] mt-[5.7475vw] mx-auto">
+            <View className="w-auto h-[48px] mt-[6vh] mx-auto">
               <Text className=" font-bold text-[#FFFFFF] text-center text-[22px] px-[31px] py-[5px] ">
-                Farmer Registration
+                Farm Registration
               </Text>
             </View>
           </View>
 
-          <View className="p-4 mx-auto w-[80vw] h-[auto] mb-[-28vw] mt-[60vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
+          <View className="p-4 mx-auto w-[80vw] h-[auto] mb-[-28vw] mt-[40vw] rounded-[10px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
             <Text className="text-lg font-bold mb-4">Farm Details</Text>
 
             <View style={styles.fieldContainer}>
@@ -278,15 +278,11 @@ export default function FarmRegisterScreen() {
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
-              {/* <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={establishmentDate}
-                onChangeText={setEstablishmentDate}
-                placeholder="Establishment Date"
-                required
-              /> */}
+              <Text className=" text-[15px] ml-[2vw]">Establishment Date:</Text>
               <TouchableOpacity onPress={showDatepicker}>
-                <Text>{establishmentDate.toDateString()}</Text>
+                <Text className="text-[#007bff] text-[15px]">
+                  {establishmentDate.toDateString()}
+                </Text>
               </TouchableOpacity>
 
               {showDatePicker && (
@@ -371,5 +367,12 @@ const styles = StyleSheet.create({
   picker: {
     width: 225,
     color: "gray",
+    marginLeft: 52,
+    fontSize: 10,
+    marginTop: -10,
+  },
+
+  pickerItem: {
+    fontSize: 15,
   },
 });

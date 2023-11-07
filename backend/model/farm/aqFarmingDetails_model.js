@@ -13,7 +13,7 @@ const aquaFarmingDetailsSchema = new Schema({
     type: Number,
   },
   stockingDates: {
-    type: String,
+    type: Date,
   },
   hatchery: {
     type: String,

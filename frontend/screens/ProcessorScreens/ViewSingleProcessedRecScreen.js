@@ -203,14 +203,14 @@ export default function ViewSingleProcessedRecScreen() {
             />
           </View>
           <View className="flex-row mb-[2vh] mr-[5vw] justify-end">
-            <TouchableOpacity
+           {(db_role === "Processor" && <TouchableOpacity
               className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
               onPress={handleDelete}
             >
               <Text className="text-[#fff] text-[15px] font-bold text-center">
                 Delete Record
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>)}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

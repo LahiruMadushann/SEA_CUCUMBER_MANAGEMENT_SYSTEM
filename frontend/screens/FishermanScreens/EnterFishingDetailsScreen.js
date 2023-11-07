@@ -185,7 +185,7 @@ export default function EnterFishingDetailsScreen() {
                 className="border-b border-[#00000040] text-gray-700 w-64 mb-5 mx-auto"
                 value={buyingPrice}
                 onChangeText={setbuyingPrice}
-                placeholder="Buyering Price"
+                placeholder="Buying Price"
                 keyboardType="numeric"
                 required
               />

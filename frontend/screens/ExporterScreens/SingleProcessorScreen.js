@@ -280,7 +280,7 @@ export default function SingleProcessorScreen() {
                   </View>
                   {/* Table */}
                   <FlatList
-                    data={[...processedDetails]}
+                    data={[...processedDetails].slice(0, 10)}
                     renderItem={({ item }) => (
                       <TouchableOpacity
                         onPress={() =>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import {
   StyleSheet,
@@ -25,27 +26,38 @@ export default function UpdateFarmingScreen() {
   const farmId = route.params?.farmId || ""; // Default value if parameter is not available
 
   const [stock, setStock] = useState("");
-  const [stockingDates, setStockingDates] = useState("");
+  const [stockingDates, setStockingDates] = useState(new Date());
   const [hatchery, setHatchery] = useState("");
   const [hatcheryBatch, setHatcheryBatch] = useState("");
   const [harvest, setHarvest] = useState("");
   const [size, setSize] = useState("");
   const [survival, setSurvival] = useState("");
   const [diseases, setDiseases] = useState("");
-  const [date, setDate] = useState("");
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    setShowDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setStockingDates(selectedDate);
+    }
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
 
   const handleUpdate = () => {
     const insertData = {
       farmId: farmId,
       stock: stock,
-      stockingDates: stockingDates,
+      stockingDates: stockingDates.toISOString(),
       hatchery: hatchery,
       hatcheryBatch: hatcheryBatch,
       harvest: harvest,
       size: size,
       survival: survival,
       diseases: diseases,
-      date: date,
     };
     const insertUrl = `${BASE_URL}/districtAquaCulturist/insertFarmingDetails`;
 
@@ -54,12 +66,15 @@ export default function UpdateFarmingScreen() {
       .post(insertUrl, insertData)
       .then((response) => {
         if (response.data.success) {
-          Alert.alert(
-            "Stock Details",
-            "Stock details has been updated Inserted."
-          );
-          // Optionally, navigate to another screen after successful password update
-          // navigation.navigate("UserProfileMainScreen");
+          Alert.alert("Stock Details", "Stock details has been updated.");
+          setStock("");
+          setStockingDates(new Date());
+          setHatchery("");
+          setHatcheryBatch("");
+          setHarvest("");
+          setSize("");
+          setSurvival("");
+          setDiseases("");
         } else {
           Alert.alert("Stock Update Failed", response.data.message);
         }
@@ -93,17 +108,14 @@ export default function UpdateFarmingScreen() {
                   </TouchableOpacity>
                 </View>
               </View>
-              <Text className="text-center text-[#fff]  text-[18px] mt-[10vw] fixed">
-                Update Details
-              </Text>
-              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[2vw] fixed">
-                Stock
+              <Text className="text-center text-[#fff] font-bold text-[22px] mt-[5vh] fixed">
+                Enter Stock Details
               </Text>
             </View>
           </View>
 
           <View className="mt-[36vh]">
-            <View className="mt-[6vh]">
+            <View>
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={stock}
@@ -111,13 +123,27 @@ export default function UpdateFarmingScreen() {
                 placeholder="Stock"
                 required
               />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={stockingDates}
-                onChangeText={setStockingDates}
-                placeholder="Stocking Dates"
-                required
-              />
+
+              <View style={styles.fieldContainer}>
+                <Text className=" text-[15px] text-gray-700">
+                  Stocking Date:{" "}
+                </Text>
+                <TouchableOpacity onPress={showDatepicker}>
+                  <Text className="text-[#007bff] text-[15px]">
+                    {stockingDates.toDateString()}
+                  </Text>
+                </TouchableOpacity>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={stockingDates}
+                    mode="date"
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
+              </View>
+
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={hatchery}
@@ -160,22 +186,15 @@ export default function UpdateFarmingScreen() {
                 placeholder="Diseases"
                 required
               />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={date}
-                onChangeText={setDate}
-                placeholder="Date (2023-11-05)"
-                required
-              />
             </View>
 
-            <View className="mt-[2vh] mb-[5vh]">
+            <View className="mt-[2vh] mb-[2vh]">
               <TouchableOpacity
-                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center"
                 onPress={handleUpdate}
               >
                 <Text className="text-[#fff] text-[18px] font-bold text-center">
-                  Update
+                  Enter Farming Stock
                 </Text>
               </TouchableOpacity>
             </View>
@@ -188,3 +207,53 @@ export default function UpdateFarmingScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  pickImageContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  pickImageButton: {
+    backgroundColor: "#007bff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  pickImageText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  fieldContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 68,
+    fontSize: 15,
+    marginBottom: 10,
+  },
+
+  requiredLabel: {
+    color: "red",
+    marginBottom: 15,
+  },
+  textField: {
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderColor: "#00000040",
+    color: "gray",
+    width: 200,
+    paddingBottom: 3,
+  },
+
+  picker: {
+    width: 225,
+    color: "gray",
+    marginLeft: 50,
+    fontSize: 10,
+    marginTop: -10,
+  },
+
+  pickerItem: {
+    fontSize: 15,
+  },
+});

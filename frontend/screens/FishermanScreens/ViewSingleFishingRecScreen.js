@@ -195,7 +195,7 @@ export default function ViewSingleFishingRecScreen() {
                   value: `${db_buyer}`,
                 },
                 {
-                  label: "Buyering Price",
+                  label: "Buying Price",
                   value: `Rs. ${db_buyingPrice}`,
                 },
               ]}

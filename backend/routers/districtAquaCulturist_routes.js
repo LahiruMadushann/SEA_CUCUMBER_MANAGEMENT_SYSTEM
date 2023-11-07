@@ -7,6 +7,11 @@ router.post(
   districtAquaCulturistController.insertFarmingDetails
 );
 
+router.post(
+  "/districtAquaCulturist/deleteFarmingStockDetails",
+  districtAquaCulturistController.deleteFarmingStock
+);
+
 router.put(
   "/districtAquaCulturist/updateFarmDetails",
   districtAquaCulturistController.updateFarm
