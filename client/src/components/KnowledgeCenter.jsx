@@ -85,14 +85,14 @@ const KnowledgeCenter = () => {
         try {
 
             // const response = await axios.post("http://localhost:5001/general/add", formData);
-            console.log("Klin type",speciesType)
+          console.log("form data",formData)
 
             const response = await axios.post(`${baseUrl}/admin/enterSpeciesDetails`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log("Psuwa type",speciesType)
+         
 
             if (response.status === 200) {
 

@@ -434,10 +434,9 @@ exports.updateSeacucumberDetails = async (req, res, next) => {
 //DELETE SEACUCUMBER DETAILS
 exports.deleteSeaCucumberDetails = async (req, res, next) => {
   try {
-    const { speciesId } = req.body;
-
+    const { id } = req.params;
     const deleteSCDetails = await adminService.deleteSeacucumberDetails(
-      speciesId
+      id
     );
 
     if (deleteSCDetails) {
@@ -461,7 +460,7 @@ exports.deleteSeaCucumberDetails = async (req, res, next) => {
 exports.enterArticleDetails = async (req, res, next) => {
   try {
     const { category, heading, content, link } = req.body;
-
+console.log("Data  tika",category)
     const createdAt = new Date().toISOString();
 
     const enterArticleDetails = await adminService.enterArticleDetails(
@@ -522,12 +521,14 @@ exports.updateArticleDetails = async (req, res, next) => {
 //DELETE ARTICLE DETAILS
 exports.deleteArticleDetails = async (req, res, next) => {
   try {
-    const { articleId } = req.body;
-
+    const { id } = req.params;
+ 
+  
     const deletedArticelDetails = await adminService.deleteArticleDetails(
-      articleId
+      id
+      
     );
-
+    console.log("User Id",id)
     if (deletedArticelDetails) {
       res.status(200).json({
         success: true,

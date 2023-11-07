@@ -34,7 +34,7 @@ import FishProcessorsData from "scenes/fData/fishProcessorsData";
 import UserProfile from "scenes/userProfile";
 import Profile from "components/Profile";
 import RegisterManagementUsers from "scenes/registerManagementUsers";
-import { UserContextProvider } from "UserContext";
+import { UserContextProvider } from "./UserContext";
 import UserProfileEdit from "scenes/useProfileEdit";
 import RemoveUsers from "scenes/removeUsers";
 import ActivateUsers from "scenes/activateUsers";
@@ -42,6 +42,8 @@ import KnowledgeCenterData from "scenes/knowledgeCenter";
 import Message from "scenes/messages";
 import ContactUs from "scenes/contactUs";
 import UpdateArticle from "scenes/article/update";
+import AddArticle from "scenes/article/addArticle";
+import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
 
 
 function App() {
@@ -61,6 +63,7 @@ function App() {
               <Route path="userProfileEdit" element={<UserProfileEdit/>} />
               <Route path="registerManagementUsers" element={<RegisterManagementUsers/>} />
               <Route path="/enterknowledgecenterdata" element={<KnowledgeCenterData />} />
+              <Route path="/addarticle" element={<AddArticle />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/managementaquacultureusers" element={<ManagementAquacultureUsers />} />
@@ -91,7 +94,9 @@ function App() {
               <Route path="/activateUsers" element={<ActivateUsers />} />
               <Route path="/messages" element={<Message />} />
               <Route path="/contactUs" element={<ContactUs />} />
-              <Route path="/viewandupdate" element={<UpdateArticle />} />
+              <Route path="/updateanddelete" element={<UpdateArticle />} />
+              <Route path="/deleteandupdate" element={<UpdateKnowledgeCenter />} />
+              
               
             </Route>
           </Routes>

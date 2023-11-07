@@ -157,7 +157,45 @@ const UpdateArticle = () => {
             console.error("Error saving message:", error);
         }
     };
+//delete article
+const handleDeleteRow = async (rowId) => {
+    const { isConfirmed } = await Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this article?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3644C5",
+      confirmButtonText: "Yes, delete it!",
+    });
 
+    if (!isConfirmed) {
+      return;
+    }
+
+      try {
+        
+        console.log(`Deleted row with ID: ${rowId}`);
+
+        await axios.delete(`${baseUrl}/admin/deleteArticleDetails/${rowId}`);
+
+        // Refresh the data after deletion (optional)
+        // refetchData();
+
+      } catch (error) {
+        console.error("Error deleting row:", error);
+      }
+    
+  };
+//   const refetchData = async () => {
+//     try {
+//       const response = await axios.get(`${baseUrl}/user/getAllUsers`);
+//       setDetail(response.data);
+//       setDataNew(detail.data) // Update the data state with the new data
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//   };
 
     const columns = [
         {
@@ -194,8 +232,8 @@ const UpdateArticle = () => {
 
         {
             field: "Message",
-            headerName: "Message",
-            flex: 0.5,
+            headerName: "Update Article",
+            flex: 0.3,
             renderCell: (params) => (
                 <div>
 
@@ -211,6 +249,30 @@ const UpdateArticle = () => {
                 </div>
             ),
         },
+        {
+            field: "actions",
+            headerName: "Delete Article",
+            flex: 0.3,
+            renderCell: (params) => (
+      
+              // <Button
+              //   variant="outlined"
+              //   color="primary"
+              //   onClick={() => handleUpdateRow(params.row._id)}
+              // >
+              //   Update
+              // </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                sx={{fontWeight:"bold",backgroundColor:"#ff0e0e"}}
+                onClick={() => handleDeleteRow(params.row._id)}
+              >
+                Delete
+              </Button>
+      
+            ),
+          },
     ];
 
     return (

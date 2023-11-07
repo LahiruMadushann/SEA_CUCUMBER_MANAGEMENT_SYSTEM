@@ -91,16 +91,14 @@ router.put(
 );
 
 router.delete(
-  "/admin/deleteSpeciesDetails",
+  "/admin/deleteSpeciesDetails/:id",
   adminController.deleteSeaCucumberDetails
 );
 
 router.post("/admin/enterArticleDetails", adminController.enterArticleDetails);
 router.put("/admin/updateArticleDetails", adminController.updateArticleDetails);
 router.delete(
-  "/admin/deleteArticleDetails",
-  adminController.deleteArticleDetails
-);
+  "/admin/deleteArticleDetails/:id",adminController.deleteArticleDetails);
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);

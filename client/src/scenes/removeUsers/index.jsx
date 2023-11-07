@@ -34,10 +34,9 @@ const RemoveUsers = () => {
     });
 
   }, [detail]);
-  console.log("Remove data",dataNew)
+ 
   const objectData=[dataNew]
 
-  console.log("Remove data object",dataObNew)
 
   // React.useEffect(() => {
   //   if (allData) {
