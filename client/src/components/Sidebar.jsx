@@ -48,6 +48,7 @@ import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlin
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
@@ -127,21 +128,22 @@ const navItems = [
   },
   {
     text: "Register Management Users",
-    icon: <ShoppingCartOutlined />,
+    icon: <HowToRegOutlinedIcon />,
   },
   {
-    text: "Farmers",
-    icon: <ReceiptLongOutlined />,
+    text: "Management Users",
+    icon: <ManageAccountsOutlinedIcon />,
   },
+  // {
+  //   text: "Farmers",
+  //   icon: <ReceiptLongOutlined />,
+  // },
   //-----------------------------
   {
     text: "Aquaculture Farms Section",
     icon: null,
   },
-  {
-    text: "Management Aquaculture Users",
-    icon: <ManageAccountsOutlinedIcon />,
-  },
+ 
   {
     text: "Aquaculture Farms",
     icon: <WaterDamageOutlinedIcon />,
