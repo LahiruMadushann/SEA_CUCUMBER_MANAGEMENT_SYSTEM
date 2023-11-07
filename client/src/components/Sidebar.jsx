@@ -107,13 +107,10 @@ const navItems = [
   //---------------
   //---------------
   {
-    text: "Other Actions",
+    text: "Knowledge Center",
     icon: null,
   },
-  {
-    text: "Register Management Users",
-    icon: <ShoppingCartOutlined />,
-  },
+ 
   {
     text: "Enter Knowledge Center Data",
     icon: <SchoolOutlinedIcon />,
@@ -122,13 +119,20 @@ const navItems = [
     text: "Delete and Update",
     icon: <RestoreFromTrashOutlinedIcon />,
   },
+  
+  //-----------------------------
+  {
+    text: "Other Actions",
+    icon: null,
+  },
+  {
+    text: "Register Management Users",
+    icon: <ShoppingCartOutlined />,
+  },
   {
     text: "Farmers",
     icon: <ReceiptLongOutlined />,
   },
-  //-----------------------------
-  
-   
   //-----------------------------
   {
     text: "Aquaculture Farms Section",
