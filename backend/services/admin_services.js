@@ -438,17 +438,17 @@ class AdminService {
   }
 
   //Update FQAs
-  static async updateFAQs(faqId, question, answer, category, visibleToAll) {
+  static async updateFAQs(userId, question, answer) {
+    console.log("user id",userId)
     try {
-      const setFAQAnswers = await contactUsModel.findByIdAndUpdate(
+      const setFAQAnswers = await faqModel.findByIdAndUpdate(
         {
-          _id: faqId,
+          _id: userId,
         },
         {
           question: question,
           answer: answer,
-          category: category,
-          visibleToAll: visibleToAll,
+         
         }
       );
 

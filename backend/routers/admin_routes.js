@@ -102,7 +102,7 @@ router.delete(
 
 /*-- FREQUENTLY ASKED QUESTIONS --*/
 router.post("/admin/enterFaqdetails", adminController.enterFAQDetails);
-router.delete("/admin/deleteFaqdetails", adminController.deleteFAQDetails);
+router.delete("/admin/deleteFaqdetails/:id", adminController.deleteFAQDetails);
 router.put("/admin/updateFaqdetails", adminController.updateFAQs);
 
 /*-- REPLY CONTACT US --*/

@@ -44,7 +44,8 @@ import ContactUs from "scenes/contactUs";
 import UpdateArticle from "scenes/article/update";
 import AddArticle from "scenes/article/addArticle";
 import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
-import EnterFAQSData from "scenes/faqs/update";
+import EnterFAQSData from "scenes/faqs/add";
+import UpdateFAQ from "scenes/faqs/delete";
 
 
 function App() {
@@ -98,6 +99,7 @@ function App() {
               <Route path="/contactUs" element={<ContactUs />} />
               <Route path="/updateanddelete" element={<UpdateArticle />} />
               <Route path="/deleteandupdate" element={<UpdateKnowledgeCenter />} />
+              <Route path="/delete&update" element={<UpdateFAQ />} />
               
               
             </Route>

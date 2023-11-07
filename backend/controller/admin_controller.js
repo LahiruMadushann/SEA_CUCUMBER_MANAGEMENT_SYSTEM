@@ -632,7 +632,6 @@ exports.addFaq = async (req, res) => {
       answer,
     } = req.body;
 
-    console.log("ans",answer)
     const createdAt = new Date().toISOString();
 
     const newFAQ = new faqModel({
@@ -699,9 +698,9 @@ exports.enterFAQDetails = async (req, res, next) => {
 //DELETE FAQ DETAILS
 exports.deleteFAQDetails = async (req, res, next) => {
   try {
-    const { faqId } = req.body;
+    const { id } = req.params;
 
-    const deleteFAQDetails = await adminService.deleteFAQDetails(faqId);
+    const deleteFAQDetails = await adminService.deleteFAQDetails(id);
 
     if (deleteFAQDetails) {
       res.status(200).json({
@@ -723,14 +722,15 @@ exports.deleteFAQDetails = async (req, res, next) => {
 //Update FQAs
 exports.updateFAQs = async (req, res, next) => {
   try {
-    const { faqId, question, answer, category, visibleToAll } = req.body;
+    const { userId, question, answer} = req.body;
 
     const updatedFAQ = await adminService.updateFAQs(
-      faqId,
+
+      userId,
       question,
       answer,
-      category,
-      visibleToAll
+
+     
     );
 
     if (updatedFAQ) {
