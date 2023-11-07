@@ -29,17 +29,17 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
   }, [detail]);
 
-  const [totalSalesLine, totalUnitsLine] = useMemo(() => {
+  const [totalStockLine, totalSurvivalLine] = useMemo(() => {
     if (!data) return [];
 
     const  monthlyData = data;
    
-    const totalSalesLine = {
+    const totalStockLine = {
       id: "stock",
       color: theme.palette.secondary.main,
       data: [],
     };
-    const totalUnitsLine = {
+    const totalSurvivalLine = {
       id: "survival",
       color: theme.palette.secondary[600],
       data: [],
@@ -47,24 +47,24 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
     Object.values(monthlyData).reduce(
       (acc, { month, stock, survival }) => {
-        const curSales = acc.sales + stock;
-        const curUnits = acc.units + survival;
+        const curStock = acc.sales + stock;
+        const curSurvival = acc.units + survival;
         
-        totalSalesLine.data = [
-          ...totalSalesLine.data,
-          { x: month, y: curSales },
+        totalStockLine.data = [
+          ...totalStockLine.data,
+          { x: month, y: curStock },
         ];
-        totalUnitsLine.data = [
-          ...totalUnitsLine.data,
-          { x: month, y: curUnits },
+        totalSurvivalLine.data = [
+          ...totalSurvivalLine.data,
+          { x: month, y: curSurvival },
         ];
 
-        return { sales: curSales, units: curUnits };
+        return { sales: curStock, units: curSurvival };
       },
       { sales: 0, units: 0 }
     );
 
-    return [[totalSalesLine], [totalUnitsLine]];
+    return [[totalStockLine], [totalSurvivalLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!data || isLoading){ 
@@ -76,7 +76,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "sales" ? totalSalesLine : totalUnitsLine}
+      data={view === "sales" ? totalStockLine : totalSurvivalLine}
    
       theme={{
         axis: {
