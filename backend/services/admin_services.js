@@ -439,7 +439,7 @@ class AdminService {
 
   //Update FQAs
   static async updateFAQs(userId, question, answer) {
-    console.log("user id",userId)
+
     try {
       const setFAQAnswers = await faqModel.findByIdAndUpdate(
         {

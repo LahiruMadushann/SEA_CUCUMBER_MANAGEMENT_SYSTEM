@@ -1,32 +1,55 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState,useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
+import axios from "axios";
 
 const OverviewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery();
+  const [detail, setDetail] = useState(null);
+  const [data,setData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
+
+      setDetail(response.data);
+      
+      setData(detail.data)
+    
+      // setData(detail.data)
+     // Set loading to false when the response is received
+      setIsLoading(false);
+
+     
+    });
+
+  }, [detail]);
 
   const [totalSalesLine, totalUnitsLine] = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
+    const  monthlyData = data;
+   
     const totalSalesLine = {
-      id: "totalSales",
+      id: "stock",
       color: theme.palette.secondary.main,
       data: [],
     };
     const totalUnitsLine = {
-      id: "totalUnits",
+      id: "survival",
       color: theme.palette.secondary[600],
       data: [],
     };
 
     Object.values(monthlyData).reduce(
-      (acc, { month, totalSales, totalUnits }) => {
-        const curSales = acc.sales + totalSales;
-        const curUnits = acc.units + totalUnits;
-
+      (acc, { month, stock, survival }) => {
+        const curSales = acc.sales + stock;
+        const curUnits = acc.units + survival;
+        
         totalSalesLine.data = [
           ...totalSalesLine.data,
           { x: month, y: curSales },
@@ -44,11 +67,17 @@ const OverviewChart = ({ isDashboard = false, view }) => {
     return [[totalSalesLine], [totalUnitsLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!data || isLoading) return "Loading...";
+  if (!data || isLoading){ 
+    return "Loading...";
+  }
+    
+
 
   return (
+   
     <ResponsiveLine
       data={view === "sales" ? totalSalesLine : totalUnitsLine}
+   
       theme={{
         axis: {
           domain: {
@@ -98,8 +127,11 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       axisRight={null}
       axisBottom={{
         format: (v) => {
-          if (isDashboard) return v.slice(0, 3);
-          return v;
+          if (v) {
+            if (isDashboard) return v.slice(0, 3);
+            return v;
+          }
+         
         },
         orient: "bottom",
         tickSize: 5,
@@ -161,6 +193,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       }
     />
   );
+  
 };
 
 export default OverviewChart;
