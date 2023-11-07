@@ -60,6 +60,9 @@ export default function UpdatePasswordScreen() {
             "Password Updated",
             "Your password has been updated successfully."
           );
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }

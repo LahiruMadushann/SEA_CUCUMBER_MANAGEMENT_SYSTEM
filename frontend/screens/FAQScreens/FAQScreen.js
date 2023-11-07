@@ -81,28 +81,29 @@ export default function FAQScreen() {
           </View>
 
           <View className="mt-[30vh] mx-auto">
-            {/* Loop through allFarmData and display farm details */}
-            {allFAQDetails.map((faq) => (
-              <TouchableOpacity
-                onPress={() => setSelectedFAQ(faq)}
-                className="w-[82vw] h-[auto] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-              >
-                <View key={faq._id}>
-                  <View className="w-[auto] h-[auto] mr-[5vw] ml-[5vw] mt-[2vw] mb-[2vw] flex-row ">
-                    <Text className="text-[14px] font-bold text-[#000000]">
-                      {faq.question}
-                    </Text>
-                  </View>
-                  {selectedFAQ === faq && (
-                    <View className="flex-auto mt-[1vw] ml-[5vw] mr-[5vw] mb-[5vw]">
-                      <Text className="text-[12px] text-justify flex-auto mt-[0vw]">
-                        {faq.answer}
+            {allFAQDetails.map((faq) =>
+              faq.category === "general" ? (
+                <TouchableOpacity
+                  onPress={() => setSelectedFAQ(faq)}
+                  className="w-[82vw] h-[auto] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                >
+                  <View key={faq._id}>
+                    <View className="w-[auto] h-[auto] mr-[5vw] ml-[5vw] mt-[2vw] mb-[2vw] flex-row ">
+                      <Text className="text-[14px] font-bold text-[#000000]">
+                        {faq.question}
                       </Text>
                     </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            ))}
+                    {selectedFAQ === faq && (
+                      <View className="flex-auto mt-[1vw] ml-[5vw] mr-[5vw] mb-[5vw]">
+                        <Text className="text-[12px] text-justify flex-auto mt-[0vw]">
+                          {faq.answer}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              ) : null
+            )}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

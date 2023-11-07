@@ -24,7 +24,7 @@ import FooterBar from "../../components/FooterBar";
 
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function ViewProcessedRecordsScreen() {
+export default function ViewAllFishingRecordsScreen() {
   const navigation = useNavigation();
   LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,32 +42,32 @@ export default function ViewProcessedRecordsScreen() {
     role: db_role,
   } = decodedToken;
 
-  const [allProcessedData, setAllProcessedData] = useState([]);
+  const [allFishingData, setAllFishingData] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchProcessedDetails() {
+    async function fetchFishingDetails() {
       try {
         const response = await axios.post(
-          `${BASE_URL}/processer/getProcessedDetails`,
-          { processorId: db_id }
+          `${BASE_URL}/fisherman/getFishingDetailsByFisherman`,
+          { fishermanId: db_id }
         );
-        setAllProcessedData(response.data.data);
+        setAllFishingData(response.data.data);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching stock data:", error);
+        console.error("Error fetching Fishing data:", error);
         setIsLoading(false);
       }
     }
 
-    fetchProcessedDetails();
+    fetchFishingDetails();
   }, [db_id]);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
-  console.log(allProcessedData);
+  console.log(allFishingData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -111,40 +111,20 @@ export default function ViewProcessedRecordsScreen() {
                 View {db_firstName} {db_lastName}
               </Text>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[2vw] fixed">
-                Processed Sea Cucumber Records
+                Fishing Records
               </Text>
             </View>
           </View>
 
           <View className="mt-[36vh]">
-            <View className="flex-row mx-[auto] text-[#000] text-[12px] mb-[4vw]">
-              <Image
-                source={require("../../assets/processor/farmed.png")}
-                style={{ width: 10, height: 10, marginRight: 5 }}
-                className="flex my-[auto]"
-              />
-              <Text className="flex text-center text-[#000] text-[12px]">
-                Farm collected
-              </Text>
-
-              <Image
-                source={require("../../assets/processor/fished.png")}
-                style={{ width: 10, height: 10, marginRight: 5 }}
-                className="flex ml-[2vw] my-[auto]"
-              />
-              <Text className="flex text-center text-[#000] text-[12px]">
-                Wild Collected
-              </Text>
-            </View>
-
             {/* Table */}
             <FlatList
-              data={[...allProcessedData]}
+              data={[...allFishingData]}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate("ViewSingleProcessedRecScreen", {
-                      recordId: item._id,
+                    navigation.navigate("ViewSingleFishingRecScreen", {
+                      fishingId: item._id,
                     })
                   }
                 >
@@ -154,19 +134,7 @@ export default function ViewProcessedRecordsScreen() {
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
                       >
-                        {item.collectedFrom === "farmed" ? (
-                          <Image
-                            source={require("../../assets/processor/farmed.png")}
-                            style={{ width: 10, height: 10, marginRight: 5 }}
-                          />
-                        ) : item.collectedFrom === "fished" ? (
-                          <Image
-                            source={require("../../assets/processor/fished.png")}
-                            style={{ width: 10, height: 10, marginRight: 5 }}
-                          />
-                        ) : null}
-
-                        <Text>{`${item.speciesType} - ${item.weight}Kg`}</Text>
+                        <Text>{`${item.speciesType} - ${item.numOfSpecies}Kg`}</Text>
                       </View>
                     }
                   />

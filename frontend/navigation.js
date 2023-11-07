@@ -94,6 +94,8 @@ import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessed
 import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
 
 import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
+import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
+import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
 
 export default function Navigation() {
   return (
@@ -233,6 +235,16 @@ export default function Navigation() {
         <Stack.Screen
           name="EnterFishingDetailsScreen"
           component={EnterFishingDetailsScreen}
+        />
+
+        <Stack.Screen
+          name="ViewAllFishingRecordsScreen"
+          component={ViewAllFishingRecordsScreen}
+        />
+
+        <Stack.Screen
+          name="ViewSingleFishingRecScreen"
+          component={ViewSingleFishingRecScreen}
         />
 
         <Stack.Screen

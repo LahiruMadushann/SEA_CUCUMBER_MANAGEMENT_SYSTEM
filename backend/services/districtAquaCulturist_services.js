@@ -16,7 +16,8 @@ class districtAquaCulturistService {
     size,
     survival,
     diseases,
-    date
+    date,
+    month
   ) {
     try {
       const farmingDetails = new aqFarmingDetailsModel({
@@ -30,11 +31,23 @@ class districtAquaCulturistService {
         survival,
         diseases,
         date,
+        month,
       });
       return await farmingDetails.save();
     } catch (error) {
       throw error;
     }
+  }
+
+  //DELETE FARMING STOCK DETAILS
+  static async deleteFarmingStockDetails(farmingId) {
+    const deleteFarmingStockDetails =
+      await aqFarmingDetailsModel.findByIdAndDelete({
+        _id: farmingId,
+      });
+    console.log(farmingId);
+
+    return deleteFarmingStockDetails;
   }
 
   //UPDATE FARM INFORMATION
@@ -101,12 +114,6 @@ class districtAquaCulturistService {
     return deleteFarmDetails;
   }
 
-  // //GETTING ALL AQUACULTURE FARM DETAILS
-  // static async getAllAquaFarms() {
-  //   const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
-  //   return allAquaFarmDetails;
-  // }
-
   //GETTING ALL AQUACULTURE FARM DETAILS
   static async getAllAquaFarms() {
     const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
@@ -166,7 +173,7 @@ class districtAquaCulturistService {
       .find({
         farmId: farmId,
       })
-      .sort({ date: -1 });
+      .sort({ stockingDates: -1 });
     return getAllAquaFarmingDetails;
   }
 

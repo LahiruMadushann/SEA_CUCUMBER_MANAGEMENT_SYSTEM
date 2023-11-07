@@ -16,10 +16,22 @@ exports.insertFarmingDetails = async (req, res, next) => {
     } = req.body;
 
     const date = new Date().toISOString();
-    const date1 = new Date();
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-                        "July", "August", "September", "October", "November", "December"];
-    const month = monthNames[date1.getMonth()]; // get current month name
+
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const month = monthNames[new Date(stockingDates).getMonth()]; // get current month name
 
     let farmingData = await districtAquaCulturistService.insertFarmingDetails(
       farmId,
@@ -48,6 +60,30 @@ exports.insertFarmingDetails = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error, "err---->");
+    next(error);
+  }
+};
+
+//DELETE FARMING STOCK DETAILS
+exports.deleteFarmingStock = async (req, res, next) => {
+  try {
+    const { farmingId } = req.body;
+
+    let deleteFarmingStockDetails =
+      await districtAquaCulturistService.deleteFarmingStockDetails(farmingId);
+
+    if (deleteFarmingStockDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Stock details was deleted Successfully",
+      });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Delete Stock Unsuccessfully" });
+    }
+  } catch (error) {
+    console.log("err---->", error.message);
     next(error);
   }
 };

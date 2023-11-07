@@ -3,6 +3,9 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 
+import { useAuth } from "../../auth/AuthContext";
+import jwtDecode from "jwt-decode";
+
 import {
   StyleSheet,
   Text,
@@ -27,6 +30,24 @@ export default function ViewIndividualFarmingRecScreen() {
   LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
 
+  const { state } = useAuth();
+  const token = state.token;
+  const decodedToken = jwtDecode(token);
+
+  const {
+    _id: db_id,
+    firstName: db_firstName,
+    lastName: db_lastName,
+    role: db_role,
+  } = decodedToken;
+
+  let backNav;
+  if (db_role == "Exporter") {
+    backNav = "MainFarmScreen";
+  } else if (db_role == "Farmer" || db_role == "District Aquaculturist") {
+    backNav = "ViewFarmingRecordsScreen";
+  }
+
   const route = useRoute();
   // Access the farmId parameter from route.params
   const farmId = route.params?.farmId || "";
@@ -34,6 +55,47 @@ export default function ViewIndividualFarmingRecScreen() {
   const farmingId = route.params?.farmingId || "";
 
   const [singleStockData, setSingleStockData] = useState([]);
+
+  const handleDelete = async () => {
+    Alert.alert(
+      "Are you sure?",
+      "Once you delete the record , you won't be able to recover it.",
+      [
+        {
+          text: "Delete Record",
+          onPress: () => {
+            const recordData = {
+              farmingId: farmingId,
+            };
+            const backendUrl = `${BASE_URL}/districtAquaCulturist/deleteFarmingStockDetails`;
+
+            axios
+              .post(backendUrl, recordData)
+              .then((response) => {
+                if (response.data.success) {
+                  Alert.alert("Record Deleted", response.data.message);
+
+                  navigation.navigate("MainFarmScreen");
+                } else {
+                  Alert.alert("UnSuccessful", response.data.message);
+                }
+              })
+              .catch((error) => {
+                console.error("Server Error:", error);
+                Alert.alert("Error", "Server Error");
+              });
+
+            console.log("Delete Pressed");
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -100,7 +162,7 @@ export default function ViewIndividualFarmingRecScreen() {
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("ViewFarmingRecordsScreen", {
+                      navigation.navigate(backNav, {
                         farmId: farmId,
                         farmName: farmName,
                       })
@@ -119,7 +181,7 @@ export default function ViewIndividualFarmingRecScreen() {
                 Farming Records {farmName}
               </Text>
               <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
-                Date : {formatDate(db_date)}
+                Stocking Date : {formatDate(db_stockingDates)}
               </Text>
             </View>
           </View>
@@ -129,7 +191,6 @@ export default function ViewIndividualFarmingRecScreen() {
             <FlatList
               data={[
                 { label: "Stock", value: `${db_stock}` },
-                { label: "StockingDates", value: `${db_stockingDates}` },
                 { label: "Hatchery", value: `${db_hatchery}` },
                 { label: "HatcheryBatch", value: `${db_hatcheryBatch}` },
                 { label: "Harvest", value: `${db_harvest}` },
@@ -142,6 +203,19 @@ export default function ViewIndividualFarmingRecScreen() {
               )}
               keyExtractor={(item) => item.label}
             />
+          </View>
+          <View className="flex-row mb-[2vh] mt-[4vh] mr-[5vw] justify-end">
+            {db_role === "Farmer" ||
+              (db_role === "District Aquaculturist" && (
+                <TouchableOpacity
+                  className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
+                  onPress={handleDelete}
+                >
+                  <Text className="text-[#fff] text-[15px] font-bold text-center">
+                    Delete Record
+                  </Text>
+                </TouchableOpacity>
+              ))}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

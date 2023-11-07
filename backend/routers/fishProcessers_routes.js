@@ -29,6 +29,16 @@ router.post(
   fishProcesserController.enterSCProcessedDetails
 );
 
+router.put(
+  "/processer/updateStockDetails",
+  fishProcesserController.updateProcessedStock
+);
+
+router.post(
+  "/processer/deleteStockDetails",
+  fishProcesserController.deleteStockDetails
+);
+
 router.post(
   "/processer/getProcessedDetails",
   fishProcesserController.getProcessedSeacucumberDetails

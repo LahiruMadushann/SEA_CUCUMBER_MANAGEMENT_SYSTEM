@@ -3,6 +3,8 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode";
 
@@ -38,8 +40,20 @@ export default function EnterProcessedDataScreen() {
   const [collectedFrom, setCollectedFrom] = useState("");
   const [collectedLocation, setCollectedLocation] = useState("");
   const [weight, setWeight] = useState("");
-  const [date, setDate] = useState("");
   const [image, setImage] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    setShowDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -67,11 +81,11 @@ export default function EnterProcessedDataScreen() {
 
     const formData = new FormData();
     formData.append("processorId", db_id);
-    formData.append("spiecesType", speciesType);
+    formData.append("speciesType", speciesType);
     formData.append("weight", weight);
     formData.append("collectedFrom", collectedFrom);
     formData.append("collectedLocation", collectedLocation);
-    formData.append("date", date);
+    formData.append("date", date.toISOString());
     formData.append("processorStockImages", {
       uri: image,
       type: "image/jpeg",
@@ -97,6 +111,13 @@ export default function EnterProcessedDataScreen() {
           "Success",
           "Successfully entered Sea cucumber processed details"
         );
+
+        setSpeciesType("");
+        setCollectedFrom("");
+        setCollectedLocation("");
+        setWeight("");
+        setDate(new Date());
+        setImage("");
 
         // navigation.navigate("UserProfileMainScreen");
       } else {
@@ -159,8 +180,16 @@ export default function EnterProcessedDataScreen() {
                   label="Collected From"
                   value=""
                 />
-                <Picker.Item label="Fisheries" value="fisheries" />
-                <Picker.Item label="Farms" value="farms" />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Fished"
+                  value="fished"
+                />
+                <Picker.Item
+                  style={styles.pickerItem}
+                  label="Farmed"
+                  value="farmed"
+                />
               </Picker>
 
               <TextInput
@@ -179,13 +208,23 @@ export default function EnterProcessedDataScreen() {
                 required
               />
 
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={date}
-                onChangeText={setDate}
-                placeholder="Date (2023-11-05)"
-                required
-              />
+              <View style={styles.fieldContainer}>
+                <Text className=" text-[15px]">Select Date: </Text>
+                <TouchableOpacity onPress={showDatepicker}>
+                  <Text className="text-[#007bff] text-[15px]">
+                    {date.toDateString()}
+                  </Text>
+                </TouchableOpacity>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
+              </View>
 
               <View style={styles.pickImageContainer}>
                 <TouchableOpacity
@@ -206,11 +245,11 @@ export default function EnterProcessedDataScreen() {
 
             <View className="mt-[2vh] mb-[5vh]">
               <TouchableOpacity
-                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                className="bg-[#0013C0] rounded-[15px] mx-auto justify-center py-[1vh] px-[10vw] items-center mt-[20px]"
                 onPress={handleUpdate}
               >
                 <Text className="text-[#fff] text-[18px] font-bold text-center">
-                  Enter Details
+                  Add Stock
                 </Text>
               </TouchableOpacity>
             </View>
@@ -243,7 +282,8 @@ const styles = StyleSheet.create({
   fieldContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 52,
+    marginLeft: 70,
+    fontSize: 15,
   },
 
   requiredLabel: {

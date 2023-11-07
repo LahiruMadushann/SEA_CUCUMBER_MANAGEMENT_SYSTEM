@@ -6,6 +6,7 @@ import { useAuth } from "../../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import {
   StyleSheet,
@@ -35,8 +36,21 @@ export default function EnterFishingDetailsScreen() {
   const [fishingArea, setFishingArea] = useState("");
   const [buyer, setBuyer] = useState("");
   const [buyingPrice, setbuyingPrice] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [image, setImage] = useState(null);
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    setShowDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -69,22 +83,13 @@ export default function EnterFishingDetailsScreen() {
     formData.append("fishingArea", fishingArea);
     formData.append("buyer", buyer);
     formData.append("buyingPrice", buyingPrice);
-    // formData.append("date", date);
+    formData.append("date", date.toISOString());
     formData.append("fishingImage", {
       uri: image,
       type: "image/jpeg",
       name: "profile.jpg",
     });
 
-    // const insertData = {
-    //   userId: db_id,
-    //   speciesType: speciesType,
-    //   numOfSpecies: numOfSpecies,
-    //   fishingArea: fishingArea,
-    //   buyer: buyer,
-    //   buyingPrice: buyingPrice,
-    // };
-    
     const insertUrl = `${BASE_URL}/fisherman/enterFishingDetails`;
 
     try {
@@ -100,7 +105,14 @@ export default function EnterFishingDetailsScreen() {
 
         Alert.alert("Success", "Catch details entered Successfully");
 
-        navigation.navigate("UserProfileMainScreen");
+        setSpeciesType("");
+        setNumOfSpecies("");
+        setFishingArea("");
+        setBuyer("");
+        setbuyingPrice("");
+        setDate(new Date());
+        setImage("");
+        //navigation.navigate("UserProfileMainScreen");
       } else {
         Alert.alert(
           "Unsuccessful",
@@ -160,54 +172,23 @@ export default function EnterFishingDetailsScreen() {
                 required
               />
 
-              {/* <TextInput
+              <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={fishingArea}
                 onChangeText={setFishingArea}
-                placeholder="Number of species"
+                placeholder="Fishering Area"
                 keyboardType="numeric"
                 required
-              /> */}
+              />
 
-              {/* <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={date}
-                onChangeText={setDate}
-                placeholder="Date (2023-05-28)"
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700 w-64 mb-5 mx-auto"
+                value={buyingPrice}
+                onChangeText={setbuyingPrice}
+                placeholder="Buying Price"
+                keyboardType="numeric"
                 required
-              /> */}
-
-              <View style={styles.fieldContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={fishingArea}
-                  onValueChange={(itemValue) => setFishingArea(itemValue)}
-                >
-                  <Picker.Item label="Fishing area" value="" />
-                  <Picker.Item label="Uddappuwa" value="Uddappuwa" />
-                  <Picker.Item label="Sinnapaduwa" value="Sinnapaduwa" />
-                  <Picker.Item label="Kandakuliya" value="Kandakuliya" />
-                  <Picker.Item label="Kudawa" value="Kudawa" />
-                  <Picker.Item label="Kalpitiya" value="Kalpitiya" />
-                  <Picker.Item label="Wannimundalama" value="Wannimundalama" />
-                  <Picker.Item label="Kathirawelli" value="Kathirawelli" />
-                  <Picker.Item label="Wakarei" value="Wakarei" />
-                  <Picker.Item label="Kayankerni" value="Kayankerni" />
-                  <Picker.Item label="Oddamawadi" value="Oddamawadi" />
-                  <Picker.Item label="Kalkuda" value="Kalkuda" />
-                  <Picker.Item label="Punnakuda" value="Punnakuda" />
-                  <Picker.Item label="Navaladi" value="Navaladi" />
-                  <Picker.Item label="Kaththankudi" value="Kaththankudi" />
-                  <Picker.Item label="Kalmunei" value="Kalmunei" />
-                  <Picker.Item label="Kalmuneikudi" value="Kalmuneikudi" />
-                  <Picker.Item label="Palamunei" value="Palamunei" />
-                  <Picker.Item
-                    label="Akkarapaththuwa"
-                    value="Akkarapaththuwa"
-                  />
-                  <Picker.Item label="Komariya" value="Komariya" />
-                </Picker>
-              </View>
+              />
 
               <View style={styles.fieldContainer}>
                 <Picker
@@ -215,20 +196,41 @@ export default function EnterFishingDetailsScreen() {
                   selectedValue={buyer}
                   onValueChange={(itemValue) => setBuyer(itemValue)}
                 >
-                  <Picker.Item label="Buyer" value="" />
-                  <Picker.Item label="Processor" value="Processor" />
-                  <Picker.Item label="Farmer" value="Farmer" />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Buyer"
+                    value=""
+                  />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Processor"
+                    value="Processor"
+                  />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Farmer"
+                    value="Farmer"
+                  />
                 </Picker>
               </View>
 
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={buyingPrice}
-                onChangeText={setbuyingPrice}
-                placeholder="Buyering Price"
-                keyboardType="numeric"
-                required
-              />
+              <View style={styles.fieldContainer}>
+                <Text className=" text-[15px] ml-[4vw]">Select Date: </Text>
+                <TouchableOpacity onPress={showDatepicker}>
+                  <Text className="text-[#007bff] text-[15px]">
+                    {date.toDateString()}
+                  </Text>
+                </TouchableOpacity>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
+              </View>
 
               <View style={styles.pickImageContainer}>
                 <TouchableOpacity
@@ -294,13 +296,14 @@ const styles = StyleSheet.create({
   fieldContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 52,
+    marginLeft: 50,
   },
 
   requiredLabel: {
     color: "red",
     marginBottom: 15,
   },
+
   textField: {
     borderStyle: "solid",
     borderBottomWidth: 1,
@@ -311,7 +314,11 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 200,
+    width: 150,
     color: "gray",
+  },
+
+  pickerItem: {
+    fontSize: 15,
   },
 });

@@ -120,8 +120,8 @@ export default function ViewFarmingRecordsScreen() {
                   }
                 >
                   <TableRow
-                    label={formatDate(item.date)}
-                    value={`${item.stock}Kg`}
+                    label={formatDate(item.stockingDates)}
+                    value={`${item.stock} Kg`}
                   />
                 </TouchableOpacity>
               )}

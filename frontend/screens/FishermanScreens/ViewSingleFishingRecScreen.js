@@ -22,7 +22,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
-export default function ViewSingleProcessedRecScreen() {
+export default function ViewSingleFishingRecScreen() {
   const navigation = useNavigation();
   const { state } = useAuth();
   const token = state.token;
@@ -37,20 +37,22 @@ export default function ViewSingleProcessedRecScreen() {
     role: db_role,
   } = decodedToken;
 
-  let backNav;
-  if (db_role == "Exporter") {
-    backNav = "SingleProcessorScreen";
-  } else if (db_role == "Processor") {
-    backNav = "ViewProcessedRecordsScreen";
-  }
+  // let backNav;
+  // if (db_role == "Exporter") {
+  //   backNav = "SingleProcessorScreen";
+  // } else if (db_role == "Processor") {
+  //   backNav = "ViewProcessedRecordsScreen";
+  // }
 
-  console.log(backNav);
+  // console.log(backNav);
 
   const route = useRoute();
   // Access the recordId parameter from route.params
-  const recordId = route.params?.recordId || "";
+  const fishingId = route.params?.fishingId || "";
 
-  const [singleProcessedDetails, setSingleProcessedDetails] = useState([]);
+  console.log("Fishing ID", fishingId);
+
+  const [singleFishingDetails, setSingleFishingDetails] = useState([]);
 
   const handleDelete = async () => {
     Alert.alert(
@@ -61,9 +63,9 @@ export default function ViewSingleProcessedRecScreen() {
           text: "Delete Record",
           onPress: () => {
             const recordData = {
-              recordId: recordId,
+              fishingId: fishingId,
             };
-            const backendUrl = `${BASE_URL}/processer/deleteStockDetails`;
+            const backendUrl = `${BASE_URL}/fisherman/deleteFishingDetails`;
 
             axios
               .post(backendUrl, recordData)
@@ -71,7 +73,7 @@ export default function ViewSingleProcessedRecScreen() {
                 if (response.data.success) {
                   Alert.alert("Record Deleted", response.data.message);
 
-                  navigation.navigate("ViewProcessedRecordsScreen");
+                  navigation.navigate("ViewAllFishingRecordsScreen");
                 } else {
                   Alert.alert("UnSuccessful", response.data.message);
                 }
@@ -95,13 +97,13 @@ export default function ViewSingleProcessedRecScreen() {
 
   useEffect(() => {
     setIsLoading(true);
-    async function fetchSingleProcessedDetails() {
+    async function fetchSingleFishingDetails() {
       try {
         const response = await axios.post(
-          `${BASE_URL}/processer/getSingleProcessedDetails`,
-          { recordId: recordId }
+          `${BASE_URL}/fisherman/getSingleFishingDetails`,
+          { fishingId: fishingId }
         );
-        setSingleProcessedDetails(response.data.data);
+        setSingleFishingDetails(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
@@ -109,24 +111,25 @@ export default function ViewSingleProcessedRecScreen() {
       }
     }
 
-    fetchSingleProcessedDetails();
-  }, [recordId]);
+    fetchSingleFishingDetails();
+  }, [fishingId]);
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
   const {
-    speciesType: db_spiecesType,
-    weight: db_weight,
-    collectedFrom: db_collectedFrom,
-    collectedLocation: db_collectedLocation,
-    processorStockImages: db_processorStockImages,
+    speciesType: db_speciesType,
+    numOfSpecies: db_numOfSpecies,
+    fishingArea: db_fishingArea,
+    buyer: db_buyer,
+    buyingPrice: db_buyingPrice,
     date: db_date,
-  } = singleProcessedDetails.length > 0 ? singleProcessedDetails[0] : {};
+    fishingImage: db_fishingImage,
+  } = singleFishingDetails.length > 0 ? singleFishingDetails[0] : {};
 
-  const BASE_URL_FOR_STOCK_PICS = `${BASE_URL}/processorStock-pics`;
-  const stockImageUrl = `${BASE_URL_FOR_STOCK_PICS}/${db_processorStockImages}`;
+  const BASE_URL_FOR_STOCK_PICS = `${BASE_URL}/fishingStock-pics`;
+  const stockImageUrl = `${BASE_URL_FOR_STOCK_PICS}/${db_fishingImage}`;
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -155,7 +158,9 @@ export default function ViewSingleProcessedRecScreen() {
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
                   <TouchableOpacity
-                    onPress={() => navigation.navigate(backNav)}
+                    onPress={() =>
+                      navigation.navigate("ViewAllFishingRecordsScreen")
+                    }
                   >
                     <View className="flex m-[auto] ">
                       <Image
@@ -182,12 +187,16 @@ export default function ViewSingleProcessedRecScreen() {
             {/* Table */}
             <FlatList
               data={[
-                { label: "Spieces Type", value: `${db_spiecesType}` },
-                { label: "Weight", value: `${db_weight}` },
-                { label: "Collected From", value: `${db_collectedFrom}` },
+                { label: "Spieces Type", value: `${db_speciesType}` },
+                { label: "Number of Species", value: `${db_numOfSpecies}` },
+                { label: "Fishing Area", value: `${db_fishingArea}` },
                 {
-                  label: "Collected Location",
-                  value: `${db_collectedLocation}`,
+                  label: "Buyer",
+                  value: `${db_buyer}`,
+                },
+                {
+                  label: "Buying Price",
+                  value: `Rs. ${db_buyingPrice}`,
                 },
               ]}
               renderItem={({ item }) => (
@@ -196,21 +205,21 @@ export default function ViewSingleProcessedRecScreen() {
               keyExtractor={(item) => item.label}
             />
           </View>
-          <View className="flex m-[auto]">
+          <View className="flex m-[auto] mt-[2vh]">
             <Image
               source={{ uri: stockImageUrl }}
               className=" w-[80vw] h-[30vh] rounded-[2px] bg-[#FFFFFF] shadow-lg shadow-gray-800"
             />
           </View>
-          <View className="flex-row mb-[2vh] mr-[5vw] justify-end">
-           {(db_role === "Processor" && <TouchableOpacity
+          <View className="flex-row mb-[2vh] mr-[5vw] mt-[5vw] justify-end">
+            <TouchableOpacity
               className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
               onPress={handleDelete}
             >
               <Text className="text-[#fff] text-[15px] font-bold text-center">
                 Delete Record
               </Text>
-            </TouchableOpacity>)}
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

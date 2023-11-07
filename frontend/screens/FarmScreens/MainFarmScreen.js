@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  FlatList,
   Linking,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -53,7 +54,7 @@ export default function MainFarmScreen() {
   }
 
   const [farmData, setFarmData] = useState([]);
-  const [stockData, setStockData] = useState([]);
+  const [allStockData, setAllStockData] = useState([]);
 
   useEffect(() => {
     async function fetchFarmData() {
@@ -71,10 +72,10 @@ export default function MainFarmScreen() {
     async function fetchStockData() {
       try {
         const response = await axios.post(
-          `${BASE_URL}/districtAquaCulturist/getAquaFarmingDetails`,
+          `${BASE_URL}/districtAquaCulturist/getFarmingDetailsOfSingleFarm`,
           { farmId: farmId }
         );
-        setStockData(response.data.data); // Update state with fetched data
+        setAllStockData(response.data.data); // Update state with fetched data
       } catch (error) {
         console.error("Error fetching stock data:", error);
       }
@@ -84,20 +85,20 @@ export default function MainFarmScreen() {
     fetchStockData();
   }, [farmId]);
 
-  // console.log(farmData);
-  // console.log(stockData);
-  // console.log(farmId);
-  const {
-    stock: db_stock,
-    stockingDates: db_stockingDates,
-    hatchery: db_hatchery,
-    hatcheryBatch: db_hatcheryBatch,
-    harvest: db_harvest,
-    size: db_size,
-    survival: db_survival,
-    diseases: db_diseases,
-    date: db_date,
-  } = stockData.length > 0 ? stockData[0] : {};
+  const TableRow = ({ label, value }) => (
+    <View style={styles.tableRow}>
+      <Text style={styles.tableLabel}>{label}</Text>
+      <Text style={styles.tableValue}>{value}</Text>
+    </View>
+  );
+
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
 
   const {
     _id: db_farmId,
@@ -130,94 +131,7 @@ export default function MainFarmScreen() {
     },
   ];
 
-  const data = [
-    {
-      name: "Aqua Farm Name",
-      subName: `${db_name}`,
-      status: "Detail",
-    },
-    {
-      name: "Years Working",
-      subName: ` years`,
-      status: "Detail",
-    },
-    {
-      name: "licenseNo",
-      subName: `${db_licenseNo}`,
-      status: "Detail",
-    },
-    {
-      name: "validity",
-      subName: `${db_validity}`,
-      status: "Detail",
-    },
-    {
-      name: "location",
-      subName: `${db_location}`,
-      status: "Detail",
-    },
-    {
-      name: "extend",
-      subName: `${db_extend}`,
-      status: "Detail",
-    },
-    {
-      name: "farmInternal",
-      subName: `${db_farmInternal}`,
-      status: "Detail",
-    },
-    {
-      name: "establishmentDate",
-      subName: `${db_establishmentDate}`,
-      status: "Detail",
-    },
-
-    {
-      name: "Stock",
-      subName: `${db_stock}`,
-      status: "Stock",
-    },
-    {
-      name: "Stocking Date",
-      subName: `${db_stockingDates}`,
-      status: "Stock",
-    },
-    {
-      name: "Hatchery",
-      subName: `${db_hatchery}`,
-      status: "Stock",
-    },
-    {
-      name: "Hatchery Batch",
-      subName: `${db_hatcheryBatch}`,
-      status: "Stock",
-    },
-    {
-      name: "Harvest",
-      subName: `${db_harvest}`,
-      status: "Stock",
-    },
-    {
-      name: "Size",
-      subName: `${db_size}`,
-      status: "Stock",
-    },
-    {
-      name: "Survival",
-      subName: `${db_survival}`,
-      status: "Stock",
-    },
-    {
-      name: "Diseases",
-      subName: `${db_diseases}`,
-      status: "Stock",
-    },
-    {
-      name: "Date",
-      subName: `${db_date}`,
-      status: "Stock",
-    },
-  ];
+  const data = [];
 
   const navigation = useNavigation();
 
@@ -427,78 +341,31 @@ export default function MainFarmScreen() {
             )}
             {status === "Stock" && (
               <View className="flex-col py-[2.5vw]">
-                <View className="ml-[16vw]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Stock
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_stock}
-                  </Text>
-                </View>
-
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Stocking Dates
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_stockingDates}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Hatchery
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_hatchery}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Hatchery Batch
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_hatcheryBatch}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Harvest
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_harvest}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Size
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_size}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Survival
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_survival}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Diseases
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_diseases}
-                  </Text>
-                </View>
-                <View className="ml-[16vw] mt-[1.8vh]">
-                  <Text className="text-[13px] font-bold text-[#000000A6]">
-                    Date
-                  </Text>
-                  <Text className="text-[13px] text-[#000000A6]">
-                    {db_date}
-                  </Text>
+                <View className="mt-[0vh]">
+                  {/* Table */}
+                  <FlatList
+                    data={[...allStockData].slice(0, 10)}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate(
+                            "ViewIndividualFarmingRecScreen",
+                            {
+                              farmId: farmId,
+                              farmName: farmName,
+                              farmingId: item._id,
+                            }
+                          )
+                        }
+                      >
+                        <TableRow
+                          label={formatDate(item.stockingDates)}
+                          value={`${item.stock} Kg`}
+                        />
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item._id}
+                  />
                 </View>
               </View>
             )}
@@ -583,5 +450,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     justifyContent: "center",
     right: 12,
+  },
+
+  tableRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    marginHorizontal: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: "#00000040",
+  },
+  tableLabel: {
+    fontSize: 12,
+    color: "gray",
+  },
+  tableValue: {
+    fontSize: 12,
+    color: "black",
   },
 });

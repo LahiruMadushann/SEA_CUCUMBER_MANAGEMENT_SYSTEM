@@ -29,4 +29,19 @@ router.post(
   fishermanController.enterFishingDetails
 );
 
+router.post(
+  "/fisherman/deleteFishingDetails",
+  fishermanController.deleteFishingDetails
+);
+
+router.post(
+  "/fisherman/getFishingDetailsByFisherman",
+  fishermanController.getFishingDetailsByFisherman
+);
+
+router.post(
+  "/fisherman/getSingleFishingDetails",
+  fishermanController.getSingleFishingDetails
+);
+
 module.exports = router;
