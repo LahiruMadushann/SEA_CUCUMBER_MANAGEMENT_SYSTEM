@@ -49,6 +49,7 @@ import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
@@ -166,8 +167,12 @@ const navItems = [
     icon: <KayakingOutlinedIcon />,
   },
   {
-    text: "Farms Data",
-    icon: <WaterDamageOutlinedIcon />,
+    text: "Farms Chart",
+    icon: <StackedLineChartOutlinedIcon />,
+  },
+  {
+    text: "Overview",
+    icon: <PointOfSaleOutlined />,
   },
 
 
@@ -187,7 +192,10 @@ const navItems = [
     icon: <KayakingOutlinedIcon />,
   },
  
-
+  {
+    text: "Fishing Chart",
+    icon: <PieChartOutlined />,
+  },
 
 
   //---------------
@@ -270,10 +278,7 @@ const navItems = [
     text: "Sales",
     icon: null,
   },
-  {
-    text: "Overview",
-    icon: <PointOfSaleOutlined />,
-  },
+
   {
     text: "Daily",
     icon: <TodayOutlined />,
@@ -282,10 +287,7 @@ const navItems = [
     text: "Monthly",
     icon: <CalendarMonthOutlined />,
   },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
+  
  
   
 ];
