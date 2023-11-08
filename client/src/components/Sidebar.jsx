@@ -216,19 +216,19 @@ const navItems = [
 
   //---------------
   //---------------
-  {
-    text: "Aquaculture Farms Section Data",
-    icon: null,
-  },
-  {
-    text: "Aquaculture Management",
-    icon: <ManageAccountsOutlinedIcon />,
-  },
+  // {
+  //   text: "Aquaculture Farms Section Data",
+  //   icon: null,
+  // },
+  // {
+  //   text: "Aquaculture Management",
+  //   icon: <ManageAccountsOutlinedIcon />,
+  // },
   
-  {
-    text: "Farmers Data",
-    icon: <KayakingOutlinedIcon />,
-  },
+  // {
+  //   text: "Farmers Data",
+  //   icon: <KayakingOutlinedIcon />,
+  // },
 
 
 
@@ -302,6 +302,7 @@ const Sidebar = ({
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const location = useLocation();
+  const [currentPath, setCurrentPath] = useState("")
   const navigate = useNavigate();
   const theme = useTheme();
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -315,10 +316,11 @@ const Sidebar = ({
 console.log("user ge al",userId)
 
   useEffect(() => {
-    const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
+    setCurrentPath(location.pathname.replace(/\//g, "").toLowerCase());
+    // const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
     setActive(currentPath);
 
-  }, [location.pathname]);
+  }, [currentPath]);
 
   const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
   useEffect(() => {
