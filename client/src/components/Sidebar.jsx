@@ -234,22 +234,22 @@ const navItems = [
 
   //---------------
   //---------------
-  {
-    text: "Fisheries Data",
-    icon: null,
-  },
-  {
-    text: "Fisheries Management ",
-    icon: <ManageAccountsOutlinedIcon />,
-  },
-  {
-    text: "Fishermens Data",
-    icon: <KayakingOutlinedIcon />,
-  },
-  {
-    text: "FishProcessors Data",
-    icon: <ReceiptLongOutlined />,
-  },
+  // {
+  //   text: "Fisheries Data",
+  //   icon: null,
+  // },
+  // {
+  //   text: "Fisheries Management ",
+  //   icon: <ManageAccountsOutlinedIcon />,
+  // },
+  // {
+  //   text: "Fishermens Data",
+  //   icon: <KayakingOutlinedIcon />,
+  // },
+  // {
+  //   text: "FishProcessors Data",
+  //   icon: <ReceiptLongOutlined />,
+  // },
 
 
 
@@ -398,38 +398,37 @@ console.log("user ge al",userId)
   const filteredNavItems = navItems.filter(item => {
     if (user || detail) {
       if(user){
-        if (user.role === 'Admin') {
+        if (user.role === 'Farmer') {
          
-          // show all items for admin users
-          return true;
-        } else if (user.role === 'manager') {
-          // show only specific items for manager users
-          return ['Dashboard', 'Products', 'Geography', 'Sales'].includes(item.text);
-        } else if (user.role === 'farmer') {
-          // show only specific items for farmer users
-          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers'].includes(item.text);
-        } else if (user.role === 'exporter') {
-          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Fisheries Section', 'Fishermens', 'Fish Processors', 'Section', 'Exporters', 'Aquaculture Farms Section Data', 'Farms Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data', 'Sales', 'Overview', 'Daily', 'Monthly', 'Breakdown'].includes(item.text);
+        
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview'].includes(item.text);
+        } else if (user.role === 'Fisherman') {
+         
+          return ['Dashboard', 'Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
+        } else if (user.role === 'Processor') {
+          
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
+        } else if (user.role === 'Exporter') {
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users','Fishermens', 'Fishing Chart', 'Exporters and Processors', 'Exporters','Processors', 'Aquaculture Farms Section Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data'].includes(item.text);
         } else {
-          // show only specific items for other users
-          return ['Dashboard', 'Products'].includes(item.text);
+          
+          return true;
         }
       }else {
-        if (detail.role === 'Admin') {
+        if (detail.role === 'Farmer') {
           
-          // show all items for admin users
-          return true;
-        } else if (detail.role === 'manager') {
-          // show only specific items for manager users
-          return ['Dashboard', 'Products', 'Geography', 'Sales'].includes(item.text);
-        } else if (detail.role === 'farmer') {
-          // show only specific items for farmer users
-          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers'].includes(item.text);
-        } else if (detail.role === 'exporter') {
-          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Fisheries Section', 'Fishermens', 'Fish Processors', 'Section', 'Exporters', 'Aquaculture Farms Section Data', 'Farms Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data', 'Sales', 'Overview', 'Daily', 'Monthly', 'Breakdown'].includes(item.text);
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview'].includes(item.text);
+        } else if (detail.role === 'Fisherman') {
+          
+          return ['Dashboard', 'Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
+        } else if (detail.role === 'Processor') {
+         
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
+        } else if (detail.role === 'Exporter') {
+          return ['Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users','Fishermens', 'Fishing Chart', 'Exporters and Processors', 'Exporters','Processors', 'Aquaculture Farms Section Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data'].includes(item.text);
         } else {
-          // show only specific items for other users
-          return ['Dashboard', 'Products'].includes(item.text);
+          
+          return true;
         }
       }
       
