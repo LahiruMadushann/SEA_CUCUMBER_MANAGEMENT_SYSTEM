@@ -82,7 +82,7 @@ export default function LoginScreen() {
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white" }}
-      className="flex-grow bg-white "
+      className="flex-grow bg-white"
     >
       <View style={{ flex: 1 }}>
         <ScrollView

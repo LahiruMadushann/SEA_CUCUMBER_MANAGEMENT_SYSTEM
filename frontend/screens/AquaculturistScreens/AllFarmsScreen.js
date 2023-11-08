@@ -28,6 +28,14 @@ export default function AllFarmsScreen() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
+
   useEffect(() => {
     setIsLoading(true);
     async function fetchAllFarmData() {
@@ -123,7 +131,7 @@ export default function AllFarmsScreen() {
                     )}
                     {farm.stock && (
                       <Text className=" text-[15px] flex-auto mt-[1vw]">
-                        Stock date : {farm.stockingDates}
+                        Last stock update : {`${formatDate(farm.stockingDates)}`}
                       </Text>
                     )}
                   </View>

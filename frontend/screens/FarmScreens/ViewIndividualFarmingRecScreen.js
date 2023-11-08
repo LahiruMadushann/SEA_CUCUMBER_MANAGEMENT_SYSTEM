@@ -178,7 +178,8 @@ export default function ViewIndividualFarmingRecScreen() {
                 </View>
               </View>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Farming Records {farmName}
+                Farming Records{"\n"}
+                {farmName}
               </Text>
               <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
                 Stocking Date : {formatDate(db_stockingDates)}

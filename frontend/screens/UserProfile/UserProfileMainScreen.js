@@ -161,6 +161,7 @@ export default function UserProfileMainScreen() {
                   <FishermanPopupScreen />
                 ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
+                  "Minister" ||
                   "Chairman" ? (
                   <NaqdaMngUsersPopupScreen />
                 ) : null}

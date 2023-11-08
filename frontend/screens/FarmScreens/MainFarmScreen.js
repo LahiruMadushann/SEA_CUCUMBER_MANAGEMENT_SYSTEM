@@ -277,7 +277,7 @@ export default function MainFarmScreen() {
 
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    license No
+                    License No
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_licenseNo}
@@ -285,7 +285,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    validity
+                    Validity
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_validity}
@@ -293,7 +293,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    location
+                    Location
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_location}
@@ -301,7 +301,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    extend
+                    Extend
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_extend}
@@ -309,7 +309,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    gpsCoordinates
+                    GPS Coordinates
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_gpsCoordinatesOne}
@@ -323,7 +323,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    farmInternal
+                    Farm Internal
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_farmInternal}
@@ -333,8 +333,8 @@ export default function MainFarmScreen() {
                   <Text className="text-[13px] font-bold text-[#000000A6]">
                     Establishment Date
                   </Text>
-                  <Text className="text-[13px] ml-[1vw] text-[#000000A6]">
-                    {db_establishmentDate}
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {`${formatDate(db_establishmentDate)}`}
                   </Text>
                 </View>
               </View>
