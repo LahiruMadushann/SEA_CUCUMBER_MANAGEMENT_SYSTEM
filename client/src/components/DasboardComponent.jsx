@@ -25,6 +25,10 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useSelector } from "react-redux";
 import { UserContext } from "../UserContext";
+import FarmingDashboard from "./FarmingDashboard";
+import FarmerBreakdownChart from "./FarmerBreakdownChart";
+import FarmViewChart from "./FarmViewChart";
+import FishViewChart from "./FishViewChart";
 
 
 const DashboardComponent = () => {
@@ -34,6 +38,8 @@ const DashboardComponent = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [farmIsLoading, setFarmIsLoading] = useState(true)
+  const [farmData, setFarmData] = useState([])
   const userId = useSelector((state) => state.global.userId);
   const [userDetail, setUserDetail] = useState(null);
   const { user } = useContext(UserContext);
@@ -51,7 +57,21 @@ const DashboardComponent = () => {
       console.log("Dashboard Data", data)
     });
 
-  }, [data]);
+  }, []);
+  useEffect(() => {
+
+  
+    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
+
+      // setDetail(response.data);
+      setFarmData(response.data.data)
+     // Set loading to false when the response is received
+      setFarmIsLoading(false);
+      
+      
+    });
+
+  }, [farmData]);
 
   const handleDownloadReports = () => {
     const element = document.getElementById("reports-container");
@@ -121,13 +141,65 @@ const columns = [
       
     },
   ];
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const farmColumns = [
+    
+    {
+      field: "hatchery",
+      headerName: "Hatchery",
+      flex: 1,
+    },
+    {
+      field: "hatcheryBatch",
+      headerName: "Hatchery Batch",
+      flex: 0.5,
+    },
+    {
+      field: "stock",
+      headerName: "Stock",
+      flex: 0.5,
+    },
+    {
+      field: "survival",
+      headerName: "Survival",
+      flex: 0.5,
+      
+    },
+    {
+      field: "diseases",
+      headerName: "Diseases",
+      flex: 1,
+      
+    },
+    {
+        field: "stockingDates",
+        headerName: "Stocking Dates",
+        flex: 1,
+        valueFormatter: (params) => formatDate(params.value),
+        
+      },
+      {
+        field: "harvest",
+        headerName: "Harvest Dates",
+        flex: 1,
+        
+      },
+    
+  ];
 
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
+        <Header title="ADMIN DASHBOARD" subtitle="Welcome to admin dashboard" />
         <Box>
+          
           <Button
             sx={{
               backgroundColor: theme.palette.secondary.light,
@@ -164,7 +236,7 @@ const columns = [
           p="1rem"
           borderRadius="0.55rem"
         >
-          <OverviewChart view="stock" isDashboard={true} />
+          <FishViewChart view="numOfSpecies" isDashboard={true} />
         </Box>
         <Box
           gridColumn="span 6"
@@ -173,7 +245,7 @@ const columns = [
           p="1rem"
           borderRadius="0.55rem"
         >
-          <OverviewChart view="survival" isDashboard={true} />
+          <FishViewChart view="buyingPrice" isDashboard={true} />
         </Box>
         
         {/* ROW 2 */}
@@ -233,8 +305,88 @@ const columns = [
             Breakdown of real species type and number of species via category for revenue
             made for this year and species detail.
           </Typography>
+
         </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem"
+        >
+          <FarmViewChart view="stock" isDashboard={true} />
+        </Box>
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem"
+        >
+          <FarmViewChart view="survival" isDashboard={true} />
+        </Box>
+        {/* Row 3 */}
+        <Box
+          gridColumn="span 8"
+          gridRow="span 3"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+              borderRadius: "5rem",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: theme.palette.background.alt,
+              color: theme.palette.secondary[100],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: theme.palette.background.alt,
+            },
+            "& .MuiDataGrid-footerContainer": {
+              backgroundColor: theme.palette.background.alt,
+              color: theme.palette.secondary[100],
+              borderTop: "none",
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${theme.palette.secondary[200]} !important`,
+            },
+          }}
+        >
+        <DataGrid
+            loading={farmIsLoading || !farmData}
+            getRowId={(row) => row._id}
+            // rows={(data && data.transactions) || []}
+            rows={farmData || []}
+            columns={farmColumns}
+          />
+        </Box>
+        <Box
+          gridColumn="span 4"
+          gridRow="span 3"
+          backgroundColor={theme.palette.background.alt}
+          p="1.5rem"
+          borderRadius="0.55rem"
+        >
+          <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
+          Number Of Survival Species Detail
+          </Typography>
+          <FarmerBreakdownChart isDashboard={true} />
+          <Typography
+            p="0 0.6rem"
+            fontSize="0.8rem"
+            sx={{ color: theme.palette.secondary[200] }}
+          >
+            Breakdown of survival species type and month via category for revenue
+            made for this year and species detail.
+          </Typography>
+
+        </Box>
+    {/* ----    */}
       </Box>
+      
     </Box>
   );
   }
