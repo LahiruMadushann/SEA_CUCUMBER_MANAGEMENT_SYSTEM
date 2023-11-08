@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import { UserContext } from "../../UserContext";
 import DashboardComponent from "components/DasboardComponent";
 import FishermenDashboard from "components/FishermenDashboard";
+import FarmingDashboard from "components/FarmingDashboard";
 
 
 const Dashboard = () => {
@@ -60,96 +61,24 @@ useEffect(() => {
 
 }, [userDetail]);
 
-  // useEffect(() => {
-
-  
-  //   axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
-
-  //     // setDetail(response.data);
-  //     setData(response.data.data)
-  //    // Set loading to false when the response is received
-  //     setIsLoading(false);
-      
-  //     console.log("Dashboard Data", data)
-  //   });
-
-  // }, [data]);
-
-
-
-  // const handleDownloadReports = () => {
-  //   const element = document.getElementById("reports-container");
-
-  //   html2canvas(element).then((canvas) => {
-  //     const imgData = canvas.toDataURL("image/png");
-  //     const pdf = new jsPDF("p", "mm", "a3"); // Portrait orientation, millimeters, A4 size
-
-  //     // Add current date and time
-  //     const currentDate = new Date();
-  //     const dateString = currentDate.toLocaleDateString();
-  //     const timeString = currentDate.toLocaleTimeString();
-  //     const dateTime = `${dateString} ${timeString}`;
-  //     pdf.setFontSize(10);
-  //     pdf.setTextColor(100, 100, 100); // Adjust font color
-  //     pdf.text(dateTime, 10, 10); // Adjust position (x, y)
-
-  //     pdf.setFontSize(18);
-  //     pdf.setTextColor(0, 0, 0); // Black font color
-  //     const companyName = "Seacucumber Report";
-  //     const subName = "Report Details"; // Your sub name
-  //     const textWidth = pdf.getStringUnitWidth(companyName) * 18 / pdf.internal.scaleFactor;
-  //     const x = (pdf.internal.pageSize.getWidth() - textWidth) / 2;
-  //     pdf.text(companyName, x, 25); // Centered horizontally, adjust y position as needed
-
-  //     // Subname below the company name
-  //     pdf.setFontSize(12);
-  //     pdf.setTextColor(100, 100, 100); // Adjust font color
-  //     const subNameWidth = pdf.getStringUnitWidth(subName) * 12 / pdf.internal.scaleFactor;
-  //     const subNameX = (pdf.internal.pageSize.getWidth() - subNameWidth) / 2;
-  //     pdf.text(subName, subNameX, 35); // Adjust y position as needed
-
-  //     // Add image content
-  //     pdf.addImage(imgData, 0, 45, 297, 400); // Adjust position and dimensions
-
-  //     pdf.save("seacucumber-report.pdf");
-  //   });
-  // };
-
-
   //Get Dashboard Acoording to User Role
   if (user || userDetail) {
     if(user){
-      if (user.role === 'Admin') {
-        //return <DashboardComponent />
-        return <FishermenDashboard />;
+      if (user.role === 'Farmer') {
+        return <FarmingDashboard />
       } else if (user.role === 'Fisherman') {
-        // show only specific items for manager users
         return <FishermenDashboard />;
-      } else if (user.role === 'farmer') {
-        // show only specific items for farmer users
-        return true;
-      } else if (user.role === 'exporter') {
-        return true;
+      
       } else {
-        // show only specific items for other users
-        return true;
+        return <DashboardComponent />;
       }
     }else {
-      if (userDetail.role === 'Admin') {
-      
-          // return <DashboardComponent />
-          return <FishermenDashboard />;
+      if (userDetail.role === 'Farmer') {
+          return <FarmingDashboard />
       } else if (userDetail.role === 'Fisherman') {
-        // show only specific items for manager users
-        return <FishermenDashboard />;
-      } else if (userDetail.role === 'farmer') {
-        // show only specific items for farmer users
-        return true;
-      } else if (userDetail.role === 'exporter') {
-        return true;
+        return <FishermenDashboard />; 
       } else {
-        // show only specific items for other users
-        return true;
+        return <DashboardComponent />;
       }
     }
     
@@ -157,18 +86,6 @@ useEffect(() => {
     return <div>Loading....</div>
   }
 
-
-  //----------------------------------
-
-
-
-
-
-
-
-
-
-  
 };
 
 export default Dashboard;

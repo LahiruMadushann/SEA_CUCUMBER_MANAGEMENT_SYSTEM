@@ -92,11 +92,7 @@ const DashboardComponent = () => {
   };
 
 const columns = [
-    // {
-    //   field: "_id",
-    //   headerName: "ID",
-    //   flex: 1,
-    // },
+    
     {
       field: "fishingArea",
       headerName: "Fishing Area",
@@ -159,29 +155,7 @@ const columns = [
           "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
         }}
       >
-        {/* ROW 1 */}
-        {/* <StatBox
-          title="Total Customers"
-          value={data && data.totalCustomers}
-          increase="+14%"
-          description="Since last month"
-          icon={
-            <Email
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Sales Today"
-          // value={data && data.todayStats.totalSales}
-          increase="+21%"
-          description="Since last month"
-          icon={
-            <PointOfSale
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        /> */}
+       
         {/* Dashboard Chart */}
         <Box
           gridColumn="span 6"
@@ -201,29 +175,7 @@ const columns = [
         >
           <OverviewChart view="survival" isDashboard={true} />
         </Box>
-        {/* <StatBox
-          title="Monthly Sales"
-          // value={data && data.thisMonthStats.totalSales}
-          increase="+5%"
-          description="Since last month"
-          icon={
-            <PersonAdd
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Yearly Sales"
-          value={data && data.yearlySalesTotal}
-          increase="+43%"
-          description="Since last month"
-          icon={
-            <Traffic
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        /> */}
-
+        
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
