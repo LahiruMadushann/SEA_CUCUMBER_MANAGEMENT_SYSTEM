@@ -41,12 +41,16 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const userId = useSelector((state) => state.global.userId);
 
   const [detail, setDetail] = useState(null);
+
   const [loading, setLoading] = useState(true); // Added loading state
   // const [user, setUser] = useState(null); // Use state to manage user data
 
 
 
   const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
+
+
+
   useEffect(() => {
 
     if (!userId) {

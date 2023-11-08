@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
 import axios from "axios";
 
-const OverviewChart = ({ isDashboard = false, view }) => {
+const FarmViewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
   const [detail, setDetail] = useState(null);
   const [data,setData] = useState();
@@ -195,4 +195,4 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   
 };
 
-export default OverviewChart;
+export default FarmViewChart;

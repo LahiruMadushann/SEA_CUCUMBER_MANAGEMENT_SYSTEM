@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
 import axios from "axios";
 
-const OverviewChart = ({ isDashboard = false, view }) => {
+const FishViewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
   const [detail, setDetail] = useState(null);
   const [data,setData] = useState();
@@ -14,7 +14,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   useEffect(() => {
 
   
-    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
+    axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
 
       setDetail(response.data);
       
@@ -29,42 +29,42 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
   }, [detail]);
 
-  const [totalStockLine, totalSurvivalLine] = useMemo(() => {
+  const [numOfSpeciesLine, buyingPricelLine] = useMemo(() => {
     if (!data) return [];
 
     const  monthlyData = data;
    
-    const totalStockLine = {
-      id: "stock",
+    const numOfSpeciesLine = {
+      id: "numOfSpecies",
       color: theme.palette.secondary.main,
       data: [],
     };
-    const totalSurvivalLine = {
-      id: "survival",
+    const buyingPricelLine = {
+      id: "buyingPrice",
       color: theme.palette.secondary[600],
       data: [],
     };
 
     Object.values(monthlyData).reduce(
-      (acc, { month, stock, survival }) => {
-        const curStock = acc.sales + stock;
-        const curSurvival = acc.units + survival;
+      (acc, { speciesType, numOfSpecies, buyingPrice }) => {
+        const numSpecies = acc.species + numOfSpecies;
+        const getPrice = acc.price + buyingPrice;
         
-        totalStockLine.data = [
-          ...totalStockLine.data,
-          { x: month, y: curStock },
+        numOfSpeciesLine.data = [
+          ...numOfSpeciesLine.data,
+          { x: speciesType, y: numSpecies },
         ];
-        totalSurvivalLine.data = [
-          ...totalSurvivalLine.data,
-          { x: month, y: curSurvival },
+        buyingPricelLine.data = [
+          ...buyingPricelLine.data,
+          { x: speciesType, y: getPrice },
         ];
 
-        return { sales: curStock, units: curSurvival };
+        return { species: numSpecies, price: getPrice };
       },
-      { sales: 0, units: 0 }
+      { species: 0, price: 0 }
     );
 
-    return [[totalStockLine], [totalSurvivalLine]];
+    return [[numOfSpeciesLine], [buyingPricelLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!data || isLoading){ 
@@ -76,7 +76,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "stock" ? totalStockLine : totalSurvivalLine}
+      data={view === "numOfSpecies" ? numOfSpeciesLine : buyingPricelLine}  
    
       theme={{
         axis: {
@@ -128,7 +128,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       axisBottom={{
         format: (v) => {
           if (v) {
-            if (isDashboard) return v.slice(0, 3);
+            if (isDashboard) return v;
             return v;
           }
          
@@ -137,7 +137,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "Month",
+        legend: "Species Type",
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -147,7 +147,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: view === "stock" ? "Aqua Farming Stock" : "Aqua Farming Survival Stock",
+        legend: view === "numOfSpecies" ? "Number of Species " : "Buying Price",
         legendOffset: -60,
         legendPosition: "middle",
       }}
@@ -195,4 +195,4 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   
 };
 
-export default OverviewChart;
+export default FishViewChart;

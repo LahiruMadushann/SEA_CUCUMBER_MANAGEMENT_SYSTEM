@@ -13,7 +13,7 @@ import Geography from "scenes/geography";
 import Overview from "scenes/overview";
 import Daily from "scenes/daily";
 import Monthly from "scenes/monthly";
-import Breakdown from "scenes/breakdown";
+import Breakdown from "scenes/fSection/fishingChart";
 import Admin from "scenes/admin";
 import Performance from "scenes/performance";
 import LoginPage from "scenes/login";
@@ -76,7 +76,7 @@ function App() {
               <Route path="fishermens" element={<Fishermens/>} />
               <Route path="processors" element={<FishProcessors/>} />
               <Route path="aquacultureManagement" element={<AquacultureManagement/>} />
-              <Route path="farmsData" element={<FarmsData/>} />
+              <Route path="farmschart" element={<FarmsData/>} />
               <Route path="farmersData" element={<FarmersData/>} />
               <Route path="fisheriesManagement" element={<FisheriesManagement/>} />
               <Route path="fishermensData" element={<FishermensData/>} />
@@ -90,7 +90,7 @@ function App() {
               <Route path="/overview" element={<Overview />} />
               <Route path="/daily" element={<Daily />} />
               <Route path="/monthly" element={<Monthly />} />
-              <Route path="/breakdown" element={<Breakdown />} />
+              <Route path="/fishingchart" element={<Breakdown />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/removeUsers" element={<RemoveUsers />} />
