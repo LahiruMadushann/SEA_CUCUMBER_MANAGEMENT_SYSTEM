@@ -76,17 +76,17 @@ const DistrictAquaculturist = () => {
     {
       field: "size",
       headerName: "Size",
-      flex: 0.5,
+      flex: 0.4,
     },
     {
       field: "survival",
       headerName: "Survival",
-      flex: 0.5,
+      flex: 0.3,
     },
     {
         field: "diseases",
         headerName: "Diseases",
-        flex: 0.5,
+        flex: 0.7,
       },
   ];
 

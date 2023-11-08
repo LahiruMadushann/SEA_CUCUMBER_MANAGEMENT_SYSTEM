@@ -128,7 +128,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
       axisBottom={{
         format: (v) => {
           if (v) {
-            if (isDashboard) return v;
+            if (isDashboard) return v.slice(0, 3);
             return v;
           }
          

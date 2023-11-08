@@ -47,6 +47,8 @@ import UpdateKnowledgeCenter from "scenes/knowledgeCenter/update";
 import EnterFAQSData from "scenes/faqs/add";
 import UpdateFAQ from "scenes/faqs/delete";
 import DistrictAquaculturist from "scenes/aFSection/districtAquaCulturist";
+import FishermenDashboard from "components/FishermenDashboard";
+import FarmingDashboard from "components/FarmingDashboard";
 
 
 function App() {
@@ -70,6 +72,8 @@ function App() {
               <Route path="/enterfaqsdata" element={<EnterFAQSData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/fishingdashboard" element={<FishermenDashboard />} />
+              <Route path="/farmingdashboard" element={<FarmingDashboard />} />
               <Route path="/managementusers" element={<ManagementAquacultureUsers />} />
               <Route path="/aquacultureFarms" element={<AquacultureFarms />} />
               <Route path="aquacultureFarmers" element={<AquacultureFarmers/>} />

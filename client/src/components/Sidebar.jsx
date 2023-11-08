@@ -52,14 +52,29 @@ import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutlined';
+import SetMealOutlinedIcon from '@mui/icons-material/SetMealOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
 
 const navItems = [
   {
+    text: "Dashboard Section",
+    icon: null,
+  },
+ 
+  {
     text: "Dashboard",
     icon: <HomeOutlined />,
+  },
+  {
+    text: "Fishing Dashboard",
+    icon: <SetMealOutlinedIcon />,
+  },
+  {
+    text: "Farming Dashboard",
+    icon: <DashboardOutlinedIcon />,
   },
   //---------------
 
