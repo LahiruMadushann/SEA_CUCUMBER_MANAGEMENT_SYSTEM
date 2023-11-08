@@ -51,6 +51,7 @@ import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOu
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
@@ -169,6 +170,10 @@ const navItems = [
   {
     text: "Farms Chart",
     icon: <StackedLineChartOutlinedIcon />,
+  },
+  {
+    text: "District AquaCulturist",
+    icon: <PersonPinCircleOutlinedIcon />,
   },
   {
     text: "Overview",

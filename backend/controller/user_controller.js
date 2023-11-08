@@ -100,8 +100,10 @@ exports.getUserDetails = async (req, res, next) => {
 //UPDATE USER DETAILS CONTROLLER
 exports.updateUser = async (req, res, next) => {
   try {
+    const {userId}= req.params
+   
     const {
-      userId,
+     
       age,
       gender,
       email,
@@ -114,7 +116,7 @@ exports.updateUser = async (req, res, next) => {
       province,
       country,
     } = req.body;
-
+    
     const updatedAt = new Date().toISOString();
 
     let updateUserDetails = await userService.updateUserDetails(

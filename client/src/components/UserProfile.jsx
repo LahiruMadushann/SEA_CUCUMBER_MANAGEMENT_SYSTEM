@@ -60,7 +60,7 @@ const UserProfile = () => {
   
         // setUser(detail);
   
-        console.log("Response ek  Navbar pgo", response.data)
+        
       });
   
     }, [userId]);

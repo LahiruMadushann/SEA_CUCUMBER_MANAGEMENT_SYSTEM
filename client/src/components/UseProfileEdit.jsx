@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useGetAdminsQuery } from "state/api";
 import { useContext, useState, useEffect } from "react";
@@ -37,6 +37,8 @@ const UserProfileEdit = () => {
     const [pageLoaded, setPageLoaded] = useState(false);
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
+
+    
     useEffect(() => {
 
         if (!userId) {
@@ -46,13 +48,13 @@ const UserProfileEdit = () => {
             }
             return <div>Loading...</div>;
         }
-        axios.get(`${baseUrl}/user/${userId}`).then(response => {
+         axios.get(`${baseUrl}/user/${userId}`).then(response => {
 
             setDetail(response.data);
 
             setLoading(false); // Set loading to false when the response is received
             setPageLoaded(true);
-            console.log("sucesss")
+            console.log("sucesss",user)
 
             // setUser(detail);
 
@@ -63,18 +65,31 @@ const UserProfileEdit = () => {
     }, [userId]);
 
     const { pathname } = useLocation();
-    const [userName, setUserName] = useState(detail ? detail.username : '');
-    const [email, setEmail] = useState(detail ? detail.email : '');
-    const [password, setPassword] = useState(detail ? detail.password : '');
-    const [city, setCity] = useState(detail ? detail.town : '');
-    const [country, setCountry] = useState(detail ? detail.country : '');
-    const [occupation, setOccupation] = useState(detail ? 'role' : '');
-    const [phoneNumber, setPhoneNumber] = useState(detail ? detail.contactNo : '');
+
+    
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [city, setCity] = useState('');
+    const [country, setCountry] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [image, setImage] = useState(null);
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const { setUser } = useContext(UserContext);
 
+    useEffect(() => {
+        if (detail) {
+            setUserName(detail.username || ''); // Use an empty string if the value is null
+            setEmail(detail.email || '');
+            // setPassword(detail.password || '');
+            setCity(detail.town || '');
+            setCountry(detail.country || '');
+            setOccupation(detail.role || ''); // Update 'role' instead of 'occupation'
+            setPhoneNumber(detail.contactNo || '');
+        }
+    }, [detail]);
 
     const defaultTheme = createTheme();
 
@@ -178,7 +193,7 @@ const UserProfileEdit = () => {
             const updatedUserData = {
                 username: userName,
                 email: email,
-                password: password,
+                // password: password,
                 city: city,
                 town: country,
                 role: occupation,
@@ -190,7 +205,15 @@ const UserProfileEdit = () => {
             });
 
             // Update the base URL to match your backend server
-            const response = await axios.put(`${baseUrl}/general/user/${user._id}`, updatedUserData);
+            const response = await axios.put(`${baseUrl}/admin/update/${userId}`, {
+                username: userName,
+                email: email,
+                // password: password,
+                town: city,
+                country: country,
+                role: occupation,
+                contactNo: phoneNumber,
+            });
 
             if (response.status === 200) {
                 // Profile update successful
@@ -378,7 +401,7 @@ const UserProfileEdit = () => {
                                     margin="normal"
 
                                     name="name"
-                                    label="Name"
+                                    label="Username"
                                     fullWidth
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
@@ -388,8 +411,8 @@ const UserProfileEdit = () => {
                                 <TextField
                                     margin="normal"
 
-                                    name="name"
-                                    label="Name"
+                                    name="username"
+                                    label="Username"
                                     fullWidth
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
@@ -424,7 +447,7 @@ const UserProfileEdit = () => {
                             ) : (
                                 <div>Loading ....</div>
                             )}
-                            <TextField
+                            {/* <TextField
                                 margin="normal"
 
                                 name="password"
@@ -434,7 +457,7 @@ const UserProfileEdit = () => {
                                 value={password}
                                 inputProps={{ autoComplete: "off" }}
                                 onChange={(e) => setPassword(e.target.value)}
-                            />
+                            /> */}
 
                             <TextField
                                 margin="normal"
