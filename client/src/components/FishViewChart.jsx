@@ -29,43 +29,109 @@ const FishViewChart = ({ isDashboard = false, view }) => {
 
   }, [detail]);
 
-  const [numOfSpeciesLine, buyingPricelLine] = useMemo(() => {
-    if (!data) return [];
+  // const [numOfSpeciesLine, buyingPricelLine] = useMemo(() => {
+  //   if (!data) return [];
 
-    const  monthlyData = data;
+  //   const  monthlyData = data;
    
-    const numOfSpeciesLine = {
-      id: "numOfSpecies",
-      color: theme.palette.secondary.main,
-      data: [],
-    };
-    const buyingPricelLine = {
-      id: "buyingPrice",
-      color: theme.palette.secondary[600],
-      data: [],
-    };
+  //   const numOfSpeciesLine = {
+  //     id: "numOfSpecies",
+  //     color: theme.palette.secondary.main,
+  //     data: [],
+  //   };
+  //   const buyingPricelLine = {
+  //     id: "buyingPrice",
+  //     color: theme.palette.secondary[600],
+  //     data: [],
+  //   };
 
-    Object.values(monthlyData).reduce(
-      (acc, { speciesType, numOfSpecies, buyingPrice }) => {
-        const numSpecies = acc.species + numOfSpecies;
-        const getPrice = acc.price + buyingPrice;
+  //   Object.values(monthlyData).reduce(
+  //     (acc, { speciesType, numOfSpecies, buyingPrice }) => {
+  //       const numSpecies = acc.species + numOfSpecies;
+  //       const getPrice = acc.price + buyingPrice;
         
-        numOfSpeciesLine.data = [
-          ...numOfSpeciesLine.data,
-          { x: speciesType, y: numSpecies },
-        ];
-        buyingPricelLine.data = [
-          ...buyingPricelLine.data,
-          { x: speciesType, y: getPrice },
-        ];
+  //       numOfSpeciesLine.data = [
+  //         ...numOfSpeciesLine.data,
+  //         { x: speciesType, y: numSpecies },
+  //       ];
+  //       buyingPricelLine.data = [
+  //         ...buyingPricelLine.data,
+  //         { x: speciesType, y: getPrice },
+  //       ];
 
-        return { species: numSpecies, price: getPrice };
+  //       return { species: numSpecies, price: getPrice };
+  //     },
+  //     { species: 0, price: 0 }
+  //   );
+
+  //   return [[numOfSpeciesLine], [buyingPricelLine]];
+  // }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const numberOfSpeciesChart = useMemo(() => {
+    if (isLoading || !data) return [];
+  
+    const speciesTypeMap = {};
+  
+    // Aggregate data based on speciesType
+    data.forEach(({ speciesType, numOfSpecies }) => {
+      if (speciesTypeMap[speciesType]) {
+        speciesTypeMap[speciesType] += numOfSpecies;
+      } else {
+        speciesTypeMap[speciesType] = numOfSpecies;
+      }
+    });
+  
+    // Transform aggregated data into chart format
+    const chartData = Object.keys(speciesTypeMap).map((speciesType) => ({
+      x: speciesType,
+      y: speciesTypeMap[speciesType],
+    }));
+  
+    return [
+      {
+        id: "numOfSpecies",
+        color: theme.palette.secondary.main,
+        data: chartData,
       },
-      { species: 0, price: 0 }
-    );
+    ];
+  }, [isLoading, data, theme.palette.secondary.main]);
+  
+  
+  
+  
+  
 
-    return [[numOfSpeciesLine], [buyingPricelLine]];
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+  //Jjjj
+  const buyingPriceChart = useMemo(() => {
+    if (isLoading || !data) return [];
+  
+    const speciesTypeMap = {};
+  
+    // Aggregate data based on speciesType
+    data.forEach(({ speciesType, numOfSpecies }) => {
+      if (speciesTypeMap[speciesType]) {
+        speciesTypeMap[speciesType] += numOfSpecies;
+      } else {
+        speciesTypeMap[speciesType] = numOfSpecies;
+      }
+    });
+  
+    // Transform aggregated data into chart format, avoiding repetition
+    const chartData = Object.keys(speciesTypeMap).map((speciesType) => ({
+      x: speciesType,
+      y: speciesTypeMap[speciesType],
+    }));
+  
+    return [
+      {
+        id: "numOfSpecies",
+        color: theme.palette.secondary.main,
+        data: chartData,
+      },
+    ];
+  }, [isLoading, data, theme.palette.secondary.main]);
+  
+
 
   if (!data || isLoading){ 
     return "Loading...";
@@ -76,7 +142,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "numOfSpecies" ? numOfSpeciesLine : buyingPricelLine}  
+      data={view === "numOfSpecies" ? numberOfSpeciesChart : buyingPriceChart}  
    
       theme={{
         axis: {
