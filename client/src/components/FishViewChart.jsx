@@ -105,26 +105,26 @@ const FishViewChart = ({ isDashboard = false, view }) => {
   const buyingPriceChart = useMemo(() => {
     if (isLoading || !data) return [];
   
-    const speciesTypeMap = {};
+    const buyingPriceMap = {};
   
     // Aggregate data based on speciesType
-    data.forEach(({ speciesType, numOfSpecies }) => {
-      if (speciesTypeMap[speciesType]) {
-        speciesTypeMap[speciesType] += numOfSpecies;
+    data.forEach(({ speciesType, buyingPrice }) => {
+      if (buyingPriceMap[speciesType]) {
+        buyingPriceMap[speciesType] += buyingPrice;
       } else {
-        speciesTypeMap[speciesType] = numOfSpecies;
+        buyingPriceMap[speciesType] = buyingPrice;
       }
     });
   
     // Transform aggregated data into chart format, avoiding repetition
-    const chartData = Object.keys(speciesTypeMap).map((speciesType) => ({
+    const chartData = Object.keys(buyingPriceMap).map((speciesType) => ({
       x: speciesType,
-      y: speciesTypeMap[speciesType],
+      y: buyingPriceMap[speciesType],
     }));
   
     return [
       {
-        id: "numOfSpecies",
+        id: "buyingPrice",
         color: theme.palette.secondary.main,
         data: chartData,
       },
