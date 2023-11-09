@@ -30,13 +30,15 @@ export default function MainFarmScreen() {
 
   const directedFarm = route.params?.directedFarm || "";
 
+  const updateScreen = route.params?.updateScreen || "";
+
   const { state } = useAuth();
 
   const token = state.token;
   const decodedToken = jwtDecode(token);
 
   const { role: db_role } = decodedToken;
-  console.log(db_role);
+  // console.log(db_role);
 
   let haveFarmAccess;
   let haveCallAccess;
@@ -53,10 +55,13 @@ export default function MainFarmScreen() {
     haveCallAccess = false;
   }
 
+  // console.log("Update Screen : ", updateScreen);
+
   const [farmData, setFarmData] = useState([]);
   const [allStockData, setAllStockData] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect is running");
     async function fetchFarmData() {
       try {
         const response = await axios.post(
@@ -84,6 +89,8 @@ export default function MainFarmScreen() {
     fetchFarmData();
     fetchStockData();
   }, [farmId]);
+
+  console.log("Farm Data :", farmData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -120,7 +127,7 @@ export default function MainFarmScreen() {
   const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/farm-pics`;
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
 
-  console.log(profilePicUrl);
+  // console.log(profilePicUrl);
 
   const listTab = [
     {

@@ -96,6 +96,7 @@ export default function ViewIndividualFarmingRecScreen() {
       ]
     );
   };
+  console.log("role", db_role);
 
   useEffect(() => {
     setIsLoading(true);
@@ -191,12 +192,12 @@ export default function ViewIndividualFarmingRecScreen() {
             {/* Table */}
             <FlatList
               data={[
-                { label: "Stock", value: `${db_stock}` },
+                { label: "Stock", value: `${db_stock} kg` },
                 { label: "Hatchery", value: `${db_hatchery}` },
                 { label: "HatcheryBatch", value: `${db_hatcheryBatch}` },
-                { label: "Harvest", value: `${db_harvest}` },
+                { label: "Harvest", value: `${formatDate(db_harvest)}` },
                 { label: "Size", value: `${db_size}` },
-                { label: "Survival", value: `${db_survival}` },
+                { label: "Survival", value: `${db_survival}%` },
                 { label: "Diseases", value: `${db_diseases}` },
               ]}
               renderItem={({ item }) => (
@@ -206,17 +207,16 @@ export default function ViewIndividualFarmingRecScreen() {
             />
           </View>
           <View className="flex-row mb-[2vh] mt-[4vh] mr-[5vw] justify-end">
-            {db_role === "Farmer" ||
-              (db_role === "District Aquaculturist" && (
-                <TouchableOpacity
-                  className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
-                  onPress={handleDelete}
-                >
-                  <Text className="text-[#fff] text-[15px] font-bold text-center">
-                    Delete Record
-                  </Text>
-                </TouchableOpacity>
-              ))}
+            {["Farmer", "District Aquaculturist"].includes(db_role) && (
+              <TouchableOpacity
+                className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
+                onPress={handleDelete}
+              >
+                <Text className="text-[#fff] text-[15px] font-bold text-center">
+                  Delete Record
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
