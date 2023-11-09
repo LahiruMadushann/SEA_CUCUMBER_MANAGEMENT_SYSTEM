@@ -95,7 +95,7 @@ const speciesTypeMap = {};
       height={isDashboard ? "400px" : "100%"}
       width={undefined}
       minHeight={isDashboard ? "325px" : undefined}
-      minWidth={isDashboard ? "325px" : undefined}
+      minWidth={isDashboard ? "625px" : undefined}
       position="relative"
     >
       <ResponsivePie
@@ -136,8 +136,8 @@ const speciesTypeMap = {};
         // colors={{ datum: "data.color" }} //pie chart color
         margin={
           isDashboard
-            ? { top: 40, right: 80, bottom: 100, left: 50 }
-            : { top: 40, right: 80, bottom: 80, left: 80 }
+            ? { top: 40, right: 310, bottom: 100, left: 10 }
+            : { top: 40, right: 310, bottom: 80, left: 10 }
         }
         sortByValue={true}
         innerRadius={0.45}
@@ -185,7 +185,7 @@ const speciesTypeMap = {};
       <Box
         position="absolute"
         top="50%"
-        left="50%"
+        left="28%"
         color={theme.palette.secondary[100]}
         textAlign="center"
         pointerEvents="none"
