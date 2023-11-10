@@ -51,14 +51,30 @@ import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOu
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutlined';
+import SetMealOutlinedIcon from '@mui/icons-material/SetMealOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { UserContext } from "../UserContext";
 import { jwtDecode } from 'jwt-decode';
 // import {useParams} from "react-router";
 
 const navItems = [
   {
+    text: "Dashboard Section",
+    icon: null,
+  },
+ 
+  {
     text: "Dashboard",
     icon: <HomeOutlined />,
+  },
+  {
+    text: "Fishing Dashboard",
+    icon: <SetMealOutlinedIcon />,
+  },
+  {
+    text: "Farming Dashboard",
+    icon: <DashboardOutlinedIcon />,
   },
   //---------------
 
@@ -171,6 +187,10 @@ const navItems = [
     icon: <StackedLineChartOutlinedIcon />,
   },
   {
+    text: "District AquaCulturist",
+    icon: <PersonPinCircleOutlinedIcon />,
+  },
+  {
     text: "Overview",
     icon: <PointOfSaleOutlined />,
   },
@@ -216,19 +236,19 @@ const navItems = [
 
   //---------------
   //---------------
-  {
-    text: "Aquaculture Farms Section Data",
-    icon: null,
-  },
-  {
-    text: "Aquaculture Management",
-    icon: <ManageAccountsOutlinedIcon />,
-  },
+  // {
+  //   text: "Aquaculture Farms Section Data",
+  //   icon: null,
+  // },
+  // {
+  //   text: "Aquaculture Management",
+  //   icon: <ManageAccountsOutlinedIcon />,
+  // },
   
-  {
-    text: "Farmers Data",
-    icon: <KayakingOutlinedIcon />,
-  },
+  // {
+  //   text: "Farmers Data",
+  //   icon: <KayakingOutlinedIcon />,
+  // },
 
 
 
@@ -302,6 +322,7 @@ const Sidebar = ({
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const location = useLocation();
+  const [currentPath, setCurrentPath] = useState("")
   const navigate = useNavigate();
   const theme = useTheme();
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -315,10 +336,11 @@ const Sidebar = ({
 console.log("user ge al",userId)
 
   useEffect(() => {
-    const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
+    setCurrentPath(location.pathname.replace(/\//g, "").toLowerCase());
+    // const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
     setActive(currentPath);
 
-  }, [location.pathname]);
+  }, [currentPath]);
 
   const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
   useEffect(() => {

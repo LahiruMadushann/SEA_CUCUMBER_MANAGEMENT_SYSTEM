@@ -12,7 +12,7 @@ router.post(
   adminController.register
 );
 
-router.put("/admin/update", userController.updateUser);
+router.put("/admin/update/:userId", userController.updateUser);
 
 router.put(
   "/admin/updateProfilePic",

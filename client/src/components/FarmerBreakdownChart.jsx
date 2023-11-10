@@ -47,27 +47,48 @@ const FarmerBreakdownChart = ({ isDashboard = false }) => {
     theme.palette.secondary[500],
   ];
 
-  const survivalObject = dataNew.map((item) => ({
+//   const survivalObject = dataNew.map((item) => ({
 
-    survival: item.survival,
-    month: item.month,
-  }));
+//     survival: item.survival,
+//     month: item.month,
+//   }));
 
-  function sumNumOfSurvivalSpecies(arr) {
-    let sum = 0;
-    for(let i = 0; i < arr.length; i++) {
-        sum += arr[i].survival;
-    }
-    return sum;
-}
+//   function sumNumOfSurvivalSpecies(arr) {
+//     let sum = 0;
+//     for(let i = 0; i < arr.length; i++) {
+//         sum += arr[i].survival;
+//     }
+//     return sum;
+// }
   
-  const formattedData = survivalObject.map((item, i) => ({
-    id: item.month,
-    label: item.month,
-    value: item.survival,
+//   const formattedData = survivalObject.map((item, i) => ({
+//     id: item.month,
+//     label: item.month,
+//     value: item.survival,
+//     color: colors[i],
+//   }));
+
+
+  const survivalMap = {};
+
+  // Aggregate data based on speciesType and ensure uniqueness
+  dataNew.forEach(({ month, survival }) => {
+    if (!survivalMap[month]) {
+      survivalMap[month] = 0;
+    }
+    survivalMap[month] += survival;
+  });
+
+  const formattedData = Object.entries(survivalMap).map(([month, totalNumOfSurvival], i) => ({
+    id: month,
+    label: month,
+    value: totalNumOfSurvival,
     color: colors[i],
   }));
 
+  function sumNumOfSpecies() {
+    return Object.values(survivalMap).reduce((sum, survival) => sum + survival, 0);
+  }
 
   return (
     <Box
@@ -152,7 +173,7 @@ const FarmerBreakdownChart = ({ isDashboard = false }) => {
         }}
       >
         <Typography variant="h6">
-          {!isDashboard && "Total:"} {sumNumOfSurvivalSpecies(survivalObject)}
+        {!isDashboard && "Total:"} {sumNumOfSpecies()}
         </Typography>
       </Box>
     </Box>

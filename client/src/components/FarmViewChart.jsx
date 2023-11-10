@@ -29,43 +29,105 @@ const FarmViewChart = ({ isDashboard = false, view }) => {
 
   }, [detail]);
 
-  const [totalStockLine, totalSurvivalLine] = useMemo(() => {
-    if (!data) return [];
+  // const [totalStockLine, totalSurvivalLine] = useMemo(() => {
+  //   if (!data) return [];
 
-    const  monthlyData = data;
+  //   const  monthlyData = data;
    
-    const totalStockLine = {
+  //   const totalStockLine = {
+  //     id: "stock",
+  //     color: theme.palette.secondary.main,
+  //     data: [],
+  //   };
+  //   const totalSurvivalLine = {
+  //     id: "survival",
+  //     color: theme.palette.secondary[600],
+  //     data: [],
+  //   };
+
+  //   Object.values(monthlyData).reduce(
+  //     (acc, { month, stock, survival }) => {
+  //       const curStock = acc.sales + stock;
+  //       const curSurvival = acc.units + survival;
+        
+  //       totalStockLine.data = [
+  //         ...totalStockLine.data,
+  //         { x: month, y: curStock },
+  //       ];
+  //       totalSurvivalLine.data = [
+  //         ...totalSurvivalLine.data,
+  //         { x: month, y: curSurvival },
+  //       ];
+
+  //       return { sales: curStock, units: curSurvival };
+  //     },
+  //     { sales: 0, units: 0 }
+  //   );
+
+  //   return [[totalStockLine], [totalSurvivalLine]];
+  // }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  //Stock Chart
+const numberOfSpeciesChart = useMemo(() => {
+  if (isLoading || !data) return [];
+
+  const totalSpeciesMap = {};
+
+  // Aggregate data based on speciesType
+  data.forEach(({ month, stock }) => {
+    if (totalSpeciesMap[month]) {
+      totalSpeciesMap[month] += stock;
+    } else {
+      totalSpeciesMap[month] = stock;
+    }
+  });
+
+  // Transform aggregated data into chart format
+  const chartData = Object.keys(totalSpeciesMap).map((month) => ({
+    x: month,
+    y: totalSpeciesMap[month],
+  }));
+
+  return [
+    {
       id: "stock",
       color: theme.palette.secondary.main,
-      data: [],
-    };
-    const totalSurvivalLine = {
-      id: "survival",
-      color: theme.palette.secondary[600],
-      data: [],
-    };
+      data: chartData,
+    },
+  ];
+}, [isLoading, data, theme.palette.secondary.main]);
+//
 
-    Object.values(monthlyData).reduce(
-      (acc, { month, stock, survival }) => {
-        const curStock = acc.sales + stock;
-        const curSurvival = acc.units + survival;
-        
-        totalStockLine.data = [
-          ...totalStockLine.data,
-          { x: month, y: curStock },
-        ];
-        totalSurvivalLine.data = [
-          ...totalSurvivalLine.data,
-          { x: month, y: curSurvival },
-        ];
-
-        return { sales: curStock, units: curSurvival };
+  //Survival Chart
+  const numberOfSurvivalSpeciesChart = useMemo(() => {
+    if (isLoading || !data) return [];
+  
+    const totalSurvivalSpeciesMap = {};
+  
+    // Aggregate data based on speciesType
+    data.forEach(({ month, survival }) => {
+      if (totalSurvivalSpeciesMap[month]) {
+        totalSurvivalSpeciesMap[month] += survival;
+      } else {
+        totalSurvivalSpeciesMap[month] = survival;
+      }
+    });
+  
+    // Transform aggregated data into chart format
+    const chartData = Object.keys(totalSurvivalSpeciesMap).map((month) => ({
+      x: month,
+      y: totalSurvivalSpeciesMap[month],
+    }));
+  
+    return [
+      {
+        id: "survival",
+        color: theme.palette.secondary.main,
+        data: chartData,
       },
-      { sales: 0, units: 0 }
-    );
-
-    return [[totalStockLine], [totalSurvivalLine]];
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+    ];
+  }, [isLoading, data, theme.palette.secondary.main]);
+  //
 
   if (!data || isLoading){ 
     return "Loading...";
@@ -76,7 +138,7 @@ const FarmViewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "stock" ? totalStockLine : totalSurvivalLine}
+      data={view === "stock" ? numberOfSpeciesChart : numberOfSurvivalSpeciesChart}
    
       theme={{
         axis: {

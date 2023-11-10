@@ -47,26 +47,47 @@ const BreakdownChart = ({ isDashboard = false }) => {
     theme.palette.secondary[500],
   ];
 
-  const speciesObject = dataNew.map((item) => ({
+//   const speciesObject = dataNew.map((item) => ({
 
-    numOfSpecies: item.numOfSpecies,
-    speciesType: item.speciesType,
-  }));
+//     numOfSpecies: item.numOfSpecies,
+//     speciesType: item.speciesType,
+//   }));
 
-  function sumNumOfSpecies(arr) {
-    let sum = 0;
-    for(let i = 0; i < arr.length; i++) {
-        sum += arr[i].numOfSpecies;
-    }
-    return sum;
-}
+//   function sumNumOfSpecies(arr) {
+//     let sum = 0;
+//     for(let i = 0; i < arr.length; i++) {
+//         sum += arr[i].numOfSpecies;
+//     }
+//     return sum;
+// }
   
-  const formattedData = speciesObject.map((item, i) => ({
-    id: item.speciesType,
-    label: item.speciesType,
-    value: item.numOfSpecies,
+//   const formattedData = speciesObject.map((item, i) => ({
+//     id: item.speciesType,
+//     label: item.speciesType,
+//     value: item.numOfSpecies,
+//     color: colors[i],
+//   }));
+
+const speciesTypeMap = {};
+
+  // Aggregate data based on speciesType and ensure uniqueness
+  dataNew.forEach(({ speciesType, numOfSpecies }) => {
+    if (!speciesTypeMap[speciesType]) {
+      speciesTypeMap[speciesType] = 0;
+    }
+    speciesTypeMap[speciesType] += numOfSpecies;
+  });
+
+  const formattedData = Object.entries(speciesTypeMap).map(([speciesType, totalNumOfSpecies], i) => ({
+    id: speciesType,
+    label: speciesType,
+    value: totalNumOfSpecies,
     color: colors[i],
   }));
+
+  function sumNumOfSpecies() {
+    return Object.values(speciesTypeMap).reduce((sum, numOfSpecies) => sum + numOfSpecies, 0);
+  }
 
 
   return (
@@ -74,7 +95,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
       height={isDashboard ? "400px" : "100%"}
       width={undefined}
       minHeight={isDashboard ? "325px" : undefined}
-      minWidth={isDashboard ? "325px" : undefined}
+      minWidth={isDashboard ? "625px" : undefined}
       position="relative"
     >
       <ResponsivePie
@@ -115,8 +136,8 @@ const BreakdownChart = ({ isDashboard = false }) => {
         // colors={{ datum: "data.color" }} //pie chart color
         margin={
           isDashboard
-            ? { top: 40, right: 80, bottom: 100, left: 50 }
-            : { top: 40, right: 80, bottom: 80, left: 80 }
+            ? { top: 40, right: 310, bottom: 100, left: 10 }
+            : { top: 40, right: 310, bottom: 80, left: 10 }
         }
         sortByValue={true}
         innerRadius={0.45}
@@ -135,36 +156,36 @@ const BreakdownChart = ({ isDashboard = false }) => {
           from: "color",
           modifiers: [["darker", 4]],
         }}
-        legends={[
-          {
-            anchor: "bottom",
-            direction: "row",
-            justify: false,
-            translateX: isDashboard ? 20 : 0,
-            translateY: isDashboard ? 50 : 56,
-            itemsSpacing: 0,
-            itemWidth: 85,
-            itemHeight: 18,
-            itemTextColor: "#999",
-            itemDirection: "left-to-right",
-            itemOpacity: 1,
-            symbolSize: 18,
-            symbolShape: "circle",
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemTextColor: theme.palette.secondary[100],
-                },
-              },
-            ],
-          },
-        ]}
+        // legends={[
+        //   {
+        //     anchor: "bottom",
+        //     direction: "row",
+        //     justify: false,
+        //     translateX: isDashboard ? 20 : 0,
+        //     translateY: isDashboard ? 50 : 56,
+        //     itemsSpacing: 0,
+        //     itemWidth: 85,
+        //     itemHeight: 18,
+        //     itemTextColor: "#999",
+        //     itemDirection: "left-to-right",
+        //     itemOpacity: 1,
+        //     symbolSize: 18,
+        //     symbolShape: "circle",
+        //     effects: [
+        //       {
+        //         on: "hover",
+        //         style: {
+        //           itemTextColor: theme.palette.secondary[100],
+        //         },
+        //       },
+        //     ],
+        //   },
+        // ]}
       />
       <Box
         position="absolute"
         top="50%"
-        left="50%"
+        left="28%"
         color={theme.palette.secondary[100]}
         textAlign="center"
         pointerEvents="none"
@@ -174,8 +195,11 @@ const BreakdownChart = ({ isDashboard = false }) => {
             : "translate(-50%, -100%)",
         }}
       >
-        <Typography variant="h6">
+        {/* <Typography variant="h6">
           {!isDashboard && "Total:"} {sumNumOfSpecies(speciesObject)}
+        </Typography> */}
+        <Typography variant="h6">
+          {!isDashboard && "Total:"} {sumNumOfSpecies()}
         </Typography>
       </Box>
     </Box>
