@@ -38,7 +38,7 @@ class exporterService {
         town,
         province,
         country,
-        accountStatus:"Active",
+        accountStatus: "Active",
         profilepic,
         createdAt,
       });
@@ -93,7 +93,9 @@ class exporterService {
   //GET ALL FISHPROCESSORS DETAILS
   static async getAllFishProcessors() {
     const roleName = "Processor";
-    const fishProcessorDetails = await userModel.find({ role: roleName });
+    const fishProcessorDetails = await userModel
+      .find({ role: roleName })
+      .sort({ createdAt: -1 });
     return fishProcessorDetails;
   }
 

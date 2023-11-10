@@ -28,6 +28,12 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const { dispatch } = useAuth();
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleLogin = () => {
     setIsLoading(true);
     const backendUrl = `${BASE_URL}/login`;
@@ -39,6 +45,7 @@ export default function LoginScreen() {
     axios
       .post(backendUrl, userData)
       .then((response) => {
+        console.log("response", response.data.success);
         if (response.data.success) {
           const token = response.data.token;
           console.log("Token:", token);
@@ -57,7 +64,7 @@ export default function LoginScreen() {
           // Show an alert for unsuccessful login
           Alert.alert(
             "Login Error",
-            "Unsuccessful login. Please check your credentials.",
+            response.data.message,
             [
               {
                 text: "OK",
@@ -72,6 +79,7 @@ export default function LoginScreen() {
         console.error("Login error:", error);
         Alert.alert("Login Error", "Server Error. Please try again later");
         setIsLoading(false);
+        console.error("Error response:", error.message);
       });
   };
 
@@ -140,9 +148,22 @@ export default function LoginScreen() {
               placeholder="Enter Password here"
               autoCapitalize="none"
               autoCorrect={false}
-              secureTextEntry
+              secureTextEntry={!showPassword}
               required
             />
+            <TouchableOpacity
+              onPress={togglePasswordVisibility}
+              className="absolute mb-[5vh] ml-[65vw]"
+            >
+              <Image
+                source={
+                  showPassword
+                    ? require("../assets/login/eye.png")
+                    : require("../assets/login/eye-crossed.png")
+                }
+                className="w-[6vw] h-[3vh]"
+              />
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity onPress={handleLogin}>

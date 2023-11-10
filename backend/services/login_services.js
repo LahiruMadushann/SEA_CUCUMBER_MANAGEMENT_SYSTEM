@@ -16,6 +16,7 @@ class loginService {
         details = null;
       }
 
+      // console.log("Login service: ", details);
       return details;
     } catch (error) {
       throw error;
@@ -41,7 +42,7 @@ class loginService {
       } else {
         details = null;
       }
-
+      console.log("Details: ", details);
       return details;
     } catch (error) {
       throw error;

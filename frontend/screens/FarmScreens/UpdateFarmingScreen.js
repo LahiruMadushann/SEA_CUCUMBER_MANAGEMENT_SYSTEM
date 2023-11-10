@@ -307,6 +307,7 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 10,
     marginTop: -10,
+    marginLeft: -16,
   },
 
   pickerItem: {

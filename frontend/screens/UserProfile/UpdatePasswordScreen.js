@@ -25,6 +25,20 @@ export default function UpdatePasswordScreen() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleOldPasswordVisibility = () => {
+    setShowOldPassword(!showOldPassword);
+  };
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const { state } = useAuth();
   // Access the token
   const token = state.token;
@@ -74,8 +88,15 @@ export default function UpdatePasswordScreen() {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView className="bg-[#fff]">
+    <SafeAreaView
+    style={{ flex: 1, backgroundColor: "white" }}
+    className="flex-grow bg-white"
+  >
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        className="bg-[#fff]"
+      >
         <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
           <View className="mt-[58vh] ">
             <View className="flex-row ">
@@ -101,30 +122,77 @@ export default function UpdatePasswordScreen() {
 
         <View className="mt-[36vh]">
           <View className="mt-[6vh]">
-            <TextInput
-              className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-              value={oldPassword}
-              onChangeText={setOldPassword}
-              placeholder="Old Password"
-              secureTextEntry
-              required
-            />
-            <TextInput
-              className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-              value={newPassword}
-              onChangeText={setNewPassword}
-              placeholder="New Password"
-              secureTextEntry
-              required
-            />
-            <TextInput
-              className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-              value={confirmNewPassword}
-              onChangeText={setConfirmNewPassword}
-              placeholder="Confirm New Password"
-              secureTextEntry
-              required
-            />
+            <View className="form space-y-2 mx-auto flex-row items-center">
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={oldPassword}
+                onChangeText={setOldPassword}
+                placeholder="Old Password"
+                secureTextEntry={!showOldPassword}
+                required
+              />
+              <TouchableOpacity
+                onPress={toggleOldPasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showOldPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[3vh] h-[3vh]"
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View className="form space-y-2 mx-auto flex-row items-center">
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
+                value={newPassword}
+                onChangeText={setNewPassword}
+                placeholder="New Password"
+                secureTextEntry={!showNewPassword}
+                required
+              />
+
+              <TouchableOpacity
+                onPress={toggleNewPasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showNewPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[3vh] h-[3vh]"
+                />
+              </TouchableOpacity>
+            </View>
+            <View className="form space-y-2 mx-auto flex-row items-center">
+              <TextInput
+                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
+                value={confirmNewPassword}
+                onChangeText={setConfirmNewPassword}
+                placeholder="Confirm New Password"
+                secureTextEntry={!showConfirmPassword}
+                required
+              />
+              <TouchableOpacity
+                onPress={toggleConfirmPasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showConfirmPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[2vh] h-[3vh]"
+                />
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View className="mt-[2vh]">
@@ -138,10 +206,11 @@ export default function UpdatePasswordScreen() {
             </TouchableOpacity>
           </View>
         </View>
-        <View className="mt-[20vh]">
+        </ScrollView>
+        <View style={{ marginBottom: 5 }}>
           <FooterBar />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
