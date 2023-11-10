@@ -30,13 +30,15 @@ export default function MainFarmScreen() {
 
   const directedFarm = route.params?.directedFarm || "";
 
+  const updateScreen = route.params?.updateScreen || "";
+
   const { state } = useAuth();
 
   const token = state.token;
   const decodedToken = jwtDecode(token);
 
   const { role: db_role } = decodedToken;
-  console.log(db_role);
+  // console.log(db_role);
 
   let haveFarmAccess;
   let haveCallAccess;
@@ -53,10 +55,13 @@ export default function MainFarmScreen() {
     haveCallAccess = false;
   }
 
+  // console.log("Update Screen : ", updateScreen);
+
   const [farmData, setFarmData] = useState([]);
   const [allStockData, setAllStockData] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect is running");
     async function fetchFarmData() {
       try {
         const response = await axios.post(
@@ -84,6 +89,8 @@ export default function MainFarmScreen() {
     fetchFarmData();
     fetchStockData();
   }, [farmId]);
+
+  console.log("Farm Data :", farmData);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -120,7 +127,7 @@ export default function MainFarmScreen() {
   const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/farm-pics`;
   const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
 
-  console.log(profilePicUrl);
+  // console.log(profilePicUrl);
 
   const listTab = [
     {
@@ -277,7 +284,7 @@ export default function MainFarmScreen() {
 
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    license No
+                    License No
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_licenseNo}
@@ -285,7 +292,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    validity
+                    Validity
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_validity}
@@ -293,7 +300,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    location
+                    Location
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_location}
@@ -301,7 +308,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    extend
+                    Extend
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_extend}
@@ -309,7 +316,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    gpsCoordinates
+                    GPS Coordinates
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_gpsCoordinatesOne}
@@ -323,7 +330,7 @@ export default function MainFarmScreen() {
                 </View>
                 <View className="ml-[16vw] mt-[1.8vh]">
                   <Text className="text-[13px] font-bold text-[#000000A6]">
-                    farmInternal
+                    Farm Internal
                   </Text>
                   <Text className="text-[13px] text-[#000000A6]">
                     {db_farmInternal}
@@ -333,8 +340,8 @@ export default function MainFarmScreen() {
                   <Text className="text-[13px] font-bold text-[#000000A6]">
                     Establishment Date
                   </Text>
-                  <Text className="text-[13px] ml-[1vw] text-[#000000A6]">
-                    {db_establishmentDate}
+                  <Text className="text-[13px] text-[#000000A6]">
+                    {`${formatDate(db_establishmentDate)}`}
                   </Text>
                 </View>
               </View>

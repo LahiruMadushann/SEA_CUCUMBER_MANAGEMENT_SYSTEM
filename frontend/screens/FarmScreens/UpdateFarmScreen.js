@@ -84,7 +84,7 @@ export default function UpdateFarmScreen() {
             "Farm details has been updated successfully."
           );
 
-          navigation.navigate("MainFarmScreen");
+          navigation.navigate("UserProfileMainScreen");
         } else {
           Alert.alert("Update Failed", response.data.message);
         }
@@ -257,7 +257,7 @@ export default function UpdateFarmScreen() {
                 placeholder="Farm Internal"
                 required
               />
-              <TextInput
+              {/* <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={farmData.establishmentDate}
                 onChangeText={(value) =>
@@ -268,7 +268,7 @@ export default function UpdateFarmScreen() {
                 }
                 placeholder="establishmentDate"
                 required
-              />
+              /> */}
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">

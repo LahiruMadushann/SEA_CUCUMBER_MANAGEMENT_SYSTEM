@@ -218,6 +218,30 @@ export default function SingleNotificationScreen() {
                 </View>
               )}
 
+              {db_type === "SeacucumberRates" && (
+                <View className="flex mx-[30vw] mb-[5vw] w-[200px] ">
+                  <Image
+                    source={require("../../assets/notification/price-list.png")}
+                    className="w-[15px] h-[18px] ml-[11vw] mt-[1vw]"
+                  />
+                  <Text className=" text-[11px] text-[#0000ff] font-bold flex-auto mt-[-5vw] ml-[17vw]">
+                    Sea cucumber rates
+                  </Text>
+                </View>
+              )}
+
+              {db_type === "News" && (
+                <View className="flex mx-[50vw] mb-[5vw] w-[200px] ">
+                  <Image
+                    source={require("../../assets/notification/rulesAndRegulations.png")}
+                    className="w-[15px] h-[18px] ml-[11vw] mt-[1vw]"
+                  />
+                  <Text className=" text-[11px] text-[#00ff00] font-bold flex-auto mt-[-5vw] ml-[17vw]">
+                    News
+                  </Text>
+                </View>
+              )}
+
               {db_postedById === db_id && (
                 <View className="flex mt-[2vh] mb-[2vh]">
                   <TouchableOpacity

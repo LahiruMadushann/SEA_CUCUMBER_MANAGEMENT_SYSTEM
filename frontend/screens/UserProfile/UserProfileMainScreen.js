@@ -161,6 +161,7 @@ export default function UserProfileMainScreen() {
                   <FishermanPopupScreen />
                 ) : db_role === "Assistant Director" ||
                   "DirectorGeneral" ||
+                  "Minister" ||
                   "Chairman" ? (
                   <NaqdaMngUsersPopupScreen />
                 ) : null}
@@ -249,11 +250,11 @@ export default function UserProfileMainScreen() {
 
             <View className="flex ml-[6vw] mt-[-1vw] ">
               <Text className="text-[4vw] font-bold  ">Account Type</Text>
-              {accountType === "Individual" ? (
+              {accountType === "individual" ? (
                 <Text className="text-[3.5vw] font-light">
                   Individual Account
                 </Text>
-              ) : accountType === "Group" ? (
+              ) : accountType === "group" ? (
                 <Text className="text-[3.5vw] font-light">Group Account</Text>
               ) : accountType == null ? (
                 <Text className="text-[3.5vw] font-light">

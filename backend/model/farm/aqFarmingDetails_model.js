@@ -22,7 +22,7 @@ const aquaFarmingDetailsSchema = new Schema({
     type: String,
   },
   harvest: {
-    type: String,
+    type: Date,
   },
   size: {
     type: String,

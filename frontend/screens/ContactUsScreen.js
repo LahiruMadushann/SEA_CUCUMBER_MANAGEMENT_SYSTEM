@@ -116,7 +116,7 @@ export default function ContactUsScreen() {
               />
 
               <TextInput
-                className="text-[15dpx] border-b border-[#00000040] text-gray-700 p-1 w-[84vw] h-[14vh]  mb-3"
+                className="text-[15dpx] border-b border-[#00000040] text-gray-700 p-1 w-[84vw] h-[auto]  mb-3"
                 value={comment}
                 onChangeText={setComment}
                 placeholder="Comment"

@@ -108,6 +108,9 @@ const userSchema = new Schema({
   processorRegNo: {
     type: String,
   },
+  otp: {
+    type: Number,
+  },
 
   tokens: [{ type: Object }],
 });
