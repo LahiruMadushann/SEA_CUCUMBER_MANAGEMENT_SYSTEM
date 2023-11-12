@@ -4,6 +4,7 @@ import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
 import axios from "axios";
 
+
 const FishViewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
   const [detail, setDetail] = useState(null);
@@ -29,43 +30,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
 
   }, [detail]);
 
-  // const [numOfSpeciesLine, buyingPricelLine] = useMemo(() => {
-  //   if (!data) return [];
 
-  //   const  monthlyData = data;
-   
-  //   const numOfSpeciesLine = {
-  //     id: "numOfSpecies",
-  //     color: theme.palette.secondary.main,
-  //     data: [],
-  //   };
-  //   const buyingPricelLine = {
-  //     id: "buyingPrice",
-  //     color: theme.palette.secondary[600],
-  //     data: [],
-  //   };
-
-  //   Object.values(monthlyData).reduce(
-  //     (acc, { speciesType, numOfSpecies, buyingPrice }) => {
-  //       const numSpecies = acc.species + numOfSpecies;
-  //       const getPrice = acc.price + buyingPrice;
-        
-  //       numOfSpeciesLine.data = [
-  //         ...numOfSpeciesLine.data,
-  //         { x: speciesType, y: numSpecies },
-  //       ];
-  //       buyingPricelLine.data = [
-  //         ...buyingPricelLine.data,
-  //         { x: speciesType, y: getPrice },
-  //       ];
-
-  //       return { species: numSpecies, price: getPrice };
-  //     },
-  //     { species: 0, price: 0 }
-  //   );
-
-  //   return [[numOfSpeciesLine], [buyingPricelLine]];
-  // }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const numberOfSpeciesChart = useMemo(() => {
     if (isLoading || !data) return [];
@@ -257,7 +222,9 @@ const FishViewChart = ({ isDashboard = false, view }) => {
           : undefined
       }
     />
+    
   );
+ 
   
 };
 
