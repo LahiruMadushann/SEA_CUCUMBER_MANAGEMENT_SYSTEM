@@ -108,23 +108,23 @@ const FishermenDashboard = () => {
     {
       field: "speciesType",
       headerName: "Species Type",
-      flex: 1,
+      flex: 1.3,
     },
     {
       field: "numOfSpecies",
       headerName: "Num Of Species",
-      flex: 1,
+      flex: 0.8,
     },
     {
       field: "buyer",
       headerName: "Buyer",
-      flex: 1,
+      flex: 0.8,
 
     },
     {
       field: "buyingPrice",
       headerName: "Buying Price",
-      flex: 1,
+      flex: 0.8,
 
     },
   ];
