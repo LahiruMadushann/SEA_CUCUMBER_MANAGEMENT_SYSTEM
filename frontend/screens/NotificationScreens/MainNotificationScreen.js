@@ -112,7 +112,7 @@ export default function MainNotificationScreen() {
                     </View>
                   </TouchableOpacity>
                 </View>
-                <View className="ml-[70vw]">
+                {/* <View className="ml-[70vw]">
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("PrivateNotificationScreen")
@@ -123,7 +123,7 @@ export default function MainNotificationScreen() {
                       className=" w-[25px] h-[25px] ml-[0vw]"
                     />
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </View>
 
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">

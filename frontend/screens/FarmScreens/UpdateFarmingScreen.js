@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 
 import {
   StyleSheet,
@@ -29,12 +30,13 @@ export default function UpdateFarmingScreen() {
   const [stockingDates, setStockingDates] = useState(new Date());
   const [hatchery, setHatchery] = useState("");
   const [hatcheryBatch, setHatcheryBatch] = useState("");
-  const [harvest, setHarvest] = useState("");
+  const [harvest, setHarvest] = useState(new Date());
   const [size, setSize] = useState("");
   const [survival, setSurvival] = useState("");
   const [diseases, setDiseases] = useState("");
 
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDatePickerHD, setShowDatePickerHD] = useState(false);
 
   const onChange = (event, selectedDate) => {
     setShowDatePicker(Platform.OS === "ios");
@@ -47,6 +49,17 @@ export default function UpdateFarmingScreen() {
     setShowDatePicker(true);
   };
 
+  const onChangeHD = (event, selectedDate) => {
+    setShowDatePickerHD(Platform.OS === "ios");
+    if (selectedDate) {
+      setHarvest(selectedDate);
+    }
+  };
+
+  const showDatepickerHD = () => {
+    setShowDatePickerHD(true);
+  };
+
   const handleUpdate = () => {
     const insertData = {
       farmId: farmId,
@@ -54,7 +67,7 @@ export default function UpdateFarmingScreen() {
       stockingDates: stockingDates.toISOString(),
       hatchery: hatchery,
       hatcheryBatch: hatcheryBatch,
-      harvest: harvest,
+      harvest: harvest.toISOString(),
       size: size,
       survival: survival,
       diseases: diseases,
@@ -71,7 +84,7 @@ export default function UpdateFarmingScreen() {
           setStockingDates(new Date());
           setHatchery("");
           setHatcheryBatch("");
-          setHarvest("");
+          setHarvest(new Date());
           setSize("");
           setSurvival("");
           setDiseases("");
@@ -120,7 +133,7 @@ export default function UpdateFarmingScreen() {
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={stock}
                 onChangeText={setStock}
-                placeholder="Stock"
+                placeholder="Stock (in Kg)"
                 required
               />
 
@@ -158,25 +171,69 @@ export default function UpdateFarmingScreen() {
                 placeholder="Hatchery Batch"
                 required
               />
-              <TextInput
+
+              <View style={styles.fieldContainer}>
+                <Text className=" text-[15px] text-gray-700">
+                  Harvest Date:{" "}
+                </Text>
+                <TouchableOpacity onPress={showDatepickerHD}>
+                  <Text className="text-[#007bff] text-[15px]">
+                    {harvest.toDateString()}
+                  </Text>
+                </TouchableOpacity>
+
+                {showDatePickerHD && (
+                  <DateTimePicker
+                    value={harvest}
+                    mode="date"
+                    display="default"
+                    onChange={onChangeHD}
+                  />
+                )}
+              </View>
+
+              {/* <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={harvest}
                 onChangeText={setHarvest}
                 placeholder="Harvest"
                 required
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={size}
-                onChangeText={setSize}
-                placeholder="Size"
-                required
-              />
+              /> */}
+
+              <View style={styles.fieldContainer}>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={size}
+                  onValueChange={(itemValue) => setSize(itemValue)}
+                >
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Size of the species"
+                    value=""
+                  />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Small"
+                    value="Small"
+                  />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Medium"
+                    value="Medium"
+                  />
+                  <Picker.Item
+                    style={styles.pickerItem}
+                    label="Large"
+                    value="Large"
+                  />
+                </Picker>
+              </View>
+
               <TextInput
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
                 value={survival}
                 onChangeText={setSurvival}
-                placeholder="Survival"
+                placeholder="Survival Rate"
                 required
               />
               <TextInput
@@ -246,11 +303,11 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    width: 225,
+    width: 210,
     color: "gray",
-    marginLeft: 50,
     fontSize: 10,
     marginTop: -10,
+    marginLeft: -16,
   },
 
   pickerItem: {

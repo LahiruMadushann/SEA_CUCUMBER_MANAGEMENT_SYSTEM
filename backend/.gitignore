@@ -24,4 +24,9 @@ yarn-error.log*
 *.iws
 *.iml
 *.ipr
-*.jpg
+#*.jpg
+
+#Images
+/Images/profilePics
+/Images/processorStockImages
+/Images/fishingImages

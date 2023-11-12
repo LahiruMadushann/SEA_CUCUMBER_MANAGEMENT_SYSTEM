@@ -74,7 +74,7 @@ exports.registerExporter = async (req, res, next) => {
         " " +
         lastName +
         "\n\n" +
-        "Great news! Your Processor Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Happy fishing! 🌊";
+        "Great news! Your Exporter Account has been successfully created. If you have any questions or need assistance, feel free to reach out. Thank you! 🌊";
 
       emailService.sendEmail(recipient, subject, text);
     } else {

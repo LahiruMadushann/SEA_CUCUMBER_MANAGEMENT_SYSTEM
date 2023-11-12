@@ -186,27 +186,27 @@ exports.login = async (req, res, next) => {
                     token: token,
                   });
                 } else {
-                  res.status(404).json({
+                  res.status(200).json({
                     success: false,
                     message: "Invaild password entered",
                   });
                 }
               })
               .catch((err) => {
-                res.status(404).json({
+                res.status(200).json({
                   success: false,
                   message: "An error occured while comparing passwords",
                 });
               });
           } else {
-            res.status(404).json({
+            res.status(200).json({
               success: false,
               message: "Invaild credentials entered!",
             });
           }
         })
         .catch((err) => {
-          res.status(404).json({
+          res.status(200).json({
             success: false,
             message: "An error occured while checking for existing user",
           });
@@ -244,8 +244,8 @@ exports.forgotPasswordOTPSend = async (req, res, next) => {
     } else {
       let data = await loginService.checkuserByEmail(email);
 
-      if (data == "null") {
-        res.status(400).json({
+      if (data == null) {
+        res.status(200).json({
           success: false,
           message: "Email not registered in any account",
         });
@@ -287,7 +287,7 @@ exports.otpVerification = async (req, res, next) => {
       let otpDB = await loginService.getOtp(userId);
 
       if (otp != otpDB) {
-        res.status(400).json({
+        res.status(200).json({
           success: false,
           message: "Incorrect OTP entered",
         });

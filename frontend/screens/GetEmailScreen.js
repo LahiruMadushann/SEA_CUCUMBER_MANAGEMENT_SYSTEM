@@ -35,6 +35,7 @@ export default function GetEmailScreen() {
     axios
       .post(insertUrl, insertData)
       .then((response) => {
+        console.log(response.data.success);
         if (response.data.success) {
           Alert.alert("Successful", response.data.message);
           navigation.navigate("EnterOptScreen", {

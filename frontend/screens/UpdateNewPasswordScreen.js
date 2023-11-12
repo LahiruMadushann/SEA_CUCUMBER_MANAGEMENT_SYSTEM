@@ -25,6 +25,18 @@ export default function UpdateNewPasswordScreen() {
   const route = useRoute(); // Get the route object
   const userId = route.params?.userId || "";
 
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const handleUpdatePassword = () => {
     if (newPassword == "" || confirmNewPassword == "") {
       return Alert.alert("Empty Field", "Please enter Password");
@@ -104,28 +116,60 @@ export default function UpdateNewPasswordScreen() {
             </View>
 
             <View className="mt-[6vh]">
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-5 mx-auto"
-                value={newPassword}
-                onChangeText={setNewPassword}
-                placeholder="New Password"
-                secureTextEntry
-              />
-              <TextInput
-                className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
-                value={confirmNewPassword}
-                onChangeText={setConfirmNewPassword}
-                placeholder="Confirm New Password"
-                secureTextEntry
-              />
+              <View>
+                <TextInput
+                  className="border-b border-[#00000040] text-gray-700 text-[16px]  w-64  mb-5 mx-auto"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  placeholder="New Password"
+                  secureTextEntry={!showNewPassword}
+                  required
+                />
+                <TouchableOpacity
+                  onPress={toggleNewPasswordVisibility}
+                  className="absolute mb-[5vh] ml-[75vw]"
+                >
+                  <Image
+                    source={
+                      showNewPassword
+                        ? require("../assets/login/eye.png")
+                        : require("../assets/login/eye-crossed.png")
+                    }
+                    className="w-[5vw] h-[2.5vh]"
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TextInput
+                  className="border-b border-[#00000040] text-gray-700 text-[16px] w-64  mb-3 mx-auto"
+                  value={confirmNewPassword}
+                  onChangeText={setConfirmNewPassword}
+                  placeholder="Confirm New Password"
+                  secureTextEntry={!showConfirmPassword}
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={toggleConfirmPasswordVisibility}
+                className="absolute mt-[7vh] ml-[75vw]"
+              >
+                <Image
+                  source={
+                    showConfirmPassword
+                      ? require("../assets/login/eye.png")
+                      : require("../assets/login/eye-crossed.png")
+                  }
+                  className="w-[5vw] h-[2.5vh]"
+                />
+              </TouchableOpacity>
             </View>
 
             <View className="mt-[2vh]">
               <TouchableOpacity
-                className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
+                className="bg-[#0013C0] rounded-[15px] w-[auto] mx-auto justify-center py-[10px] px-[4vw] items-center mt-[20px]"
                 onPress={handleUpdatePassword}
               >
-                <Text className="text-[#fff] text-[18px] font-bold text-center">
+                <Text className="text-[#fff] text-[15px] font-bold text-center">
                   Update New Password
                 </Text>
               </TouchableOpacity>

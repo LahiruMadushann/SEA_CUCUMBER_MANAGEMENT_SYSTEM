@@ -185,10 +185,12 @@ export default function Navigation() {
           name="FishermanRegisterScreen"
           component={FishermanRegisterScreen}
         />
+
         <Stack.Screen
           name="MainNotificationScreen"
           component={MainNotificationScreen}
         />
+        
         <Stack.Screen
           name="SingleNotificationScreen"
           component={SingleNotificationScreen}

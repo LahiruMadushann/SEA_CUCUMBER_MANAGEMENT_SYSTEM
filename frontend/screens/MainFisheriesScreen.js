@@ -74,7 +74,7 @@ export default function MainFisheriesScreen() {
                 className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
               />
             </View>
-            <Text className="text-center text-[15px] mt-[5vh] font-bold text-[#000000A6]">
+            <Text className="text-center text-[18px] mt-[5vh] font-bold text-[#000000A6]">
               Sea cucumber fisheries
             </Text>
             <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#000000A6]">
