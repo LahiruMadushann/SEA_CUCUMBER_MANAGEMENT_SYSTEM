@@ -323,7 +323,7 @@ const RegisterUsers = () => {
                                     <MenuItem value={"Admin"}>Admin</MenuItem>
                                     <MenuItem value={"Exporter"}>Exporter</MenuItem>
                                     <MenuItem value={"Farmer"}>Farmer</MenuItem>
-                                    <MenuItem value={"Fishermen"}>Fishermen</MenuItem>
+                                    <MenuItem value={"Fisherman"}>Fishermen</MenuItem>
                                     <MenuItem value={"Chairman"}>Chairman</MenuItem>
                                     <MenuItem value={"Director General"}>Director General</MenuItem>
                                     <MenuItem value={"Assistant Director"}>Assistant Director</MenuItem>

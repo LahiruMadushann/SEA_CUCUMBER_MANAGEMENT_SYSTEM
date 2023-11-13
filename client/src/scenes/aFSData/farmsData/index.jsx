@@ -16,55 +16,63 @@ const FarmsData = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-
+    setIsLoading(true);
+    axios
+      .get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`)
+      .then((response) => {
+        if (response.data && response.data.data) {
+          setData(response.data.data); // Set data when the response is received
+        } else {
+          // Handle the case where the data is not as expected
+          console.error("Data structure is not as expected:", response);
+        }
+      })
+      .catch((error) => {
+        // Handle the error when the request fails
+        console.error("Failed to fetch data:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
   
-    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
-
-      setDetail(response.data);
-      
-      setData(detail.data)
-    
-      // setData(detail.data)
-     // Set loading to false when the response is received
-      setIsLoading(false);
-
-     
-    });
-
-  }, [detail]);
 
 console.log("Farm wla month",data)
-  const [formattedData] = useMemo(() => {
-    if (!data) return [];
+const formattedData = useMemo(() => {
+  if (!Array.isArray(data)) {
+    return [];
+  }
 
-    const monthlyData  = data;
-    // const { monthlyDataNew } = detail;
-    console.log("Monthly wla month",monthlyData)
-    const totalStockLine = {
-      id: "stock",
-      color: theme.palette.secondary.main,
-      data: [],
-    };
-    const totalSurvivalLine = {
-      id: "survival",
-      color: theme.palette.secondary[600],
-      data: [],
-    };
+  const aggregatedData = {};
+  data.forEach(({ month, stock, survival }) => {
+    if (!aggregatedData[month]) {
+      aggregatedData[month] = { month, stock: 0, survival: 0 };
+    }
+    aggregatedData[month].stock += stock;
+    aggregatedData[month].survival += survival;
+  });
 
-    Object.values(monthlyData).forEach(({ month, stock, survival }) => {
-      totalStockLine.data = [
-        ...totalStockLine.data,
-        { x: month, y: stock },
-      ];
-      totalSurvivalLine.data = [
-        ...totalSurvivalLine.data,
-        { x: month, y: survival },
-      ];
-    });
+  const chartData = Object.values(aggregatedData).map((entry) => ({
+    x: entry.month,
+    stock: entry.stock,
+    survival: entry.survival,
+  }));
 
-    const formattedData = [totalStockLine, totalSurvivalLine];
-    return [formattedData];
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+  const stockData = {
+    id: 'stock',
+    color: '#ffff',
+    data: chartData.map(item => ({ x: item.x, y: item.stock })),
+  };
+
+  const survivalData = {
+    id: 'survival',
+    color: '#07002b',
+    data: chartData.map(item => ({ x: item.x, y: item.survival })),
+  };
+
+  return [stockData, survivalData];
+}, [data]);
+
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -151,8 +159,8 @@ console.log("Farm wla month",data)
                 anchor: "top-right",
                 direction: "column",
                 justify: false,
-                translateX: 50,
-                translateY: 0,
+                translateX: -40,
+                translateY: -53,
                 itemsSpacing: 0,
                 itemDirection: "left-to-right",
                 itemWidth: 80,
