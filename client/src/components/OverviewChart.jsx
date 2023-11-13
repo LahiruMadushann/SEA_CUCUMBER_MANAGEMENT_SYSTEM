@@ -27,7 +27,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   }, []);
 
   const [totalStockLine, totalSurvivalLine] = useMemo(() => {
-    if (!data.length) return [[], []];
+    if (!data) return [[], []];
 
     const aggregatedData = data.reduce((acc, { month, stock, survival }) => {
       if (!acc[month]) {
