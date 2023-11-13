@@ -49,6 +49,7 @@ import UpdateFAQ from "scenes/faqs/delete";
 import DistrictAquaculturist from "scenes/aFSection/districtAquaCulturist";
 import FishermenDashboard from "components/FishermenDashboard";
 import FarmingDashboard from "components/FarmingDashboard";
+import FishOverview from "scenes/fSection/overview";
 
 
 function App() {
@@ -92,7 +93,8 @@ function App() {
               <Route path="/customers" element={<Customers />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/geography" element={<Geography />} />
-              <Route path="/overview" element={<Overview />} />
+              <Route path="/farmoverview" element={<Overview />} />
+              <Route path="/fishoverview" element={<FishOverview />} />
               <Route path="/daily" element={<Daily />} />
               <Route path="/monthly" element={<Monthly />} />
               <Route path="/fishingchart" element={<Breakdown />} />

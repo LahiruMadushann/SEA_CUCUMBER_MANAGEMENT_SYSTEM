@@ -191,7 +191,7 @@ const navItems = [
     icon: <PersonPinCircleOutlinedIcon />,
   },
   {
-    text: "Overview",
+    text: "Farm Overview",
     icon: <PointOfSaleOutlined />,
   },
 
@@ -215,6 +215,10 @@ const navItems = [
   {
     text: "Fishing Chart",
     icon: <PieChartOutlined />,
+  },
+  {
+    text: "Fish Overview",
+    icon: <PointOfSaleOutlined />,
   },
 
 
