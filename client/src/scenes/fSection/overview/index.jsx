@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { FormControl, MenuItem, InputLabel, Box, Select } from "@mui/material";
 import Header from "components/Header";
-import OverviewChart from "components/FarmOverviewChart";
+import FishOverviewChart from "components/FishOverViewChart";
 
-const Overview = () => {
-  const [view, setView] = useState("stock");
+
+const FishOverview = () => {
+  const [view, setView] = useState("numOfSpecies");
 
   return (
     <Box m="1.5rem 2.5rem">
       <Header
-        title="OVERVIEW"
-        subtitle="Overview of Stock and Survival"
+        title="FISH OVERVIEW"
+        subtitle="Overview of number of species and buying price"
       />
       <Box height="75vh">
         <FormControl sx={{ mt: "1rem" }}>
@@ -20,14 +21,14 @@ const Overview = () => {
             label="View"
             onChange={(e) => setView(e.target.value)}
           >
-            <MenuItem value="stock">Stock</MenuItem>
-            <MenuItem value="survival">Survival</MenuItem>
+            <MenuItem value="numOfSpecies">Number Of Species</MenuItem>
+            <MenuItem value="buyingPrice">Buying Price</MenuItem>
           </Select>
         </FormControl>
-        <OverviewChart view={view} />
+        <FishOverviewChart view={view} />
       </Box>
     </Box>
   );
 };
 
-export default Overview;
+export default FishOverview;

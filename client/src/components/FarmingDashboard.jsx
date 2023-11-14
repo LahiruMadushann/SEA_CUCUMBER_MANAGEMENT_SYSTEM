@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
-import OverviewChart from "components/OverviewChart";
+import OverviewChart from "components/FarmOverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
 import jsPDF from "jspdf";
@@ -28,6 +28,8 @@ import { UserContext } from "../UserContext";
 import FishViewChart from "./FishViewChart";
 import FarmViewChart from "./FarmViewChart";
 import FarmerBreakdownChart from "./FarmerBreakdownChart";
+import FarmStockBarChart from "./FarmStockBarChart";
+import FarmStockSurvivalBarChart from "./FarmStockSurvivalBarChart";
 
 
 const FarmingDashboard = () => {
@@ -301,6 +303,44 @@ const columns = [
             Breakdown of survival species type and month via category for revenue
             made for this year and species detail.
           </Typography>
+        </Box>
+        <Box gridColumn="span 6"
+          gridRow="span 3"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem">
+          <Typography variant="h5" sx={{
+            marginBottom: "-8vw",
+            textAlign: "center",
+            color: theme.palette.secondary[100]
+          }}>
+            Species Stock In The Year
+          </Typography>
+
+          {data ? (
+            <FarmStockBarChart isDashboard={true} />
+          ) : (
+            "Loading..."
+          )}
+        </Box>
+        <Box gridColumn="span 6"
+          gridRow="span 3"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem">
+          <Typography variant="h5" sx={{
+            marginBottom: "-8vw",
+            textAlign: "center",
+            color: theme.palette.secondary[100]
+          }}>
+            Species Survival Stock In The Year
+          </Typography>
+
+          {data ? (
+            <FarmStockSurvivalBarChart isDashboard={true} />
+          ) : (
+            "Loading..."
+          )}
         </Box>
       </Box>
     </Box>

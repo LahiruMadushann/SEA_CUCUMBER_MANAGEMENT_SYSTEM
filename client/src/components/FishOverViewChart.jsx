@@ -4,8 +4,7 @@ import { useTheme } from "@mui/material";
 import { useGetSalesQuery } from "state/api";
 import axios from "axios";
 
-
-const FishViewChart = ({ isDashboard = false, view }) => {
+const FishOverviewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
   const [detail, setDetail] = useState(null);
   const [data,setData] = useState();
@@ -13,90 +12,55 @@ const FishViewChart = ({ isDashboard = false, view }) => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`)
+      .then((response) => {
+        setData(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
-  
-    axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
+  const [totalStockLine, totalSurvivalLine] = useMemo(() => {
+    if (!data) return [[], []];
 
-      setDetail(response.data);
-      
-      setData(detail.data)
-    
-      // setData(detail.data)
-     // Set loading to false when the response is received
-      setIsLoading(false);
-
-     
-    });
-
-  }, [detail]);
-
-
-
-  const numberOfSpeciesChart = useMemo(() => {
-    if (isLoading || !data) return [];
-  
-    const speciesTypeMap = {};
-  
-    // Aggregate data based on speciesType
-    data.forEach(({ speciesType, numOfSpecies }) => {
-      if (speciesTypeMap[speciesType]) {
-        speciesTypeMap[speciesType] += numOfSpecies;
-      } else {
-        speciesTypeMap[speciesType] = numOfSpecies;
+    const aggregatedData = data.reduce((acc, { speciesType, numOfSpecies, buyingPrice }) => {
+      if (!acc[speciesType]) {
+        acc[speciesType] = { speciesType, numOfSpecies: 0, buyingPrice: 0 };
       }
-    });
-  
-    // Transform aggregated data into chart format
-    const chartData = Object.keys(speciesTypeMap).map((speciesType) => ({
-      x: speciesType,
-      y: speciesTypeMap[speciesType],
-    }));
-  
-    return [
-      {
-        id: "numOfSpecies",
-        color: theme.palette.secondary.main,
-        data: chartData,
-      },
-    ];
-  }, [isLoading, data, theme.palette.secondary.main]);
-  
-  
-  
-  
-  
+      acc[speciesType].numOfSpecies += numOfSpecies;
+      acc[speciesType].buyingPrice += buyingPrice;
+      return acc;
+    }, {});
 
-  //Jjjj
-  const buyingPriceChart = useMemo(() => {
-    if (isLoading || !data) return [];
-  
-    const buyingPriceMap = {};
-  
-    // Aggregate data based on speciesType
-    data.forEach(({ speciesType, buyingPrice }) => {
-      if (buyingPriceMap[speciesType]) {
-        buyingPriceMap[speciesType] += buyingPrice;
-      } else {
-        buyingPriceMap[speciesType] = buyingPrice;
-      }
-    });
-  
-    // Transform aggregated data into chart format, avoiding repetition
-    const chartData = Object.keys(buyingPriceMap).map((speciesType) => ({
-      x: speciesType,
-      y: buyingPriceMap[speciesType],
+    const chartData = Object.values(aggregatedData).map((entry) => ({
+      x: entry.speciesType,
+      numOfSpecies: entry.numOfSpecies,
+      buyingPrice: entry.buyingPrice,
     }));
-  
-    return [
-      {
-        id: "buyingPrice",
-        color: theme.palette.secondary.main,
-        data: chartData,
-      },
-    ];
-  }, [isLoading, data, theme.palette.secondary.main]);
-  
 
+    return [
+      [
+        {
+          id: "numOfSpecies",
+          color: theme.palette.secondary.main,
+          data: chartData.map((item) => ({ x: item.x, y: item.numOfSpecies })),
+        },
+      ],
+      [
+        {
+          id: "buyingPrice",
+          color: theme.palette.secondary[600],
+          data: chartData.map((item) => ({ x: item.x, y: item.buyingPrice })),
+        },
+      ],
+    ];
+  }, [data, theme.palette.secondary.main, theme.palette.secondary[600]]);
 
   if (!data || isLoading){ 
     return "Loading...";
@@ -107,7 +71,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
   return (
    
     <ResponsiveLine
-      data={view === "numOfSpecies" ? numberOfSpeciesChart : buyingPriceChart}  
+      data={view === "numOfSpecies" ? totalStockLine : totalSurvivalLine}
    
       theme={{
         axis: {
@@ -159,7 +123,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
       axisBottom={{
         format: (v) => {
           if (v) {
-            if (isDashboard) return v.slice(0, 3);
+            if (view) return v.slice(0, 3);
             return v;
           }
          
@@ -178,7 +142,7 @@ const FishViewChart = ({ isDashboard = false, view }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: view === "numOfSpecies" ? "Number of Species " : "Buying Price",
+        legend: view === "numOfSpecies" ? "Aqua Farming Stock" : "Aqua Farming Survival Stock",
         legendOffset: -60,
         legendPosition: "middle",
       }}
@@ -198,8 +162,8 @@ const FishViewChart = ({ isDashboard = false, view }) => {
                 anchor: "bottom-right",
                 direction: "column",
                 justify: false,
-                translateX: 30,
-                translateY: -40,
+                translateX: 35,
+                translateY: -490,
                 itemsSpacing: 0,
                 itemDirection: "left-to-right",
                 itemWidth: 80,
@@ -222,10 +186,8 @@ const FishViewChart = ({ isDashboard = false, view }) => {
           : undefined
       }
     />
-    
   );
- 
   
 };
 
-export default FishViewChart;
+export default FishOverviewChart;

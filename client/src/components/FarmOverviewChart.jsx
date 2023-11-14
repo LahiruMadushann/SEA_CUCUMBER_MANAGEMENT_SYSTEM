@@ -12,60 +12,55 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-
-  
-    axios.get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`).then(response => {
-
-      setDetail(response.data);
-      
-      setData(detail.data)
-    
-      // setData(detail.data)
-     // Set loading to false when the response is received
-      setIsLoading(false);
-
-     
-    });
-
-  }, [detail]);
+    setIsLoading(true);
+    axios
+      .get(`${baseUrl}/districtAquaCulturist/getAllAquaFarmingDetails`)
+      .then((response) => {
+        setData(response.data.data || []);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   const [totalStockLine, totalSurvivalLine] = useMemo(() => {
-    if (!data) return [];
+    if (!data) return [[], []];
 
-    const  monthlyData = data;
-   
-    const totalStockLine = {
-      id: "stock",
-      color: theme.palette.secondary.main,
-      data: [],
-    };
-    const totalSurvivalLine = {
-      id: "survival",
-      color: theme.palette.secondary[600],
-      data: [],
-    };
+    const aggregatedData = data.reduce((acc, { month, stock, survival }) => {
+      if (!acc[month]) {
+        acc[month] = { month, stock: 0, survival: 0 };
+      }
+      acc[month].stock += stock;
+      acc[month].survival += survival;
+      return acc;
+    }, {});
 
-    Object.values(monthlyData).reduce(
-      (acc, { month, stock, survival }) => {
-        const curStock = acc.sales + stock;
-        const curSurvival = acc.units + survival;
-        
-        totalStockLine.data = [
-          ...totalStockLine.data,
-          { x: month, y: curStock },
-        ];
-        totalSurvivalLine.data = [
-          ...totalSurvivalLine.data,
-          { x: month, y: curSurvival },
-        ];
+    const chartData = Object.values(aggregatedData).map((entry) => ({
+      x: entry.month,
+      stock: entry.stock,
+      survival: entry.survival,
+    }));
 
-        return { sales: curStock, units: curSurvival };
-      },
-      { sales: 0, units: 0 }
-    );
-
-    return [[totalStockLine], [totalSurvivalLine]];
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+    return [
+      [
+        {
+          id: "stock",
+          color: theme.palette.secondary.main,
+          data: chartData.map((item) => ({ x: item.x, y: item.stock })),
+        },
+      ],
+      [
+        {
+          id: "survival",
+          color: theme.palette.secondary[600],
+          data: chartData.map((item) => ({ x: item.x, y: item.survival })),
+        },
+      ],
+    ];
+  }, [data, theme.palette.secondary.main, theme.palette.secondary[600]]);
 
   if (!data || isLoading){ 
     return "Loading...";
@@ -167,7 +162,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
                 anchor: "bottom-right",
                 direction: "column",
                 justify: false,
-                translateX: 30,
+                translateX: 75,
                 translateY: -40,
                 itemsSpacing: 0,
                 itemDirection: "left-to-right",

@@ -38,7 +38,7 @@ const UserProfileEdit = () => {
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
-    
+
     useEffect(() => {
 
         if (!userId) {
@@ -48,25 +48,25 @@ const UserProfileEdit = () => {
             }
             return <div>Loading...</div>;
         }
-         axios.get(`${baseUrl}/user/${userId}`).then(response => {
+        axios.get(`${baseUrl}/user/${userId}`).then(response => {
 
             setDetail(response.data);
 
             setLoading(false); // Set loading to false when the response is received
             setPageLoaded(true);
-            console.log("sucesss",user)
+            console.log("sucesss", user)
 
             // setUser(detail);
 
             console.log("Response ek  Navbar pgo", response.data)
-            
+
         });
 
     }, [userId]);
 
     const { pathname } = useLocation();
 
-    
+
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -119,7 +119,7 @@ const UserProfileEdit = () => {
 
 
 
-  
+
 
 
 
@@ -146,15 +146,12 @@ const UserProfileEdit = () => {
             // };
 
             const formData = new FormData();
-            formData.append('image', selectedImage);
+            formData.append('profilepic', selectedImage);
+            formData.append('userId', userId);
 
-
-            const response = await axios.put(`${baseUrl}/admin/updateProfilePic`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
+            console.log("image eka", selectedImage)
+            const response = await axios.put(`${baseUrl}/admin/updateProfilePic`, formData);
+            console.log("image type ek", selectedImage.name)
             if (response.status === 200) {
                 console.log("Image successfully updated in the database.");
                 // Profile update successful
@@ -511,7 +508,7 @@ const UserProfileEdit = () => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 1.5, marginLeft: '-62vw', px: 5, fontWeight: "bold", height: '60px', width: '200px', border: '2px solid #3644C5', borderRadius: '28px', backgroundColor: 'white', color: '#3644C5' }}
+                                sx={{ mt: 8, marginLeft: '-62vw', px: 5, fontWeight: "bold", height: '60px', width: '200px', border: '2px solid #3644C5', borderRadius: '28px', backgroundColor: 'white', color: '#3644C5' }}
                             >
                                 UPDATE DETAIL
                             </Button>
@@ -519,7 +516,7 @@ const UserProfileEdit = () => {
                                 type="button"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 1.5, marginLeft: '-28vw', px: 5, fontWeight: "bold", height: '60px', width: '200px', border: '2px solid #E71010', borderRadius: '28px', backgroundColor: 'white', color: '#E71010' }}
+                                sx={{ mt: 8, marginLeft: '-28vw', px: 5, fontWeight: "bold", height: '60px', width: '200px', border: '2px solid #E71010', borderRadius: '28px', backgroundColor: 'white', color: '#E71010' }}
                                 onClick={back}
                             >
                                 Cancel
@@ -533,7 +530,7 @@ const UserProfileEdit = () => {
             <input
                 id="fileInput"
                 type="file"
-                accept="image/*"
+                accept=".jpg, .jpeg, .png, image/*"
                 onChange={handleImageChange}
                 style={{ display: 'none' }}
             />

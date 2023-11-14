@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import axios from "axios";
@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
-import OverviewChart from "components/OverviewChart";
+import OverviewChart from "components/FarmOverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
 import jsPDF from "jspdf";
@@ -26,6 +26,8 @@ import html2canvas from "html2canvas";
 import { useSelector } from "react-redux";
 import { UserContext } from "../UserContext";
 import FishViewChart from "./FishViewChart";
+import FishViewBarChart from "./FishViewTotalBarChart";
+import FishViewPriceBarChart from "./FishViewPriceBarChart";
 
 
 const FishermenDashboard = () => {
@@ -41,14 +43,14 @@ const FishermenDashboard = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
 
-  
+
     axios.get(`${baseUrl}/fisheriesdashboard/getAllFishingDetails`).then(response => {
 
       // setDetail(response.data);
       setData(response.data.data)
-     // Set loading to false when the response is received
+      // Set loading to false when the response is received
       setIsLoading(false);
-      
+
       console.log("Dashboard Data", data)
     });
 
@@ -92,7 +94,7 @@ const FishermenDashboard = () => {
     });
   };
 
-const columns = [
+  const columns = [
     // {
     //   field: "_id",
     //   headerName: "ID",
@@ -106,24 +108,24 @@ const columns = [
     {
       field: "speciesType",
       headerName: "Species Type",
-      flex: 1,
+      flex: 1.3,
     },
     {
       field: "numOfSpecies",
       headerName: "Num Of Species",
-      flex: 1,
+      flex: 0.8,
     },
     {
       field: "buyer",
       headerName: "Buyer",
-      flex: 1,
-      
+      flex: 0.8,
+
     },
     {
       field: "buyingPrice",
       headerName: "Buying Price",
-      flex: 1,
-      
+      flex: 0.8,
+
     },
   ];
 
@@ -160,7 +162,7 @@ const columns = [
           "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
         }}
       >
-       
+
         {/* Dashboard Chart */}
         <Box
           gridColumn="span 6"
@@ -169,7 +171,7 @@ const columns = [
           p="1rem"
           borderRadius="0.55rem"
         >
-            <FishViewChart view="numOfSpecies" isDashboard={true} />
+          <FishViewChart view="numOfSpecies" isDashboard={true} />
           {/* <OverviewChart view="stock" isDashboard={true} /> */}
         </Box>
         <Box
@@ -181,7 +183,7 @@ const columns = [
         >
           <FishViewChart view="buyingPrice" isDashboard={true} />
         </Box>
-       
+
 
         {/* ROW 2 */}
         <Box
@@ -229,7 +231,7 @@ const columns = [
           borderRadius="0.55rem"
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-          Fishing Species Detail
+            Fishing Species Detail
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography
@@ -241,8 +243,46 @@ const columns = [
             made for this year and species detail.
           </Typography>
         </Box>
+        <Box gridColumn="span 6"
+          gridRow="span 3"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem">
+          <Typography variant="h5" sx={{
+            marginBottom: "-8vw",
+            textAlign: "center",
+            color: theme.palette.secondary[100]
+          }}>
+            Species Type and Their Total
+          </Typography>
+
+          {data ? (
+            <FishViewBarChart view="numOfSpecies" isDashboard={true} />
+          ) : (
+            "Loading..."
+          )}
+        </Box>
+        <Box gridColumn="span 6"
+          gridRow="span 3"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem">
+          <Typography variant="h5" sx={{
+            marginBottom: "-8vw",
+            textAlign: "center",
+            color: theme.palette.secondary[100]
+          }}>
+            Species Type and Their Buying Price
+          </Typography>
+
+          {data ? (
+            <FishViewPriceBarChart isDashboard={true} />
+          ) : (
+            "Loading..."
+          )}
+        </Box>
       </Box>
     </Box>
   );
-  }
-  export default FishermenDashboard;
+}
+export default FishermenDashboard;

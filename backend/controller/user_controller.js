@@ -100,10 +100,10 @@ exports.getUserDetails = async (req, res, next) => {
 //UPDATE USER DETAILS CONTROLLER
 exports.updateUser = async (req, res, next) => {
   try {
-    const {userId}= req.params
-   
+    const { userId } = req.params
+
     const {
-     
+
       age,
       gender,
       email,
@@ -116,7 +116,7 @@ exports.updateUser = async (req, res, next) => {
       province,
       country,
     } = req.body;
-    
+
     const updatedAt = new Date().toISOString();
 
     let updateUserDetails = await userService.updateUserDetails(
@@ -156,13 +156,15 @@ exports.updateUser = async (req, res, next) => {
 exports.updateProfilePic = async (req, res, next) => {
   try {
     const { userId } = req.body;
-
-    if (req.file === undefined) {
-      return res.json({ status: false, success: "you must select a file" });
+   
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "You must select a file" });
     }
-
+    
+    
     const profilepic = req.file.filename;
-
+    
+    
     let updateProfilepic = await userService.updateProfilePic(
       userId,
       profilepic
@@ -170,7 +172,7 @@ exports.updateProfilePic = async (req, res, next) => {
 
     let updatedToken = await userService.getUpdatedToken(userId);
 
-    console.log("Updated Token: ", updatedToken);
+    // console.log("Updated Token: ", updatedToken);
 
     if (updateProfilepic) {
       res.status(200).json({
@@ -413,8 +415,8 @@ exports.updateContactUs = async (req, res, next) => {
   try {
     const { id, state } = req.params;
     const { commentId, comment, email, reply, message } = req.body;
- console.log("hello hello")
-  
+    console.log("hello hello")
+
     // const { userId } = req.body;
     let uContactUs = await userService.updateContactUs(id, state);
 
@@ -443,14 +445,14 @@ exports.updateContactUs = async (req, res, next) => {
 //update contactUs
 exports.updateArticles = async (req, res, next) => {
   try {
-    const { id} = req.params;
-    const { category, heading, content, link} = req.body;
+    const { id } = req.params;
+    const { category, heading, content, link } = req.body;
 
-    let articleUpdate = await knowledgeCenterService.updateArticles(id, category,heading,content,link);
+    let articleUpdate = await knowledgeCenterService.updateArticles(id, category, heading, content, link);
 
     if (articleUpdate) {
       res.status(200).json({ success: true, message: "Article Update" });
-    
+
     } else {
       res
         .status(400)

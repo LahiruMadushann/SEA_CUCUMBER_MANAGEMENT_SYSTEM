@@ -70,13 +70,17 @@ const Login = ({ user }) => {
           confirmButtonText: "Ok!",
           
         });
+
+        if(decodedToken.role === "Fisherman"){
+          navigate('/fishingdashboard');
+        }else if(decodedToken.role === "Farmer"){
+          navigate('/farmingdashboard');
+
+        }else{
+          navigate('/fishingdashboard');
+        }
     
-       
-
-
-
-        // navigating to another screen
-        navigate('/dashboard');
+   
       } else {
         // Show an alert for unsuccessful login
         Swal.fire({
