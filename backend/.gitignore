@@ -27,6 +27,6 @@ yarn-error.log*
 #*.jpg
 
 #Images
-/Images/profilePics
-/Images/processorStockImages
-/Images/fishingImages
+# /Images/profilePics
+# /Images/processorStockImages
+# /Images/fishingImages
