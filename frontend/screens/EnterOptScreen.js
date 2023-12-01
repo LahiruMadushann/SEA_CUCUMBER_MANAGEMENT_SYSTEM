@@ -19,10 +19,10 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import BASE_URL from "../apiConfig/config";
 
 export default function EnterOptScreen() {
-  const route = useRoute(); // Get the route object
-  // Access the farmId parameter from route.params
+  const route = useRoute();
   const email = route.params?.email || "";
   const userId = route.params?.userId || "";
+
   const [countdown, setCountdown] = useState(30);
 
   useEffect(() => {

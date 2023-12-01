@@ -102,6 +102,7 @@ export default function ViewSingleProcessedRecScreen() {
           { recordId: recordId }
         );
         setSingleProcessedDetails(response.data.data);
+        // console.log(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching stock data:", error);
@@ -125,8 +126,15 @@ export default function ViewSingleProcessedRecScreen() {
     date: db_date,
   } = singleProcessedDetails.length > 0 ? singleProcessedDetails[0] : {};
 
+  console.log(db_processorStockImages);
+
+  const imageFileNamesArray = (db_processorStockImages || "").split(",");
+
   const BASE_URL_FOR_STOCK_PICS = `${BASE_URL}/processorStock-pics`;
-  const stockImageUrl = `${BASE_URL_FOR_STOCK_PICS}/${db_processorStockImages}`;
+  const stockImageUrls = imageFileNamesArray.map(
+    (fileName) => `${BASE_URL_FOR_STOCK_PICS}/${fileName}`
+  );
+  console.log(stockImageUrls);
 
   const TableRow = ({ label, value }) => (
     <View style={styles.tableRow}>
@@ -197,20 +205,25 @@ export default function ViewSingleProcessedRecScreen() {
             />
           </View>
           <View className="flex m-[auto]">
-            <Image
-              source={{ uri: stockImageUrl }}
-              className=" w-[80vw] h-[30vh] rounded-[2px] bg-[#FFFFFF] shadow-lg shadow-gray-800"
-            />
+            {stockImageUrls.map((stockImageUrl, index) => (
+              <Image
+                key={index}
+                source={{ uri: stockImageUrl }}
+                className="w-[80vw] h-[30vh] rounded-[2px] bg-[#FFFFFF] shadow-lg m-2 shadow-gray-800"
+              />
+            ))}
           </View>
           <View className="flex-row mb-[2vh] mr-[5vw] justify-end">
-           {(db_role === "Processor" && <TouchableOpacity
-              className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
-              onPress={handleDelete}
-            >
-              <Text className="text-[#fff] text-[15px] font-bold text-center">
-                Delete Record
-              </Text>
-            </TouchableOpacity>)}
+            {db_role === "Processor" && (
+              <TouchableOpacity
+                className="bg-[#D23434] rounded-[5px] w-[40vw] py-[5px] px-[10px] shadow-sm shadow-gray-700"
+                onPress={handleDelete}
+              >
+                <Text className="text-[#fff] text-[15px] font-bold text-center">
+                  Delete Record
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

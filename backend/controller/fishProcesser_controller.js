@@ -104,13 +104,22 @@ exports.enterSCProcessedDetails = async (req, res, next) => {
       date,
     } = req.body;
 
-    console.log("asdsadasd");
+    console.log("Files: ", req.files);
 
-    if (req.file === undefined) {
+    if (req.files === undefined || req.files.length === 0) {
       return res.json({ success: false, message: "you must select a file" });
     }
 
-    const processorStockImages = req.file.filename;
+    if (req.files) {
+      let path = "";
+      req.files.forEach(function (files, index, arr) {
+        path = path + files.filename + ",";
+      });
+      path = path.substring(0, path.lastIndexOf(","));
+      processorStockImages = path;
+    }
+
+    // const processorStockImages = req.file.filename;
 
     const successEnterProcessedDetails =
       await fishProcesserService.enterProcessedDetails(

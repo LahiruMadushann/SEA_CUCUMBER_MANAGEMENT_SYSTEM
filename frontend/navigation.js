@@ -190,7 +190,7 @@ export default function Navigation() {
           name="MainNotificationScreen"
           component={MainNotificationScreen}
         />
-        
+
         <Stack.Screen
           name="SingleNotificationScreen"
           component={SingleNotificationScreen}

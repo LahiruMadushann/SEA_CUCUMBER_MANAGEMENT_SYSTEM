@@ -61,6 +61,11 @@ export default function ViewProcessedRecordsScreen() {
     }
 
     fetchProcessedDetails();
+
+    return () => {
+      console.log("Clean up");
+      fetchProcessedDetails();
+    };
   }, [db_id]);
 
   if (isLoading) {
