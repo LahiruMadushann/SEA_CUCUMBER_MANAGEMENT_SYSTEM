@@ -25,7 +25,7 @@ router.post("/fishProcessers/changePassword", userController.changePassword);
 
 router.post(
   "/fishProcessers/enterProcessedDetails",
-  processorStockMiddleware.single("processorStockImages"),
+  processorStockMiddleware.array("processorStockImages", 3),
   fishProcesserController.enterSCProcessedDetails
 );
 

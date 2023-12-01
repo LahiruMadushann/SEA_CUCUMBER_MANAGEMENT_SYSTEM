@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
@@ -40,7 +40,7 @@ export default function EnterProcessedDataScreen() {
   const [collectedFrom, setCollectedFrom] = useState("");
   const [collectedLocation, setCollectedLocation] = useState("");
   const [weight, setWeight] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([]);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -55,16 +55,22 @@ export default function EnterProcessedDataScreen() {
     setShowDatePicker(true);
   };
 
+  // useEffect(() => {
+  //   console.log("Image: ", image);
+  // }, [image]);
+
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      // allowsEditing: true,
+      allowsMultipleSelection: true,
       aspect: [4, 3],
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+    if (!result.cancelled) {
+      const selectedImageURIs = result.assets.map((asset) => asset.uri);
+      setImage(selectedImageURIs);
     }
   };
 
@@ -86,12 +92,13 @@ export default function EnterProcessedDataScreen() {
     formData.append("collectedFrom", collectedFrom);
     formData.append("collectedLocation", collectedLocation);
     formData.append("date", date.toISOString());
-    formData.append("processorStockImages", {
-      uri: image,
-      type: "image/jpeg",
-      name: "stockImage.jpg",
+    image.forEach((img, index) => {
+      formData.append("processorStockImages", {
+        uri: img,
+        type: "image/jpeg",
+        name: `stockImage_${index}.jpg`,
+      });
     });
-
     console.log(formData);
 
     const insertUrl = `${BASE_URL}/fishProcessers/enterProcessedDetails`;
@@ -117,7 +124,7 @@ export default function EnterProcessedDataScreen() {
         setCollectedLocation("");
         setWeight("");
         setDate(new Date());
-        setImage("");
+        setImage([]);
 
         // navigation.navigate("UserProfileMainScreen");
       } else {
@@ -205,6 +212,7 @@ export default function EnterProcessedDataScreen() {
                 value={weight}
                 onChangeText={setWeight}
                 placeholder="Weight In Kg"
+                keyboardType="numeric"
                 required
               />
 
@@ -234,13 +242,14 @@ export default function EnterProcessedDataScreen() {
                   <Text style={styles.pickImageText}>Select Stock Image</Text>
                 </TouchableOpacity>
               </View>
-              {image && (
+              {image.map((img, index) => (
                 <Image
+                  key={index}
                   className="mt-[3vh] mx-auto rounded-[15px]"
-                  source={{ uri: image }}
+                  source={{ uri: img }}
                   style={{ width: 300, height: 200 }}
                 />
-              )}
+              ))}
             </View>
 
             <View className="mt-[2vh] mb-[5vh]">

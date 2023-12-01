@@ -45,7 +45,7 @@ export default function HomeScreen() {
 
         <View className="mt-[107vw]">
           <Text className="text-center text-[#000000CC] text-[22px] font-bold">
-            Sea Cucumber{"\n"} Animal
+            Sea Cucumber
           </Text>
         </View>
 

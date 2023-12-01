@@ -61,7 +61,7 @@ export default function EnterFishingDetailsScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+      setImage(result.uri); 
     }
   };
 

@@ -13,7 +13,6 @@ import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
 import { useAuth } from "../auth/AuthContext";
-import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 
 export default function MainFisheriesScreen() {
   const navigation = useNavigation();
