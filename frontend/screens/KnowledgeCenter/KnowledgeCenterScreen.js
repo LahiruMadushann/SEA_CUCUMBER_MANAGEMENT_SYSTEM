@@ -62,11 +62,9 @@ export default function KnowledgeCenterScreen() {
     setData(filteredData);
   };
 
-  const contains = ({ scientificName, speciesType }, query) => {
-    if (scientificName.includes(query) || speciesType.includes(query)) {
-      return true;
-    }
-    return false;
+  const contains = ({ scientificName }, query) => {
+    const formattedScientificName = scientificName.toLowerCase();
+    return formattedScientificName.includes(query);
   };
 
   //console.log(allSpeciesData);
