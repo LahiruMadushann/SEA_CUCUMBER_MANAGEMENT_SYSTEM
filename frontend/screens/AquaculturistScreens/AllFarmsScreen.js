@@ -112,69 +112,66 @@ export default function AllFarmsScreen() {
                   className=" w-[90vw] h-[15vh]  mt-[0.5vh] ml-[0.5vw] rounded-[10px] "
                 />
               </View> */}
+              <TextInput
+                style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+                className="w-[75vw] mt-5 mx-auto rounded-[15px] p-4 mb-4 bg-[#EBEEF9] text-black"
+                onChangeText={(query) => handleSearch(query)}
+                value={searchText}
+                placeholder="Search by Farm Name"
+                clearButtonMode="always"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
             </View>
           </View>
-          <View className="mt-[25vh] mx-auto ">
-            <TextInput
-              style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
-              className="w-[75vw] mx-auto rounded-[15px] p-4 mb-4 bg-[#EBEEF9] text-black"
-              onChangeText={(query) => handleSearch(query)}
-              value={searchText}
-              placeholder="Search by Farm Name"
-              clearButtonMode="always"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-
+          <View className="mt-[33vh] mx-auto h-[55vh]">
             {/* Loop through allFarmData and display farm details */}
-
-              <FlatList
-                data={data}
-                keyExtractor={(farm) => farm._id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("MainFarmScreen", {
-                        farmId: item._id,
-                        farmName: item.name,
-                        directedFarm: "allFarmsPage",
-                      })
-                    }
-                    className="w-[82vw] h-[auto] pb-[2vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-                  >
-                    <View key={item._id}>
-                      <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                        <Text className="text-[18px] font-bold text-[#5A73F4]">
-                          {item.name}
-                        </Text>
-                      </View>
-
-                      <View className="flex mt-[1vw] ml-[10vw]">
-                        <Text className=" text-[15px] flex-auto mt-[1vw]">
-                          Location : {item.location}
-                        </Text>
-                        {item.stock && (
-                          <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                            Total Stock : {item.stock}
-                          </Text>
-                        )}
-                        {!item.stock && (
-                          <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                            No Stock available
-                          </Text>
-                        )}
-                        {item.stock && (
-                          <Text className=" text-[15px] flex-auto mt-[1vw]">
-                            Last stock update :{" "}
-                            {`${formatDate(item.stockingDates)}`}
-                          </Text>
-                        )}
-                      </View>
+            <FlatList
+              data={data}
+              keyExtractor={(farm) => farm._id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("MainFarmScreen", {
+                      farmId: item._id,
+                      farmName: item.name,
+                      directedFarm: "allFarmsPage",
+                    })
+                  }
+                  className="w-[82vw] h-[auto] pb-[2vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                >
+                  <View key={item._id}>
+                    <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
+                      <Text className="text-[18px] font-bold text-[#5A73F4]">
+                        {item.name}
+                      </Text>
                     </View>
-                  </TouchableOpacity>
-                )}
-              />
-  
+
+                    <View className="flex mt-[1vw] ml-[10vw]">
+                      <Text className=" text-[15px] flex-auto mt-[1vw]">
+                        Location : {item.location}
+                      </Text>
+                      {item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                          Total Stock : {item.stock}
+                        </Text>
+                      )}
+                      {!item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                          No Stock available
+                        </Text>
+                      )}
+                      {item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw]">
+                          Last stock update :{" "}
+                          {`${formatDate(item.stockingDates)}`}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
