@@ -43,7 +43,11 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View className="mt-[107vw]">
+        <View className="mt-[107vw] flex-1 justify-center items-center">
+          <Image
+            source={require("../assets/landingImage.png")}
+            className="w-[100px] h-[100px] center"
+          />
           <Text className="text-center text-[#000000CC] text-[22px] font-bold">
             Sea Cucumber
           </Text>
@@ -70,7 +74,7 @@ export default function HomeScreen() {
           disabled={!agree}
           className="mx-auto"
         >
-          <Text className="text-center text-[5vw] font-bold text-[#FFFFFF]  py-1 px-12 ">
+          <Text className="text-center text-[5vw] font-bold text-[#FFFFFF]">
             Get Start
           </Text>
         </TouchableOpacity>
