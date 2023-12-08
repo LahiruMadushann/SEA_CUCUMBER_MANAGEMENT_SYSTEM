@@ -65,7 +65,7 @@ export default function RegisterScreen() {
             <View className="mx-auto self-center mt-[54vw] ">
               <TouchableOpacity
                 onPress={() => navigation.navigate("FarmerRegister")}
-                className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+                className="w-[82vw] h-[20vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                   <Text className="text-[15px] font-bold text-[#000000A6]">
@@ -78,11 +78,13 @@ export default function RegisterScreen() {
                     source={require("../assets/main_board/fishing.png")}
                     className="w-[73px] h-[55px] ml-[39px] mt-[4px]"
                   />
-                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-52px] ml-[15px]">
+                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-65px] ml-[15px]">
                     Farmer
                   </Text>
-                  <Text className=" text-[10px] mt-[4px] ml-[130px] mr-8 flex-auto ">
-                    for Insert the details about fishing the sea cucumber
+                  <Text className=" text-[10px] mt-[4px] ml-[130px] mr-8 text-justify flex-auto ">
+                    Become a farmer by registering to engage in aquaculture,
+                    accessing information on best practices, and connecting with
+                    a supportive community of like-minded individuals.
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -90,7 +92,7 @@ export default function RegisterScreen() {
               {/*REGISTER AS A FISHERMAN */}
               <TouchableOpacity
                 onPress={() => navigation.navigate("FishermanRegisterScreen")}
-                className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
+                className="w-[82vw] h-[20vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                   <Text className="text-[15px] font-bold text-[#000000A6]">
@@ -102,12 +104,13 @@ export default function RegisterScreen() {
                     source={require("../assets/register/scuba.png")}
                     className="w-[73px] h-[55px] ml-[39px] mt-[4px]"
                   />
-                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-58px] ml-[83px]">
+                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-65px] ml-[83px]">
                     Fisherman
                   </Text>
-                  <Text className="text-[10px] mt-[4px] ml-[130px] mr-8 flex-auto">
-                    Use knowledge center with better experience User other
-                    sections to get an idea
+                  <Text className="text-[10px] mt-[4px] ml-[130px] text-justify mr-8 flex-auto">
+                    Join as a fisherman to access tools, resources, and a
+                    collaborative community for optimizing fishing activities
+                    and promoting sustainable practices.
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -115,7 +118,7 @@ export default function RegisterScreen() {
               {/*REGISTER AS A EXPORTER */}
               <TouchableOpacity
                 onPress={() => navigation.navigate("ExporterRegister")}
-                className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700"
+                className="w-[82vw] h-[20vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 pb-2"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                   <Text className="text-[15px] font-bold text-[#000000A6]">
@@ -127,12 +130,13 @@ export default function RegisterScreen() {
                     source={require("../assets/main_board/farming.png")}
                     className="w-[73px] h-[55px] ml-[39px] mt-[4px]"
                   />
-                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-52px] ml-8">
+                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-65px] ml-8">
                     Exporter
                   </Text>
-                  <Text className="text-[10px] mt-[4px] ml-[130px] mr-8 flex-auto">
-                    for Insert the details about farming the sea cucamba {"\\n"}
-                    Update Details about stoke and etc
+                  <Text className="text-[10px] mt-[4px] ml-[130px] text-justify mr-8 flex-auto">
+                    Register as an exporter to oversee international
+                    distribution processes and ensure compliance with global
+                    standards.
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -140,7 +144,7 @@ export default function RegisterScreen() {
               {/*REGISTER AS A FISH PROCESSOR */}
               <TouchableOpacity
                 onPress={() => navigation.navigate("ProcessorRegisterScreen")}
-                className="w-[82vw] h-[17.5vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]"
+                className="w-[82vw] h-[20vh] rounded-[30px] bg-[#FFFFFF] mt-[6vw] shadow-lg shadow-gray-700 mb-[12vw]"
               >
                 <View className="w-[143px] h-[25px] ml-[64px] mt-[4vw]">
                   <Text className="text-[15px] font-bold text-[#000000A6]">
@@ -149,15 +153,16 @@ export default function RegisterScreen() {
                 </View>
                 <View className="flex ">
                   <Image
-                    source={require("../assets/main_board/knowledge.png")}
-                    className="w-[73px] h-[55px] ml-[39px] mt-[4px]"
+                    source={require("../assets/register/processors.png")}
+                    className="w-[80px] h-[60px] ml-[39px] mt-[10px]"
                   />
-                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-58px] ml-[83px]">
+                  <Text className="text-right mr-[45px] text-[18px] font-bold flex-auto mt-[-75px] ml-[83px]">
                     Processor
                   </Text>
-                  <Text className="text-[10px] mt-[4px] ml-[130px] mr-8 flex-auto">
-                    Use knowledge center with better experience User other
-                    sections to get an idea
+                  <Text className="text-[10px] mt-[4px] ml-[130px] text-justify mr-8 flex-auto">
+                    Register as a processor to gain insights, tools, and
+                    guidelines for efficiently transforming raw marine products
+                    into high-quality goods ready for the market.
                   </Text>
                 </View>
               </TouchableOpacity>
