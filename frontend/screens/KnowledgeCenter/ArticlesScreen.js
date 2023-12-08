@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
+import { FlatList } from "react-native";
 
 import axios from "axios";
 import CustomLink from "../../components/customlink";
 import {
   StyleSheet,
   Text,
+  TextInput,
   View,
   Dimensions,
   Image,
@@ -13,6 +15,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+
+import filter from "lodash.filter";
+
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 
@@ -28,8 +33,9 @@ export default function ArticlesScreen() {
   const category = route.params?.category || "";
 
   // console.log(speciesId);
-
+  const [searchText, setSearchText] = useState("");
   const [allArticlesCategories, setAllArticlesCategories] = useState([]);
+  const [data, setData] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,6 +43,7 @@ export default function ArticlesScreen() {
       try {
         const response = await axios.get(`${BASE_URL}/user/getAllArticlesData`);
         setAllArticlesCategories(response.data.data); // Update state with fetched data
+        setData(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching Species data:", error);
@@ -51,7 +58,19 @@ export default function ArticlesScreen() {
     return <LoadingIndicator />;
   }
 
-  // console.log(allArticlesCategories);
+  const handleSearch = (query) => {
+    setSearchText(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(allArticlesCategories, (articles) => {
+      return contains(articles, formattedQuery);
+    });
+    setData(filteredData);
+  };
+
+  const contains = ({ heading }, query) => {
+    const formattedHeading = heading.toLowerCase();
+    return formattedHeading.includes(query);
+  };
 
   return (
     <SafeAreaView
@@ -93,26 +112,39 @@ export default function ArticlesScreen() {
             </View>
           </View>
 
-          <View className="mt-[32vh]">
-            {/* Loop through Articles and display category */}
-            {allArticlesCategories.map((articles) => (
-              <View key={articles._id}>
-                {articles.category === category && (
-                  <View className="w-[auto] h-[auto] mx-auto mb-3 mt-3 flex-auto ">
-                    <Text className="text-center text-[15px] mt-[2vh]  ml-[5vh]  mr-[5vh] font-bold text-[#000000A6]">
-                      {articles.heading}
-                    </Text>
-                    <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#000000A6]">
-                      {articles.content}
-                    </Text>
-                    <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#ff0000]">
-                      Read More : -
-                    </Text>
-                    <CustomLink url={articles.link} />
-                  </View>
-                )}
-              </View>
-            ))}
+          <View className="mt-[35vh] mx-auto">
+            <TextInput
+              style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+              className="w-[75vw] mx-auto rounded-[15px] p-4 bg-[#EBEEF9] text-black"
+              onChangeText={(query) => handleSearch(query)}
+              value={searchText}
+              placeholder="Search"
+              clearButtonMode="always"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <FlatList
+              data={data}
+              keyExtractor={(articles) => articles._id}
+              renderItem={({ item }) => (
+                <View className="w-[100vw] h-[auto] bg-[#FFFFFF]">
+                  {item.category === category && (
+                    <View className="w-[auto] h-[auto] mx-auto mb-3 mt-3 flex-auto ">
+                      <Text className="text-center text-[15px] mt-[2vh]  ml-[5vh]  mr-[5vh] font-bold text-[#000000A6]">
+                        {item.heading}
+                      </Text>
+                      <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#000000A6]">
+                        {item.content}
+                      </Text>
+                      <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#ff0000]">
+                        Read More : -
+                      </Text>
+                      <CustomLink url={item.link} />
+                    </View>
+                  )}
+                </View>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

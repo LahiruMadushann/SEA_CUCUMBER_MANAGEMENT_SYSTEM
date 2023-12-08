@@ -93,9 +93,9 @@ export default function MainBoardScreen() {
                   <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-[24vw]">
                     Fisheries
                   </Text>
-                  <Text className="text-center text-[12px] mt-[-2px] ml-[30vw] mr-[9vw] flex-auto text-justify">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.{" "}
+                  <Text className="text-center text-[12px] mt-[-2px] ml-[30vw] flex-auto  mr-5">
+                    Navigate the seas sustainably, harvesting ocean treasures to
+                    support thriving ecosystems.
                   </Text>
                 </View>
               </View>
@@ -113,9 +113,9 @@ export default function MainBoardScreen() {
                 <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-24">
                   Farming
                 </Text>
-                <Text className="text-center text-[12px] mt-[4] ml-[30vw] mr-[9vw] flex-auto text-justify">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.{" "}
+                <Text className="text-center text-[12px] mt-[4] ml-[30vw] mr-[9vw] flex-auto">
+                  Foster the growth of seacucumbers through ensuring quality and
+                  sustainability.
                 </Text>
               </View>
             </TouchableOpacity>
@@ -132,9 +132,9 @@ export default function MainBoardScreen() {
                 <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-24">
                   Knowledge
                 </Text>
-                <Text className="text-center text-[12px] mt-1 ml-[30vw] mr-[9vw] flex-auto text-justify">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.{" "}
+                <Text className="text-center text-[12px] mt-1 ml-[30vw] mr-[5vw] flex-auto ">
+                  Delve into the world of seacucumbers, gaining insights to
+                  enhance your understanding.
                 </Text>
               </View>
             </TouchableOpacity>
