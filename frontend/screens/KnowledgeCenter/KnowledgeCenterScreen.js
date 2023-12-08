@@ -62,8 +62,8 @@ export default function KnowledgeCenterScreen() {
     setData(filteredData);
   };
 
-  const contains = ({ scientificName }, query) => {
-    const formattedScientificName = scientificName.toLowerCase();
+  const contains = ({ scientificName, speciesType }, query) => {
+    const formattedScientificName = `${scientificName.toLowerCase()} ${speciesType.toLowerCase()}`;
     return formattedScientificName.includes(query);
   };
 
@@ -79,7 +79,7 @@ export default function KnowledgeCenterScreen() {
           contentContainerStyle={{ flexGrow: 1 }}
           className="bg-[#fff]"
         >
-          <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
+          <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0] rounded-b-full ">
             <View className="flex-row mt-[60vh]">
               <View className=" ml-[4vw]">
                 <TouchableOpacity
@@ -106,14 +106,14 @@ export default function KnowledgeCenterScreen() {
               className="w-[75vw] mx-auto rounded-[15px] p-4 mt-[10vw] bg-[#fff] text-black"
               onChangeText={(query) => handleSearch(query)}
               value={searchText}
-              placeholder="Search"
+              placeholder="Search by Scientific name / Species Type"
               clearButtonMode="always"
               autoCapitalize="none"
               autoCorrect={false}
             />
           </View>
 
-          <View className="mt-[40vh] mx-auto">
+          <View className="mt-[40vh] h-[50vh] mx-auto">
             <FlatList
               data={data}
               keyExtractor={(species) => species._id}
@@ -141,10 +141,6 @@ export default function KnowledgeCenterScreen() {
                       <Text className="text-[12px] flex-auto">
                         Species Type : {item.speciesType}
                       </Text>
-                      {/* <Text className=" text-[10px] flex-auto mt-[1vw]">
-                        Description :{" "}
-                        {item.description.slice(0, item.description.length / 2)}
-                      </Text> */}
                     </View>
                   </View>
                 </TouchableOpacity>

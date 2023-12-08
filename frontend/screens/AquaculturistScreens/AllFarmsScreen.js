@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, ScrollViewComponent } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { FlatList } from "react-native";
+import filter from "lodash.filter";
 
 import {
   View,
@@ -25,6 +27,8 @@ export default function AllFarmsScreen() {
   const navigation = useNavigation();
 
   const [allFarmData, setAllFarmData] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [data, setData] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,7 +47,8 @@ export default function AllFarmsScreen() {
         const response = await axios.get(
           `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
         );
-        setAllFarmData(response.data.data); // Update state with fetched data
+        setAllFarmData(response.data.data);
+        setData(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching farm data:", error);
@@ -58,7 +63,21 @@ export default function AllFarmsScreen() {
     return <LoadingIndicator />;
   }
 
-  console.log(allFarmData);
+  const handleSearch = (query) => {
+    setSearchText(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(allFarmData, (farms) => {
+      return contains(farms, formattedQuery);
+    });
+    setData(filteredData);
+  };
+
+  const contains = ({ name }, query) => {
+    const formattedFarmName = name.toLowerCase();
+    return formattedFarmName.includes(query);
+  };
+
+  console.log(data);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -93,51 +112,66 @@ export default function AllFarmsScreen() {
                   className=" w-[90vw] h-[15vh]  mt-[0.5vh] ml-[0.5vw] rounded-[10px] "
                 />
               </View> */}
+              <TextInput
+                style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+                className="w-[75vw] mt-5 mx-auto rounded-[15px] p-4 mb-4 bg-[#EBEEF9] text-black"
+                onChangeText={(query) => handleSearch(query)}
+                value={searchText}
+                placeholder="Search by Farm Name"
+                clearButtonMode="always"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
             </View>
           </View>
-          <View className="mt-[25vh] mx-auto ">
+          <View className="mt-[33vh] mx-auto h-[55vh]">
             {/* Loop through allFarmData and display farm details */}
-            {allFarmData.map((farm) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("MainFarmScreen", {
-                    farmId: farm._id,
-                    farmName: farm.name,
-                    directedFarm: "allFarmsPage",
-                  })
-                }
-                className="w-[82vw] h-[auto] pb-[2vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-              >
-                <View key={farm._id}>
-                  <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                    <Text className="text-[18px] font-bold text-[#5A73F4]">
-                      {farm.name}
-                    </Text>
-                  </View>
+            <FlatList
+              data={data}
+              keyExtractor={(farm) => farm._id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("MainFarmScreen", {
+                      farmId: item._id,
+                      farmName: item.name,
+                      directedFarm: "allFarmsPage",
+                    })
+                  }
+                  className="w-[82vw] h-[auto] pb-[2vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                >
+                  <View key={item._id}>
+                    <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
+                      <Text className="text-[18px] font-bold text-[#5A73F4]">
+                        {item.name}
+                      </Text>
+                    </View>
 
-                  <View className="flex mt-[1vw] ml-[10vw]">
-                    <Text className=" text-[15px] flex-auto mt-[1vw]">
-                      Location : {farm.location}
-                    </Text>
-                    {farm.stock && (
-                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                        Total Stock : {farm.stock}
-                      </Text>
-                    )}
-                    {!farm.stock && (
-                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                        No Stock available
-                      </Text>
-                    )}
-                    {farm.stock && (
+                    <View className="flex mt-[1vw] ml-[10vw]">
                       <Text className=" text-[15px] flex-auto mt-[1vw]">
-                        Last stock update : {`${formatDate(farm.stockingDates)}`}
+                        Location : {item.location}
                       </Text>
-                    )}
+                      {item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                          Total Stock : {item.stock}
+                        </Text>
+                      )}
+                      {!item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                          No Stock available
+                        </Text>
+                      )}
+                      {item.stock && (
+                        <Text className=" text-[15px] flex-auto mt-[1vw]">
+                          Last stock update :{" "}
+                          {`${formatDate(item.stockingDates)}`}
+                        </Text>
+                      )}
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

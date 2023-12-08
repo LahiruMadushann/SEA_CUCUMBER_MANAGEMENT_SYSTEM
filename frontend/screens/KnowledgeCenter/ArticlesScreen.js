@@ -34,8 +34,9 @@ export default function ArticlesScreen() {
 
   // console.log(speciesId);
   const [searchText, setSearchText] = useState("");
-  const [allArticlesCategories, setAllArticlesCategories] = useState([]);
   const [data, setData] = useState("");
+  const [allArticlesCategories, setAllArticlesCategories] = useState([]);
+
 
   useEffect(() => {
     setIsLoading(true);

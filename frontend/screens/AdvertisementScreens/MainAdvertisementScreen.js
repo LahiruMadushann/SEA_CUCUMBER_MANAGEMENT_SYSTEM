@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import { FlatList } from "react-native";
 import {
   View,
   Text,
@@ -119,70 +120,74 @@ export default function MainAdvertisementScreen() {
               </View>
             </View>
           </View>
-          <View className="mt-[50vh] mx-auto">
+          <View className="mt-[48vh] mx-auto h-[42vh]">
             {/* Loop through allFarmData and display farm details */}
 
-            {allAdvertisementData.map((advertisement) => {
-              if (filterType === "All" || filterType === advertisement.type) {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("SingleAdvertisementScreen", {
-                        advertisementId: advertisement._id,
-                      })
-                    }
-                    className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-                  >
-                    <View className="w-[200px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
-                      <Image
-                        source={require("../../assets/notification/calender.png")}
-                        className="w-[13px] h-[15px] ml-[10vw]"
-                      />
-                      <Text className="text-[11px] font-bold text-[#000000A6] ml-[2vw]">
-                        {`${formatDate(
-                          advertisement.createdAt
-                        )} at ${formatTime(advertisement.createdAt)}`}
-                      </Text>
-                    </View>
-
-                    <View className="flex ml-[2.5vw]">
-                      <Image
-                        source={require("../../assets/notification/bell.png")}
-                        className="w-[18px] h-[20px] ml-[9.8vw] mt-[1vw]"
-                      />
-                      <Text className=" text-[11px] font-bold flex-auto mt-[-5vw] ml-[17vw] mr-[10vw]">
-                        {advertisement.title}
-                      </Text>
-                    </View>
-
-                    {advertisement.type === "promotion" && (
-                      <View className="flex mx-[30vw] w-[200px] ml-[45vw] mb-[3vw] mt-[3vw]">
+            <FlatList
+              data={allAdvertisementData}
+              keyExtractor={(advertisement) => advertisement._id}
+              renderItem={({ item }) => {
+                if (filterType === "All" || filterType === item.type) {
+                  return (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("SingleAdvertisementScreen", {
+                          advertisementId: item._id,
+                        })
+                      }
+                      className="w-[82vw] h-[auto] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                    >
+                      <View className="w-[200px] h-[25px] ml-[-4vw] mt-[4vw] flex-row ">
                         <Image
-                          source={require("../../assets/notification/promotion.png")}
-                          className="w-[15px] h-[18px] ml-[11vw]"
+                          source={require("../../assets/notification/calender.png")}
+                          className="w-[13px] h-[15px] ml-[10vw]"
                         />
-                        <Text className=" text-[12px] text-[#0000ff] font-bold flex-auto mt-[-4vw] ml-[17vw]">
-                          Promotion
+                        <Text className="text-[11px] font-bold text-[#000000A6] ml-[2vw]">
+                          {`${formatDate(item.createdAt)} at ${formatTime(
+                            item.createdAt
+                          )}`}
                         </Text>
                       </View>
-                    )}
 
-                    {advertisement.type === "vacancy" && (
-                      <View className="flex mx-[30vw] w-[200px] mb-[3vw] ml-[45vw] mt-[3vw]">
+                      <View className="flex ml-[2.5vw]">
                         <Image
-                          source={require("../../assets/notification/vacancy.png")}
-                          className="w-[18px] h-[20px] ml-[11vw] mt-[1vw]"
+                          source={require("../../assets/notification/bell.png")}
+                          className="w-[18px] h-[20px] ml-[9.8vw] mt-[1vw]"
                         />
-                        <Text className=" text-[12px] text-[#00ff00] font-bold flex-auto mt-[-4vw] ml-[17vw]">
-                          Vacancy
+                        <Text className=" text-[11px] font-bold flex-auto mt-[-5vw] ml-[17vw] mr-[10vw]">
+                          {item.title}
                         </Text>
                       </View>
-                    )}
-                  </TouchableOpacity>
-                );
-              }
-              return null; // Do not render if not matching filter type
-            })}
+
+                      {item.type === "promotion" && (
+                        <View className="flex mx-[30vw] w-[200px] ml-[45vw] mb-[3vw] mt-[3vw]">
+                          <Image
+                            source={require("../../assets/notification/promotion.png")}
+                            className="w-[15px] h-[18px] ml-[11vw]"
+                          />
+                          <Text className=" text-[12px] text-[#0000ff] font-bold flex-auto mt-[-4vw] ml-[17vw]">
+                            Promotion
+                          </Text>
+                        </View>
+                      )}
+
+                      {item.type === "vacancy" && (
+                        <View className="flex mx-[30vw] w-[200px] mb-[3vw] ml-[45vw] mt-[3vw]">
+                          <Image
+                            source={require("../../assets/notification/vacancy.png")}
+                            className="w-[18px] h-[20px] ml-[11vw] mt-[1vw]"
+                          />
+                          <Text className=" text-[12px] text-[#00ff00] font-bold flex-auto mt-[-4vw] ml-[17vw]">
+                            Vacancy
+                          </Text>
+                        </View>
+                      )}
+                    </TouchableOpacity>
+                  );
+                }
+                return null; // Do not render if not matching filter type
+              }}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
