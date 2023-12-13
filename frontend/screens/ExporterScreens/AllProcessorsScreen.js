@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
+import filter from "lodash.filter";
 
 import {
   View,
@@ -9,7 +10,9 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  TextInput,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -22,6 +25,8 @@ export default function AllProcessorsScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [allProcessorsData, setAllProcessorsData] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [data, setData] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,6 +36,7 @@ export default function AllProcessorsScreen() {
           `${BASE_URL}/exporter/getFishProcessorsDetails`
         );
         setAllProcessorsData(response.data.data);
+        setData(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching processor data:", error);
@@ -44,6 +50,20 @@ export default function AllProcessorsScreen() {
   if (isLoading) {
     return <LoadingIndicator />;
   }
+
+  const handleSearch = (query) => {
+    setSearchText(query);
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(allProcessorsData, (processors) => {
+      return contains(processors, formattedQuery);
+    });
+    setData(filteredData);
+  };
+
+  const contains = ({ firstName }, query) => {
+    const formattedFarmName = firstName.toLowerCase();
+    return formattedFarmName.includes(query);
+  };
 
   console.log(allProcessorsData);
 
@@ -81,36 +101,50 @@ export default function AllProcessorsScreen() {
                 />
               </View> */}
             </View>
+            <TextInput
+              style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+              className="w-[75vw] mt-5 mx-auto rounded-[15px] p-4 mb-4 bg-[#EBEEF9] text-black"
+              onChangeText={(query) => handleSearch(query)}
+              value={searchText}
+              placeholder="Search by Processor Name"
+              clearButtonMode="always"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
           </View>
-          <View className="mt-[25vh] mx-auto">
-            {/* Loop through allFarmData and display farm details */}
-            {allProcessorsData.map((processor) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("SingleProcessorScreen", {
-                    processorId: processor._id,
-                  })
-                }
-                className="w-[82vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
-              >
-                <View key={processor._id}>
-                  <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
-                    <Text className="text-[18px] font-bold text-[#5A73F4]">
-                      {processor.firstName} {processor.lastName}
-                    </Text>
-                  </View>
+          <View className="mt-[35vh] h-[55vh] mx-auto">
+            {/* Loop through all processor details*/}
+            <FlatList
+              data={data}
+              keyExtractor={(processor) => processor._id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("SingleProcessorScreen", {
+                      processorId: item._id,
+                    })
+                  }
+                  className="w-[82vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-2"
+                >
+                  <View key={item._id}>
+                    <View className="w-[auto] h-[25px] ml-[5vw] mt-[4vw] flex-row ">
+                      <Text className="text-[18px] font-bold text-[#5A73F4]">
+                        {item.firstName} {item.lastName}
+                      </Text>
+                    </View>
 
-                  <View className="flex mt-[1vw] ml-[10vw]">
-                    <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                      Contact No: {processor.contactNo}
-                    </Text>
-                    <Text className=" text-[15px] flex-auto mt-[1vw]">
-                      Location : {processor.address}
-                    </Text>
+                    <View className="flex mt-[1vw] ml-[10vw]">
+                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
+                        Contact No: {item.contactNo}
+                      </Text>
+                      <Text className=" text-[15px] flex-auto mt-[1vw]">
+                        Location : {item.address}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>
