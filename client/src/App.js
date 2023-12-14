@@ -49,7 +49,7 @@ import UpdateFAQ from "scenes/faqs/delete";
 import DistrictAquaculturist from "scenes/aFSection/districtAquaCulturist";
 import FishermenDashboard from "components/FishermenDashboard";
 import FarmingDashboard from "components/FarmingDashboard";
-import FishOverview from "scenes/fSection/overview";
+import FishOverview from "scenes/aFSection/overview";
 
 
 function App() {

@@ -97,6 +97,7 @@ const speciesTypeMap = {};
       minHeight={isDashboard ? "325px" : undefined}
       minWidth={isDashboard ? "625px" : undefined}
       position="relative"
+      
     >
       <ResponsivePie
         data={formattedData}
@@ -185,7 +186,7 @@ const speciesTypeMap = {};
       <Box
         position="absolute"
         top="50%"
-        left="28%"
+        left="11.3vw"
         color={theme.palette.secondary[100]}
         textAlign="center"
         pointerEvents="none"
