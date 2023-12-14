@@ -65,6 +65,8 @@ export default function AllProcessorsScreen() {
     return formattedFarmName.includes(query);
   };
 
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/profile-pics`;
+
   console.log(allProcessorsData);
 
   return (
@@ -133,13 +135,29 @@ export default function AllProcessorsScreen() {
                       </Text>
                     </View>
 
-                    <View className="flex mt-[1vw] ml-[10vw]">
-                      <Text className=" text-[15px] flex-auto mt-[1vw] ">
-                        Contact No: {item.contactNo}
-                      </Text>
-                      <Text className=" text-[15px] flex-auto mt-[1vw]">
-                        Location : {item.address}
-                      </Text>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginLeft: 8,
+                      }}
+                    >
+                      <View>
+                        <Image
+                          source={{
+                            uri: `${BASE_URL_FOR_PROFILE_PICS}/${item.profilepic}`,
+                          }}
+                          className=" w-[61px] h-[61px] rounded-full bg-[#FFFFFF] shadow-lg shadow-gray-800"
+                        />
+                      </View>
+                      <View className=" mt-[1vw] ml-[5vw]">
+                        <Text className=" text-[15px] mt-[1vw] ">
+                          Contact No: {item.contactNo}
+                        </Text>
+                        <Text className=" text-[15px] mt-[1vw]">
+                          Location : {item.address}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </TouchableOpacity>

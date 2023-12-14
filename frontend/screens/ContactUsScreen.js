@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Alert } from "react-native";
 import { LogBox } from "react-native";
+import Toast from "react-native-toast-message";
 import {
   StyleSheet,
   Text,
@@ -26,6 +27,19 @@ export default function ContactUsScreen() {
   const [contactNo, setContactNo] = useState("");
   const [comment, setComment] = useState("");
 
+  // const showToast = () => {
+  //   Toast.show({
+  //     type: "success",
+  //     text1: "Toast Message",
+  //     text2: "This is an sample messsage",
+  //     autoHide: true,
+  //     visibilityTime: 2500,
+  //     position: "top",
+  //     bottomOffset: 50,
+  //     topOffset: 60,
+  //   });
+  // };
+
   const handleAddFormSubmit = () => {
     if (email == "" || name == "" || contactNo == "" || comment == "") {
       return Alert.alert("Invalid Input", "Please fill all the fields");
@@ -44,7 +58,8 @@ export default function ContactUsScreen() {
       .post(insertUrl, insertData)
       .then((response) => {
         if (response.data.success) {
-          Alert.alert("Success", response.data.message);
+          showToast();
+          // Alert.alert("Success", response.data.message);
           setName("");
           setEmail("");
           setContactNo("");
@@ -187,6 +202,7 @@ export default function ContactUsScreen() {
           <FooterBar />
         </View>
       </View>
+      <Toast />
     </SafeAreaView>
   );
 }

@@ -4,9 +4,13 @@ const knowledgeCenterController = require("../controller/knowledgeCenter_control
 
 const imageMiddleware = require("../middleware/profilepic_middleware");
 
-router.put("/user/updateProfilePic",imageMiddleware.single("profilepic"), userController.updateProfilePic);
+router.put(
+  "/user/updateProfilePic",
+  imageMiddleware.single("profilepic"),
+  userController.updateProfilePic
+);
 
-
+router.put("/user/update", userController.updateUser);
 
 router.post("/user/getAllNotifications", userController.getAllNotifications);
 
@@ -39,7 +43,7 @@ router.get(
   knowledgeCenterController.getAllArticlesData
 );
 //Update Article
-router.put("/user/updateArticlesData/:id",userController.updateArticles)
+router.put("/user/updateArticlesData/:id", userController.updateArticles);
 
 router.get(
   "/user/getAllArticlesCategories",
@@ -57,6 +61,6 @@ router.get("/user/getAllUsers", userController.getAllUserDetails);
 router.get("/user/getContactUs", userController.getContactUs);
 
 //update contactUs Messages
-router.put("/user/updateContactUs/:id/:state",userController.updateContactUs)
+router.put("/user/updateContactUs/:id/:state", userController.updateContactUs);
 
 module.exports = router;
