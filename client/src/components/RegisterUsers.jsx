@@ -163,7 +163,7 @@ const RegisterUsers = () => {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://th.bing.com/th/id/OIG.RIYh0SL1i2ks2DN_00Db?pid=ImgGn)',
+                        backgroundImage: 'url(https://ageingasia.com/app/uploads/2020/08/capacity-2048x1229.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -187,7 +187,7 @@ const RegisterUsers = () => {
                             variant="h5"
                             sx={{ marginTop: "1rem", marginBottom: "5rem", color: "#1976D2", fontWeight: "bold" }}
                         >
-                            REGISTER USER
+                            REGISTER MANAGEMENT USER
                         </Typography>
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <Person2OutlinedIcon />
@@ -330,6 +330,7 @@ const RegisterUsers = () => {
                                     <MenuItem value={"District Aquaculturist"}>District Aquaculturist</MenuItem>
                                     <MenuItem value={"Minister"}>Minister</MenuItem>
                                     <MenuItem value={"Processor"}>Processor</MenuItem>
+                                    <MenuItem value={"District Extension Officer"}>District Extension Officer</MenuItem>
 
 
                                 </Select>

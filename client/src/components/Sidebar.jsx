@@ -362,15 +362,16 @@ const Sidebar = ({
             "Farms Chart",
             "Overview",
           ].includes(item.text);
-        } else if (user.role === "Fisherman") {
+        } else if (user.role === "District Extension Officer" || user.role === "Regional Officer") {
           return [
             "Fishing Dashboard",
             "Fisheries Section",
             "Fisheries Management Users",
-            "Fishermen",
+            "Fishermens",
             "Fishing Chart",
+            "Fish Overview"
           ].includes(item.text);
-        } else if (user.role === "Processor") {
+        } else if (user.role === "Minister") {
           return [
             "Fishing Dashboard",
             "Farming Dashboard",
@@ -378,11 +379,13 @@ const Sidebar = ({
             "Aquaculture Farms",
             "Aquaculture Farmers",
             "Farms Chart",
-            "Overview",
+            "District AquaCulturist",
+            "Farm Overview",
             "Fisheries Section",
             "Fisheries Management Users",
             "Fishermen",
             "Fishing Chart",
+            "Fish Overview"
           ].includes(item.text);
         } else if (user.role === "Exporter") {
           return [
@@ -407,7 +410,9 @@ const Sidebar = ({
             "Fish Processors Data",
           ].includes(item.text);
         } else if (
-          user.role === "Assistant Director"
+          user.role === "Assistant Director" ||
+          user.role === "Chairman" ||
+          user.role === "Director General"
         ) {
           return [
             "Farming Dashboard",
@@ -431,13 +436,14 @@ const Sidebar = ({
             "Farms Chart",
             "Overview",
           ].includes(item.text);
-        } else if (detail.role === "Fisherman") {
+        } else if (detail.role === "District Extension Officer" || detail.role === "Regional Officer") {
           return [
             "Fishing Dashboard",
             "Fisheries Section",
             "Fisheries Management Users",
             "Fishermen",
             "Fishing Chart",
+            "Fish Overview"
           ].includes(item.text);
         } else if (detail.role === "Processor") {
           return [
@@ -476,8 +482,20 @@ const Sidebar = ({
             "Fish Processors Data",
           ].includes(item.text);
         } else if (
-          detail.role === "Assistant Director"
+          detail.role === "Assistant Director" ||
+          detail.role === "Chairman" ||
+          detail.role === "Director General"
         ) {
+          return [
+            "Farming Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "District AquaCulturist",
+            "Farm Overview",
+          ].includes(item.text);
+        } else if (detail.role === "District Aquaculturist") {
           return [
             "Farming Dashboard",
             "Aquaculture Farms Section",
