@@ -233,7 +233,9 @@ const FishermenDashboard = () => {
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
             Fishing Species Detail
           </Typography>
+       
           <BreakdownChart isDashboard={true} />
+       
           <Typography
             p="0 0.6rem"
             fontSize="0.8rem"
