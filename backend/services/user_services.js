@@ -175,6 +175,8 @@ class userService {
         data.role == "Director General" ||
         data.role == "Assistant Director" ||
         data.role == "District Aquaculturist" ||
+        data.role == "Regional Officer" ||
+        data.role == "District Extension Officer" ||
         data.role == "Minister"
       ) {
         tokenData = {
