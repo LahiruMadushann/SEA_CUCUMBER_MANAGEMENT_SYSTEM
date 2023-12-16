@@ -58,7 +58,7 @@ export default function ContactUsScreen() {
       .post(insertUrl, insertData)
       .then((response) => {
         if (response.data.success) {
-          showToast();
+          // showToast();
           // Alert.alert("Success", response.data.message);
           setName("");
           setEmail("");
