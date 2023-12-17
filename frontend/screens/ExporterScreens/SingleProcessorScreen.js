@@ -107,8 +107,8 @@ export default function SingleProcessorScreen() {
     profilepic: db_profilepic,
   } = processorDetails;
 
-  // const BASE_URL_FOR_PROFILE_PICS = "http://192.168.43.75:3000/farm-pics";
-  // const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_picture}`;
+  const BASE_URL_FOR_PROFILE_PICS = `${BASE_URL}/profile-pics`;
+  const profilePicUrl = `${BASE_URL_FOR_PROFILE_PICS}/${db_profilepic}`;
 
   const listTab = [
     {
@@ -176,12 +176,10 @@ export default function SingleProcessorScreen() {
           </View>
 
           <View className="mt-[36vh]">
-            {/* <View className="mt-[1vh] mx-[10vw] w-[81vw] h-[26.5vh] rounded-[30px] shadow-lg shadow-gray-700 ">
-              <Image
-                source={{ uri: profilePicUrl }}
-                className=" w-[80vw] h-[25.5vh]  mt-[0.5vh] ml-[0.5vw] rounded-[30px] "
-              />
-            </View> */}
+            <Image
+              source={{ uri: profilePicUrl }}
+              className=" w-[61px] h-[61px] mx-[auto] rounded-full bg-[#FFFFFF] shadow-lg shadow-gray-800"
+            />
 
             <View className="mt-[2vh]">
               <TouchableOpacity
