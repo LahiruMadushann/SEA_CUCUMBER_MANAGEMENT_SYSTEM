@@ -51,7 +51,9 @@ exports.login = async (req, res, next) => {
                     data.role == "Director General" ||
                     data.role == "Assistant Director" ||
                     data.role == "District Aquaculturist" ||
-                    data.role == "Minister"
+                    data.role == "Minister" ||
+                    data.role == "District Extension Officer" ||
+                    data.role == "Regional Officer"
                   ) {
                     tokenData = {
                       _id: data._id,

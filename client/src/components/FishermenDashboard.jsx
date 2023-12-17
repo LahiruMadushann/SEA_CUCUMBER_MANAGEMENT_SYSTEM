@@ -21,13 +21,16 @@ import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/FarmOverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useSelector } from "react-redux";
 import { UserContext } from "../UserContext";
 import FishViewChart from "./FishViewChart";
 import FishViewBarChart from "./FishViewTotalBarChart";
 import FishViewPriceBarChart from "./FishViewPriceBarChart";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+
 
 
 const FishermenDashboard = () => {
@@ -94,6 +97,57 @@ const FishermenDashboard = () => {
     });
   };
 
+
+  const handleDownloadReports2 = () => {
+    const rows = data || [];
+    const columns = [
+      {
+        field: "fishingArea",
+        headerName: "Fishing Area",
+        flex: 1,
+      },
+      {
+        field: "speciesType",
+        headerName: "Species Type",
+        flex: 1.3,
+      },
+      {
+        field: "numOfSpecies",
+        headerName: "Num Of Species",
+        flex: 0.8,
+      },
+      {
+        field: "buyer",
+        headerName: "Buyer",
+        flex: 0.8,
+      },
+      {
+        field: "buyingPrice",
+        headerName: "Buying Price",
+        flex: 0.8,
+      },
+    ];
+  
+    const pdf = new jsPDF();
+  
+    // Set a timeout to allow the DataGrid to render
+    setTimeout(() => {
+      // Convert HTML table to JSON
+      const { headers, body } = jsPDF.autoTableHtmlToJson(document.getElementById("data-grid-table"));
+  
+      // Add the entire table to the PDF
+      pdf.autoTable({
+        head: [headers],
+        body: body,
+      });
+  
+      // Save the PDF
+      pdf.save("seacucumber-report-2.pdf");
+    }, 500);
+  };
+  
+  
+  
   const columns = [
     // {
     //   field: "_id",
@@ -147,6 +201,22 @@ const FishermenDashboard = () => {
           >
             <DownloadOutlined sx={{ mr: "10px" }} />
             Download Reports
+          </Button>
+        </Box>
+
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+            onClick={handleDownloadReports2}
+          >
+            <DownloadOutlined sx={{ mr: "10px" }} />
+            Download Reports 2
           </Button>
         </Box>
       </FlexBetween>
@@ -216,6 +286,7 @@ const FishermenDashboard = () => {
           }}
         >
           <DataGrid
+          id="data-grid-table"
             loading={isLoading || !data}
             getRowId={(row) => row._id}
             // rows={(data && data.transactions) || []}

@@ -72,10 +72,12 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       gender,
       town,
       country,
+      nicNo,
       province,
       address,
       contactNo,
       role,
+      district,
     } = req.body;
 
     if (req.file === undefined) {
@@ -103,10 +105,12 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         gender,
         town,
         country,
+        nicNo,
         province,
         address,
         contactNo,
         role,
+        district,
         profilepic,
         createdAt
       );
