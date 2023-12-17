@@ -172,7 +172,7 @@ export default function ViewSingleFishingRecScreen() {
                 </View>
               </View>
               <Text className="text-center text-[#fff] font-bold text-[22px] mt-[10vw] fixed">
-                Processed Records
+                Fishing Catch Records
               </Text>
               <Text className="text-center text-[#fff]  text-[18px] mt-[2vw] fixed">
                 {db_firstName} {db_lastName}
