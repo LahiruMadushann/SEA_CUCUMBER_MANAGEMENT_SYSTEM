@@ -41,7 +41,7 @@ class fishProcesserService {
         country,
         companyName,
         processorRegNo,
-        accountStatus: "Active",
+        accountStatus: "Inactive",
         profilepic,
         createdAt,
       });

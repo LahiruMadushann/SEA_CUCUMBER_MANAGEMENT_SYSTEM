@@ -190,7 +190,7 @@ exports.login = async (req, res, next) => {
                 } else {
                   res.status(200).json({
                     success: false,
-                    message: "Invaild password entered",
+                    message: "Invaild credentials entered",
                   });
                 }
               })

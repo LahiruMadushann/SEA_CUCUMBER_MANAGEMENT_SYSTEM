@@ -117,6 +117,11 @@ export default function FarmerRegisterScreen() {
       );
     } else if (!email.includes("@")) {
       return Alert.alert("Invalid Input", "Please enter a valid email address");
+    } else if (password.length <= 6) {
+      return Alert.alert(
+        "Invalid Input",
+        "Please enter a password more than 6 characters"
+      );
     }
 
     const formData = new FormData();
