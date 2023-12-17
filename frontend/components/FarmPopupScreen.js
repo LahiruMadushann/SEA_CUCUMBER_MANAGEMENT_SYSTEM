@@ -90,7 +90,7 @@ export default function FarmPopupScreen({ farmId, farmName }) {
             }
           >
             <View style={styles.tab}>
-              <Text className="mx-[1vw]">Update Stock Details</Text>
+              <Text className="mx-[1vw]">Add New Stock</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

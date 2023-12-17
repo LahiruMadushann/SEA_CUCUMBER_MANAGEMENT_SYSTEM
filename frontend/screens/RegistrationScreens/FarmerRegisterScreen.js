@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
+import { LogBox } from "react-native";
 
 import {
   View,
@@ -23,6 +24,7 @@ import * as ImagePicker from "expo-image-picker";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function FarmerRegisterScreen() {
+  LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
@@ -52,10 +54,11 @@ export default function FarmerRegisterScreen() {
     async function fetchFarmNames() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
+          `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetailsWithoutaFarmer`
         );
 
         const farmNamesData = response.data.data; // Access the data property
+        console.log(farmNamesData);
         setFarmNames(farmNamesData); // Store farm names with IDs
         setIsLoading(false);
       } catch (error) {
@@ -112,6 +115,8 @@ export default function FarmerRegisterScreen() {
         "Invalid Input",
         "Please enter a valid 10-digit Contact No"
       );
+    } else if (!email.includes("@")) {
+      return Alert.alert("Invalid Input", "Please enter a valid email address");
     }
 
     const formData = new FormData();

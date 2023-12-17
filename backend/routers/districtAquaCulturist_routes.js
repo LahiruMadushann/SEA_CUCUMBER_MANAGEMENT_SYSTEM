@@ -28,6 +28,12 @@ router.get(
 );
 
 router.get(
+  "/districtAquaCulturist/getAllAquaFarmDetailsWithoutaFarmer",
+  districtAquaCulturistController.getAllAquaFarmDetailsWithoutaFarmer
+);
+
+
+router.get(
   "/districtAquaCulturist/getAllAquaFarmingDetails",
   districtAquaCulturistController.getAllAquaFarmingDetails
 );

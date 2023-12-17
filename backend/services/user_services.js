@@ -429,11 +429,11 @@ class userService {
 
       if (await userModel.findOne({ username })) {
         msg = "Username already exists";
-      }
-      // else if (await userModel.findOne({ email })) {
-      //   msg = "Email already exists";
-      // }
-      else if (await userModel.findOne({ contactNo })) {
+      } else if (await userModel.findOne({ nicNo })) {
+        msg = "NIC already exists";
+      } else if (await userModel.findOne({ email })) {
+        msg = "Email already exists";
+      } else if (await userModel.findOne({ contactNo })) {
         msg = "Contact number already exists";
       } else {
         msg = null;
