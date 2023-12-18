@@ -61,7 +61,7 @@ export default function EnterFishingDetailsScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.uri); 
+      setImage(result.uri);
     }
   };
 
@@ -177,7 +177,6 @@ export default function EnterFishingDetailsScreen() {
                 value={fishingArea}
                 onChangeText={setFishingArea}
                 placeholder="Fishering Area"
-                keyboardType="numeric"
                 required
               />
 
@@ -185,7 +184,7 @@ export default function EnterFishingDetailsScreen() {
                 className="border-b border-[#00000040] text-gray-700 w-64 mb-5 mx-auto"
                 value={buyingPrice}
                 onChangeText={setbuyingPrice}
-                placeholder="Buying Price"
+                placeholder="Buying Price. Ex - (Rs.5000)"
                 keyboardType="numeric"
                 required
               />

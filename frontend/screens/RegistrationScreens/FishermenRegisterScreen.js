@@ -91,6 +91,8 @@ export default function FishermanRegisterScreen() {
         "Invalid Input",
         "Please enter a valid 10-digit Contact No"
       );
+    }else if (!email.includes("@")) {
+      return Alert.alert("Invalid Input", "Please enter a valid email address");
     }
 
     const formData = new FormData();

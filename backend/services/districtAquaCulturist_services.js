@@ -1,6 +1,7 @@
 const aqFarmingDetailsModel = require("../model/farm/aqFarmingDetails_model");
 const aqFarmModel = require("../model/farm/aqFarm_model");
 const advertisementModel = require("../model/farm/advertisement_model");
+const UserModel = require("../model/user_model");
 //FILE SYSTEM
 const fs = require("fs");
 const path = require("path");
@@ -144,6 +145,39 @@ class districtAquaCulturistService {
 
     return farmsWithStockDetails;
   }
+
+  //GETTING ALL AQUACULTURE FARM DETAILS THAT DOES NOT HAVE A FARMER
+  static async getAllAquaFarmsWithoutaFarmer() {
+    // Assuming you have a User model for user collection
+    const userRole = "Farmer"; // Set the user role filter
+    const allAquaFarmDetails = await aqFarmModel.find().sort({ createdAt: -1 });
+
+    // Get the farm names from allAquaFarmDetails
+    const farmNames = allAquaFarmDetails.map((farm) => farm.name);
+
+    // Find users with user_role=farmer and farmname in the farmNames array
+    const farmersWithSameFarmName = await UserModel.find({
+      role: userRole,
+      farmName: { $in: farmNames },
+    });
+
+    // Get the farm names associated with farmers
+    const farmsWithFarmer = farmersWithSameFarmName.map(
+      (farmer) => farmer.farmName
+    );
+
+    console.log("farmsWithFarmer", farmsWithFarmer);
+
+    // Filter farms without a farmer
+    const farmsWithoutFarmer = allAquaFarmDetails.filter(
+      (farm) => !farmsWithFarmer.includes(farm.name)
+    );
+
+    console.log("farmsWithoutFarmer", farmsWithoutFarmer);
+
+    return farmsWithoutFarmer;
+  }
+
   //GETTING ALL AQUACULTURE FARMing DETAILS
   static async getAllAquaFarming() {
     const allAquaFarmingDetails = await aqFarmingDetailsModel.find();
