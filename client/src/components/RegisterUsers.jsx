@@ -48,11 +48,8 @@ const RegisterUsers = () => {
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState(true);
-  const [isContactNoAvailable, setIsContactNoAvailable] = useState(true);
-  const [isNicNoAvailable, setIsNicNoAvailable] = useState(true);
-  const [isEmailAvailable, setIsEmailAvailable] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
 
   const defaultTheme = createTheme();
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -71,6 +68,20 @@ const RegisterUsers = () => {
 
   async function handleLoginSubmit(e) {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Password Mismatch",
+        text: "Password and Confirm Password do not match.",
+      });
+      return;
+    }
+
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      setIsPhoneNumberValid(false);
+      return;
+    }
 
     if (
       !userName ||
@@ -104,6 +115,7 @@ const RegisterUsers = () => {
     formData.append("lastName", lastName);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
     formData.append("age", age);
     formData.append("gender", gender);
     formData.append("town", town);
@@ -358,6 +370,27 @@ const RegisterUsers = () => {
               />
               <TextField
                 margin="normal"
+                name="confirmPassword"
+                label="Confirm Password"
+                fullWidth
+                type="password"
+                value={confirmPassword}
+                inputProps={{
+                  style: {
+                    autoComplete: "off",
+                    height: "8px",
+                    fontSize: "16px",
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: "16px",
+                  },
+                }}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <TextField
+                margin="normal"
                 name="age"
                 label="Age"
                 fullWidth
@@ -522,7 +555,10 @@ const RegisterUsers = () => {
                 label="Phone Number"
                 fullWidth
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  setIsPhoneNumberValid(true); // Reset validation on input change
+                }}
                 inputProps={{
                   style: {
                     autoComplete: "off",
@@ -535,6 +571,10 @@ const RegisterUsers = () => {
                     fontSize: "16px",
                   },
                 }}
+                error={!isPhoneNumberValid}
+                helperText={
+                  !isPhoneNumberValid ? "Phone number must have 10 digits" : ""
+                }
               />
 
               <FormControl sx={{ marginTop: "16px" }} fullWidth>
@@ -573,29 +613,24 @@ const RegisterUsers = () => {
               {role === "District Aquaculturist" ||
               role === "District Extension Officer" ? (
                 <FormControl sx={{ marginTop: "16px" }} fullWidth>
-                <InputLabel id="role">District</InputLabel>
-                <Select
-                  labelId="district"
-                  value={district}
-                  onChange={(e) => setDistrict(e.target.value)}
-                  InputLabelProps={{
-                    style: {
-                      fontSize: "16px",
-                    },
-                  }}
-                  sx={{ height: "40px" }}
-                >
-                  <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
-                  <MenuItem value={"Mannar"}>Mannar</MenuItem>
-                  <MenuItem value={"Kilinochchi "}>
-                  Kilinochchi 
-                  </MenuItem>
-                  <MenuItem value={"Batticaloa"}>
-                  Batticaloa 
-                  </MenuItem>
-                  
-                </Select>
-              </FormControl>
+                  <InputLabel id="role">District</InputLabel>
+                  <Select
+                    labelId="district"
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                    InputLabelProps={{
+                      style: {
+                        fontSize: "16px",
+                      },
+                    }}
+                    sx={{ height: "40px" }}
+                  >
+                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                    <MenuItem value={"Kilinochchi "}>Kilinochchi</MenuItem>
+                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                  </Select>
+                </FormControl>
               ) : null}
 
               <TextField
@@ -608,7 +643,7 @@ const RegisterUsers = () => {
                   style: {
                     autoComplete: "off",
                     height: "10px",
-                    paddingBottom:"25px",
+                    paddingBottom: "25px",
                     fontSize: "16px",
                   },
                 }}

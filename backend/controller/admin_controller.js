@@ -84,7 +84,7 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       return res.json({ success: false, message: "you must select a file" });
     }
 
-    let checkUser = await userService.validateReg(username, email, contactNo);
+    let checkUser = await userService.validateReg(username, email, contactNo,nicNo);
     console.log("Database User", username);
     console.log(checkUser);
     if (checkUser) {

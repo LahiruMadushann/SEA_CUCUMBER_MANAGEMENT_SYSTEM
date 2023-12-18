@@ -122,9 +122,9 @@ const ActivateUsers = () => {
 
   const columns = [
     {
-      field: "_id",
-      headerName: "ID",
-      flex: 1,
+      field: "nicNo",
+      headerName: "NIC No",
+      flex: 0.5,
     },
     {
       field: "username",

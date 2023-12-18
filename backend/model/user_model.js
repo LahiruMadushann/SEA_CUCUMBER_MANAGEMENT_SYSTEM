@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   district: {
     type: String,
-    required: true,
+    required: false,
   },
   firstName: {
     type: String,
