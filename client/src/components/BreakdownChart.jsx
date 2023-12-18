@@ -186,7 +186,7 @@ const speciesTypeMap = {};
       <Box
         position="absolute"
         top="50%"
-        left="11.3vw"
+        left="28.3vw"
         color={theme.palette.secondary[100]}
         textAlign="center"
         pointerEvents="none"

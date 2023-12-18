@@ -73,8 +73,8 @@ function App() {
               <Route path="/enterfaqsdata" element={<EnterFAQSData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/fishingdashboard" element={<FishermenDashboard />} />
-              <Route path="/farmingdashboard" element={<FarmingDashboard />} />
+              <Route path="/fisheriessectiondashboard" element={<FishermenDashboard />} />
+              <Route path="/farmingsectiondashboard" element={<FarmingDashboard />} />
               <Route path="/managementusers" element={<ManagementAquacultureUsers />} />
               <Route path="/aquacultureFarms" element={<AquacultureFarms />} />
               <Route path="aquacultureFarmers" element={<AquacultureFarmers/>} />

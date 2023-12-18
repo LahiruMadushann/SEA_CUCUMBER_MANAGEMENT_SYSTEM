@@ -69,11 +69,11 @@ const navItems = [
   //   icon: <HomeOutlined />,
   // },
   {
-    text: "Fishing Dashboard",
+    text: "Fisheries Section Dashboard",
     icon: <SetMealOutlinedIcon />,
   },
   {
-    text: "Farming Dashboard",
+    text: "Farming Section Dashboard",
     icon: <DashboardOutlinedIcon />,
   },
   //---------------
@@ -355,7 +355,7 @@ const Sidebar = ({
       if (user) {
         if (user.role === "Farmer") {
           return [
-            "Farming Dashboard",
+            "Fisheries Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -364,17 +364,19 @@ const Sidebar = ({
           ].includes(item.text);
         } else if (user.role === "District Extension Officer" || user.role === "Regional Officer") {
           return [
-            "Fishing Dashboard",
+            "Fisheries Section Dashboard",
             "Fisheries Section",
             "Fisheries Management Users",
             "Fishermens",
             "Fishing Chart",
-            "Fish Overview"
+            "Fish Overview",
+            "FAQS",
+            "Delete & Update"
           ].includes(item.text);
         } else if (user.role === "Minister") {
           return [
-            "Fishing Dashboard",
-            "Farming Dashboard",
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -387,41 +389,22 @@ const Sidebar = ({
             "Fishing Chart",
             "Fish Overview"
           ].includes(item.text);
-        } else if (user.role === "Exporter") {
-          return [
-            "Fishing Dashboard",
-            "Farming Dashboard",
-            "Aquaculture Farms Section",
-            "Aquaculture Farms",
-            "Aquaculture Farmers",
-            "Farms Chart",
-            "Overview",
-            "Fisheries Section",
-            "Fisheries Management Users",
-            "Fishermens",
-            "Fishing Chart",
-            "Exporters and Processors",
-            "Exporters",
-            "Processors",
-            "Aquaculture Farms Section Data",
-            "Farmers Data",
-            "Fisheries Data",
-            "Fishermens Data",
-            "Fish Processors Data",
-          ].includes(item.text);
+        
         } else if (
           user.role === "Assistant Director" ||
           user.role === "Chairman" ||
           user.role === "Director General"
         ) {
           return [
-            "Farming Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
             "Farms Chart",
             "District AquaCulturist",
             "Farm Overview",
+            "FAQS",
+            "Delete & Update"
           ].includes(item.text);
         } else {
           return true;
@@ -429,7 +412,7 @@ const Sidebar = ({
       } else {
         if (detail.role === "Farmer") {
           return [
-            "Farming Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -438,7 +421,7 @@ const Sidebar = ({
           ].includes(item.text);
         } else if (detail.role === "District Extension Officer" || detail.role === "Regional Officer") {
           return [
-            "Fishing Dashboard",
+            "Fisheries Section Dashboard",
             "Fisheries Section",
             "Fisheries Management Users",
             "Fishermen",
@@ -447,8 +430,8 @@ const Sidebar = ({
           ].includes(item.text);
         } else if (detail.role === "Processor") {
           return [
-            "Fishing Dashboard",
-            "Farming Dashboard",
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -461,8 +444,8 @@ const Sidebar = ({
           ].includes(item.text);
         } else if (detail.role === "Exporter") {
           return [
-            "Fishing Dashboard",
-            "Farming Dashboard",
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -487,7 +470,7 @@ const Sidebar = ({
           detail.role === "Director General"
         ) {
           return [
-            "Farming Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",
@@ -497,7 +480,7 @@ const Sidebar = ({
           ].includes(item.text);
         } else if (detail.role === "District Aquaculturist") {
           return [
-            "Farming Dashboard",
+            "Farming Section Dashboard",
             "Aquaculture Farms Section",
             "Aquaculture Farms",
             "Aquaculture Farmers",

@@ -565,30 +565,37 @@ const RegisterUsers = () => {
                   <MenuItem value={"District Extension Officer"}>
                     District Extension Officer
                   </MenuItem>
+                  <MenuItem value={"Regional Officer"}>
+                    Regional Officer
+                  </MenuItem>
                 </Select>
               </FormControl>
               {role === "District Aquaculturist" ||
               role === "District Extension Officer" ? (
-                <TextField
-                  margin="normal"
-                  name="district"
-                  label="District"
-                  fullWidth
+                <FormControl sx={{ marginTop: "16px" }} fullWidth>
+                <InputLabel id="role">District</InputLabel>
+                <Select
+                  labelId="district"
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  inputProps={{
-                    style: {
-                      autoComplete: "off",
-                      height: "8px",
-                      fontSize: "16px",
-                    },
-                  }}
                   InputLabelProps={{
                     style: {
                       fontSize: "16px",
                     },
                   }}
-                />
+                  sx={{ height: "40px" }}
+                >
+                  <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                  <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                  <MenuItem value={"Kilinochchi "}>
+                  Kilinochchi 
+                  </MenuItem>
+                  <MenuItem value={"Batticaloa"}>
+                  Batticaloa 
+                  </MenuItem>
+                  
+                </Select>
+              </FormControl>
               ) : null}
 
               <TextField

@@ -99,53 +99,23 @@ const FishermenDashboard = () => {
 
 
   const handleDownloadReports2 = () => {
-    const rows = data || [];
+    const pdf = new jsPDF();
+    
     const columns = [
-      {
-        field: "fishingArea",
-        headerName: "Fishing Area",
-        flex: 1,
-      },
-      {
-        field: "speciesType",
-        headerName: "Species Type",
-        flex: 1.3,
-      },
-      {
-        field: "numOfSpecies",
-        headerName: "Num Of Species",
-        flex: 0.8,
-      },
-      {
-        field: "buyer",
-        headerName: "Buyer",
-        flex: 0.8,
-      },
-      {
-        field: "buyingPrice",
-        headerName: "Buying Price",
-        flex: 0.8,
-      },
+      { title: "Fishing Area", dataKey: "fishingArea" },
+      { title: "Species Type", dataKey: "speciesType" },
+      { title: "Num Of Species", dataKey: "numOfSpecies" },
+      { title: "Buyer", dataKey: "buyer" },
+      { title: "Buying Price", dataKey: "buyingPrice" },
     ];
   
-    const pdf = new jsPDF();
+    pdf.autoTable({
+      head: [columns.map(column => column.title)],
+      body: data.map(row => columns.map(column => row[column.dataKey])),
+    });
   
-    // Set a timeout to allow the DataGrid to render
-    setTimeout(() => {
-      // Convert HTML table to JSON
-      const { headers, body } = jsPDF.autoTableHtmlToJson(document.getElementById("data-grid-table"));
-  
-      // Add the entire table to the PDF
-      pdf.autoTable({
-        head: [headers],
-        body: body,
-      });
-  
-      // Save the PDF
-      pdf.save("seacucumber-report-2.pdf");
-    }, 500);
+    pdf.save("seacucumber-report-2.pdf");
   };
-  
   
   
   const columns = [
@@ -186,7 +156,7 @@ const FishermenDashboard = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
-        <Header title="FISHERMEN DASHBOARD" subtitle="Welcome to fishermen dashboard" />
+        <Header title="FISHERIES SECTION DASHBOARD" subtitle="Welcome to fisheries section dashboard" />
 
         <Box>
           <Button
@@ -204,21 +174,6 @@ const FishermenDashboard = () => {
           </Button>
         </Box>
 
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: theme.palette.secondary.light,
-              color: theme.palette.background.alt,
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-            onClick={handleDownloadReports2}
-          >
-            <DownloadOutlined sx={{ mr: "10px" }} />
-            Download Reports 2
-          </Button>
-        </Box>
       </FlexBetween>
 
       <Box
@@ -285,6 +240,23 @@ const FishermenDashboard = () => {
             },
           }}
         >
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              width:"51vw"
+              
+            }}
+            onClick={handleDownloadReports2}
+          >
+            <DownloadOutlined sx={{ mr: "10px" }} />
+            Download Table
+          </Button>
+        </Box>
           <DataGrid
           id="data-grid-table"
             loading={isLoading || !data}
@@ -292,8 +264,11 @@ const FishermenDashboard = () => {
             // rows={(data && data.transactions) || []}
             rows={data || []}
             columns={columns}
+            sx={{height:"63.6vh"}}
           />
+          
         </Box>
+        
         <Box
           gridColumn="span 4"
           gridRow="span 3"

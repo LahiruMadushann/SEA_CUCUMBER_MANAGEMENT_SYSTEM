@@ -726,13 +726,14 @@ exports.deleteFAQDetails = async (req, res, next) => {
 //Update FQAs
 exports.updateFAQs = async (req, res, next) => {
   try {
-    const { userId, question, answer} = req.body;
+    const { userId, question, answer,visibleToAll} = req.body;
 
     const updatedFAQ = await adminService.updateFAQs(
 
       userId,
       question,
       answer,
+      visibleToAll,
 
      
     );

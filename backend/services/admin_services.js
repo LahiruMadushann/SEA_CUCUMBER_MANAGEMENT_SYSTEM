@@ -442,7 +442,7 @@ class AdminService {
   }
 
   //Update FQAs
-  static async updateFAQs(userId, question, answer) {
+  static async updateFAQs(userId, question, answer,visibleToAll) {
 
     try {
       const setFAQAnswers = await faqModel.findByIdAndUpdate(
@@ -452,7 +452,7 @@ class AdminService {
         {
           question: question,
           answer: answer,
-         
+          visibleToAll:visibleToAll
         }
       );
 

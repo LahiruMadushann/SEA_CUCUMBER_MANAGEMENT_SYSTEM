@@ -95,6 +95,27 @@ const FarmingDashboard = () => {
       pdf.save("seacucumber-report.pdf");
     });
   };
+
+  const handleDownloadReports2 = () => {
+    const pdf = new jsPDF();
+    
+    const columns = [
+      { title: "Hatchery", dataKey: "hatchery" },
+      { title: "Hatchery Batch", dataKey: "hatcheryBatch" },
+      { title: "Stock", dataKey: "stock" },
+      { title: "Survival", dataKey: "survival" },
+      { title: "Diseases", dataKey: "diseases" },
+      { title: "Stocking Dates", dataKey: "stockingDates" },
+      { title: "Harvest Dates", dataKey: "harvest" },
+    ];
+  
+    pdf.autoTable({
+      head: [columns.map(column => column.title)],
+      body: data.map(row => columns.map(column => row[column.dataKey])),
+    });
+  
+    pdf.save("seacucumber-report-2.pdf");
+  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -276,13 +297,32 @@ const columns = [
             },
           }}
         >
+          <Box>
+          <Button
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              width:"51vw"
+              
+            }}
+            onClick={handleDownloadReports2}
+          >
+            <DownloadOutlined sx={{ mr: "10px" }} />
+            Download Table
+          </Button>
+        </Box>
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row._id}
             // rows={(data && data.transactions) || []}
             rows={data || []}
             columns={columns}
+            sx={{height:"63.6vh"}}
           />
+          
         </Box>
         <Box
           gridColumn="span 4"
