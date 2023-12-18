@@ -45,6 +45,16 @@ export default function FishermanRegisterScreen() {
   const [fisheriesRegNo, setFisheriesRegNo] = useState("");
   const [boatRegNo, setBoatRegNo] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const [image, setImage] = useState(null); // Use state for selected image
 
   const selectImage = async () => {
@@ -91,8 +101,18 @@ export default function FishermanRegisterScreen() {
         "Invalid Input",
         "Please enter a valid 10-digit Contact No"
       );
-    }else if (!email.includes("@")) {
+    } else if (!email.includes("@")) {
       return Alert.alert("Invalid Input", "Please enter a valid email address");
+    } else if (!/[A-Z]/.test(password)) {
+      return Alert.alert(
+        "Invalid Input",
+        "Password must contain at least one uppercase letter"
+      );
+    } else if (!/\d/.test(password)) {
+      return Alert.alert(
+        "Invalid Input",
+        "Password must contain at least one digit"
+      );
     }
 
     const formData = new FormData();
@@ -204,9 +224,22 @@ export default function FishermanRegisterScreen() {
                 value={password}
                 onChangeText={setPassword}
                 placeholder="Enter Password"
-                secureTextEntry
+                secureTextEntry={!showPassword}
                 required
               />
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[3vh] h-[3vh]"
+                />
+              </TouchableOpacity>
             </View>
 
             <View style={styles.fieldContainer}>
@@ -216,9 +249,22 @@ export default function FishermanRegisterScreen() {
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 placeholder="Re-Enter Password"
-                secureTextEntry
+                secureTextEntry={!showConfirmPassword}
                 required
               />
+              <TouchableOpacity
+                onPress={toggleConfirmPasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showConfirmPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[2vh] h-[3vh]"
+                />
+              </TouchableOpacity>
             </View>
 
             <Text className="text-lg font-bold mb-4 mt-5">Account Details</Text>
@@ -325,7 +371,7 @@ export default function FishermanRegisterScreen() {
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                 value={email}
                 onChangeText={setEmail}
-                placeholder="Email"
+                placeholder="Email (example@gmail.com)"
                 required
               />
             </View>

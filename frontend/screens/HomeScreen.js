@@ -11,8 +11,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
+import { LogBox } from "react-native";
 
 export default function HomeScreen() {
+  LogBox.ignoreAllLogs();
   const [agree, setAgree] = useState(false);
   const styles = StyleSheet.create({
     button: {
