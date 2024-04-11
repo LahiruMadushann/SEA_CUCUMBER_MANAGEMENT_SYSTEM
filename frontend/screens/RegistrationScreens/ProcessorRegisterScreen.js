@@ -41,6 +41,16 @@ export default function ProcessorRegisterScreen() {
   const [companyName, setCompanyName] = useState("");
   const [regNo, setRegNo] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const [image, setImage] = useState(null); // Use state for selected image
 
   const selectImage = async () => {
@@ -52,7 +62,7 @@ export default function ProcessorRegisterScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+      setImage(result.uri);
     }
   };
 
@@ -85,6 +95,16 @@ export default function ProcessorRegisterScreen() {
       );
     } else if (!email.includes("@")) {
       return Alert.alert("Invalid Input", "Please enter a valid email address");
+    } else if (!/[A-Z]/.test(password)) {
+      return Alert.alert(
+        "Invalid Input",
+        "Password must contain at least one uppercase letter"
+      );
+    } else if (!/\d/.test(password)) {
+      return Alert.alert(
+        "Invalid Input",
+        "Password must contain at least one digit"
+      );
     }
 
     const formData = new FormData();
@@ -105,11 +125,11 @@ export default function ProcessorRegisterScreen() {
     formData.append("processorRegNo", regNo);
     formData.append("profilepic", {
       uri: image,
-      type: "image/jpeg", // Change to the appropriate MIME type if needed
-      name: "profile.jpg", // Change to the desired file name
+      type: "image/jpeg",
+      name: "profile.jpg",
     });
 
-    const backendUrl = `${BASE_URL}/fishProcessers/register`; // Replace with your actual backend URL
+    const backendUrl = `${BASE_URL}/fishProcessers/register`;
 
     try {
       const response = await axios.post(backendUrl, formData, {
@@ -193,9 +213,22 @@ export default function ProcessorRegisterScreen() {
                 value={password}
                 onChangeText={setPassword}
                 placeholder="Enter Password"
-                secureTextEntry
+                secureTextEntry={!showPassword}
                 required
               />
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[3vh] h-[3vh]"
+                />
+              </TouchableOpacity>
             </View>
 
             <View style={styles.fieldContainer}>
@@ -205,9 +238,22 @@ export default function ProcessorRegisterScreen() {
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 placeholder="Re-Enter Password"
-                secureTextEntry
+                secureTextEntry={!showConfirmPassword}
                 required
               />
+              <TouchableOpacity
+                onPress={toggleConfirmPasswordVisibility}
+                className="absolute ml-[60vw]"
+              >
+                <Image
+                  source={
+                    showConfirmPassword
+                      ? require("../../assets/login/eye.png")
+                      : require("../../assets/login/eye-crossed.png")
+                  }
+                  className="w-[6vw] mb-[2vh] h-[3vh]"
+                />
+              </TouchableOpacity>
             </View>
             <Text className="text-lg font-bold mb-4 mt-5">Company Details</Text>
 
@@ -265,7 +311,7 @@ export default function ProcessorRegisterScreen() {
                 className="border-b border-[#00000040] text-gray-700  w-64  mb-3 mx-auto"
                 value={email}
                 onChangeText={setEmail}
-                placeholder="Email"
+                placeholder="Email (example@gmail.com)"
                 required
               />
             </View>
