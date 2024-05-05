@@ -47,7 +47,7 @@ class fishermanService {
         town,
         province,
         country,
-        accountStatus: "Active",
+        accountStatus: "Inactive",
         accountType,
         profilepic,
         createdAt,

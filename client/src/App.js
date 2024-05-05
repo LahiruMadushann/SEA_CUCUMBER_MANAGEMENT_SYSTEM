@@ -49,7 +49,7 @@ import UpdateFAQ from "scenes/faqs/delete";
 import DistrictAquaculturist from "scenes/aFSection/districtAquaCulturist";
 import FishermenDashboard from "components/FishermenDashboard";
 import FarmingDashboard from "components/FarmingDashboard";
-import FishOverview from "scenes/fSection/overview";
+import FishOverview from "scenes/aFSection/overview";
 
 
 function App() {
@@ -73,8 +73,8 @@ function App() {
               <Route path="/enterfaqsdata" element={<EnterFAQSData />} />
               <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/fishingdashboard" element={<FishermenDashboard />} />
-              <Route path="/farmingdashboard" element={<FarmingDashboard />} />
+              <Route path="/fisheriessectiondashboard" element={<FishermenDashboard />} />
+              <Route path="/farmingsectiondashboard" element={<FarmingDashboard />} />
               <Route path="/managementusers" element={<ManagementAquacultureUsers />} />
               <Route path="/aquacultureFarms" element={<AquacultureFarms />} />
               <Route path="aquacultureFarmers" element={<AquacultureFarmers/>} />

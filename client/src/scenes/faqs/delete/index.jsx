@@ -21,6 +21,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import { UserContext } from "../../../UserContext";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const UpdateFAQ = () => {
     const theme = useTheme();
@@ -34,6 +36,7 @@ const UpdateFAQ = () => {
     
 const [question, setQuestion] = useState("");
 const [answer, setAnswer] = useState("")
+const [visibleToAll, setVisibleToAll] = useState(false)
 
     const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -71,6 +74,7 @@ const [answer, setAnswer] = useState("")
             if (user._id === userId) {
                 setQuestion(user.question);
                 setAnswer(user.answer);
+                setVisibleToAll(true)
             }
 
         })
@@ -93,7 +97,8 @@ const [answer, setAnswer] = useState("")
             await axios.put(`${baseUrl}/admin/updateFaqdetails`, {
                 userId: selectedUserId,
                 question: question,
-                answer: answer
+                answer: answer,
+                visibleToAll:visibleToAll
                 
             }).then((response)=>{ 
         
@@ -304,7 +309,7 @@ const handleDeleteRow = async (rowId) => {
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
                     />
-                    
+                     <FormControlLabel value={true} control={<Checkbox defaultChecked />} label="Visible To All" />
 
                 </DialogContent>
                 <DialogActions>

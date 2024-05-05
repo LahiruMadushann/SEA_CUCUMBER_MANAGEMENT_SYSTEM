@@ -85,7 +85,7 @@ const UserProfile = () => {
     const defaultTheme = createTheme();
     async function handleLoginSubmit(e) {
         e.preventDefault();
-
+ console.log("Usera",user.role)
         navigate('/userProfileEdit');
 
 

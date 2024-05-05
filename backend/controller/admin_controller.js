@@ -72,17 +72,19 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
       gender,
       town,
       country,
+      nicNo,
       province,
       address,
       contactNo,
       role,
+      district,
     } = req.body;
 
     if (req.file === undefined) {
       return res.json({ success: false, message: "you must select a file" });
     }
 
-    let checkUser = await userService.validateReg(username, email, contactNo);
+    let checkUser = await userService.validateReg(username, email, contactNo,nicNo);
     console.log("Database User", username);
     console.log(checkUser);
     if (checkUser) {
@@ -103,10 +105,12 @@ exports.registerAqFarmManagementUsers = async (req, res, next) => {
         gender,
         town,
         country,
+        nicNo,
         province,
         address,
         contactNo,
         role,
+        district,
         profilepic,
         createdAt
       );
@@ -722,13 +726,14 @@ exports.deleteFAQDetails = async (req, res, next) => {
 //Update FQAs
 exports.updateFAQs = async (req, res, next) => {
   try {
-    const { userId, question, answer} = req.body;
+    const { userId, question, answer,visibleToAll} = req.body;
 
     const updatedFAQ = await adminService.updateFAQs(
 
       userId,
       question,
       answer,
+      visibleToAll,
 
      
     );

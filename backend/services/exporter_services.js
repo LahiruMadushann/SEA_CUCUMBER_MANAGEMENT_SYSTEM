@@ -38,7 +38,7 @@ class exporterService {
         town,
         province,
         country,
-        accountStatus: "Active",
+        accountStatus: "Inactive",
         profilepic,
         createdAt,
       });

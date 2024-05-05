@@ -20,6 +20,10 @@ const userSchema = new Schema({
   subrole: {
     type: String,
   },
+  district: {
+    type: String,
+    required: false,
+  },
   firstName: {
     type: String,
     required: true,

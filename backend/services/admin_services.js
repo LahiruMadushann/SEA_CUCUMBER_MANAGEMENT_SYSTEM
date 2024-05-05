@@ -94,10 +94,12 @@ class AdminService {
     gender,
     town,
     country,
+    nicNo,
     province,
     address,
     contactNo,
     role,
+    district,
     profilepic,
     createdAt
   ) {
@@ -112,10 +114,12 @@ class AdminService {
         gender,
         town,
         country,
+        nicNo,
         province,
         address,
         contactNo,
         role,
+        district,
         accountStatus: "Active",
         profilepic,
         createdAt,
@@ -438,7 +442,7 @@ class AdminService {
   }
 
   //Update FQAs
-  static async updateFAQs(userId, question, answer) {
+  static async updateFAQs(userId, question, answer,visibleToAll) {
 
     try {
       const setFAQAnswers = await faqModel.findByIdAndUpdate(
@@ -448,7 +452,7 @@ class AdminService {
         {
           question: question,
           answer: answer,
-         
+          visibleToAll:visibleToAll
         }
       );
 
