@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, Modal, SafeAreaView, ScrollView, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function MainBoardPopupScreen() {
@@ -24,10 +14,7 @@ export default function MainBoardPopupScreen() {
     <View className=" " style={{ zIndex: 999 }}>
       <View className="ml-[80vw]">
         <TouchableOpacity onPress={toggleMenu}>
-          <Image
-            source={require("../assets/options.png")}
-            className=" w-[24.21875px] h-[28px]"
-          />
+          <Image source={require("../assets/options.png")} className=" w-[24.21875px] h-[28px]" />
         </TouchableOpacity>
       </View>
       {menuVisible && (

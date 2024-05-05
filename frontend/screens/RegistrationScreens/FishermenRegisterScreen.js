@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BASE_URL from "../../apiConfig/config";
+//import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
 import { LogBox } from "react-native";
@@ -21,7 +21,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function FishermanRegisterScreen() {
-  LogBox.ignoreAllLogs();
+ // LogBox.ignoreAllLogs();
   const navigation = useNavigation();
 
   const [agree, setAgree] = useState(false);

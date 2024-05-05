@@ -3,6 +3,7 @@ import BASE_URL from "../../apiConfig/config";
 
 import axios from "axios";
 import CustomLink from "../../components/customlink";
+<<<<<<< Updated upstream
 import {
   StyleSheet,
   Text,
@@ -13,15 +14,20 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+=======
+import { StyleSheet, Text, TextInput, View, Dimensions, Image, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
+
+import filter from "lodash.filter";
+
+>>>>>>> Stashed changes
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 
-import { LogBox } from "react-native";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function ArticlesScreen() {
   const navigation = useNavigation();
-  LogBox.ignoreAllLogs();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute();
@@ -29,8 +35,11 @@ export default function ArticlesScreen() {
 
   // console.log(speciesId);
 
+<<<<<<< Updated upstream
   const [allArticlesCategories, setAllArticlesCategories] = useState([]);
 
+=======
+>>>>>>> Stashed changes
   useEffect(() => {
     setIsLoading(true);
     async function fetchArticlesCategories() {
@@ -54,29 +63,16 @@ export default function ArticlesScreen() {
   // console.log(allArticlesCategories);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "white" }}
-      className="flex-grow bg-white "
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white ">
       <View style={{ flex: 1 }}>
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          className="bg-[#fff]"
-        >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
           <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
             <View className="mt-[60vh] ">
               <View className="flex-row ">
                 <View className=" ml-[4vw]">
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("ArticlesCategoryScreen")
-                    }
-                  >
+                  <TouchableOpacity onPress={() => navigation.navigate("ArticlesCategoryScreen")}>
                     <View className="flex m-[auto] ">
-                      <Image
-                        source={require("../../assets/main_board/arrow.png")}
-                        className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
-                      />
+                      <Image source={require("../../assets/main_board/arrow.png")} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -93,6 +89,7 @@ export default function ArticlesScreen() {
             </View>
           </View>
 
+<<<<<<< Updated upstream
           <View className="mt-[32vh]">
             {/* Loop through Articles and display category */}
             {allArticlesCategories.map((articles) => (
@@ -113,6 +110,35 @@ export default function ArticlesScreen() {
                 )}
               </View>
             ))}
+=======
+          <View className="mt-[35vh] mx-auto">
+            <TextInput
+              style={{ height: 50, borderColor: "gray", borderWidth: 1 }}
+              className="w-[75vw] mx-auto rounded-[15px] p-4 bg-[#EBEEF9] text-black"
+              onChangeText={(query) => handleSearch(query)}
+              value={searchText}
+              placeholder="Search"
+              clearButtonMode="always"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <FlatList
+              data={data}
+              keyExtractor={(articles) => articles._id}
+              renderItem={({ item }) => (
+                <View className="w-[100vw] h-[auto] bg-[#FFFFFF]">
+                  {item.category === category && (
+                    <View className="w-[auto] h-[auto] mx-auto mb-3 mt-3 flex-auto ">
+                      <Text className="text-center text-[15px] mt-[2vh]  ml-[5vh]  mr-[5vh] font-bold text-[#000000A6]">{item.heading}</Text>
+                      <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#000000A6]">{item.content}</Text>
+                      <Text className="text-justify text-[12px] ml-[5vh] mr-[5vh] mt-[2vh] text-[#ff0000]">Read More : -</Text>
+                      <CustomLink url={item.link} />
+                    </View>
+                  )}
+                </View>
+              )}
+            />
+>>>>>>> Stashed changes
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

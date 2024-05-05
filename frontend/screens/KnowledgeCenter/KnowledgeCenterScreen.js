@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/config";
-import { LogBox } from "react-native";
-import {
-  View,
-  TextInput,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+
+import { View, TextInput, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FooterBar from "../../components/FooterBar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -22,7 +15,6 @@ import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function KnowledgeCenterScreen() {
   const navigation = useNavigation();
-  LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
@@ -72,35 +64,30 @@ export default function KnowledgeCenterScreen() {
   //console.log(allSpeciesData);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "white" }}
-      className="flex-grow bg-white "
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white ">
       <View style={{ flex: 1 }}>
+<<<<<<< Updated upstream
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           className="bg-[#fff]"
         >
           <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
+=======
+        <View contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
+          <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0] rounded-b-full ">
+>>>>>>> Stashed changes
             <View className="flex-row mt-[60vh]">
               <View className=" ml-[4vw]">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("KnowledgeMain")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("KnowledgeMain")}>
                   <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../../assets/main_board/arrow.png")}
-                      className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
-                    />
+                    <Image source={require("../../assets/main_board/arrow.png")} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
                   </View>
                 </TouchableOpacity>
               </View>
             </View>
 
             <View className="mt-[6vh]">
-              <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">
-                Sea Cucumber Species
-              </Text>
+              <Text className="text-[22px] text-center font-bold text-[#FFFFFF]">Sea Cucumber Species</Text>
             </View>
 
             <TextInput
@@ -133,10 +120,11 @@ export default function KnowledgeCenterScreen() {
                       source={{
                         uri: `${BASE_URL_FOR_PROFILE_PICS}/${item.seaCucumberImages}`,
                       }}
-                      className=" w-[60px] h-[60px] ml-[2vw] bg-[#FFFFFF] rounded-full my-[auto] shadow-lg shadow-gray-800"
+                      className=" w-[60px] h-[60px] ml-[2vw] bg-[#FFFFFF] rounded-full my-[auto]"
                     />
 
                     <View className="flex-auto ml-[3vw] my-[auto]">
+<<<<<<< Updated upstream
                       <Text className="text-[15px] font-bold text-[#0000FF]">
                         {item.scientificName}
                       </Text>
@@ -147,13 +135,17 @@ export default function KnowledgeCenterScreen() {
                         Description :{" "}
                         {item.description.slice(0, item.description.length / 2)}
                       </Text> */}
+=======
+                      <Text className="text-[15px] font-bold text-[#0000FF]">{item.scientificName}</Text>
+                      <Text className="text-[12px] flex-auto">Species Type : {item.speciesType}</Text>
+>>>>>>> Stashed changes
                     </View>
                   </View>
                 </TouchableOpacity>
               )}
             />
           </View>
-        </ScrollView>
+        </View>
         <View style={{ marginBottom: 5 }}>
           <FooterBar />
         </View>

@@ -13,5 +13,8 @@ export default function App() {
     <AuthProvider>
       <Navigation />
     </AuthProvider>
+    // <View className="mt-[107vw] flex-1 justify-center items-center">
+    //   <Text className="text-center text-[#000000CC] text-[28px] font-bold">Sea Cucumber</Text>
+    // </View>
   );
 }

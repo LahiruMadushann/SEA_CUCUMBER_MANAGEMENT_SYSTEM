@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import YoutubePlayer from "react-native-youtube-iframe";
-// import Pdf from "react-native-pdf";
 import {
   StyleSheet,
   Text,
