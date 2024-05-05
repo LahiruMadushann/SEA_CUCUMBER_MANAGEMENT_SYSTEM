@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BASE_URL from "../../apiConfig/config";
+import BASE_URL from "../../apiConfig/apiConfig";
 import { LogBox } from "react-native";
 import { View, TextInput, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -65,7 +65,7 @@ export default function KnowledgeCenterScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white ">
       <View style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
+        <View contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
           <View className="absolute w-[223vw] h-[100vh] left-[-62vw] top-[-49vh] bg-[#0013C0] rounded-b-full ">
             <View className="flex-row mt-[60vh]">
               <View className=" ml-[4vw]">
@@ -123,7 +123,7 @@ export default function KnowledgeCenterScreen() {
               )}
             />
           </View>
-        </ScrollView>
+        </View>
         <View style={{ marginBottom: 5 }}>
           <FooterBar />
         </View>

@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
-import BASE_URL from "../apiConfig/config";
+import BASE_URL from "../apiConfig/apiConfig";
 
 export default function GetEmailScreen() {
   const navigation = useNavigation();

@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 import MainBoardPopupScreen from "../components/MainBoardPopupScreen";
-import BASE_URL from "../apiConfig/config";
+import BASE_URL from "../apiConfig/apiConfig";
 
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
@@ -72,8 +72,6 @@ export default function MainBoardScreen() {
               <View className="flex ">
                 <View>
                   <Image source={require("../assets/main_board/fishing.png")} className="w-[73px] h-[55px] ml-[39px] mt-[35px]" />
-                </View>
-                <View>
                   <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-[24vw]">Fisheries</Text>
                   <Text className="text-center text-[12px] mt-[-2px] ml-[30vw] flex-auto  mr-5">
                     Navigate the seas sustainably, harvesting ocean treasures to support thriving ecosystems.

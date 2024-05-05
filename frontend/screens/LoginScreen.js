@@ -2,7 +2,7 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
-import BASE_URL from "../apiConfig/config";
+import BASE_URL from "../apiConfig/apiConfig";
 import { LogBox } from "react-native";
 
 import LoadingIndicator from "./LoadingIndicatorScreen";

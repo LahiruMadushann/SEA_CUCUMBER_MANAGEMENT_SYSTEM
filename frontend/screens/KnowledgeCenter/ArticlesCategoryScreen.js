@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
-import BASE_URL from "../../apiConfig/config";
+import BASE_URL from "../../apiConfig/apiConfig";
 import { LogBox } from "react-native";
 import { View, TextInput, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -63,29 +63,34 @@ export default function ArticlesCategoryScreen() {
 
           <View className="mt-[45vh] mx-auto">
             {/* Loop through Articles and display category */}
-            {allArticlesCategories.map((articles) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("ArticlesScreen", {
-                    category: articles,
-                  })
-                }
-                className="w-[80vw] h-[auto] rounded-[15px] my-auto bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-4"
-              >
-                <View key={articles}>
-                  <View className="w-[auto] h-[25px] ml-[5vw] mx-auto mb-3  mt-3 flex-row ">
-                    <Text className="text-[18px] font-bold text-[#000000]">
-                      {articles === "speciesRelated" ? "Species" : ""}
-                      {articles === "exportRelated" ? "Export" : ""}
-                      {articles === "farmingRealted" ? "Farming" : ""}
-                      {articles === "fisheriesRelated" ? "Fisheries" : ""}
-                      {articles === "processingRelated" ? "Sea Cucumber Processing" : ""}
-                      {articles === "other" ? "Other" : ""} Articles
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+            {allArticlesCategories.map(
+              (articles, index) => (
+                (key = { index }),
+                (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("ArticlesScreen", {
+                        category: articles,
+                      })
+                    }
+                    className="w-[80vw] h-[auto] rounded-[15px] my-auto bg-[#FFFFFF] shadow-lg shadow-gray-700 mb-4"
+                  >
+                    <View key={articles}>
+                      <View className="w-[auto] h-[25px] ml-[5vw] mx-auto mb-3  mt-3 flex-row ">
+                        <Text className="text-[18px] font-bold text-[#000000]">
+                          {articles === "speciesRelated" ? "Species" : ""}
+                          {articles === "exportRelated" ? "Export" : ""}
+                          {articles === "farmingRealted" ? "Farming" : ""}
+                          {articles === "fisheriesRelated" ? "Fisheries" : ""}
+                          {articles === "processingRelated" ? "Sea Cucumber Processing" : ""}
+                          {articles === "other" ? "Other" : ""} Articles
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                )
+              )
+            )}
           </View>
         </ScrollView>
         <View style={{ marginBottom: 5 }}>

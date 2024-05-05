@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BASE_URL from "../../apiConfig/config";
+import BASE_URL from "../../apiConfig/apiConfig";
 import axios from "axios";
 import { Alert } from "react-native";
 import { LogBox } from "react-native";

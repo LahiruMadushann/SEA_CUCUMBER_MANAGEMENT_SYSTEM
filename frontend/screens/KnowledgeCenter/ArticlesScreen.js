@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BASE_URL from "../../apiConfig/config";
+import BASE_URL from "../../apiConfig/apiConfig";
 import { FlatList } from "react-native";
 
 import axios from "axios";
