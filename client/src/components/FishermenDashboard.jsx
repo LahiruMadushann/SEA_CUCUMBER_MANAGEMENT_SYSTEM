@@ -21,13 +21,16 @@ import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/FarmOverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useSelector } from "react-redux";
 import { UserContext } from "../UserContext";
 import FishViewChart from "./FishViewChart";
 import FishViewBarChart from "./FishViewTotalBarChart";
 import FishViewPriceBarChart from "./FishViewPriceBarChart";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+
 
 
 const FishermenDashboard = () => {
@@ -94,6 +97,27 @@ const FishermenDashboard = () => {
     });
   };
 
+
+  const handleDownloadReports2 = () => {
+    const pdf = new jsPDF();
+    
+    const columns = [
+      { title: "Fishing Area", dataKey: "fishingArea" },
+      { title: "Species Type", dataKey: "speciesType" },
+      { title: "Num Of Species", dataKey: "numOfSpecies" },
+      { title: "Buyer", dataKey: "buyer" },
+      { title: "Buying Price", dataKey: "buyingPrice" },
+    ];
+  
+    pdf.autoTable({
+      head: [columns.map(column => column.title)],
+      body: data.map(row => columns.map(column => row[column.dataKey])),
+    });
+  
+    pdf.save("seacucumber-report-2.pdf");
+  };
+  
+  
   const columns = [
     // {
     //   field: "_id",
@@ -132,7 +156,7 @@ const FishermenDashboard = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
-        <Header title="FISHERMEN DASHBOARD" subtitle="Welcome to fishermen dashboard" />
+        <Header title="FISHERIES SECTION DASHBOARD" subtitle="Welcome to fisheries section dashboard" />
 
         <Box>
           <Button
@@ -149,6 +173,7 @@ const FishermenDashboard = () => {
             Download Reports
           </Button>
         </Box>
+
       </FlexBetween>
 
       <Box
@@ -215,14 +240,35 @@ const FishermenDashboard = () => {
             },
           }}
         >
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              width:"51vw"
+              
+            }}
+            onClick={handleDownloadReports2}
+          >
+            <DownloadOutlined sx={{ mr: "10px" }} />
+            Download Table
+          </Button>
+        </Box>
           <DataGrid
+          id="data-grid-table"
             loading={isLoading || !data}
             getRowId={(row) => row._id}
             // rows={(data && data.transactions) || []}
             rows={data || []}
             columns={columns}
+            sx={{height:"63.6vh"}}
           />
+          
         </Box>
+        
         <Box
           gridColumn="span 4"
           gridRow="span 3"
@@ -233,7 +279,9 @@ const FishermenDashboard = () => {
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
             Fishing Species Detail
           </Typography>
+       
           <BreakdownChart isDashboard={true} />
+       
           <Typography
             p="0 0.6rem"
             fontSize="0.8rem"

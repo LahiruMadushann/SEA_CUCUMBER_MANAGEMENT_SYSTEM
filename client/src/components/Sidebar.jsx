@@ -29,33 +29,33 @@ import {
   TrendingUpOutlined,
   PieChartOutlined,
 } from "@mui/icons-material";
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
-import WaterDamageOutlinedIcon from '@mui/icons-material/WaterDamageOutlined';
-import KayakingOutlinedIcon from '@mui/icons-material/KayakingOutlined';
-import SlowMotionVideoOutlinedIcon from '@mui/icons-material/SlowMotionVideoOutlined';
-import ConnectingAirportsOutlinedIcon from '@mui/icons-material/ConnectingAirportsOutlined';
-import PersonRemoveOutlinedIcon from '@mui/icons-material/PersonRemoveOutlined';
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import WaterDamageOutlinedIcon from "@mui/icons-material/WaterDamageOutlined";
+import KayakingOutlinedIcon from "@mui/icons-material/KayakingOutlined";
+import SlowMotionVideoOutlinedIcon from "@mui/icons-material/SlowMotionVideoOutlined";
+import ConnectingAirportsOutlinedIcon from "@mui/icons-material/ConnectingAirportsOutlined";
+import PersonRemoveOutlinedIcon from "@mui/icons-material/PersonRemoveOutlined";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/profile.jpeg";
 import { useSelector } from "react-redux";
 import { useGetUserQuery } from "state/api";
-import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
-import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
-import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
-import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
-import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
-import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
-import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
-import PersonPinCircleOutlinedIcon from '@mui/icons-material/PersonPinCircleOutlined';
-import SetMealOutlinedIcon from '@mui/icons-material/SetMealOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
+import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import RestoreFromTrashOutlinedIcon from "@mui/icons-material/RestoreFromTrashOutlined";
+import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
+import StackedLineChartOutlinedIcon from "@mui/icons-material/StackedLineChartOutlined";
+import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
+import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
+import SetMealOutlinedIcon from "@mui/icons-material/SetMealOutlined";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { UserContext } from "../UserContext";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 // import {useParams} from "react-router";
 
 const navItems = [
@@ -63,17 +63,17 @@ const navItems = [
     text: "Dashboard Section",
     icon: null,
   },
- 
+
   // {
   //   text: "Dashboard",
   //   icon: <HomeOutlined />,
   // },
   {
-    text: "Fishing Dashboard",
+    text: "Fisheries Section Dashboard",
     icon: <SetMealOutlinedIcon />,
   },
   {
-    text: "Farming Dashboard",
+    text: "Farming Section Dashboard",
     icon: <DashboardOutlinedIcon />,
   },
   //---------------
@@ -96,7 +96,6 @@ const navItems = [
     icon: <PersonRemoveOutlinedIcon />,
   },
   ,
-
   {
     text: "Activate Users",
     icon: <GroupAddOutlinedIcon />,
@@ -120,16 +119,15 @@ const navItems = [
   {
     text: "Update and Delete",
     icon: <ImportContactsOutlinedIcon />,
-    
   },
-  
+
   //---------------
   //---------------
   {
     text: "Knowledge Center",
     icon: null,
   },
- 
+
   {
     text: "Enter Knowledge Center Data",
     icon: <SchoolOutlinedIcon />,
@@ -173,7 +171,7 @@ const navItems = [
     text: "Aquaculture Farms Section",
     icon: null,
   },
- 
+
   {
     text: "Aquaculture Farms",
     icon: <WaterDamageOutlinedIcon />,
@@ -195,8 +193,6 @@ const navItems = [
     icon: <PointOfSaleOutlined />,
   },
 
-
-
   //---------------
   //---------------
   {
@@ -211,7 +207,7 @@ const navItems = [
     text: "Fishermens",
     icon: <KayakingOutlinedIcon />,
   },
- 
+
   {
     text: "Fishing Chart",
     icon: <PieChartOutlined />,
@@ -220,7 +216,6 @@ const navItems = [
     text: "Fish Overview",
     icon: <PointOfSaleOutlined />,
   },
-
 
   //---------------
 
@@ -243,18 +238,17 @@ const navItems = [
   // {
   //   text: "Aquaculture Farms Section Data",
   //   icon: null,
+
   // },
   // {
   //   text: "Aquaculture Management",
   //   icon: <ManageAccountsOutlinedIcon />,
   // },
-  
+
   // {
   //   text: "Farmers Data",
   //   icon: <KayakingOutlinedIcon />,
   // },
-
-
 
   //---------------
   //---------------
@@ -274,8 +268,6 @@ const navItems = [
   //   text: "FishProcessors Data",
   //   icon: <ReceiptLongOutlined />,
   // },
-
-
 
   //---------------
   // {
@@ -311,9 +303,6 @@ const navItems = [
   //   text: "Monthly",
   //   icon: <CalendarMonthOutlined />,
   // },
-  
- 
-  
 ];
 
 const Sidebar = ({
@@ -326,29 +315,26 @@ const Sidebar = ({
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const location = useLocation();
-  const [currentPath, setCurrentPath] = useState("")
+  const [currentPath, setCurrentPath] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  
-  
+
   const userId = useSelector((state) => state.global.userId);
 
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true); // Added loading state
   // const [user, setUser] = useState(null); // Use state to manage user data
-console.log("user ge al",userId)
+  console.log("user ge al", userId);
 
   useEffect(() => {
     setCurrentPath(location.pathname.replace(/\//g, "").toLowerCase());
     // const currentPath = location.pathname.replace(/\//g, "").toLowerCase();
     setActive(currentPath);
-
   }, [currentPath]);
 
   const [pageLoaded, setPageLoaded] = useState(false); // Add pageLoaded state
   useEffect(() => {
-
     if (!userId) {
       if (loading) {
         // Render a loading indicator while waiting for the response
@@ -356,123 +342,165 @@ console.log("user ge al",userId)
       }
       return <div>Loading...</div>;
     }
-    axios.get(`${baseUrl}user/${userId}`).then(response => {
-
+    axios.get(`${baseUrl}user/${userId}`).then((response) => {
       setDetail(response.data);
 
       setLoading(false); // Set loading to false when the response is received
-      setPageLoaded(true); 
-     
+      setPageLoaded(true);
     });
-
   }, [detail]);
 
-
-
-
-
-
-
-  // const { data, error, isLoading } = useGetUserQuery(userId);
-  // const { data: user } = useGetUserQuery(userName, {
-  //   skip: !userName,
-  //   refetchOnMountOrArgChange: true,
-  // });
-
-  // const { data: userNew } = useGetUserQuery(userId, {
-  //   skip: !userId,
-  //   refetchOnMountOrArgChange: true,
-  // });
-
-  // async function handleLoginSubmit(e) {
-  //   e.preventDefault();
-
-  //   if (user && user.password === password) {
-  //     alert("Login successful");
-  //     console.log(user)
-  //     setUser(user); // Set user context here if needed
-  //     navigate("/dashboard"); // Redirect to dashboard
-  //   } else {
-  //     alert("Login failed");
-  //     setUserName('');
-  //     setPassword('');
-  //   }
-  // }
-
-
-
-
-  // console.log("User Role paiyo", detail.role);
-
-  // console.log("Error fetching data", error);
-  // console.log("Loading", isLoading);
-
-
-  // const [userData, setUserData] = useState(null);
-
-  // setUserData(data);
-  // console.log("hyyy",userData.name)
-
-  // if (!pageLoaded || !user) {
-  //   return null; // Render nothing or a loading indicator
-  // }
-
-
-  // useEffect(() => {
-
-  //   }, [user]);
-  const filteredNavItems = navItems.filter(item => {
+  const filteredNavItems = navItems.filter((item) => {
     if (user || detail) {
-      if(user){
-        if (user.role === 'Farmer') {
-         
+      if (user) {
+        if (user.role === "Farmer") {
+          return [
+            "Fisheries Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "Overview",
+          ].includes(item.text);
+        } else if (user.role === "District Extension Officer" || user.role === "Regional Officer") {
+          return [
+            "Fisheries Section Dashboard",
+            "Fisheries Section",
+            "Fisheries Management Users",
+            "Fishermens",
+            "Fishing Chart",
+            "Fish Overview",
+            "FAQS",
+            "Delete & Update"
+          ].includes(item.text);
+        } else if (user.role === "Minister") {
+          return [
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "District AquaCulturist",
+            "Farm Overview",
+            "Fisheries Section",
+            "Fisheries Management Users",
+            "Fishermen",
+            "Fishing Chart",
+            "Fish Overview"
+          ].includes(item.text);
         
-          return ['Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview'].includes(item.text);
-        } else if (user.role === 'Fisherman') {
-         
-          return ['Fishing Dashboard', 'Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
-        } else if (user.role === 'Processor') {
-          
-          return ['Fishing Dashboard','Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
-        } else if (user.role === 'Exporter') {
-          return ['Fishing Dashboard','Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users','Fishermens', 'Fishing Chart', 'Exporters and Processors', 'Exporters','Processors', 'Aquaculture Farms Section Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data'].includes(item.text);
+        } else if (
+          user.role === "Assistant Director" ||
+          user.role === "Chairman" ||
+          user.role === "Director General"
+        ) {
+          return [
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "District AquaCulturist",
+            "Farm Overview",
+            "FAQS",
+            "Delete & Update"
+          ].includes(item.text);
         } else {
-          
           return true;
         }
-      }else {
-        if (detail.role === 'Farmer') {
-          
-          return ['Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview'].includes(item.text);
-        } else if (detail.role === 'Fisherman') {
-          
-          return ['Fishing Dashboard', 'Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
-        } else if (detail.role === 'Processor') {
-         
-          return ['Fishing Dashboard','Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers','Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users', 'Fishermen','Fishing Chart'].includes(item.text);
-        } else if (detail.role === 'Exporter') {
-          return ['Fishing Dashboard','Farming Dashboard', 'Aquaculture Farms Section', 'Aquaculture Farms', 'Aquaculture Farmers', 'Farms Chart','Overview','Fisheries Section', 'Fisheries Management Users','Fishermens', 'Fishing Chart', 'Exporters and Processors', 'Exporters','Processors', 'Aquaculture Farms Section Data', 'Farmers Data', 'Fisheries Data', 'Fishermens Data', 'Fish Processors Data'].includes(item.text);
+      } else {
+        if (detail.role === "Farmer") {
+          return [
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "Overview",
+          ].includes(item.text);
+        } else if (detail.role === "District Extension Officer" || detail.role === "Regional Officer") {
+          return [
+            "Fisheries Section Dashboard",
+            "Fisheries Section",
+            "Fisheries Management Users",
+            "Fishermen",
+            "Fishing Chart",
+            "Fish Overview"
+          ].includes(item.text);
+        } else if (detail.role === "Processor") {
+          return [
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "Overview",
+            "Fisheries Section",
+            "Fisheries Management Users",
+            "Fishermen",
+            "Fishing Chart",
+          ].includes(item.text);
+        } else if (detail.role === "Exporter") {
+          return [
+            "Fisheries Section Dashboard",
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "Overview",
+            "Fisheries Section",
+            "Fisheries Management Users",
+            "Fishermens",
+            "Fishing Chart",
+            "Exporters and Processors",
+            "Exporters",
+            "Processors",
+            "Aquaculture Farms Section Data",
+            "Farmers Data",
+            "Fisheries Data",
+            "Fishermens Data",
+            "Fish Processors Data",
+          ].includes(item.text);
+        } else if (
+          detail.role === "Assistant Director" ||
+          detail.role === "Chairman" ||
+          detail.role === "Director General"
+        ) {
+          return [
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "District AquaCulturist",
+            "Farm Overview",
+          ].includes(item.text);
+        } else if (detail.role === "District Aquaculturist") {
+          return [
+            "Farming Section Dashboard",
+            "Aquaculture Farms Section",
+            "Aquaculture Farms",
+            "Aquaculture Farmers",
+            "Farms Chart",
+            "District AquaCulturist",
+            "Farm Overview",
+          ].includes(item.text);
         } else {
-          
           return true;
         }
       }
-      
     } else {
-      return <div>Loading....</div>
+      return <div>Loading....</div>;
     }
-
-
-
   });
   // useEffect(() => {
   //   filteredNavItems();
   // }, [user]);
 
-
-
-  console.log('aluth data',detail)
-
+  console.log("aluth data", detail);
 
   // useEffect(() => {
   //   setActive(pathname.substring(1));
@@ -513,66 +541,62 @@ console.log("user ge al",userId)
               </FlexBetween>
             </Box>
             <List>
-              {
-
-                filteredNavItems.map(({ text, icon }) => {
-                  // let newText = text.replace(/ /g, '');
-                  // console.log(newText)
-                  if (!icon) {
-                    return (
-                      <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
-
-                        {text}
-                      </Typography>
-                    );
-                  }
-                  const lcText = text.toLowerCase();
-                  const lcTextNew = lcText.replace(/ /g, '');
-                 
-
+              {filteredNavItems.map(({ text, icon }) => {
+                // let newText = text.replace(/ /g, '');
+                // console.log(newText)
+                if (!icon) {
                   return (
-                    <ListItem key={text} disablePadding>
-                      <ListItemButton
-                        onClick={() => {
-                          navigate(`/${lcTextNew}`);
-                          setActive(lcText);
-                        }}
+                    <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
+                      {text}
+                    </Typography>
+                  );
+                }
+                const lcText = text.toLowerCase();
+                const lcTextNew = lcText.replace(/ /g, "");
+
+                return (
+                  <ListItem key={text} disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(`/${lcTextNew}`);
+                        setActive(lcText);
+                      }}
+                      sx={{
+                        backgroundColor:
+                          active === lcText
+                            ? theme.palette.secondary[100]
+                            : "transparent",
+                        color:
+                          active === lcText
+                            ? theme.palette.secondary[600]
+                            : theme.palette.secondary[100],
+                      }}
+                    >
+                      <ListItemIcon
                         sx={{
-                          backgroundColor:
-                            active === lcText
-                              ? theme.palette.secondary[100]
-                              : "transparent",
+                          ml: "2rem",
                           color:
                             active === lcText
                               ? theme.palette.secondary[600]
-                              : theme.palette.secondary[100],
+                              : theme.palette.secondary[200],
                         }}
                       >
-                        <ListItemIcon
-                          sx={{
-                            ml: "2rem",
-                            color:
-                              active === lcText
-                                ? theme.palette.secondary[600]
-                                : theme.palette.secondary[200],
-                          }}
-                        >
-                          {icon}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                        {active === lcText && (
-                          <ChevronRightOutlined sx={{ ml: "4vw" }} />
-                        )}
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
+                        {icon}
+                      </ListItemIcon>
+                      <ListItemText primary={text} />
+                      {active === lcText && (
+                        <ChevronRightOutlined sx={{ ml: "4vw" }} />
+                      )}
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
             </List>
           </Box>
 
           <Box position="absolute" bottom="-98rem" paddingBottom="25px">
             <Divider />
-         
+
             {/* <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
               
                 <Box
@@ -620,9 +644,6 @@ console.log("user ge al",userId)
       )}
     </Box>
   );
-
-
-  
 };
 
 export default Sidebar;

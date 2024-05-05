@@ -34,6 +34,7 @@ const ContactUs = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectUserRole, setSelectUserRole] = useState(null);
   const [email, setEmail] = useState("");
+  const [comment, setComment] = useState(null);
   const [msg, setMsg] = useState("");
   const status = "true";
   const [data, setData] = useState([]); // Initialize data state
@@ -42,69 +43,55 @@ const ContactUs = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [isSendButtonActive, setIsSendButtonActive] = useState(false);
 
-
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-
   useEffect(() => {
-
-
-    axios.get(`${baseUrl}/user/getContactUs`).then(response => {
-
-      setData(response.data.data)
+    axios.get(`${baseUrl}/user/getContactUs`).then((response) => {
+      setData(response.data.data);
 
       setIsLoading(false);
-
-    
-
     });
-
   }, [data]);
 
   useEffect(() => {
-    setIsSendButtonActive(
-      !!message && !!email
-    );
+    setIsSendButtonActive(!!message && !!email);
   }, [message, email]);
 
-
-
-  const filterData = isLoading === "true" ? "Loading" : async () => {
-    try {
-      let filteredData = data;
-      if (selectedRole) {
-        filteredData = data.filter(
-          (user) =>
-            user.name.toLowerCase().includes(searchQuery.toLowerCase()),
-
-        );
-      } else {
-        filteredData = data.filter((user) =>
-          user.name.toLowerCase().includes(searchQuery.toLowerCase()),
-
-        );
-      }
-      setFilteredData(filteredData);
-    } catch (error) {
-      console.error("Error filtering data:", error);
-    }
-  };
+  const filterData =
+    isLoading === "true"
+      ? "Loading"
+      : async () => {
+          try {
+            let filteredData = data;
+            if (selectedRole) {
+              filteredData = data.filter((user) =>
+                user.name.toLowerCase().includes(searchQuery.toLowerCase())
+              );
+            } else {
+              filteredData = data.filter((user) =>
+                user.name.toLowerCase().includes(searchQuery.toLowerCase())
+              );
+            }
+            setFilteredData(filteredData);
+          } catch (error) {
+            console.error("Error filtering data:", error);
+          }
+        };
   useEffect(() => {
     filterData();
   }, [data, selectedRole, searchQuery]);
 
-  const handleSelectUser = (userId, role,email) => {
+  const handleSelectUser = (userId, role, email, comment) => {
     setSelectedUserId(userId);
     setSelectUserRole(role);
-  
-    setEmail(email)
+
+    setComment(comment);
+    setEmail(email);
     setMsg("none");
     handleOpenDialog();
-    
   };
 
   const handleOpenDialog = () => {
-
     setOpenDialog(true);
   };
 
@@ -114,53 +101,47 @@ const ContactUs = () => {
 
   const handleMessageSubmit = async () => {
     try {
-     
       if (msg === "none") {
-        
-        
-       await axios.put(`${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`, {
+        await axios
+          .put(`${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`, {
+            //-----------------
+            //-------------------
 
-//-----------------
-//-------------------
-
-
-          userId: selectedUserId,
-          message: message,
-          email: email
-         
-        }).then((response)=>{ 
-        
-          if (response.data.success){
-            Swal.fire({
-              title: "Successfull",
-              text: "Reply Send successful!",
-              icon: "success",
-              showCancelButton: false,
-              confirmButtonColor: "#d33",
-              cancelButtonColor: "#3644C5",
-              confirmButtonText: "Ok!",
-              
-            });
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Message Not Sent',
-              text: 'Message Not Sent. Please Try Again Later.',
-            });
-          }
-        });
-        
-      
+            userId: selectedUserId,
+            message: message,
+            email: email,
+            comment: comment
+          })
+          .then((response) => {
+            if (response.data.success) {
+              Swal.fire({
+                title: "Successfull",
+                text: "Reply Send successful!",
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3644C5",
+                confirmButtonText: "Ok!",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Message Not Sent",
+                text: "Message Not Sent. Please Try Again Later.",
+              });
+            }
+          });
       } else if (msg === "all") {
-     
-        await axios.put(`${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`, {
-          userId: "", 
-          message: message,
-          email: email
-        });
-    
+        await axios.put(
+          `${baseUrl}/user/updateContactUs/${selectedUserId}/${status}`,
+          {
+            userId: "",
+            message: message,
+            email: email,
+            comment: comment
+          }
+        );
       }
-     
 
       // Close the message dialog
       handleCloseDialog();
@@ -169,13 +150,12 @@ const ContactUs = () => {
     }
   };
 
-
   const columns = [
     {
       field: "_id",
       headerName: "ID",
       flex: 1,
-      hide: true
+      hide: true,
     },
     {
       field: "name",
@@ -206,13 +186,17 @@ const ContactUs = () => {
       flex: 0.3,
       renderCell: (params) => (
         <div>
-
           <Button
             variant="outlined"
             color="secondary"
             sx={{ fontWeight: "bold", backgroundColor: "#198754" }}
-            onClick={() => handleSelectUser(params.row._id, params.row.role,params.row.email)}
-
+            onClick={() =>
+              handleSelectUser(
+                params.row._id,
+                params.row.role,
+                params.row.email
+              )
+            }
           >
             Reply
           </Button>
@@ -223,10 +207,8 @@ const ContactUs = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-
       <Header title="CONTACT US" subtitle="List of Messages" />
       <Box style={{ marginTop: "5vh" }}>
-        
         <TextField
           label="Search by name"
           variant="outlined"
@@ -234,7 +216,6 @@ const ContactUs = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ minWidth: 200 }}
         />
-
       </Box>
       <Box
         mt="40px"
@@ -270,14 +251,13 @@ const ContactUs = () => {
           rows={filteredData || []}
           columns={columns}
         />
-
       </Box>
       {/* Message Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Send Message</DialogTitle>
         <DialogContent>
           <DialogContentText>Enter your message below:</DialogContentText>
-         
+
           <TextField
             margin="dense"
             label="Message "
@@ -296,18 +276,15 @@ const ContactUs = () => {
             value={email}
             onChange={(e) => setEmail(email)}
             disabled
-            
           />
-         
-
         </DialogContent>
         <DialogActions>
           <Button
             onClick={handleCloseDialog}
             color="primary"
             style={{
-              fontWeight: 'bold',
-              color: 'white',
+              fontWeight: "bold",
+              color: "white",
             }}
           >
             Cancel
@@ -316,12 +293,10 @@ const ContactUs = () => {
             onClick={handleMessageSubmit}
             color="primary"
             style={{
-              fontWeight: isSendButtonActive ? 'bold' : 'normal',
-              color: isSendButtonActive ? 'white' : 'black',
+              fontWeight: isSendButtonActive ? "bold" : "normal",
+              color: isSendButtonActive ? "white" : "black",
             }}
-          disabled={
-            !message|| !email 
-          }
+            disabled={!message || !email}
           >
             Send
           </Button>

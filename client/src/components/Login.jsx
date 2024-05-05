@@ -72,12 +72,12 @@ const Login = ({ user }) => {
         });
 
         if(decodedToken.role === "Fisherman"){
-          navigate('/fishingdashboard');
+          navigate('/fisheriessectiondashboard');
         }else if(decodedToken.role === "Farmer"){
-          navigate('/farmingdashboard');
+          navigate('/farmingsectiondashboard');
 
         }else{
-          navigate('/fishingdashboard');
+          navigate('/fisheriessectiondashboard');
         }
     
    

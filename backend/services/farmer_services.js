@@ -42,7 +42,7 @@ class farmerService {
         town,
         province,
         country,
-        accountStatus: "Active",
+        accountStatus: "Inactive",
         farmName,
         farmId,
         profilepic,

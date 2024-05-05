@@ -378,3 +378,27 @@ exports.deleteAdvertisement = async (req, res, next) => {
     next(error);
   }
 };
+
+//GETTING ALL AQUA CULTURE FARM DETAILS THAT DOES NOT HAVE A FARMER
+exports.getAllAquaFarmDetailsWithoutaFarmer = async (req, res, next) => {
+  try {
+    let allAquaFarmDetails =
+      await districtAquaCulturistService.getAllAquaFarmsWithoutaFarmer();
+
+    if (allAquaFarmDetails) {
+      res.status(200).json({
+        success: true,
+        message: "Found All aqua Farm details",
+        data: allAquaFarmDetails,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No farm details found ",
+      });
+    }
+  } catch (error) {
+    console.log(error, "err---->");
+    next(error);
+  }
+};

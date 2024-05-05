@@ -303,7 +303,7 @@ const UpdateKnowledgeCenter = () => {
     return (
         <Box m="1.5rem 2.5rem">
 
-            <Header title="ARTICLE" subtitle="List of Articles" />
+            <Header title="KNOWLEDGE CENTER" subtitle="List of Knowledge" />
 
             <Box
                 mt="40px"

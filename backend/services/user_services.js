@@ -175,6 +175,8 @@ class userService {
         data.role == "Director General" ||
         data.role == "Assistant Director" ||
         data.role == "District Aquaculturist" ||
+        data.role == "Regional Officer" ||
+        data.role == "District Extension Officer" ||
         data.role == "Minister"
       ) {
         tokenData = {
@@ -427,11 +429,11 @@ class userService {
 
       if (await userModel.findOne({ username })) {
         msg = "Username already exists";
-      }
-      // else if (await userModel.findOne({ email })) {
-      //   msg = "Email already exists";
-      // }
-      else if (await userModel.findOne({ contactNo })) {
+      } else if (await userModel.findOne({ nicNo })) {
+        msg = "NIC already exists";
+      } else if (await userModel.findOne({ email })) {
+        msg = "Email already exists";
+      } else if (await userModel.findOne({ contactNo })) {
         msg = "Contact number already exists";
       } else {
         msg = null;

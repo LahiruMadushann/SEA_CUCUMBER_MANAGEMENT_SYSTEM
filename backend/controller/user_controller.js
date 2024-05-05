@@ -100,10 +100,10 @@ exports.getUserDetails = async (req, res, next) => {
 //UPDATE USER DETAILS CONTROLLER
 exports.updateUser = async (req, res, next) => {
   try {
-    const { userId } = req.params
+    // const { userId } = req.params
 
     const {
-
+      userId,
       age,
       gender,
       email,
@@ -156,15 +156,15 @@ exports.updateUser = async (req, res, next) => {
 exports.updateProfilePic = async (req, res, next) => {
   try {
     const { userId } = req.body;
-   
+
     if (!req.file) {
-      return res.status(400).json({ success: false, message: "You must select a file" });
+      return res
+        .status(400)
+        .json({ success: false, message: "You must select a file" });
     }
-    
-    
+
     const profilepic = req.file.filename;
-    
-    
+
     let updateProfilepic = await userService.updateProfilePic(
       userId,
       profilepic
@@ -415,7 +415,7 @@ exports.updateContactUs = async (req, res, next) => {
   try {
     const { id, state } = req.params;
     const { commentId, comment, email, reply, message } = req.body;
-    console.log("hello hello")
+    console.log("hello hello");
 
     // const { userId } = req.body;
     let uContactUs = await userService.updateContactUs(id, state);
@@ -448,11 +448,16 @@ exports.updateArticles = async (req, res, next) => {
     const { id } = req.params;
     const { category, heading, content, link } = req.body;
 
-    let articleUpdate = await knowledgeCenterService.updateArticles(id, category, heading, content, link);
+    let articleUpdate = await knowledgeCenterService.updateArticles(
+      id,
+      category,
+      heading,
+      content,
+      link
+    );
 
     if (articleUpdate) {
       res.status(200).json({ success: true, message: "Article Update" });
-
     } else {
       res
         .status(400)
