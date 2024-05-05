@@ -12,37 +12,37 @@ import GetEmailScreen from "./screens/GetEmailScreen";
 
 import RegisterScreen from "./screens/RegisterScreen";
 
-{
-  /*FAQ SCREENS */
-}
-import FAQScreen from "./screens/FAQScreens/FAQScreen";
-import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
+// {
+//   /*FAQ SCREENS */
+// }
+// import FAQScreen from "./screens/FAQScreens/FAQScreen";
+// import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
 
-import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
-import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
-import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
-import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
+// import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
+// import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
+// import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
+// import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
 
-{
-  /*EXPORTER */
-}
+// {
+//   /*EXPORTER */
+// }
 
-import AllProcessorsScreen from "./screens/ExporterScreens/AllProcessorsScreen";
+// import AllProcessorsScreen from "./screens/ExporterScreens/AllProcessorsScreen";
 
-{
-  /*DISTRICT AQUACULTURIST */
-}
-import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
-import CreateAdsScreen from "./screens/AquaculturistScreens/CreateAdsScreen";
+// {
+//   /*DISTRICT AQUACULTURIST */
+// }
+// import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
+// import CreateAdsScreen from "./screens/AquaculturistScreens/CreateAdsScreen";
 
-{
-  /*FARM SCREENS */
-}
-import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
-import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
-import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
-import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
-import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
+// {
+//   /*FARM SCREENS */
+// }
+// import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
+// import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
+// import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
+// import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
+// import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
 
 {
   /*KNOWLEDGE CENTER SCREEN */
@@ -54,9 +54,9 @@ import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategorySc
 import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
 
 import ContactUsScreen from "./screens/ContactUsScreen";
-import EnterOptScreen from "./screens/EnterOptScreen";
-import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
-import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
+// import EnterOptScreen from "./screens/EnterOptScreen";
+// import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
+// import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 
 {
   /*REGISTRATION SCREEN */
@@ -66,36 +66,36 @@ import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegist
 import ProcessorRegisterScreen from "./screens/RegistrationScreens/ProcessorRegisterScreen";
 import FishermanRegisterScreen from "./screens/RegistrationScreens/FishermenRegisterScreen";
 
-{
-  /*TABS INSIDE MAIN BOARD*/
-}
+// {
+//   /*TABS INSIDE MAIN BOARD*/
+// }
 import MainFisheriesScreen from "./screens/MainFisheriesScreen";
 import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
 
-{
-  /*NOTIFICATION SCREENS*/
-}
-import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
-import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
+// {
+//   /*NOTIFICATION SCREENS*/
+// }
+// import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
+// import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
 
-import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
-import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
+// import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
+// import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
 
-{
-  /*NAQDA MANAGEMENT USER SCREENS*/
-}
-import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
-import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
-import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
+// {
+//   /*NAQDA MANAGEMENT USER SCREENS*/
+// }
+// import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
+// import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
+// import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
 
-import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
-import SingleProcessorScreen from "./screens/ExporterScreens/SingleProcessorScreen";
-import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
-import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
+// import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
+// import SingleProcessorScreen from "./screens/ExporterScreens/SingleProcessorScreen";
+// import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
+// import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
 
-import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
-import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
-import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
+// import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
+// import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
+// import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
 
 export default function Navigation() {
   return (
@@ -104,15 +104,29 @@ export default function Navigation() {
         {/*TABS INSIDE MAIN BOARD*/}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="MainBoard" component={MainBoardScreen} />
+        <Stack.Screen name="MainFisheriesScreen" component={MainFisheriesScreen} />
+        <Stack.Screen name="MainAquaFarmScreen" component={MainAquaFarmScreen} />
 
-        <Stack.Screen
-          name="MainFisheriesScreen"
-          component={MainFisheriesScreen}
-        />
-        <Stack.Screen
-          name="MainAquaFarmScreen"
-          component={MainAquaFarmScreen}
-        />
+        <Stack.Screen name="Contact" component={ContactUsScreen} />
+
+        <Stack.Screen name="Login" component={LoginScreen} />
+
+        {/*REGISTRATION SCREENS*/}
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ExporterRegister" component={ExporterRegisterScreen} />
+        <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
+        <Stack.Screen name="ProcessorRegisterScreen" component={ProcessorRegisterScreen} />
+        <Stack.Screen name="FishermanRegisterScreen" component={FishermanRegisterScreen} />
+
+        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
+
+        {/*KNOWLEDGE CENTER SCREENS*/}
+        <Stack.Screen name="KnowledgeMain" component={KnowledgeCenterMainScreen} />
+        <Stack.Screen name="Knowledge_species" component={KnowledgeCenterScreen} />
+        <Stack.Screen name="KCIndividualSpecies" component={KCIndividualSpecies} />
+        <Stack.Screen name="ArticlesCategoryScreen" component={ArticlesCategoryScreen} />
+        <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+        {/*
         <Stack.Screen name="MainFarmScreen" component={MainFarmScreen} />
         <Stack.Screen name="UpdateFarmScreen" component={UpdateFarmScreen} />
         <Stack.Screen
@@ -130,17 +144,17 @@ export default function Navigation() {
           component={ViewIndividualFarmingRecScreen}
         />
 
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Contact" component={ContactUsScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+      
+     
+        
         <Stack.Screen name="FAQScreen" component={FAQScreen} />
         <Stack.Screen
           name="FisheriesFarmingFAQScreen"
           component={FisheriesFarmingFAQScreen}
-        />
-
+  />*/}
         {/*USER PROFILE SCREENS*/}
-        <Stack.Screen
+        {/*
+        Stack.Screen
           name="UserProfileMainScreen"
           component={UserProfileMainScreen}
         />
@@ -153,38 +167,9 @@ export default function Navigation() {
           name="UpdateProfilePicScreen"
           component={UpdateProfilePicScreen}
         />
-        <Stack.Screen
-          name="KnowledgeMain"
-          component={KnowledgeCenterMainScreen}
-        />
-        <Stack.Screen
-          name="Knowledge_species"
-          component={KnowledgeCenterScreen}
-        />
-        <Stack.Screen
-          name="KCIndividualSpecies"
-          component={KCIndividualSpecies}
-        />
-        <Stack.Screen
-          name="ArticlesCategoryScreen"
-          component={ArticlesCategoryScreen}
-        />
+    
 
-        <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
-
-        <Stack.Screen name="FarmerRegister" component={FarmerRegisterScreen} />
-        <Stack.Screen
-          name="ExporterRegister"
-          component={ExporterRegisterScreen}
-        />
-        <Stack.Screen
-          name="ProcessorRegisterScreen"
-          component={ProcessorRegisterScreen}
-        />
-        <Stack.Screen
-          name="FishermanRegisterScreen"
-          component={FishermanRegisterScreen}
-        />
+       
 
         <Stack.Screen
           name="MainNotificationScreen"
@@ -207,7 +192,7 @@ export default function Navigation() {
         />
 
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
-        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
+      
         <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
         <Stack.Screen
           name="UpdatePassword"
@@ -267,6 +252,7 @@ export default function Navigation() {
           name="ViewSingleProcessedRecScreen"
           component={ViewSingleProcessedRecScreen}
         />
+        */}
       </Stack.Navigator>
     </NavigationContainer>
   );

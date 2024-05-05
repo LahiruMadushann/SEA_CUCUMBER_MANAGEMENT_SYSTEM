@@ -2,26 +2,19 @@ import axios from "axios";
 import { Alert } from "react-native";
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
-import BASE_URL from "../apiConfig/config";
-import { LogBox } from "react-native";
+//import BASE_URL from "../apiConfig/config";
+//import { LogBox } from "react-native";
 
 import LoadingIndicator from "./LoadingIndicatorScreen";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 
 export default function LoginScreen() {
-  LogBox.ignoreAllLogs();
+  //LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
@@ -88,43 +81,27 @@ export default function LoginScreen() {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "white" }}
-      className="flex-grow bg-white"
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white">
       <View style={{ flex: 1 }}>
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          className="bg-[#fff]"
-        >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
           <View className="absolute w-[162vw] h-[50vh] left-[-32vw] top-[-20vh] bg-[#0013C0]  rounded-b-full ">
             <View className="flex-row">
               <View className="ml-[42vw] mt-[26vh]">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("MainBoard")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("MainBoard")}>
                   <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../assets/main_board/arrow.png")}
-                      className=" w-[10.09216px] h-[15.62988px] "
-                    />
+                    <Image source={require("../assets/main_board/arrow.png")} className=" w-[10.09216px] h-[15.62988px] " />
                   </View>
                 </TouchableOpacity>
               </View>
             </View>
 
             <View>
-              <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[12vw]">
-                Login
-              </Text>
+              <Text className="text-center text-[22px] text-[#ffff] font-bold mt-[12vw]">Login</Text>
             </View>
           </View>
 
           <View className="mt-[70vw] form space-y-2 mx-auto flex-row items-center">
-            <Image
-              source={require("../assets/login/username.png")}
-              className="w-[auto] h-[auto] center"
-            />
+            <Image source={require("../assets/login/username.png")} className="w-[auto] h-[auto] center" />
             <TextInput
               className="p-4 border-b text-[18px] text-gray-700 w-64 mb-3"
               value={username}
@@ -137,10 +114,7 @@ export default function LoginScreen() {
           </View>
 
           <View className="form space-y-2 mx-auto flex-row items-center">
-            <Image
-              source={require("../assets/login/password.png")}
-              className="w-[auto] h-[auto] center"
-            />
+            <Image source={require("../assets/login/password.png")} className="w-[auto] h-[auto] center" />
             <TextInput
               className="p-4 border-b text-[18px] text-gray-700 w-64 mb-3"
               value={password}
@@ -151,16 +125,9 @@ export default function LoginScreen() {
               secureTextEntry={!showPassword}
               required
             />
-            <TouchableOpacity
-              onPress={togglePasswordVisibility}
-              className="absolute mb-[5vh] ml-[65vw]"
-            >
+            <TouchableOpacity onPress={togglePasswordVisibility} className="absolute mb-[5vh] ml-[65vw]">
               <Image
-                source={
-                  showPassword
-                    ? require("../assets/login/eye.png")
-                    : require("../assets/login/eye-crossed.png")
-                }
+                source={showPassword ? require("../assets/login/eye.png") : require("../assets/login/eye-crossed.png")}
                 className="w-[6vw] h-[3vh]"
               />
             </TouchableOpacity>
@@ -168,23 +135,15 @@ export default function LoginScreen() {
 
           <TouchableOpacity onPress={handleLogin}>
             <View className="w-[275px] h-[46px] mx-auto mt-[6vw]">
-              <Text className="bg-[#0013C0] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">
-                Login
-              </Text>
+              <Text className="bg-[#0013C0] font-bold text-[#FFFFFF] text-center text-[18px] px-[24px] py-[10px] rounded-[15px]">Login</Text>
             </View>
           </TouchableOpacity>
 
           <View className="mx-auto flex-row mt-[22px]">
-            <Text className="text-[#000000BF] text-[14px] ">
-              Forgot Password?
-            </Text>
+            <Text className="text-[#000000BF] text-[14px] ">Forgot Password?</Text>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("GetEmailScreen")}
-            >
-              <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">
-                Click here
-              </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("GetEmailScreen")}>
+              <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">Click here</Text>
             </TouchableOpacity>
           </View>
 
@@ -193,14 +152,10 @@ export default function LoginScreen() {
           </View>
 
           <View className="mx-auto flex-row mt-[22px]">
-            <Text className="text-[#000000BF] text-[14px] ">
-              Don't you have account
-            </Text>
+            <Text className="text-[#000000BF] text-[14px] ">Don't you have account</Text>
 
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">
-                Sign up
-              </Text>
+              <Text className="text-[#0013C0CC] ml-[2vw] text-[14px]">Sign up</Text>
             </TouchableOpacity>
           </View>
 

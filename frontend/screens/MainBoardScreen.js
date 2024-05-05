@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
 import MainBoardPopupScreen from "../components/MainBoardPopupScreen";
-import BASE_URL from "../apiConfig/config";
+//import BASE_URL from "../apiConfig/config";
 
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
@@ -30,36 +30,21 @@ export default function MainBoardScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 1 }}>
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          className="bg-[#fff]"
-        >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
           {/* <StatusBar barStyle="dark-content" /> */}
 
-          <View
-            className="absolute w-[auto] h-[60vh] left-[-27vw] top-[0vh] bg-[#0013C0] rounded-b-full"
-            style={{ zIndex: -1 }}
-          >
+          <View className="absolute w-[auto] h-[60vh] left-[-27vw] top-[0vh] bg-[#0013C0] rounded-b-full" style={{ zIndex: -1 }}>
             <View className="flex-1 justify-center items-center">
-              <Image
-                source={require("../assets/main_board/main_image.jpg")}
-                className="w-[auto] h-[60vh] center rounded-b-full"
-                style={{ opacity: 0.5 }}
-              />
+              <Image source={require("../assets/main_board/main_image.jpg")} className="w-[auto] h-[60vh] center rounded-b-full" style={{ opacity: 0.5 }} />
             </View>
           </View>
 
           <View className="flex-row mt-[15vw]">
             {hasToken && (
               <View className="mt-[1vw] ml-[10vw]" style={{ zIndex: -1 }}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("UserProfileMainScreen")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("UserProfileMainScreen")}>
                   <View className="flex m-[auto] ">
-                    <Image
-                      source={{ uri: profilePicUrl }}
-                      className=" w-[35px] h-[35px] rounded-full"
-                    />
+                    <Image source={{ uri: profilePicUrl }} className=" w-[35px] h-[35px] rounded-full" />
                   </View>
                 </TouchableOpacity>
               </View>
@@ -75,15 +60,11 @@ export default function MainBoardScreen() {
           </View>
 
           <View className="mx-auto" style={{ zIndex: -1 }}>
-            <Text className="text-center text-[6vw] text-[#ffff] font-bold mt-[5vw] mb-[10vw]">
-              Main Board
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("MainFisheriesScreen")}
-              className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700"
-            >
+            <Text className="text-center text-[6vw] text-[#ffff] font-bold mt-[5vw] mb-[10vw]">Main Board</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("MainFisheriesScreen")} className="w-[74vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700">
               <View className="flex ">
                 <View>
+<<<<<<< Updated upstream
                   <Image
                     source={require("../assets/main_board/fishing.png")}
                     className="w-[73px] h-[55px] ml-[39px] mt-[35px]"
@@ -97,15 +78,19 @@ export default function MainBoardScreen() {
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry.{" "}
                   </Text>
+=======
+                  <Image source={require("../assets/main_board/fishing.png")} className="w-[73px] h-[55px] ml-[39px] mt-[35px]" />
+
+                  <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-[24vw]">Fisheries</Text>
+                  <Text className="text-center text-[12px] mt-[4] mr-[9vw] ml-[30vw] flex-auto">Navigate the seas sustainably, harvesting ocean treasures to support thriving ecosystems.</Text>
+>>>>>>> Stashed changes
                 </View>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("MainAquaFarmScreen")}
-              className="w-[74vw] mt-[6vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("MainAquaFarmScreen")} className="w-[74vw] mt-[6vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 ">
               <View className="flex ">
+<<<<<<< Updated upstream
                 <Image
                   source={require("../assets/main_board/farming.png")}
                   className="w-[73px] h-[55px] ml-[35px] mt-[35px]"
@@ -117,14 +102,17 @@ export default function MainBoardScreen() {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry.{" "}
                 </Text>
+=======
+                <Image source={require("../assets/main_board/farming.png")} className="w-[73px] h-[55px] ml-[35px] mt-[35px]" />
+                <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-24">Farming</Text>
+                <Text className="text-center text-[12px] mt-[4] ml-[30vw] mr-[9vw] flex-auto">Foster the growth of seacucumbers through ensuring quality and sustainability.</Text>
+>>>>>>> Stashed changes
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("KnowledgeMain")}
-              className="w-[74vw] mt-[6vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700  "
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("KnowledgeMain")} className="w-[74vw] mt-[6vw] h-[18vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700  ">
               <View className="flex ">
+<<<<<<< Updated upstream
                 <Image
                   source={require("../assets/main_board/knowledge.png")}
                   className="w-[73px] h-[55px] ml-[39px] mt-[35px]"
@@ -136,6 +124,11 @@ export default function MainBoardScreen() {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry.{" "}
                 </Text>
+=======
+                <Image source={require("../assets/main_board/knowledge.png")} className="w-[73px] h-[55px] ml-[39px] mt-[35px]" />
+                <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-60px] ml-24">Knowledge</Text>
+                <Text className="text-center text-[12px] mt-1 ml-[30vw] mr-[5vw] flex-auto ">Delve into the world of seacucumbers, gaining insights to enhance your understanding.</Text>
+>>>>>>> Stashed changes
               </View>
             </TouchableOpacity>
           </View>

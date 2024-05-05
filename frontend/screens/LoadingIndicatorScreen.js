@@ -11,9 +11,7 @@ const LoadingIndicator = () => {
           opacity: 0.6,
         }}
       />
-      <Text className="text-[16px] mt-[1vh] text-center text-[#0013C0]">
-        Please wait...
-      </Text>
+      <Text className="text-[16px] mt-[1vh] text-center text-[#0013C0]">Please wait...</Text>
     </View>
   );
 };

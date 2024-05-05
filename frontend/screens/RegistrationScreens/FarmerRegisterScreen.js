@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
-import BASE_URL from "../../apiConfig/config";
+//import BASE_URL from "../../apiConfig/config";
 import axios from "axios";
 import { Alert } from "react-native";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  ScrollView,
-  StyleSheet,
-  Button,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import CheckBox from "expo-checkbox";
@@ -23,6 +14,10 @@ import * as ImagePicker from "expo-image-picker";
 import LoadingIndicator from "../LoadingIndicatorScreen";
 
 export default function FarmerRegisterScreen() {
+<<<<<<< Updated upstream
+=======
+  // LogBox.ignoreAllLogs();
+>>>>>>> Stashed changes
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
@@ -51,9 +46,13 @@ export default function FarmerRegisterScreen() {
     setIsLoading(true);
     async function fetchFarmNames() {
       try {
+<<<<<<< Updated upstream
         const response = await axios.get(
           `${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetails`
         );
+=======
+        const response = await axios.get(`${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetailsWithoutaFarmer`);
+>>>>>>> Stashed changes
 
         const farmNamesData = response.data.data; // Access the data property
         setFarmNames(farmNamesData); // Store farm names with IDs
@@ -103,15 +102,24 @@ export default function FarmerRegisterScreen() {
     ) {
       Alert.alert("Empty Field", "Please fill all the fields");
     } else if (password != confirmPassword) {
-      return Alert.alert(
-        "Password Mismatch",
-        "Please Enter Matching Passwords"
-      );
+      return Alert.alert("Password Mismatch", "Please Enter Matching Passwords");
     } else if (phoneNumber.length != 10) {
+<<<<<<< Updated upstream
       return Alert.alert(
         "Invalid Input",
         "Please enter a valid 10-digit Contact No"
       );
+=======
+      return Alert.alert("Invalid Input", "Please enter a valid 10-digit Contact No");
+    } else if (!email.includes("@")) {
+      return Alert.alert("Invalid Input", "Please enter a valid email address");
+    } else if (password.length <= 6) {
+      return Alert.alert("Invalid Input", "Please enter a password more than 6 characters");
+    } else if (!/[A-Z]/.test(password)) {
+      return Alert.alert("Invalid Input", "Password must contain at least one uppercase letter");
+    } else if (!/\d/.test(password)) {
+      return Alert.alert("Invalid Input", "Password must contain at least one digit");
+>>>>>>> Stashed changes
     }
 
     const formData = new FormData();
@@ -147,10 +155,7 @@ export default function FarmerRegisterScreen() {
       });
 
       if (response.data.success == true) {
-        Alert.alert(
-          "Registration Successful",
-          "Please Log in to access your account"
-        );
+        Alert.alert("Registration Successful", "Please Log in to access your account");
         navigation.navigate("Login");
       }
 
@@ -164,35 +169,22 @@ export default function FarmerRegisterScreen() {
   };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "white" }}
-      className="flex-grow bg-white "
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white ">
       <View style={{ flex: 1 }}>
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          className="bg-[#fff]"
-        >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
           <View className="absolute w-[218vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
             <View className="flex-row">
               <View className="mt-[100vw] ml-[4vw]">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Register")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                   <View className="flex m-[auto] ">
-                    <Image
-                      source={require("../../assets/main_board/arrow.png")}
-                      className=" w-[10.09216px] h-[15.62988px] ml-[265px]"
-                    />
+                    <Image source={require("../../assets/main_board/arrow.png")} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
                   </View>
                 </TouchableOpacity>
               </View>
             </View>
 
             <View className="w-auto h-[48px] mt-[5vw] mx-auto">
-              <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-[22px] px-[31px] py-[5px] ">
-                Farmer Registration
-              </Text>
+              <Text className=" font-bold text-[#FFFFFF] ml-[10vw] text-[22px] px-[31px] py-[5px] ">Farmer Registration</Text>
               <Image
                 source={require("../../assets/register/farmer.png")}
                 className=" w-[130px] h-[130px] ml-[90px] mt-[1vw]"
@@ -225,6 +217,15 @@ export default function FarmerRegisterScreen() {
                 secureTextEntry
                 required
               />
+<<<<<<< Updated upstream
+=======
+              <TouchableOpacity onPress={togglePasswordVisibility} className="absolute ml-[60vw]">
+                <Image
+                  source={showPassword ? require("../../assets/login/eye.png") : require("../../assets/login/eye-crossed.png")}
+                  className="w-[6vw] mb-[3vh] h-[3vh]"
+                />
+              </TouchableOpacity>
+>>>>>>> Stashed changes
             </View>
 
             <View style={styles.fieldContainer}>
@@ -237,11 +238,18 @@ export default function FarmerRegisterScreen() {
                 secureTextEntry
                 required
               />
+<<<<<<< Updated upstream
+=======
+              <TouchableOpacity onPress={toggleConfirmPasswordVisibility} className="absolute ml-[60vw]">
+                <Image
+                  source={showConfirmPassword ? require("../../assets/login/eye.png") : require("../../assets/login/eye-crossed.png")}
+                  className="w-[6vw] mb-[2vh] h-[3vh]"
+                />
+              </TouchableOpacity>
+>>>>>>> Stashed changes
             </View>
 
-            <Text className="text-lg font-bold mb-4 mt-5">
-              Personal Details
-            </Text>
+            <Text className="text-lg font-bold mb-4 mt-5">Personal Details</Text>
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
@@ -289,26 +297,10 @@ export default function FarmerRegisterScreen() {
 
             <View style={styles.fieldContainer}>
               <Text style={styles.requiredLabel}>*</Text>
-              <Picker
-                style={styles.picker}
-                selectedValue={gender}
-                onValueChange={(itemValue) => setGender(itemValue)}
-              >
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="Select Gender"
-                  value=""
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="Male"
-                  value="male"
-                />
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="Female"
-                  value="female"
-                />
+              <Picker style={styles.picker} selectedValue={gender} onValueChange={(itemValue) => setGender(itemValue)}>
+                <Picker.Item style={styles.pickerItem} label="Select Gender" value="" />
+                <Picker.Item style={styles.pickerItem} label="Male" value="male" />
+                <Picker.Item style={styles.pickerItem} label="Female" value="female" />
               </Picker>
             </View>
 
@@ -383,53 +375,31 @@ export default function FarmerRegisterScreen() {
                 style={styles.picker}
                 selectedValue={farmName}
                 onValueChange={(itemValue) => {
-                  const selectedFarm = farmNames.find(
-                    (farm) => farm.name === itemValue
-                  );
+                  const selectedFarm = farmNames.find((farm) => farm.name === itemValue);
                   setFarmName(selectedFarm.name); // Set selected farm name
                   setFarmId(selectedFarm._id); // Set selected farm ID
                 }}
               >
-                <Picker.Item
-                  style={styles.pickerItem}
-                  label="Select Farm Name"
-                  value=""
-                />
+                <Picker.Item style={styles.pickerItem} label="Select Farm Name" value="" />
                 {farmNames.map((farm, index) => (
-                  <Picker.Item
-                    style={styles.pickerItem}
-                    key={index}
-                    label={farm.name}
-                    value={farm.name}
-                  />
+                  <Picker.Item style={styles.pickerItem} key={index} label={farm.name} value={farm.name} />
                 ))}
               </Picker>
             </View>
 
             <View style={styles.pickImageContainer}>
-              <TouchableOpacity
-                onPress={selectImage}
-                style={styles.pickImageButton}
-              >
+              <TouchableOpacity onPress={selectImage} style={styles.pickImageButton}>
                 <Text style={styles.pickImageText}>Pick Profile Image</Text>
               </TouchableOpacity>
             </View>
-            {image && (
-              <Image
-                className="mt-[3vh] mx-auto rounded-[15px]"
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            )}
+            {image && <Image className="mt-[3vh] mx-auto rounded-[15px]" source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           </View>
           <View className="mt-[15vh] mb-[3vh]">
             <TouchableOpacity
               className="bg-[#0013C0] rounded-[15px] w-[67vw] mx-auto justify-center py-[10px] px-[40px] items-center mt-[20px]"
               onPress={handleRegistration}
             >
-              <Text className="text-[#fff] text-[18px] font-bold text-center">
-                Register
-              </Text>
+              <Text className="text-[#fff] text-[18px] font-bold text-center">Register</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

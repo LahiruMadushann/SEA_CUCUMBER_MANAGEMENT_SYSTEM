@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Sea Cucumber App",
+    "name": "Sea cucumber app",
     "slug": "sea-cucumber-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jeevake_perera.seacucumberapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c0bb9cfe-f929-40fa-832b-0bdb91dcf40a"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8d675bbb-9f7c-4ddd-a925-9ecba7b9b2b7"
+      }
     }
   }
 }
