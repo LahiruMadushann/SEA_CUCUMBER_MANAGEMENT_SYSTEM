@@ -4,6 +4,8 @@ import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode";
 import BASE_URL from "../apiConfig/apiConfig";
 import { LogBox } from "react-native";
+import { decode as base64decode } from "base-64";
+global.atob = base64decode;
 
 import LoadingIndicator from "./LoadingIndicatorScreen";
 
@@ -12,6 +14,8 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import FooterBar from "../components/FooterBar";
+
+
 
 export default function LoginScreen() {
   //LogBox.ignoreAllLogs();
@@ -43,7 +47,8 @@ export default function LoginScreen() {
           const token = response.data.token;
           console.log("Token:", token);
 
-          const decodedToken = jwtDecode(token);
+          //const decodedToken = jwtDecode(token);
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
           console.log("Decoded Token:", decodedToken);
 
           // Set the token in the context
@@ -72,7 +77,7 @@ export default function LoginScreen() {
         console.error("Login error:", error);
         Alert.alert("Login Error", "Server Error. Please try again later");
         setIsLoading(false);
-        console.error("Error response:", error.message);
+        //console.error("Error response:", error.message);
       });
   };
 

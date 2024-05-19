@@ -12,11 +12,11 @@ import GetEmailScreen from "./screens/GetEmailScreen";
 
 import RegisterScreen from "./screens/RegisterScreen";
 
-// {
-//   /*FAQ SCREENS */
-// }
-// import FAQScreen from "./screens/FAQScreens/FAQScreen";
-// import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
+{
+  /*FAQ SCREENS */
+}
+import FAQScreen from "./screens/FAQScreens/FAQScreen";
+import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
 
 // import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
 // import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
@@ -72,14 +72,14 @@ import FishermanRegisterScreen from "./screens/RegistrationScreens/FishermenRegi
 import MainFisheriesScreen from "./screens/MainFisheriesScreen";
 import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
 
-// {
-//   /*NOTIFICATION SCREENS*/
-// }
-// import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
-// import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
+{
+  /*NOTIFICATION SCREENS*/
+}
+import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
+import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
 
-// import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
-// import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
+import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
+import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
 
 // {
 //   /*NAQDA MANAGEMENT USER SCREENS*/
@@ -126,6 +126,20 @@ export default function Navigation() {
         <Stack.Screen name="KCIndividualSpecies" component={KCIndividualSpecies} />
         <Stack.Screen name="ArticlesCategoryScreen" component={ArticlesCategoryScreen} />
         <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+
+        {/*FAQS SCREENS*/}
+        <Stack.Screen name="FAQScreen" component={FAQScreen} />
+        <Stack.Screen name="FisheriesFarmingFAQScreen" component={FisheriesFarmingFAQScreen} />
+
+        {/*NOTIFICATION SCREENS*/}
+
+        <Stack.Screen name="MainNotificationScreen" component={MainNotificationScreen} />
+        <Stack.Screen name="SingleNotificationScreen" component={SingleNotificationScreen} />
+
+        {/*ADVERTISEMENT SCREENS*/}
+        <Stack.Screen name="MainAdvertisementScreen" component={MainAdvertisementScreen} />
+        <Stack.Screen name="SingleAdvertisementScreen" component={SingleAdvertisementScreen} />
+
         {/*
         <Stack.Screen name="MainFarmScreen" component={MainFarmScreen} />
         <Stack.Screen name="UpdateFarmScreen" component={UpdateFarmScreen} />
@@ -147,11 +161,7 @@ export default function Navigation() {
       
      
         
-        <Stack.Screen name="FAQScreen" component={FAQScreen} />
-        <Stack.Screen
-          name="FisheriesFarmingFAQScreen"
-          component={FisheriesFarmingFAQScreen}
-  />*/}
+  */}
         {/*USER PROFILE SCREENS*/}
         {/*
         Stack.Screen
@@ -167,29 +177,8 @@ export default function Navigation() {
           name="UpdateProfilePicScreen"
           component={UpdateProfilePicScreen}
         />
-    
-
+  
        
-
-        <Stack.Screen
-          name="MainNotificationScreen"
-          component={MainNotificationScreen}
-        />
-
-        <Stack.Screen
-          name="SingleNotificationScreen"
-          component={SingleNotificationScreen}
-        />
-
-        <Stack.Screen
-          name="MainAdvertisementScreen"
-          component={MainAdvertisementScreen}
-        />
-
-        <Stack.Screen
-          name="SingleAdvertisementScreen"
-          component={SingleAdvertisementScreen}
-        />
 
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
       

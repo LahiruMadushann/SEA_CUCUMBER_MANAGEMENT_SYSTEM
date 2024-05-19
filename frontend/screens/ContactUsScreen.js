@@ -103,7 +103,7 @@ export default function ContactUsScreen() {
                 value={contactNo}
                 onChangeText={setContactNo}
                 placeholder="Telephone No"
-                keyboardType="Numeric"
+                keyboardType="numeric"
               />
 
               <TextInput
