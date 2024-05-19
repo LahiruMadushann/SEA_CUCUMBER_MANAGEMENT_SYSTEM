@@ -6,6 +6,9 @@ import FooterBar from "../components/FooterBar";
 import MainBoardPopupScreen from "../components/MainBoardPopupScreen";
 import BASE_URL from "../apiConfig/apiConfig";
 
+import { decode as base64decode } from "base-64";
+global.atob = base64decode;
+
 import { useAuth } from "../auth/AuthContext";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
 
@@ -17,7 +20,8 @@ export default function MainBoardScreen() {
   let profilePicUrl = "";
 
   if (hasToken) {
-    const decodedToken = jwtDecode(hasToken);
+    //const decodedToken = jwtDecode(hasToken);
+    const decodedToken = JSON.parse(atob(hasToken.split(".")[1]));
 
     // Access payload data from the decoded token
     const { profilepic: db_profilepic } = decodedToken;
