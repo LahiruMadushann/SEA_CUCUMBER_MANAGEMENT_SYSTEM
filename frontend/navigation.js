@@ -18,10 +18,13 @@ import RegisterScreen from "./screens/RegisterScreen";
 import FAQScreen from "./screens/FAQScreens/FAQScreen";
 import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
 
-// import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
-// import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
-// import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
-// import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
+{
+  /*PROFILE SCREENS */
+}
+import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
+import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
+import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
+import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
 
 // {
 //   /*EXPORTER */
@@ -140,6 +143,12 @@ export default function Navigation() {
         <Stack.Screen name="MainAdvertisementScreen" component={MainAdvertisementScreen} />
         <Stack.Screen name="SingleAdvertisementScreen" component={SingleAdvertisementScreen} />
 
+        {/*USER PROFILE SCREENS*/}
+        <Stack.Screen name="UserProfileMainScreen" component={UserProfileMainScreen} />
+        <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+        <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
+        <Stack.Screen name="UpdateProfilePicScreen" component={UpdateProfilePicScreen} />
+
         {/*
         <Stack.Screen name="MainFarmScreen" component={MainFarmScreen} />
         <Stack.Screen name="UpdateFarmScreen" component={UpdateFarmScreen} />
@@ -162,21 +171,9 @@ export default function Navigation() {
      
         
   */}
-        {/*USER PROFILE SCREENS*/}
+
         {/*
-        Stack.Screen
-          name="UserProfileMainScreen"
-          component={UserProfileMainScreen}
-        />
-        <Stack.Screen
-          name="UpdatePasswordScreen"
-          component={UpdatePasswordScreen}
-        />
-        <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
-        <Stack.Screen
-          name="UpdateProfilePicScreen"
-          component={UpdateProfilePicScreen}
-        />
+       
   
        
 
