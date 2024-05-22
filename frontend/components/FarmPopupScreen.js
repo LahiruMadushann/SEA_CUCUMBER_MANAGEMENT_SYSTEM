@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Alert } from "react-native";
-import BASE_URL from "../apiConfig/config";
+import BASE_URL from "../apiConfig/apiConfig";
 import axios from "axios";
 
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
@@ -16,58 +16,48 @@ export default function FarmPopupScreen({ farmId, farmName }) {
   };
 
   const handleDelete = async () => {
-    Alert.alert(
-      "Are you sure?",
-      "Once you delete the farm, you won't be able to recover it.",
-      [
-        {
-          text: "Delete Farm",
-          onPress: () => {
-            const userData = {
-              farmId: farmId,
-            };
-            console.log("FarmID: ", farmId);
-            const backendUrl = `${BASE_URL}/districtAquaCulturist/deleteFarmDetails`;
+    Alert.alert("Are you sure?", "Once you delete the farm, you won't be able to recover it.", [
+      {
+        text: "Delete Farm",
+        onPress: () => {
+          const userData = {
+            farmId: farmId,
+          };
+          console.log("FarmID: ", farmId);
+          const backendUrl = `${BASE_URL}/districtAquaCulturist/deleteFarmDetails`;
 
-            axios
-              .post(backendUrl, userData)
-              .then((response) => {
-                if (response.data.success) {
-                  Alert.alert("Farm Deleted", response.data.message);
+          axios
+            .post(backendUrl, userData)
+            .then((response) => {
+              if (response.data.success) {
+                Alert.alert("Farm Deleted", response.data.message);
 
-                  navigation.navigate("UserProfileMainScreen");
-                } else {
-                  Alert.alert("UnSuccessful", response.data.message);
-                }
-              })
-              .catch((error) => {
-                console.error("Error Deleting Farm:", error);
-                Alert.alert(
-                  "Error",
-                  "An error occurred while deleting the farm."
-                );
-              });
+                navigation.navigate("UserProfileMainScreen");
+              } else {
+                Alert.alert("UnSuccessful", response.data.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error Deleting Farm:", error);
+              Alert.alert("Error", "An error occurred while deleting the farm.");
+            });
 
-            console.log("Delete Pressed");
-          },
+          console.log("Delete Pressed");
         },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-      ]
-    );
+      },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+    ]);
   };
 
   return (
     <View className=" " style={{ zIndex: 999 }}>
       <View className="ml-[70vw]">
         <TouchableOpacity onPress={toggleMenu}>
-          <Image
-            source={require("../assets/options.png")}
-            className=" w-[24.21875px] h-[28px]"
-          />
+          <Image source={require("../assets/options.png")} className=" w-[24.21875px] h-[28px]" />
         </TouchableOpacity>
       </View>
       {menuVisible && (
@@ -84,11 +74,7 @@ export default function FarmPopupScreen({ farmId, farmName }) {
               <Text className="mx-[1vw]">Update Farm </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("UpdateFarmingScreen", { farmId: farmId })
-            }
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("UpdateFarmingScreen", { farmId: farmId })}>
             <View style={styles.tab}>
               <Text className="mx-[1vw]">Update Stock Details</Text>
             </View>

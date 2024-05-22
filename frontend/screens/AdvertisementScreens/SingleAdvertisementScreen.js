@@ -3,6 +3,8 @@ import { Alert } from "react-native";
 import axios from "axios";
 import BASE_URL from "../../apiConfig/apiConfig";
 import jwtDecode from "jwt-decode"; // Import the jwt-decode library
+import { decode as base64decode } from "base-64";
+global.atob = base64decode;
 import { useAuth } from "../../auth/AuthContext";
 
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet, Button } from "react-native";
@@ -20,8 +22,8 @@ export default function SingleAdvertisementScreen() {
   const token = state.token;
 
   // Decode the token
-  const decodedToken = jwtDecode(token);
-
+  //const decodedToken = jwtDecode(token);
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
   // Access payload data from the decoded token
   const { _id: db_id } = decodedToken;
 
