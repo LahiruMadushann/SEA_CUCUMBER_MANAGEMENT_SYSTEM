@@ -12,90 +12,87 @@ import GetEmailScreen from "./screens/GetEmailScreen";
 
 import RegisterScreen from "./screens/RegisterScreen";
 
-{
-  /*FAQ SCREENS */
-}
+/*FAQ SCREENS */
+
 import FAQScreen from "./screens/FAQScreens/FAQScreen";
 import FisheriesFarmingFAQScreen from "./screens/FAQScreens/FisheriesFarmingFAQScreen";
 
-// import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
-// import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
-// import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
-// import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
+/*PROFILE SCREENS */
 
-// {
-//   /*EXPORTER */
-// }
+import UserProfileMainScreen from "./screens/UserProfile/UserProfileMainScreen";
+import UpdatePasswordScreen from "./screens/UserProfile/UpdatePasswordScreen";
+import UpdateUserScreen from "./screens/UserProfile/UpdateUserScreen";
+import UpdateProfilePicScreen from "./screens/UserProfile/UpdateProfilePicScreen";
 
-// import AllProcessorsScreen from "./screens/ExporterScreens/AllProcessorsScreen";
+/*EXPORTER */
 
-// {
-//   /*DISTRICT AQUACULTURIST */
-// }
-// import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
-// import CreateAdsScreen from "./screens/AquaculturistScreens/CreateAdsScreen";
+import AllProcessorsScreen from "./screens/ExporterScreens/AllProcessorsScreen";
+import SingleProcessorScreen from "./screens/ExporterScreens/SingleProcessorScreen";
 
-// {
-//   /*FARM SCREENS */
-// }
-// import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
-// import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
-// import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
-// import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
-// import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
+/*DISTRICT AQUACULTURIST */
 
-{
-  /*KNOWLEDGE CENTER SCREEN */
-}
+import AllFarmsScreen from "./screens/AquaculturistScreens/AllFarmsScreen";
+import CreateAdsScreen from "./screens/AquaculturistScreens/CreateAdsScreen";
+
+/*FARM SCREENS */
+
+import MainFarmScreen from "./screens/FarmScreens/MainFarmScreen";
+import UpdateFarmScreen from "./screens/FarmScreens/UpdateFarmScreen";
+import UpdateFarmingScreen from "./screens/FarmScreens/UpdateFarmingScreen";
+import ViewFarmingRecordsScreen from "./screens/FarmScreens/ViewFarmingRecordsScreen";
+import ViewIndividualFarmingRecScreen from "./screens/FarmScreens/ViewIndividualFarmingRecScreen";
+
+/*KNOWLEDGE CENTER SCREEN */
+
 import KnowledgeCenterScreen from "./screens/KnowledgeCenter/KnowledgeCenterScreen";
 import KnowledgeCenterMainScreen from "./screens/KnowledgeCenter/KnowledgeCenterMainScreen";
 import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
 import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategoryScreen";
 import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
+import GradeIdentifierScreen from "./screens/KnowledgeCenter/GradeIdentifierScreen";
 
 import ContactUsScreen from "./screens/ContactUsScreen";
-// import EnterOptScreen from "./screens/EnterOptScreen";
-// import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
+import EnterOptScreen from "./screens/EnterOptScreen";
+import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
 // import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 
-{
-  /*REGISTRATION SCREEN */
-}
+/*REGISTRATION SCREEN */
+
 import FarmerRegisterScreen from "./screens/RegistrationScreens/FarmerRegisterScreen";
 import ExporterRegisterScreen from "./screens/RegistrationScreens/ExporterRegisterScreen";
 import ProcessorRegisterScreen from "./screens/RegistrationScreens/ProcessorRegisterScreen";
 import FishermanRegisterScreen from "./screens/RegistrationScreens/FishermenRegisterScreen";
 
-// {
-//   /*TABS INSIDE MAIN BOARD*/
-// }
+/*TABS INSIDE MAIN BOARD*/
+
 import MainFisheriesScreen from "./screens/MainFisheriesScreen";
 import MainAquaFarmScreen from "./screens/MainAquaFarmScreen";
 
-{
-  /*NOTIFICATION SCREENS*/
-}
+/*NOTIFICATION SCREENS*/
+
 import MainNotificationScreen from "./screens/NotificationScreens/MainNotificationScreen";
 import SingleNotificationScreen from "./screens/NotificationScreens/SingleNotificationScreen";
 
 import MainAdvertisementScreen from "./screens/AdvertisementScreens/MainAdvertisementScreen";
 import SingleAdvertisementScreen from "./screens/AdvertisementScreens/SingleAdvertisementScreen";
 
-// {
-//   /*NAQDA MANAGEMENT USER SCREENS*/
-// }
-// import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
-// import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
-// import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
+/*NAQDA MANAGEMENT USER SCREENS*/
 
-// import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
-// import SingleProcessorScreen from "./screens/ExporterScreens/SingleProcessorScreen";
-// import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
-// import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
+import FarmRegisterScreen from "./screens/NaqdaMngUserScreens/FarmRegisterScreen";
+import EnterSeaCucumberRatesScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberRatesScreen";
+import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCucumberNewsScreen";
 
-// import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
-// import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
-// import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
+/*PROCESSOR SCREEN */
+
+import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
+import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
+import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
+
+/*FISHERMAN SCREEN */
+
+import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
+import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
+import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
 
 export default function Navigation() {
   return (
@@ -118,14 +115,13 @@ export default function Navigation() {
         <Stack.Screen name="ProcessorRegisterScreen" component={ProcessorRegisterScreen} />
         <Stack.Screen name="FishermanRegisterScreen" component={FishermanRegisterScreen} />
 
-        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
-
         {/*KNOWLEDGE CENTER SCREENS*/}
         <Stack.Screen name="KnowledgeMain" component={KnowledgeCenterMainScreen} />
         <Stack.Screen name="Knowledge_species" component={KnowledgeCenterScreen} />
         <Stack.Screen name="KCIndividualSpecies" component={KCIndividualSpecies} />
         <Stack.Screen name="ArticlesCategoryScreen" component={ArticlesCategoryScreen} />
         <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+        <Stack.Screen name="GradeIdentifierScreen" component={GradeIdentifierScreen} />
 
         {/*FAQS SCREENS*/}
         <Stack.Screen name="FAQScreen" component={FAQScreen} />
@@ -140,107 +136,63 @@ export default function Navigation() {
         <Stack.Screen name="MainAdvertisementScreen" component={MainAdvertisementScreen} />
         <Stack.Screen name="SingleAdvertisementScreen" component={SingleAdvertisementScreen} />
 
-        {/*
+        {/*USER PROFILE SCREENS*/}
+        <Stack.Screen name="UserProfileMainScreen" component={UserProfileMainScreen} />
+        <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+        <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
+        <Stack.Screen name="UpdateProfilePicScreen" component={UpdateProfilePicScreen} />
+
+        {/*FARM SCREENS*/}
         <Stack.Screen name="MainFarmScreen" component={MainFarmScreen} />
         <Stack.Screen name="UpdateFarmScreen" component={UpdateFarmScreen} />
-        <Stack.Screen
-          name="UpdateFarmingScreen"
-          component={UpdateFarmingScreen}
-        />
-        <Stack.Screen
-          name="ViewFarmingRecordsScreen"
-          component={ViewFarmingRecordsScreen}
-        />
+        <Stack.Screen name="UpdateFarmingScreen" component={UpdateFarmingScreen} />
+        <Stack.Screen name="ViewFarmingRecordsScreen" component={ViewFarmingRecordsScreen} />
+        <Stack.Screen name="ViewIndividualFarmingRecScreen" component={ViewIndividualFarmingRecScreen} />
+
+        {/*EXPORTER SCREENS*/}
+        <Stack.Screen name="SingleProcessorScreen" component={SingleProcessorScreen} />
+        <Stack.Screen name="AllProcessorsScreen" component={AllProcessorsScreen} />
+
+        {/*PROCESSOR SCREENS*/}
+        <Stack.Screen name="EnterProcessedDataScreen" component={EnterProcessedDataScreen} />
+        <Stack.Screen name="ViewProcessedRecordsScreen" component={ViewProcessedRecordsScreen} />
+        <Stack.Screen name="ViewSingleProcessedRecScreen" component={ViewSingleProcessedRecScreen} />
+
+        {/*AQUACULTURIST SCREENS*/}
         <Stack.Screen name="AllFarmsScreen" component={AllFarmsScreen} />
         <Stack.Screen name="CreateAdsScreen" component={CreateAdsScreen} />
-        <Stack.Screen
-          name="ViewIndividualFarmingRecScreen"
-          component={ViewIndividualFarmingRecScreen}
-        />
 
-      
-     
-        
-  */}
-        {/*USER PROFILE SCREENS*/}
+        {/*NAQDA MANAGEMENT USER SCREENS*/}
+        <Stack.Screen name="FarmRegisterScreen" component={FarmRegisterScreen} />
+        <Stack.Screen name="EnterSeaCucumberRatesScreen" component={EnterSeaCucumberRatesScreen} />
+        <Stack.Screen name="EnterSeaCucumberNewsScreen" component={EnterSeaCucumberNewsScreen} />
+
+        {/*FISHERMAN SCREENS*/}
+        <Stack.Screen name="EnterFishingDetailsScreen" component={EnterFishingDetailsScreen} />
+        <Stack.Screen name="ViewAllFishingRecordsScreen" component={ViewAllFishingRecordsScreen} />
+        <Stack.Screen name="ViewSingleFishingRecScreen" component={ViewSingleFishingRecScreen} />
+
+        {/*FORGOT PASSWORD SCREENS*/}
+        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
+        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
+        <Stack.Screen name="UpdatePassword" component={UpdateNewPasswordScreen} />
+
         {/*
-        Stack.Screen
-          name="UserProfileMainScreen"
-          component={UserProfileMainScreen}
-        />
-        <Stack.Screen
-          name="UpdatePasswordScreen"
-          component={UpdatePasswordScreen}
-        />
-        <Stack.Screen name="UpdateUserScreen" component={UpdateUserScreen} />
-        <Stack.Screen
-          name="UpdateProfilePicScreen"
-          component={UpdateProfilePicScreen}
-        />
-  
        
-
+  
+      
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
       
-        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
-        <Stack.Screen
-          name="UpdatePassword"
-          component={UpdateNewPasswordScreen}
-        />
 
-        <Stack.Screen
-          name="FarmRegisterScreen"
-          component={FarmRegisterScreen}
-        />
 
-        <Stack.Screen
-          name="EnterSeaCucumberRatesScreen"
-          component={EnterSeaCucumberRatesScreen}
-        />
 
-        <Stack.Screen
-          name="EnterSeaCucumberNewsScreen"
-          component={EnterSeaCucumberNewsScreen}
-        />
+       
 
-        <Stack.Screen
-          name="EnterProcessedDataScreen"
-          component={EnterProcessedDataScreen}
-        />
+   
 
-        <Stack.Screen
-          name="EnterFishingDetailsScreen"
-          component={EnterFishingDetailsScreen}
-        />
+      
 
-        <Stack.Screen
-          name="ViewAllFishingRecordsScreen"
-          component={ViewAllFishingRecordsScreen}
-        />
-
-        <Stack.Screen
-          name="ViewSingleFishingRecScreen"
-          component={ViewSingleFishingRecScreen}
-        />
-
-        <Stack.Screen
-          name="AllProcessorsScreen"
-          component={AllProcessorsScreen}
-        />
-
-        <Stack.Screen
-          name="SingleProcessorScreen"
-          component={SingleProcessorScreen}
-        />
-
-        <Stack.Screen
-          name="ViewProcessedRecordsScreen"
-          component={ViewProcessedRecordsScreen}
-        />
-        <Stack.Screen
-          name="ViewSingleProcessedRecScreen"
-          component={ViewSingleProcessedRecScreen}
-        />
+       
         */}
       </Stack.Navigator>
     </NavigationContainer>

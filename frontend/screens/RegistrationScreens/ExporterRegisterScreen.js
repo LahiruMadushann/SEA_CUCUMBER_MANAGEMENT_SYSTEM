@@ -48,8 +48,14 @@ export default function ExporterRegisterScreen() {
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+    console.log("Image result", result.assets[0].uri);
+
+    try {
+      if (!result.canceled) {
+        setImage(result.assets[0].uri); // Update the image state with the selected image URI
+      }
+    } catch (e) {
+      console.log("Image Error", e.message);
     }
   };
 
@@ -102,6 +108,8 @@ export default function ExporterRegisterScreen() {
       type: "image/jpeg", // Change to the appropriate MIME type if needed
       name: "profile.jpg", // Change to the desired file name
     });
+
+    console.log("image:", image);
 
     const backendUrl = `${BASE_URL}/exporter/register`; // Replace with your actual backend URL
 

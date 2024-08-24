@@ -56,9 +56,9 @@ export default function FarmerRegisterScreen() {
       try {
         const response = await axios.get(`${BASE_URL}/districtAquaCulturist/getAllAquaFarmDetailsWithoutaFarmer`);
 
-        const farmNamesData = response.data.data; // Access the data property
+        const farmNamesData = response.data.data;
         console.log(farmNamesData);
-        setFarmNames(farmNamesData); // Store farm names with IDs
+        setFarmNames(farmNamesData);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching farm names:", error);
@@ -82,7 +82,7 @@ export default function FarmerRegisterScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+      setImage(result.assets[0].uri); // Update the image state with the selected image URI
     }
   };
 
@@ -149,7 +149,7 @@ export default function FarmerRegisterScreen() {
           "Content-Type": "multipart/form-data",
         },
       });
-
+      console.log("response", response);
       if (response.data.success == true) {
         Alert.alert("Registration Successful", "Please Log in to access your account");
         navigation.navigate("Login");
@@ -160,7 +160,7 @@ export default function FarmerRegisterScreen() {
         return Alert.alert("Registration Unsuccessful", response.data.message);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", error.message);
     }
   };
 
