@@ -49,10 +49,11 @@ import KnowledgeCenterMainScreen from "./screens/KnowledgeCenter/KnowledgeCenter
 import KCIndividualSpecies from "./screens/KnowledgeCenter/KCIndividualSpecies";
 import ArticlesCategoryScreen from "./screens/KnowledgeCenter/ArticlesCategoryScreen";
 import ArticlesScreen from "./screens/KnowledgeCenter/ArticlesScreen";
+import GradeIdentifierScreen from "./screens/KnowledgeCenter/GradeIdentifierScreen";
 
 import ContactUsScreen from "./screens/ContactUsScreen";
-// import EnterOptScreen from "./screens/EnterOptScreen";
-// import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
+import EnterOptScreen from "./screens/EnterOptScreen";
+import UpdateNewPasswordScreen from "./screens/UpdateNewPasswordScreen";
 // import GetAMobileNumberScreen from "./screens/GetAMobileNumberScreen";
 
 /*REGISTRATION SCREEN */
@@ -84,13 +85,14 @@ import EnterSeaCucumberNewsScreen from "./screens/NaqdaMngUserScreens/EnterSeaCu
 /*PROCESSOR SCREEN */
 
 import EnterProcessedDataScreen from "./screens/ProcessorScreens/EnterProcessedDataScreen";
-
 import ViewProcessedRecordsScreen from "./screens/ProcessorScreens/ViewProcessedRecordsScreen";
 import ViewSingleProcessedRecScreen from "./screens/ProcessorScreens/ViewSingleProcessedRecScreen";
 
-// import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
-// import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
-// import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
+/*FISHERMAN SCREEN */
+
+import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDetailsScreen";
+import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
+import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
 
 export default function Navigation() {
   return (
@@ -113,14 +115,13 @@ export default function Navigation() {
         <Stack.Screen name="ProcessorRegisterScreen" component={ProcessorRegisterScreen} />
         <Stack.Screen name="FishermanRegisterScreen" component={FishermanRegisterScreen} />
 
-        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
-
         {/*KNOWLEDGE CENTER SCREENS*/}
         <Stack.Screen name="KnowledgeMain" component={KnowledgeCenterMainScreen} />
         <Stack.Screen name="Knowledge_species" component={KnowledgeCenterScreen} />
         <Stack.Screen name="KCIndividualSpecies" component={KCIndividualSpecies} />
         <Stack.Screen name="ArticlesCategoryScreen" component={ArticlesCategoryScreen} />
         <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
+        <Stack.Screen name="GradeIdentifierScreen" component={GradeIdentifierScreen} />
 
         {/*FAQS SCREENS*/}
         <Stack.Screen name="FAQScreen" component={FAQScreen} />
@@ -166,40 +167,26 @@ export default function Navigation() {
         <Stack.Screen name="EnterSeaCucumberRatesScreen" component={EnterSeaCucumberRatesScreen} />
         <Stack.Screen name="EnterSeaCucumberNewsScreen" component={EnterSeaCucumberNewsScreen} />
 
+        {/*FISHERMAN SCREENS*/}
+        <Stack.Screen name="EnterFishingDetailsScreen" component={EnterFishingDetailsScreen} />
+        <Stack.Screen name="ViewAllFishingRecordsScreen" component={ViewAllFishingRecordsScreen} />
+        <Stack.Screen name="ViewSingleFishingRecScreen" component={ViewSingleFishingRecScreen} />
+
+        {/*FORGOT PASSWORD SCREENS*/}
+        <Stack.Screen name="GetEmailScreen" component={GetEmailScreen} />
+        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
+        <Stack.Screen name="UpdatePassword" component={UpdateNewPasswordScreen} />
+
         {/*
        
   
-       
-
+      
         <Stack.Screen name="GetANumber" component={GetAMobileNumberScreen} />
       
-        <Stack.Screen name="EnterOptScreen" component={EnterOptScreen} />
-        <Stack.Screen
-          name="UpdatePassword"
-          component={UpdateNewPasswordScreen}
-        />
 
-      
 
-        <Stack.Screen
-          name="EnterProcessedDataScreen"
-          component={EnterProcessedDataScreen}
-        />
 
-        <Stack.Screen
-          name="EnterFishingDetailsScreen"
-          component={EnterFishingDetailsScreen}
-        />
-
-        <Stack.Screen
-          name="ViewAllFishingRecordsScreen"
-          component={ViewAllFishingRecordsScreen}
-        />
-
-        <Stack.Screen
-          name="ViewSingleFishingRecScreen"
-          component={ViewSingleFishingRecScreen}
-        />
+       
 
    
 

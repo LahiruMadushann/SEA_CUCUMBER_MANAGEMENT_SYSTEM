@@ -34,6 +34,7 @@ export default function KnowledgeCenterMainScreen() {
               />
             </View>
           </View>
+
           <View className="mt-[80vw] mx-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("Knowledge_species")}
@@ -46,23 +47,6 @@ export default function KnowledgeCenterMainScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* <View className="mt-[10vw] mx-auto">
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Knowledge_species")}
-              className="w-[74vw] h-[15vh] rounded-[30px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
-            >
-              <View className="flex">
-                <Image
-                  source={require("../../assets/knowledge_center/videos_icon.jpg")}
-                  className="w-[20vw] h-[55px] ml-[39px] mt-[21px] rounded-[10px]"
-                />
-                <Text className="text-center text-[5.6vw] font-bold flex-auto mt-[-55px] ml-24">
-                  Sea cucumber {"\n"}Videos
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View> */}
-
           <View className="mt-[10vw] mx-auto flex-auto">
             <TouchableOpacity
               onPress={() => navigation.navigate("ArticlesCategoryScreen")}
@@ -71,6 +55,18 @@ export default function KnowledgeCenterMainScreen() {
               <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
                 <Image source={require("../../assets/knowledge_center/articles.png")} className="w-[20vw] h-[75px] rounded-[10px] rounded-full" />
                 <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto">Articles</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View className="mx-auto flex-auto">
+            <TouchableOpacity
+              onPress={() => navigation.navigate("GradeIdentifierScreen")}
+              className="w-[74vw] h-[auto] rounded-[15px] bg-[#FFFFFF] shadow-lg shadow-gray-700 "
+            >
+              <View className="flex-row mt-[1vh] mb-[1vh] ml-[1vh]">
+                <Image source={require("../../assets/knowledge_center/identifier.png")} className="w-[20vw] h-[75px] rounded-[10px] rounded-full" />
+                <Text className="text-center text-[5.6vw] font-bold flex-auto my-auto">Grade Identifier</Text>
               </View>
             </TouchableOpacity>
           </View>

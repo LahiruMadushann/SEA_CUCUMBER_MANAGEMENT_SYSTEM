@@ -57,7 +57,7 @@ export default function FishermanRegisterScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.uri); // Update the image state with the selected image URI
+      setImage(result.assets[0].uri); // Update the image state with the selected image URI
     }
   };
 

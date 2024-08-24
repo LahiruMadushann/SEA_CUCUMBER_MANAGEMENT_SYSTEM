@@ -11,7 +11,6 @@ var transporter = nodemailer.createTransport({
 });
 
 class emailService {
-  //REEGISTER EXPORTER DETAILS
   static async sendEmail(recipient, subject, text) {
     try {
       var mailOptions = {
