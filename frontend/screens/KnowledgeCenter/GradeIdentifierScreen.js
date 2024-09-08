@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from "react";
-import BASE_URL from "../../apiConfig/apiConfig";
-import { FlatList } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { StyleSheet, Text, TextInput, View, Dimensions, Image, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import FooterBar from "../../components/FooterBar";
 import LoadingIndicator from "../LoadingIndicatorScreen";
-import * as ImagePicker from "expo-image-picker";
+import BASE_URL from "../../apiConfig/apiConfig";
+
+const { width, height } = Dimensions.get("window");
 
 export default function GradeIdentifierScreen() {
   const navigation = useNavigation();
-  //LogBox.ignoreAllLogs();
   const [isLoading, setIsLoading] = useState(false);
-
-  const route = useRoute();
+  const [image, setImage] = useState(null);
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -24,49 +32,125 @@ export default function GradeIdentifierScreen() {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri); // Update the image state with the selected image URI
+      setImage(result.assets[0].uri);
     }
   };
 
-  const [image, setImage] = useState(null); // Use state for selected image
+  const takeImage = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-  useEffect(() => {}, []);
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
-  // if (isLoading) {
-  //   return <LoadingIndicator />;
-  // }
+  const uploadImage = async () => {
+    if (!image) {
+      alert("Please select an image first.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const formData = new FormData();
+    formData.append("file", {
+      uri: image,
+      name: "photo.jpg",
+      type: "image/jpeg",
+    });
+
+    try {
+      // const response = await axios.post(`${BASE_URL}/upload`, formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
+
+      alert("Image uploaded successfully");
+      navigation.navigate('UploadSuccessScreen');
+
+    } catch (error) {
+      console.error(error);
+      alert("Image upload failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }} className="flex-grow bg-white ">
-      <View style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-[#fff]">
-          <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-[#0013C0]  rounded-b-full ">
-            <View className="mt-[60vh] ">
-              <View className="flex-row ">
-                <View className=" ml-[4vw]">
-                  <TouchableOpacity onPress={() => navigation.navigate("ArticlesCategoryScreen")}>
-                    <View className="flex m-[auto] ">
-                      <Image source={require("../../assets/main_board/arrow.png")} className=" w-[10.09216px] h-[15.62988px] ml-[265px]" />
-                    </View>
-                  </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          className="bg-white"
+        >
+          <View className="absolute w-[223vw] h-[80vh] left-[-62vw] top-[-49vh] bg-blue-900 rounded-b-full">
+           
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ArticlesCategoryScreen")}
+              className="absolute top-10 left-5"
+            >
+              <Image
+                source={require("../../assets/main_board/arrow.png")}
+                className="w-2.5 h-4.5 "
+              />
+            </TouchableOpacity>
+            <Text className="text-white text-2xl font-bold mt-[12vh] mx-auto">
+              Take a picture
+            </Text>
+          </View>
+          <View className="mt-[15vh]">
+            <View className="items-center justify-center mt-5 mx-auto aspect-[4/3] bg-gray-200 rounded-xl overflow-hidden">
+              {image ? (
+                <Image
+                  source={{ uri: image }}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <View className="w-full h-full justify-center items-center">
+                  <Text className="text-gray-600 text-lg">
+                    No image selected
+                  </Text>
                 </View>
-              </View>
-
-              <Text className="text-center text-[#fff] font-bold text-[25px] mt-[10vw] fixed">Take a picture</Text>
-              {image && <Image className="mt-[3vh] mx-auto rounded-[15px]" source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+              )}
             </View>
+
+            <View className="flex-row justify-center mt-5">
+              <TouchableOpacity onPress={takeImage} className="mx-5">
+                <Image
+                  source={require("../../assets/icons/camera.png")}
+                  className="w-12 h-12"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={selectImage} className="mx-5">
+                <Image
+                  source={require("../../assets/icons/gallery.png")}
+                  className="w-12 h-12"
+                />
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              onPress={uploadImage}
+              className="bg-blue-500 py-2 px-4 rounded-full self-center mt-5"
+            >
+              <Text className="text-white font-bold text-lg">Upload Image</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
 
-        <View style={styles.pickImageContainer}>
-          <TouchableOpacity onPress={selectImage} style={styles.pickImageButton}>
-            <Text style={styles.pickImageText}>Upload Image</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={{ marginBottom: 5 }}>
-          <FooterBar />
-        </View>
+        <FooterBar />
       </View>
     </SafeAreaView>
   );
@@ -75,81 +159,9 @@ export default function GradeIdentifierScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    justifyContent: "center",
+    backgroundColor: "white",
   },
-  listTab: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginBottom: 20,
-  },
-  btnTab: {
-    flexDirection: "row",
-
-    justifyContent: "center",
-
-    fontWeight: "bold",
-    color: "#3644C5",
-    textAlign: "center",
-    fontSize: 14,
-    paddingLeft: 31,
-    paddingRight: 31,
-    paddingTop: 5,
-    paddingBottom: 5,
-
-    borderRadius: 8,
-    borderBottomRightRadius: 0,
-  },
-  textTab: {
-    fontSize: 16,
-  },
-  btnTabActive: {
-    backgroundColor: "#3644C5",
-  },
-  textTabActive: {
-    color: "#fff",
-  },
-  itemContainer: {},
-  itemLogo: {
-    padding: 10,
-  },
-  itemImage: {
-    width: 50,
-    height: 50,
-  },
-  itemBody: {
+  content: {
     flex: 1,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-  },
-  itemName: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  itemStatus: {
-    backgroundColor: "green",
-    paddingHorizontal: 6,
-    justifyContent: "center",
-    right: 12,
-  },
-  pdf: {
-    flex: 1,
-    width: "100%",
-  },
-
-  pickImageContainer: {
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  pickImageButton: {
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  pickImageText: {
-    color: "white",
-    fontWeight: "bold",
   },
 });
