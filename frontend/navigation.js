@@ -94,6 +94,8 @@ import EnterFishingDetailsScreen from "./screens/FishermanScreens/EnterFishingDe
 import ViewAllFishingRecordsScreen from "./screens/FishermanScreens/ViewAllFishingRecordsScreen";
 import ViewSingleFishingRecScreen from "./screens/FishermanScreens/ViewSingleFishingRecScreen";
 import UploadSuccessScreen from "./screens/KnowledgeCenter/UploadSuccessScreen";
+import DetailsScreen from "./screens/KnowledgeCenter/DetailsScreen";
+import MoreDetailsScreen from "./screens/KnowledgeCenter/MoreDetailsScreen";
 
 export default function Navigation() {
   return (
@@ -124,6 +126,8 @@ export default function Navigation() {
         <Stack.Screen name="ArticlesScreen" component={ArticlesScreen} />
         <Stack.Screen name="GradeIdentifierScreen" component={GradeIdentifierScreen} />
         <Stack.Screen name="UploadSuccessScreen" component={UploadSuccessScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="MoreDetailsScreen" component={MoreDetailsScreen} />
 
         {/*FAQS SCREENS*/}
         <Stack.Screen name="FAQScreen" component={FAQScreen} />

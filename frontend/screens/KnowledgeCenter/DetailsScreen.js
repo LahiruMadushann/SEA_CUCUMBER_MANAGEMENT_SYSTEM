@@ -13,13 +13,23 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-export default function UploadSuccessScreen() {
+export default function DetailsScreen() {
   const navigation = useNavigation();
+
+
+
+  const details = async () => {
   
-  const details = () => {
-    navigation.navigate("MoreDetailsScreen", {
-      seaCucumberName: "Holothuria_spinifera", 
-    });
+    try {
+
+      navigation.navigate('DetailsScreen');
+
+    } catch (error) {
+      console.error(error);
+      alert("Something Went Wrong");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,11 +57,11 @@ export default function UploadSuccessScreen() {
           <View className="mt-[20vh] mx-auto">
             <Image
               source={require("../../assets/icons/gallery.png")}
-              className="w-[64.8vw] h-[39vh]"
+              className="w-[20vw] h-[20vw]"
             />
             <TouchableOpacity
               onPress={details}
-              className="bg-blue-500 py-2 px-4 rounded-full self-center mt-8"
+              className="bg-blue-500 py-2 px-4 rounded-full self-center mt-5"
             >
               <Text className="text-white font-bold text-lg">More Details</Text>
             </TouchableOpacity>
