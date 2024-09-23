@@ -9,16 +9,18 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
 export default function UploadSuccessScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const prediction = route.params?.prediction || "";
   
   const details = () => {
     navigation.navigate("MoreDetailsScreen", {
-      seaCucumberName: "Holothuria_spinifera", 
+      seaCucumberName: prediction, 
     });
   };
 

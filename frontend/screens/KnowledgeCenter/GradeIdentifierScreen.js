@@ -22,6 +22,8 @@ export default function GradeIdentifierScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState(null);
+  const BASE_URL_MODEL = "http://192.168.8.136:5000";
+  console.log("BASE_URL_MODEL:", BASE_URL_MODEL);
 
   const selectImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -58,25 +60,25 @@ export default function GradeIdentifierScreen() {
     setIsLoading(true);
 
     const formData = new FormData();
-    formData.append("file", {
+    formData.append("image", {
       uri: image,
-      name: "photo.jpg",
       type: "image/jpeg",
+      name: "photo.jpg",
     });
 
     try {
-      // const response = await axios.post(`${BASE_URL}/upload`, formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
-
-      alert("Image uploaded successfully");
-      navigation.navigate('UploadSuccessScreen');
-
+      const response = await axios.post(`${BASE_URL_MODEL}/predict`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("Response", response.data);
+      const predLabel = response.data.prediction.pred_label;
+      alert(`Image uploaded successfully. Prediction: ${response.data.prediction.pred_label}`);
+      navigation.navigate('UploadSuccessScreen', { prediction: predLabel });
     } catch (error) {
-      console.error(error);
-      alert("Image upload failed");
+      console.error("Upload error:", error.response ? error.response.data : error.message);
+      alert("Image upload failed: " + (error.response ? error.response.data.error : error.message));
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +109,7 @@ export default function GradeIdentifierScreen() {
               />
             </TouchableOpacity>
             <Text className="text-white text-2xl font-bold mt-[12vh] mx-auto">
-              Take a picture
+              Take a Picture
             </Text>
           </View>
           <View className="mt-[15vh]">
