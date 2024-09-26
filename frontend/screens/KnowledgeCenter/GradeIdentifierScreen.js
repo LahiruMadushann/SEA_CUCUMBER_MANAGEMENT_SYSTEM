@@ -74,8 +74,10 @@ export default function GradeIdentifierScreen() {
       });
       console.log("Response", response.data);
       const predLabel = response.data.prediction.pred_label;
+      const predProb = response.data.prediction.pred_prob;
+      const predColor = response.data.prediction.text;
       alert(`Image uploaded successfully. Prediction: ${response.data.prediction.pred_label}`);
-      navigation.navigate('UploadSuccessScreen', { prediction: predLabel });
+      navigation.navigate('UploadSuccessScreen', { prediction: predLabel,predProb: predProb,predColor: predColor });
     } catch (error) {
       console.error("Upload error:", error.response ? error.response.data : error.message);
       alert("Image upload failed: " + (error.response ? error.response.data.error : error.message));

@@ -13,8 +13,8 @@ import axios from "axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const API_BASE_URL = Platform.select({
-  ios: 'http://localhost:5000',
-  android: 'http://10.0.2.2:5000',
+  ios: 'http://localhost:5002',
+  android: 'http://10.0.2.2:5002',
 });
 
 export default function MoreDetailsScreen() {
